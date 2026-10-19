@@ -255,6 +255,7 @@ main.main{position:relative}
 label.radio{display:flex;gap:10px;align-items:center;padding:8px 4px;cursor:pointer}
 label.radio input{width:18px;height:18px;accent-color:var(--accent)}
 .paper.drawing canvas{pointer-events:auto;touch-action:none;cursor:crosshair}
+.paper.sideErase canvas{cursor:cell}
 .paper canvas#live,.paper.drawing canvas#live{pointer-events:none;z-index:4}
 .paper.lassoing canvas{cursor:default}
 #selbar{position:absolute;z-index:6;display:flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -852,7 +853,7 @@ const S = {
   notes: new Map(), ink: new Map(), unlocked: new Map(),
   view: lsGet("babak-sa-view", "__all"), query: "", activeId: lsGet("babak-sa-active", null),
   collapsed: new Set(lsGet("babak-sa-collapsed", [])),
-  tool: { mode: "type", brush: "fountain", color: INK_COLORS[0], width: 3 },
+  tool: { mode: "type", brush: "fountain", color: INK_COLORS[0], width: 3, ...savedTool() },
   hist: { id: null, undo: [], redo: [] }, inkUnsub: null, lastActivity: Date.now(), error: null, readOnly: false,
 };
 const T = (k, vars) => {
@@ -3022,7 +3023,15 @@ function applyMode() {
 }
 function setToolColor(c) { S.tool.colors = { ...(S.tool.colors || {}), [S.tool.mode]: c }; if (S.tool.mode === "pen") S.tool.color = c; if (paperState?.sel && S.tool.mode === "lasso") selAction("color", c); refreshToolChrome(); }
 /** Colored tips under the tool icons and a live size dot, so the current pen is visible at a glance. */
+function savedTool() {
+  const t = lsGet("babak-sa-tool", null); if (!t || typeof t !== "object") return {};
+  const o = {}; for (const k of ["brush", "color", "colors", "width", "widths", "eraseMode"]) if (t[k] !== undefined && t[k] !== null) o[k] = t[k];
+  if (!(+o.width >= 0.2 && +o.width <= 40)) delete o.width;
+  return o;
+}
+function saveTool() { const t = S.tool; lsSet("babak-sa-tool", { brush: t.brush, color: t.color, colors: t.colors || {}, width: t.width, widths: t.widths || {}, eraseMode: t.eraseMode }); }
 function refreshToolChrome() {
+  saveTool();
   const bb = $("#brushBtn"); if (bb) { const svg = bb.querySelector("svg"); if (svg && bb.dataset.c !== toolColor("pen")) { bb.dataset.c = toolColor("pen"); bb.innerHTML = `${penArt(S.tool.brush, toolColor("pen"))}<span>${esc(T("b_" + S.tool.brush))}</span>`; } }
   $$("#bar .tool .tcb").forEach((b) => { b.style.background = toolColor(b.parentElement.dataset.mode); });
   const d = $("#wdot"), m = S.tool.mode; if (d) { const w = Math.max(3, Math.min(22, toolWidth(m) * (m === "highlighter" ? 2.4 : m === "eraser" ? 2 : 1.5))); d.style.width = d.style.height = w + "px"; d.style.background = m === "eraser" ? "transparent" : toolColor(m); d.style.opacity = m === "highlighter" ? .5 : 1; }
@@ -3802,7 +3811,7 @@ function startTouchScroll(p, id) {
 function penDown(e) {
   const p = paperState; if (!p || S.tool.mode === "type") return;
   if (e.pointerType === "touch") {
-    const fingerDraws = !S.meta.settings.penOnly;
+    const fingerDraws = !S.meta.settings.penOnly && !lsGet("babak-pen-device", false);
     if (!fingerDraws) {
       e.preventDefault();
       cancelAnimationFrame(glideRaf);
@@ -3818,7 +3827,9 @@ function penDown(e) {
     }
   }
   if (e.button > 0 && e.pointerType !== "pen") return;
-  if (e.pointerType === "pen") { S.penSeen = true; p.scroll = null; penDownId = e.pointerId; if (p.cur) { if (p.cur.pid === e.pointerId) penUp({ pointerId: e.pointerId, type: "pointerup", clientX: null }); p.cur = null; } penDownId = e.pointerId; }
+  if (e.pointerType === "pen" && !S.penSeen) lsSet("babak-pen-device", true);
+  if (e.pointerType === "pen" && p.scroll && p.scroll.live && performance.now() - p.scroll.t < 350) { const sc = $("#scroll"); if (sc) { sc.scrollTop = p.scroll.top; sc.scrollLeft = p.scroll.left; } } // a palm that touched just before the pen does not move the page
+  if (e.pointerType === "pen") { cancelAnimationFrame(glideRaf); S.penSeen = true; p.scroll = null; penDownId = e.pointerId; if (p.cur) { if (p.cur.pid === e.pointerId) penUp({ pointerId: e.pointerId, type: "pointerup", clientX: null }); p.cur = null; } penDownId = e.pointerId; }
   else if (p.cur || p.move || p.erase) return;
   e.preventDefault();
   try { p.canvas.setPointerCapture(e.pointerId); } catch {}
@@ -3837,7 +3848,7 @@ function penDown(e) {
   }
   if (mode === "laser" && !sideButton) { const l = { laser: true, color: toolColor("laser"), path: [pt], pid: e.pointerId }; p.cur = l; p.lasers.push(l); drawLive(); return; }
   if ((mode === "eraser" && S.tool.eraseMode !== "area") || sideButton) {
-    p.erase = { pid: e.pointerId, prev: strokesOf(p.n), changed: false }; eraseAt(e); return;
+    p.erase = { pid: e.pointerId, prev: strokesOf(p.n), changed: false, side: !!sideButton }; if (sideButton) paperSide(true); eraseAt(e); return;
   }
   const tool = mode === "eraser" ? "eraser" : mode === "tape" ? "tape" : "pen";
   const brush = mode === "highlighter" ? "highlighter" : tool === "pen" ? S.tool.brush : "ballpoint";
@@ -3847,6 +3858,8 @@ function penDown(e) {
   else if (tool === "pen" && brush !== "line") armHold(p, p.cur, pt);
   if (usesLive(p.cur)) drawLive(); else { p.ctx.setTransform(p.dpr, 0, 0, p.dpr, 0, 0); paintStroke(p.ctx, p.cur, p.W, p.H0); }
 }
+/** Shows an eraser cursor while the pen button is held, so it is clear what the pen does now. */
+function paperSide(on) { const pp = $("#paper"); if (pp) pp.classList.toggle("sideErase", !!on); }
 function eraseAt(e) {
   const p = paperState, er = p.erase; if (!er) return;
   const r = paperState.canvas.getBoundingClientRect(), radius = Math.max(6, toolWidth("eraser") * 2 * p.W / 800);
@@ -3885,6 +3898,10 @@ function penMove(e) {
     p.move.next = p.move.prev.map((s, i) => (p.sel.has(i) ? { ...s, path: s.path.map((q) => [q[0] + dx, q[1] + dy, q[2]]) } : s));
     setStrokesTemp(p.n, p.move.next); drawLive(); return;
   }
+  if (p.cur && p.cur.pid === e.pointerId && e.pointerType === "pen" && ((e.buttons & 2) || (e.buttons & 32)) && !p.cur.lasso && !p.cur.laser) {
+    penUp({ pointerId: e.pointerId, type: "pointerup", clientX: null });
+    penDownId = e.pointerId; p.erase = { pid: e.pointerId, prev: strokesOf(p.n), changed: false, side: true }; paperSide(true); return eraseAt(e);
+  }
   if (!p.cur || p.cur.pid !== e.pointerId) return;
   if (e.pointerType !== "touch" && e.buttons === 0) return penUp({ pointerId: e.pointerId, type: "pointerup", clientX: null }); // Apple Pencil hover after a lost "pen up": end the stroke, never draw while hovering
   e.preventDefault();
@@ -3910,7 +3927,7 @@ function penUp(e) {
   if (touches.has(e.pointerId)) { touches.delete(e.pointerId); if (p.scroll && p.scroll.id === e.pointerId) { const sc0 = p.scroll; p.scroll = null; if (e.type === "pointerup" && performance.now() - sc0.t < 80) glide(sc0.vx, sc0.vy); } return; }
   if (e.pointerId === penDownId) { penDownId = null; lastPenUp = Date.now(); }
   const n = p.n;
-  if (p.erase && p.erase.pid === e.pointerId) { const er = p.erase; p.erase = null; if (er.changed) setStrokes(n, strokesOf(n), er.prev); return; }
+  if (p.erase && p.erase.pid === e.pointerId) { const er = p.erase; p.erase = null; if (er.side) paperSide(false); if (er.changed) setStrokes(n, strokesOf(n), er.prev); return; }
   if (p.move && p.move.pid === e.pointerId) { const mv = p.move; p.move = null; if (mv.next) setStrokes(n, mv.next, mv.prev); showSelbar(); drawLive(); return; }
   if (!p.cur || p.cur.pid !== e.pointerId) return;
   const st = p.cur; p.cur = null; delete st.pid; clearTimeout(p.holdT);
