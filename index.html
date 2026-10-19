@@ -1438,7 +1438,7 @@ function captureActive() {
 function folderPaths() {
   const set = new Map(), recs = new Map();
   for (const f of S.meta.folders) { set.set(f.path, f.color); recs.set(f.path, f); }
-  for (const n of S.notes.values()) if (n.folder && !set.has(n.folder)) set.set(n.folder, "#7b8597");
+  for (const n of S.notes.values()) if (n.folder && !n.trashed && !set.has(n.folder)) set.set(n.folder, "#7b8597");
   for (const p of Array.from(set.keys())) { const parts = p.split(SEP); for (let i = 1; i < parts.length; i++) { const a = parts.slice(0, i).join(SEP); if (!set.has(a)) set.set(a, "#7b8597"); } }
   return Array.from(set.entries()).map(([path, color]) => ({ path, color, ...(recs.get(path)?.cover ? { cover: recs.get(path).cover } : {}) })).sort((a, b) => a.path.localeCompare(b.path, "fa"));
 }
@@ -5344,7 +5344,9 @@ async function syncNow(reason = "") {
         const lm = raw.meta || {};
         if (!start.meta) await S.store.putMeta(ch.meta);
         else { // both changed: keep every notebook and reminder from both sides
-          const folders = [...(lm.folders || [])]; for (const f of ch.meta.folders || []) if (f && !folders.some((x) => x.path === f.path)) folders.push(f);
+          const base = new Set(cfg.baseFolders || []), rp = new Set((ch.meta.folders || []).map((f) => f && f.path));
+          const folders = (lm.folders || []).filter((f) => f && (rp.has(f.path) || !base.has(f.path))); // the other device deleted it
+          for (const f of ch.meta.folders || []) if (f && !folders.some((x) => x.path === f.path) && !base.has(f.path)) folders.push(f); // new there; not something deleted here
           const reminders = [...(lm.reminders || [])]; for (const r of ch.meta.reminders || []) if (r && !reminders.some((x) => x.id === r.id)) reminders.push(r);
           await S.store.putMeta({ ...ch.meta, ...lm, folders, reminders });
         }
@@ -5387,6 +5389,7 @@ async function syncNow(reason = "") {
     for (const k of ["notes", "ink", "del"]) for (const id of done[k]) if (after[k][id] === d[k][id]) delete after[k][id];
     if (after.meta === d.meta) after.meta = 0;
     lsSet(DIRTY_KEY, after);
+    cfg.baseFolders = ((S.store.raw().meta || {}).folders || []).map((f) => f && f.path).filter(Boolean);
     cfg.up = [...up].slice(-5000); cfg.last = Date.now(); saveSyncCfg(cfg); Sync.last = cfg.last;
     setSyncState("ok");
   } catch (e) {
