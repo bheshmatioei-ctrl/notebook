@@ -687,6 +687,11 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .bar-ctx .swatch{width:20px;height:20px}
 @media (max-width:760px){.bar-ctx{flex-wrap:wrap;justify-content:center;width:auto;margin-inline:12px;row-gap:4px;overflow:visible}.bar-ctx .sep{display:none}}
 #fsBtn[aria-pressed="true"]{background:var(--accent-soft,#fde7dd);color:var(--accent)}
+.bar .pnav{position:static;transform:none;box-shadow:none;border:0;background:transparent;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none;gap:0;z-index:auto;flex:none}
+.bar .pnav .btn{min-height:34px;border-radius:10px}.bar .pnav .pcount{padding:4px 6px;font-size:13px}.bar .pnav .pcount .ic{width:17px;height:17px}
+.bar .pnav .sep{height:20px;margin:0 2px}.bsep{width:1px;height:22px;background:var(--line);margin:0 4px;flex:none}
+@media (max-width:600px){.bar .pnav .pcount .ic{display:none}.bar .pnav .sep{display:none}}
+.pullhint{bottom:24px}
 </style>
 
 <div class="app" id="app">
@@ -2862,6 +2867,7 @@ function renderMain() {
       ${tb("type", "type", T("typeMode"))}${tb("pen", "pen", T("penMode"))}${tb("highlighter", "highlighter", T("highlighterTool"))}${tb("eraser", "eraser", T("eraser"))}${tb("lasso", "lasso", T("lassoTool"))}<button class="btn icon tool toolmore" id="toolMore" data-act="toolMore" data-pop="1" aria-pressed="${["tape", "laser"].includes(t.mode)}" title="${esc(T("moreTools"))}">${["tape", "laser"].includes(t.mode) ? ic(t.mode) + `<i class="tcb"></i>` : ic("chev")}</button>
     </div>
     <div class="bz bz-end">
+      <span class="pnav" id="pnav"></span><span class="bsep"></span>
       <span class="sdot" id="status2"></span>
       ${ro_ ? "" : `<button class="btn icon ghost" id="undoBtn" data-act="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" id="redoBtn" data-act="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn icon ghost" data-act="insertMenu" data-pop="1" title="${esc(T("insert"))}">${ic("plus")}</button>
@@ -2918,8 +2924,7 @@ function renderMain() {
       <canvas id="ink"></canvas><canvas id="live"></canvas>
     </div>
     <div class="atts" id="atts"></div>
-  </div></div>
-  <div class="pnav" id="pnav"></div>`;
+  </div></div>`;
   renderPnav(); renderStatus(); applyZoom();
   const content = $("#content");
   content.innerHTML = sanitize(w.html || "");
