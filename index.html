@@ -654,6 +654,17 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .tlinestyle button i{display:block;border-top:2px #555}
 .paper .content table.ntable td,.paper .content table.ntable th{border:1px solid #9aa6b8;padding:4px 8px;min-width:40px;vertical-align:top}
 .paper .content table.ntable th{background:#eef2f7;font-weight:600}
+.homebtn{font-size:18px}
+#scroll.studio-scroll .sheet{max-width:calc(860px * var(--z,1));width:calc(100% * var(--z,1))}
+#scroll.studio-scroll .sheet.wide{max-width:calc(1180px * var(--z,1))}
+#scroll.studio-scroll .paper{--lh:calc(32px * var(--z,1))}
+#scroll.studio-scroll .paper .content{font-size:calc(17px * var(--z,1))}
+@media (max-width:860px){#scroll.studio-scroll .paper .content{font-size:calc(16px * var(--z,1))}}
+.zoombadge{position:absolute;top:calc(var(--barh,96px) + 8px);inset-inline-end:12px;z-index:7;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:99px;padding:5px 11px;font-size:13px;box-shadow:var(--shadow);cursor:pointer}
+.pullhint{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);z-index:8;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-size:14px;box-shadow:var(--shadow);pointer-events:none;white-space:nowrap;transition:background .15s}
+.pullhint.top{bottom:auto;top:calc(var(--barh,96px) + 10px)}
+.pullhint.ready{background:var(--accent);color:#fff;border-color:var(--accent)}
+.card .ct.ren{cursor:text}
 </style>
 
 <div class="app" id="app">
@@ -1500,10 +1511,10 @@ function visibleNotes() {
   let arr = Array.from(S.notes.values());
   if (q) arr = arr.filter((n) => !n.trashed && (titleOf(n).toLowerCase().includes(q) || textOf(n).toLowerCase().includes(q)));
   else if (S.view === "__trash") arr = arr.filter((n) => n.trashed);
-  else if (S.view === "__all") arr = arr.filter((n) => !n.trashed);
+  else if (S.view === "__all") arr = arr.filter((n) => !n.trashed && !n.folder);
   else if (S.view === "__starred") arr = arr.filter((n) => !n.trashed && n.pinned);
   else if (S.view === "__unfiled") arr = arr.filter((n) => !n.trashed && !n.folder);
-  else arr = arr.filter((n) => !n.trashed && inPath(n.folder, S.view));
+  else arr = arr.filter((n) => !n.trashed && n.folder === S.view); // pages of a sub-notebook stay inside it
   return sortNotes(arr);
 }
 function snippet(n) {
@@ -1554,6 +1565,7 @@ function renderLibrary() {
   const rtl = document.documentElement.dir === "rtl", inFolder = !S.view.startsWith("__") && !q;
   let h = `<div class="scroll lib ${st.libView === "list" ? "listview" : st.libView === "small" ? "smallview" : ""}" id="scroll"><div class="sheet" style="max-width:1100px">
     <div class="libhead">
+    ${S.view !== "__all" || q ? `<button class="btn icon homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">🏠</button>` : ""}
     ${S.view !== "__all" && !q ? `<button class="btn icon" data-view="${esc(S.view.includes(SEP) ? parentOf(S.view) : "__all")}" aria-label="${esc(T("back"))}">${rtl ? "→" : "←"}</button>` : ""}
       ${inFolder ? `<span class="hcover" data-act="editCover" title="${esc(T("nbEdit"))}">${coverHtml(folderPaths().find((f) => f.path === S.view) || { path: S.view, color: "#7b8597" })}</span>` : ""}
       <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length)}</small>${inFolder && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
@@ -2783,6 +2795,7 @@ function renderMain() {
    <div class="bar-main">
     <div class="bz bz-start">
       <button class="btn icon ghost" data-act="library" title="${esc(T("back"))}" aria-label="${esc(T("back"))}">${ic("back", rtl ? "flip" : "")}</button>
+      <button class="btn icon ghost homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">🏠</button>
       <button class="btn icon ghost" data-act="sidebar" data-pop="1" title="${esc(T("library"))}">${ic("sidebar")}</button>
       <input id="titleIn" class="ttl" value="${esc(w.title)}" placeholder="${esc(T("untitled"))}" ${ro_ ? "readonly" : ""} maxlength="200" dir="auto">
       ${n.trashed || S.readOnly || isFrozen(n) ? "" : `<button class="btn icon ghost" id="roBtn" data-act="readMode" aria-pressed="${readMode(n)}" title="${esc(T(readMode(n) ? "readOff" : "readTitle"))}">${readMode(n) ? "📖" : "✏️"}</button>`}
@@ -2855,7 +2868,7 @@ function renderMain() {
     <div class="atts" id="atts"></div>
   </div></div>
   <div class="pnav" id="pnav"></div>`;
-  renderPnav(); renderStatus();
+  renderPnav(); renderStatus(); applyZoom();
   const content = $("#content");
   content.innerHTML = sanitize(w.html || "");
   flSel = null;
@@ -4116,6 +4129,7 @@ async function removeLock(n) {
 function noteMenu(n) {
   const items = [];
   if (!n.trashed) {
+    if (!sealedLocked(n) && !S.readOnly) items.push(["renamePage", "✏️ " + T("renamePage")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
     if (n.locked) items.push(["lockNow", "🔒 " + T("lockNow")], ["removeLock", "🔓 " + T("removeLock")]);
     else items.push(["lock", "🔒 " + T("lockNote")]);
@@ -5951,6 +5965,9 @@ function doAct(act, el) {
   if (act === "continuous") return toggleContinuous();
   if (act === "readMode") return toggleReadMode();
   if (act === "focusMode") return toggleFocus();
+  if (act === "home") return goHome();
+  if (act === "zoomReset") { setZoom(1); return saveZoom(); }
+  if (act === "renamePage") return S.activeId && renamePage(S.activeId);
   const n = S.notes.get(S.activeId);
   switch (act) {
     case "newNote": return newNote();
@@ -6505,10 +6522,12 @@ const pageUrl = (id) => location.href.split("#")[0] + "#note=" + encodeURICompon
 async function noteCtxMenu(id) {
   const n = S.notes.get(id); if (!n) return;
   const items = [["open", "📄 " + T("ctxOpen")], ["win", "🗗 " + T("ctxWindow")], ["tab", "↗ " + T("ctxTab")]];
+  if (!n.trashed && !sealedLocked(n) && !S.readOnly) items.push(["rename", "✏️ " + T("renamePage")]);
   if (!n.trashed) items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "ctxUnstar" : "ctxStar")], ["del", "🗑 " + T("delete"), "danger"]);
   else items.push(["restore", "↩ " + T("restore")]);
   const a = await menuBox(titleOf(n), items);
   if (a === "open") return openNote(id);
+  if (a === "rename") return renamePage(id);
   if (a === "win") { const w = window.open(pageUrl(id), "_blank", "popup,width=" + Math.min(1000, screen.availWidth) + ",height=" + Math.min(1100, screen.availHeight)); if (!w) window.open(pageUrl(id), "_blank"); return; }
   if (a === "tab") return window.open(pageUrl(id), "_blank");
   if (a === "pin") { n.pinned = !n.pinned; touch(n); saveNote(n.id, 0); return renderMain(); }
@@ -6545,6 +6564,179 @@ function openFromHash() {
   else toast(T("ctxMissing"), { kind: "err" });
 }
 addEventListener("hashchange", openFromHash);
+
+/* ---------------- round 2: home button, page names, notebook pages stay inside, pinch zoom, swipe to next page, share target ---------------- */
+Object.assign(I18N.fa, { homeBtn: "صفحهٔ اصلی", renamePage: "تغییر نام صفحه", pageName: "نام صفحه", nextPagePull: "رها کنید: صفحهٔ بعد", prevPagePull: "رها کنید: صفحهٔ قبل", lastPage: "این آخرین صفحهٔ دفترچه است", firstPage: "این اولین صفحه است", zoomReset: "اندازهٔ عادی", shareImported: "فایل اشتراکی وارد شد", sharedText: "متن اشتراکی" });
+Object.assign(I18N.de, { homeBtn: "Startseite", renamePage: "Seite umbenennen", pageName: "Seitenname", nextPagePull: "Loslassen: nächste Seite", prevPagePull: "Loslassen: vorige Seite", lastPage: "Letzte Seite des Notizbuchs", firstPage: "Erste Seite", zoomReset: "Normale Größe", shareImported: "Geteilte Datei importiert", sharedText: "Geteilter Text" });
+Object.assign(I18N.en, { homeBtn: "Home", renamePage: "Rename page", pageName: "Page name", nextPagePull: "Release: next page", prevPagePull: "Release: previous page", lastPage: "This is the notebook's last page", firstPage: "This is the first page", zoomReset: "Normal size", shareImported: "Shared file imported", sharedText: "Shared text" });
+
+/** Back to the main library from anywhere. */
+function goHome() {
+  captureActive(); flushAll(); closePop();
+  S.query = ""; const s = $("#search"); if (s) s.value = "";
+  if (S.sel) endSelect();
+  S.view = "__all"; lsSet("babak-sa-view", S.view);
+  S.screen = "library";
+  $("#app").classList.remove("drawer");
+  if (/^#note=/.test(location.hash)) history.replaceState(null, "", location.href.split("#")[0]);
+  renderMain(); renderSide();
+  const sc = $("#scroll"); if (sc) sc.scrollTop = 0;
+}
+async function renamePage(id) {
+  const n = S.notes.get(id); if (!n || sealedLocked(n) || S.readOnly) return;
+  const w = W(n);
+  const r = await formBox(T("renamePage"), `<div class="field"><label>${esc(T("pageName"))}</label><input name="t" maxlength="200" dir="auto" value="${esc(w.title || "")}"></div>`,
+    (f) => ({ t: f.t.value.trim() }), T("ok") || "OK");
+  if (!r) return;
+  w.title = r.t; touch(n); saveNote(n.id, 0);
+  const ti = $("#titleIn"); if (ti && S.activeId === id) ti.value = r.t;
+  renderSide(); if (S.screen === "library") renderLibrary(); else renderPnav();
+}
+
+/* ---- zoom: two fingers (or Ctrl + wheel) make the page bigger or smaller; text, ink and pictures grow together ---- */
+let ZOOM = Math.min(3, Math.max(0.5, Number(lsGet("babak-zoom", 1)) || 1));
+function applyZoom() {
+  const sc = $("#scroll.studio-scroll"); if (!sc) return;
+  sc.style.setProperty("--z", ZOOM);
+  sc.classList.toggle("zoomed", ZOOM > 1.001);
+  let b = $("#zoomBadge");
+  if (Math.abs(ZOOM - 1) > 0.01) {
+    if (!b) { b = document.createElement("button"); b.id = "zoomBadge"; b.className = "zoombadge"; b.dataset.act = "zoomReset"; $("#main").appendChild(b); }
+    b.textContent = Math.round(ZOOM * 100) + "% ✕"; b.title = T("zoomReset");
+  } else if (b) b.remove();
+}
+function setZoom(z, mx, my) {
+  const sc = $("#scroll.studio-scroll"); if (!sc) return;
+  z = Math.min(3, Math.max(0.5, z)); if (Math.abs(z - ZOOM) < 0.002) return;
+  const r = sc.getBoundingClientRect();
+  mx = mx == null ? r.width / 2 : mx - r.left; my = my == null ? r.height / 2 : my - r.top;
+  const k = z / ZOOM, x = sc.scrollLeft + mx, y = sc.scrollTop + my;
+  ZOOM = z; applyZoom();
+  sc.scrollLeft = x * k - mx; sc.scrollTop = y * k - my;
+}
+function saveZoom() { lsSet("babak-zoom", ZOOM); }
+let pinch = null;
+document.addEventListener("touchstart", (e) => {
+  const sc = e.target.closest && e.target.closest("#scroll.studio-scroll"); if (!sc) return;
+  if (e.touches.length === 2) {
+    const [a, b] = e.touches;
+    pinch = { d0: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1, z0: ZOOM, mx: (a.clientX + b.clientX) / 2, my: (a.clientY + b.clientY) / 2 };
+    pull = null; hidePull();
+    const p = paperState;
+    if (p) {
+      p.scroll = null;
+      if (p.cur && penDownId === null) { p.cur = null; repaint(); drawLive(); } // the first finger had started a line: a pinch is not writing
+    }
+  } else if (e.touches.length > 2) pinch = null;
+}, { passive: true, capture: true });
+document.addEventListener("touchmove", (e) => {
+  if (!pinch || e.touches.length !== 2) return;
+  e.preventDefault();
+  const [a, b] = e.touches, d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) || 1;
+  const mx = (a.clientX + b.clientX) / 2, my = (a.clientY + b.clientY) / 2;
+  const sc = $("#scroll.studio-scroll");
+  if (paperState) paperState.scroll = null;
+  if (sc) { sc.scrollLeft -= mx - pinch.mx; sc.scrollTop -= my - pinch.my; } // two fingers also move the page
+  pinch.mx = mx; pinch.my = my;
+  const z = pinch.z0 * d / pinch.d0;
+  if (Math.abs(z - ZOOM) > 0.01) setZoom(z, mx, my);
+}, { passive: false, capture: true });
+["touchend", "touchcancel"].forEach((ev) => document.addEventListener(ev, (e) => { if (pinch && e.touches.length < 2) { pinch = null; if (Math.abs(ZOOM - 1) < 0.06) setZoom(1); saveZoom(); } }, { capture: true }));
+// laptop: Ctrl + mouse wheel / trackpad pinch
+document.addEventListener("wheel", (e) => {
+  if (!e.ctrlKey || !e.target.closest || !e.target.closest("#scroll.studio-scroll")) return;
+  e.preventDefault(); setZoom(ZOOM * Math.exp(-e.deltaY / 300), e.clientX, e.clientY); clearTimeout(setZoom.t); setZoom.t = setTimeout(saveZoom, 400);
+}, { passive: false });
+
+/* ---- pull past the end of a page to go to the next page of the notebook (and past the top for the previous one) ---- */
+let pull = null;
+function pagePeers(dir) {
+  const n = S.notes.get(S.activeId); if (!n) return null;
+  const pages = siblings(n), i = pages.findIndex((x) => x.id === n.id);
+  return pages[i + dir] || null;
+}
+function showPull(dir, amount) {
+  let el = $("#pullHint");
+  if (!el) { el = document.createElement("div"); el.id = "pullHint"; el.className = "pullhint"; $("#main").appendChild(el); }
+  const peer = pagePeers(dir), ready = amount >= 1;
+  el.classList.toggle("top", dir < 0); el.classList.toggle("ready", ready && !!peer);
+  el.textContent = !peer ? (dir > 0 ? "⏹ " + T("lastPage") : "⏹ " + T("firstPage")) : (dir > 0 ? "⬆ " : "⬇ ") + (ready ? T(dir > 0 ? "nextPagePull" : "prevPagePull") : titleOf(peer));
+  el.style.opacity = String(Math.min(1, 0.25 + amount));
+}
+function hidePull() { $("#pullHint")?.remove(); }
+function turnPage(dir) {
+  const peer = pagePeers(dir); if (!peer) return false;
+  openNote(peer.id);
+  if (dir < 0) requestAnimationFrame(() => { const sc = $("#scroll"); if (sc) sc.scrollTop = sc.scrollHeight; });
+  return true;
+}
+const PULL_PX = 110;
+function fingerWrites() { return S.tool.mode !== "type" && !S.meta.settings.penOnly && !lsGet("babak-pen-device", false); }
+document.addEventListener("touchstart", (e) => {
+  const sc = e.target.closest && e.target.closest("#scroll.studio-scroll");
+  if (!sc || e.touches.length !== 1 || S.screen !== "editor") { pull = null; return; }
+  if (fingerWrites() && e.target.closest("#paper")) { pull = null; return; } // that finger is writing, not scrolling
+  const max = sc.scrollHeight - sc.clientHeight;
+  pull = { y0: e.touches[0].clientY, x0: e.touches[0].clientX, top: sc.scrollTop <= 2, bottom: sc.scrollTop >= max - 2, dir: 0, amt: 0, sc };
+}, { passive: true, capture: true });
+document.addEventListener("touchmove", (e) => {
+  if (!pull || e.touches.length !== 1) return;
+  const sc = pull.sc, max = sc.scrollHeight - sc.clientHeight, t = e.touches[0];
+  if (paperState && paperState.cur) { pull = null; hidePull(); return; }
+  // the start point counts from the moment the page reached its edge
+  if (!pull.bottom && sc.scrollTop >= max - 2) { pull.bottom = true; pull.y0 = t.clientY; }
+  if (!pull.top && sc.scrollTop <= 2) { pull.top = true; pull.y0 = t.clientY; }
+  const dy = t.clientY - pull.y0;
+  if (Math.abs(t.clientX - pull.x0) > Math.abs(dy) + 30) { pull.dir = 0; hidePull(); return; } // sideways: not a page turn
+  if (pull.bottom && dy < -20) { pull.dir = 1; pull.amt = (-dy - 20) / PULL_PX; showPull(1, pull.amt); }
+  else if (pull.top && dy > 20) { pull.dir = -1; pull.amt = (dy - 20) / PULL_PX; showPull(-1, pull.amt); }
+  else { pull.dir = 0; hidePull(); }
+}, { passive: true, capture: true });
+["touchend", "touchcancel"].forEach((ev) => document.addEventListener(ev, (e) => {
+  if (!pull) return;
+  const p = pull; pull = null; hidePull();
+  if (ev === "touchend" && p.dir && p.amt >= 1) turnPage(p.dir);
+}, { capture: true }));
+// laptop: keep scrolling the wheel at the end of a page to reach the next one
+let wheelPull = { dir: 0, sum: 0, t: 0 };
+document.addEventListener("wheel", (e) => {
+  if (e.ctrlKey || S.screen !== "editor") return;
+  const sc = e.target.closest && e.target.closest("#scroll.studio-scroll"); if (!sc) return;
+  const max = sc.scrollHeight - sc.clientHeight, dir = e.deltaY > 0 ? 1 : -1, now = Date.now();
+  const atEdge = dir > 0 ? sc.scrollTop >= max - 2 : sc.scrollTop <= 2;
+  if (!atEdge) { wheelPull = { dir: 0, sum: 0, t: now }; hidePull(); return; }
+  if (wheelPull.dir !== dir || now - wheelPull.t > 700) wheelPull = { dir, sum: 0, t: now };
+  wheelPull.sum += Math.abs(e.deltaY); wheelPull.t = now;
+  const amt = wheelPull.sum / 500; showPull(dir, amt);
+  clearTimeout(wheelPull.h); wheelPull.h = setTimeout(hidePull, 900);
+  if (amt >= 1) { wheelPull = { dir: 0, sum: 0, t: now + 600 }; hidePull(); turnPage(dir); }
+}, { passive: true });
+
+/* ---- files shared to the notebook from other apps (Android share sheet / "Open with", desktop "Open with") ---- */
+async function whenLoaded() { for (let i = 0; i < 300 && !(S.loaded && S.store); i++) await new Promise((r) => setTimeout(r, 100)); }
+async function takeShared(files, text) {
+  await whenLoaded();
+  files = (files || []).filter((f) => f && f.size);
+  if (!files.length && text) files = [new File([text], (T("sharedText") || "shared") + ".txt", { type: "text/plain" })];
+  if (!files.length) return;
+  S.view = "__all"; S.query = "";
+  await importAny(files);
+}
+async function readShareInbox() {
+  if (!/[?&]share=1/.test(location.search)) return;
+  history.replaceState(null, "", location.pathname);
+  try {
+    const c = await caches.open("babak-share"), meta = await (await c.match("meta"))?.json?.() || { files: [] }, files = [];
+    for (const f of meta.files || []) { const r = await c.match(f.key); if (r) files.push(new File([await r.blob()], f.name, { type: f.type || "" })); }
+    await caches.delete("babak-share");
+    await takeShared(files, [meta.title, meta.text, meta.url].filter(Boolean).join("\n"));
+  } catch (e) { console.error(e); toast(T("importPdfFailed") + (e.message || ""), { kind: "err" }); }
+}
+if ("launchQueue" in window) {
+  try { launchQueue.setConsumer(async (lp) => { if (!lp || !lp.files || !lp.files.length) return; const files = []; for (const h of lp.files) { try { files.push(await h.getFile()); } catch {} } takeShared(files); }); } catch {}
+}
+if ("caches" in window) readShareInbox();
+window.__nb = { S, openNote, newNote, siblings, get ZOOM() { return ZOOM; } }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
