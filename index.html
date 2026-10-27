@@ -6472,7 +6472,7 @@ document.addEventListener("input", (e) => { if (e.target && e.target.id === "pcI
 /** Full screen where the browser allows it; otherwise (iPhone, some tablets) a focus view that hides everything but the page. */
 function toggleFocus(force) {
   const on = force ?? !document.body.classList.contains("focusmode");
-  document.body.classList.toggle("focusmode", on);
+  document.body.classList.toggle("focusmode", on); S.fsAgain = false;
   const el = document.documentElement, fs = document.fullscreenElement || document.webkitFullscreenElement;
   try {
     if (on && !fs) (el.requestFullscreen || el.webkitRequestFullscreen || (() => {})).call(el)?.catch?.(() => {});
@@ -6481,7 +6481,25 @@ function toggleFocus(force) {
   $("#fsBtn")?.setAttribute("aria-pressed", String(on));
   if (paperState) setTimeout(() => { try { window.dispatchEvent(new Event("resize")); } catch {} }, 250);
 }
-["fullscreenchange", "webkitfullscreenchange"].forEach((ev) => document.addEventListener(ev, () => { if (!(document.fullscreenElement || document.webkitFullscreenElement) && document.body.classList.contains("focusmode") && !S._fsKeep) toggleFocus(false); }));
+/* Full screen stays on until the ⛶ button is pressed again. On a tablet the system can drop the browser's full screen
+   (a palm on the screen edge, the system ✕, the keyboard): the app stays in full-screen mode and asks for it again at the next touch. */
+let fsLastPtr = "mouse";
+addEventListener("pointerdown", (e) => { fsLastPtr = e.pointerType || "mouse"; }, true);
+const fsNow = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+const fsTablet = () => fsLastPtr !== "mouse" || matchMedia("(pointer: coarse)").matches;
+["fullscreenchange", "webkitfullscreenchange"].forEach((ev) => document.addEventListener(ev, () => {
+  if (fsNow() || !document.body.classList.contains("focusmode") || S._fsKeep) return;
+  if (fsTablet()) S.fsAgain = true; else toggleFocus(false); // laptop: Esc really means "leave full screen"
+}));
+function fsRetry(e) {
+  if (!S.fsAgain || fsNow() || !document.body.classList.contains("focusmode")) return;
+  if (e && e.target && e.target.closest && e.target.closest("#fsBtn")) { S.fsAgain = false; return; } // the button itself decides
+  if (paperState && (paperState.cur || paperState.erase || paperState.move)) return; // never in the middle of a stroke
+  S.fsAgain = false;
+  const el = document.documentElement;
+  try { (el.requestFullscreen || el.webkitRequestFullscreen || (() => {})).call(el)?.catch?.(() => { S.fsAgain = true; }); } catch { S.fsAgain = true; }
+}
+["pointerup", "touchend", "click"].forEach((ev) => addEventListener(ev, fsRetry, true));
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("focusmode") && !document.querySelector(".overlay,.pop")) toggleFocus(false); });
 
 /** One-tap copy: tapping a link, e-mail, phone number or file path in a page offers Copy (and Open). Works with pen, finger and mouse, also in read mode. */
