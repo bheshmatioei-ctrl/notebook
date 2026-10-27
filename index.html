@@ -692,6 +692,27 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .bar .pnav .sep{height:20px;margin:0 2px}.bsep{width:1px;height:22px;background:var(--line);margin:0 4px;flex:none}
 @media (max-width:600px){.bar .pnav .pcount .ic{display:none}.bar .pnav .sep{display:none}}
 .pullhint{bottom:24px}
+/* refined library (Drive-like): lighter, smaller, calmer */
+.lib .libhead{gap:6px}
+.lib .libhead h2{font-size:18px;font-weight:650;letter-spacing:-.005em}
+.lib .libhead h2 small{font-size:12.5px!important}
+.lib .libhead .btn.icon{min-width:32px;min-height:32px;padding:5px;border-color:transparent;background:transparent;color:var(--muted);box-shadow:none}
+.lib .libhead .btn.icon:hover{background:var(--hover);color:var(--ink)}.lib .libhead .btn .ic{width:18px;height:18px}
+.lib .libhead .btn:not(.icon){min-height:32px;padding:4px 12px;font-size:13px}
+.quickrow{margin:4px 0 8px;gap:6px}
+.qa{min-height:32px;padding:4px 12px 4px 10px;font-size:13px;gap:6px;border-color:color-mix(in srgb,var(--line) 75%,transparent);background:transparent;font-weight:500}
+.qa .ic{width:16px;height:16px}
+.sech{font-size:11.5px;font-weight:500;margin:14px 2px 6px;color:var(--muted)}
+.fgrid{grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px}
+.fold{padding:7px 4px 7px 10px;gap:9px;border-radius:10px;background:transparent;border-color:color-mix(in srgb,var(--line) 80%,transparent);box-shadow:none}
+.fold:hover{background:var(--panel);box-shadow:none}
+.fold .fico .ic{width:22px;height:22px}
+.fold .fn b{font-size:13.5px;font-weight:500}.fold .fn small{font-size:11px;margin-top:1px}
+.fold .more{font-size:15px;padding:2px 6px;opacity:.5}.fold:hover .more{opacity:1}
+.lib .books{gap:12px;padding:4px 2px 8px}
+.lib .bookc{--bw:88px}
+.lib .bookc.addbook{border-width:1.5px}.lib .bookc.addbook span{font-size:22px}.lib .bookc.addbook b{font-size:11.5px;font-weight:500}
+.crumbs{font-size:12.5px;margin-bottom:2px}
 </style>
 
 <div class="app" id="app">
@@ -1635,7 +1656,8 @@ function renderLibrary() {
       ${!isBook ? `<div class="bookw" data-act="newNotebookHere"><div class="bookc addbook"><span>＋</span><b>${esc(T("newNotebook"))}</b></div></div>` : ""}</div>`;
   }
   if (arr.length && (subF.length || subB.length)) h += `<div class="sech">${esc(T("pagesSec"))}</div>`;
-  if (!arr.length) {
+  if (!arr.length && (subF.length || subB.length)) { /* folders and notebooks are the content here: no "nothing here" line */ }
+  else if (!arr.length) {
     h += !live.length && !q && !trash
       ? `<div class="welcome" style="margin-top:6vh"><div style="font-size:54px">📓</div><h1>${esc(T("welcome"))}</h1><p>${esc(T("welcomeText"))}</p>
          <p><button class="btn primary" data-act="newNote">＋ ${esc(T("newNote"))}</button> <button class="btn" data-act="importPdf">📄＋ ${esc(T("importPdf"))}</button></p>
