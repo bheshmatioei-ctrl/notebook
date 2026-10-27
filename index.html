@@ -665,6 +665,28 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .pullhint.top{bottom:auto;top:calc(var(--barh,96px) + 10px)}
 .pullhint.ready{background:var(--accent);color:#fff;border-color:var(--accent)}
 .card .ct.ren{cursor:text}
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:2px;margin:0 0 6px;font-size:13px;color:var(--muted)}
+.crumbs button{display:inline-flex;align-items:center;gap:5px;border:0;background:none;color:var(--muted);padding:4px 7px;border-radius:8px;font:inherit;cursor:pointer}
+.crumbs button:hover{background:var(--hover);color:var(--ink)}.crumbs button[aria-current]{color:var(--ink);font-weight:600}
+.crumbs .ic{width:15px;height:15px}.crumbs i{font-style:normal;opacity:.6}
+.hfold .ic{width:40px;height:40px;fill:currentColor;fill-opacity:.18}
+.sech{font-size:12.5px;font-weight:600;color:var(--muted);letter-spacing:.02em;margin:18px 4px 8px}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.fold{display:flex;align-items:center;gap:12px;padding:12px 10px 12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.fold:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:0 2px 10px rgba(40,30,20,.07)}
+.fold .fico .ic{width:30px;height:30px;fill:currentColor;fill-opacity:.2}
+.fold .fn{flex:1;min-width:0;display:flex;flex-direction:column}.fold .fn b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fold .fn small{color:var(--muted);font-size:12px}
+.fold .more{border:0;background:none;color:var(--muted);font-size:18px;padding:4px 8px;border-radius:8px;cursor:pointer}.fold .more:hover{background:var(--hover)}
+.fico{display:inline-grid;place-items:center;flex:none}.fico.sm .ic{width:17px;height:17px;fill:currentColor;fill-opacity:.2}
+.rochip{gap:6px;border-radius:99px;padding:4px 10px;font-size:13px;background:var(--accent-soft,#fde7dd)!important;color:var(--accent)}
+.rochip .ic{width:17px;height:17px}
+.dock .toolmore .ic{width:18px;height:18px}
+.irow[aria-pressed="true"]{background:var(--accent-soft,#fde7dd)}
+.bar .btn.icon.ghost{color:var(--muted)}.bar .btn.icon.ghost:hover{color:var(--ink)}
+.bar-ctx{gap:4px}.bar-ctx .btn.icon{min-width:34px;min-height:34px}
+.bar-ctx .swatch{width:20px;height:20px}
+.fsexit{display:none!important}body.focusmode .fsexit{display:inline-flex!important}
+@media (max-width:760px){.bar-ctx{flex-wrap:wrap;justify-content:center;width:auto;margin-inline:12px;row-gap:4px;overflow:visible}.bar-ctx .sep{display:none}}
 </style>
 
 <div class="app" id="app">
@@ -720,6 +742,7 @@ window.addEventListener("error", function (e) {
 /* ---------------- i18n ---------------- */
 const I18N = {
   fa: {
+    foldersSec:"پوشه‌ها", booksSec:"دفترچه‌ها", pagesSec:"صفحه‌ها", itemsN:"{n} مورد", newPageBtn:"صفحهٔ جدید", toBook:"تبدیل به دفترچه", toFolder:"تبدیل به پوشه", renameMove:"تغییر نام / انتقال به…", moreTools:"ابزارهای بیشتر", readMode:"حالت مطالعه", 
     appName:"دفترچه شخصی بابک", sub:"یادداشت، دست‌نویس و یادآوری", allNotes:"همهٔ یادداشت‌ها", trash:"سطل زباله", noFolder:"بدون پوشه",
     newNote:"صفحهٔ جدید", newFolder:"پوشهٔ جدید", subfolder:"زیرپوشهٔ جدید", search:"جستجو در یادداشت‌ها…", noNotes:"یادداشتی اینجا نیست.",
     noResults:"چیزی پیدا نشد.", emptyTrash:"خالی کردن سطل", restore:"بازگرداندن", deleteForever:"حذف همیشگی", delete:"حذف", rename:"تغییر نام",
@@ -763,6 +786,7 @@ const I18N = {
     tplNotes:"یادداشت‌ها", tplCues:"نکته‌ها", tplSummary:"خلاصه", tplDate:"تاریخ", tplPeriod:"زنگ", tplTodo:"کارها", templates:"قالب‌ها", lines:"زمینه‌ها",
   },
   de: {
+    foldersSec:"Ordner", booksSec:"Notizbücher", pagesSec:"Seiten", itemsN:"{n} Elemente", newPageBtn:"Neue Seite", toBook:"In Notizbuch umwandeln", toFolder:"In Ordner umwandeln", renameMove:"Umbenennen / verschieben…", moreTools:"Weitere Werkzeuge", readMode:"Lesemodus", 
     appName:"Babaks Notizbuch", sub:"Notizen, Handschrift & Erinnerungen", allNotes:"Alle Notizen", trash:"Papierkorb", noFolder:"Ohne Ordner",
     newNote:"Neue Seite", newFolder:"Neuer Ordner", subfolder:"Neuer Unterordner", search:"Notizen durchsuchen…", noNotes:"Hier gibt es noch keine Notizen.",
     noResults:"Nichts gefunden.", emptyTrash:"Papierkorb leeren", restore:"Wiederherstellen", deleteForever:"Endgültig löschen", delete:"Löschen", rename:"Umbenennen",
@@ -806,6 +830,7 @@ const I18N = {
     tplNotes:"Notizen", tplCues:"Stichworte", tplSummary:"Zusammenfassung", tplDate:"Datum", tplPeriod:"Std.", tplTodo:"Aufgaben", templates:"Vorlagen", lines:"Papier",
   },
   en: {
+    foldersSec:"Folders", booksSec:"Notebooks", pagesSec:"Pages", itemsN:"{n} items", newPageBtn:"New page", toBook:"Turn into notebook", toFolder:"Turn into folder", renameMove:"Rename / move to…", moreTools:"More tools", readMode:"Read mode", 
     appName:"Babak's Notebook", sub:"Notes, handwriting & reminders", allNotes:"All notes", trash:"Trash", noFolder:"No folder",
     newNote:"New page", newFolder:"New folder", subfolder:"New subfolder", search:"Search notes…", noNotes:"No notes here yet.",
     noResults:"Nothing found.", emptyTrash:"Empty trash", restore:"Restore", deleteForever:"Delete forever", delete:"Delete", rename:"Rename",
@@ -1279,8 +1304,11 @@ const localAssets = (() => {
       if (urls.has(id)) return urls.get(id);
       const rec = await tx("readonly", (st) => st.get(id)).catch(() => null);
       if (!rec || !rec.blob) return "";
-      const u = URL.createObjectURL(rec.blob); urls.set(id, u); return u;
+      let blob = rec.blob;
+      if (await isSealedBlob(blob)) { const vk = S.assetKeys.get(id); if (!vk) return ""; try { blob = await unsealBlob(blob, vk); } catch { return ""; } }
+      const u = URL.createObjectURL(blob); urls.set(id, u); return u;
     },
+    forget(id) { const u = urls.get(id); if (u) { URL.revokeObjectURL(u); urls.delete(id); } },
   };
 })();
 /** URL for a stored file: your server/Claude serve /_blob/<id>; local mode makes a blob: URL. */
@@ -1351,6 +1379,7 @@ function normNote(d) {
     pinned: !!d.pinned, trashed: !!d.trashed, locked: !!d.locked, vault: d.vault || "", pages: Math.max(1, Math.min(60, Number(d.pages) || 1)),
     attachments: Array.isArray(d.attachments) ? d.attachments : [], createdAt: d.createdAt || new Date().toISOString(), updatedAt: d.updatedAt || d.createdAt || new Date().toISOString(),
     ...(d.readMode ? { readMode: true } : {}), ...(d.continuous ? { continuous: true } : {}), ...(/^#[0-9a-f]{6}$/i.test(d.paperColor || "") ? { paperColor: d.paperColor } : {}),
+    ...(Array.isArray(d.sealed) && d.sealed.length ? { sealed: d.sealed.filter((x) => typeof x === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x)) } : {}),
     seal: normSeal(d.seal), ...(typeof d.order === "number" && isFinite(d.order) ? { order: d.order } : {}),
   };
 }
@@ -1410,7 +1439,7 @@ async function noteDoc(n) {
   if (n.locked) {
     const u = S.unlocked.get(n.id);
     if (u) n.vault = await sealWithKey(toPlain(u), u.vk);
-    return { ...base, locked: true, vault: n.vault, title: "", html: "", attachments: [], thumb: "" };
+    return { ...base, locked: true, vault: n.vault, title: "", html: "", attachments: [], thumb: "", ...(n.sealed && n.sealed.length ? { sealed: n.sealed } : {}) };
   }
   return { ...base, locked: false, vault: "", title: n.title, html: n.html, attachments: n.attachments, thumb: n.thumb || "" };
 }
@@ -1451,9 +1480,18 @@ function folderPaths() {
   for (const f of S.meta.folders) { set.set(f.path, f.color); recs.set(f.path, f); }
   for (const n of S.notes.values()) if (n.folder && !n.trashed && !set.has(n.folder)) set.set(n.folder, "#7b8597");
   for (const p of Array.from(set.keys())) { const parts = p.split(SEP); for (let i = 1; i < parts.length; i++) { const a = parts.slice(0, i).join(SEP); if (!set.has(a)) set.set(a, "#7b8597"); } }
-  return Array.from(set.entries()).map(([path, color]) => ({ path, color, ...(recs.get(path)?.cover ? { cover: recs.get(path).cover } : {}) })).sort((a, b) => a.path.localeCompare(b.path, "fa"));
+  return Array.from(set.entries()).map(([path, color]) => ({ path, color, ...(recs.get(path)?.cover ? { cover: recs.get(path).cover } : {}), ...(recs.get(path)?.kind ? { kind: recs.get(path).kind } : {}) })).sort((a, b) => a.path.localeCompare(b.path, "fa"));
 }
 const leaf = (p) => p.split(SEP).pop();
+/** "folder" = only for sorting (like Google Drive), "book" = a notebook with a cover and pages. Old notebooks that hold other notebooks count as folders. */
+function folderKind(path) {
+  const rec = S.meta.folders.find((f) => f.path === path);
+  if (rec && (rec.kind === "folder" || rec.kind === "book")) return rec.kind;
+  const pre = path + SEP;
+  return S.meta.folders.some((f) => f.path.startsWith(pre)) || Array.from(S.notes.values()).some((n) => !n.trashed && n.folder && n.folder.startsWith(pre)) ? "folder" : "book";
+}
+/** Where a new folder or notebook goes from the current view: never inside a notebook. */
+function containerOf(view) { if (!view || view.startsWith("__")) return ""; return folderKind(view) === "folder" ? view : parentOf(view); }
 const parentOf = (p) => p.split(SEP).slice(0, -1).join(SEP);
 const cleanName = (v) => String(v || "").replaceAll("/", "-").trim().slice(0, 60);
 function inPath(folder, p) { return folder === p || folder.startsWith(p + SEP); }
@@ -1496,7 +1534,7 @@ function renderTree() {
     const hasKids = folderPaths().some((x) => x.path.startsWith(f.path + SEP));
     h += `<div class="row ${S.view === f.path ? "on" : ""}" data-view="${esc(f.path)}" style="padding-inline-start:${8 + depth * 16}px">
       <button class="tw" data-tw="${esc(f.path)}" aria-label="toggle">${hasKids ? (S.collapsed.has(f.path) ? (document.documentElement.dir === "rtl" ? "◂" : "▸") : "▾") : ""}</button>
-      <span class="dot" style="background:${esc(f.color)}"></span><span class="name">${esc(leaf(f.path))}</span><span class="cnt">${num(count(f.path))}</span>
+      ${folderKind(f.path) === "folder" ? `<span class="fico sm" style="color:${esc(f.color)}">${ic("folder")}</span>` : `<span class="dot" style="background:${esc(f.color)}"></span>`}<span class="name">${esc(leaf(f.path))}</span><span class="cnt">${num(count(f.path))}</span>
       <button class="more" data-fmenu="${esc(f.path)}" aria-label="${esc(T("more"))}">⋯</button></div>`;
   }
   h += `<div class="row addrow" data-act="newFolderHere"><span class="tw"></span><span class="rico">${ic("plus")}</span><span class="name">${esc(T("newFolder"))}</span></div>
@@ -1563,24 +1601,35 @@ function renderLibrary() {
   const live = Array.from(S.notes.values()).filter((n) => !n.trashed);
   const subs = trash || q || S.view.startsWith("__") && S.view !== "__all" ? [] : folderPaths().filter((f) => (S.view === "__all" ? !f.path.includes(SEP) : parentOf(f.path) === S.view));
   const rtl = document.documentElement.dir === "rtl", inFolder = !S.view.startsWith("__") && !q;
+  const isBook = inFolder && folderKind(S.view) === "book", isFold = inFolder && !isBook, home = S.view === "__all" && !q;
+  const subF = subs.filter((f) => folderKind(f.path) === "folder"), subB = subs.filter((f) => folderKind(f.path) !== "folder");
+  const crumbs = inFolder ? `<nav class="crumbs"><button type="button" data-view="__all">${ic("home")}<span>${esc(T("homeBtn"))}</span></button>${S.view.split(SEP).map((x, i, all) => `<i>›</i><button type="button" data-view="${esc(all.slice(0, i + 1).join(SEP))}" ${i === all.length - 1 ? 'aria-current="page"' : ""}>${esc(x)}</button>`).join("")}</nav>` : "";
   let h = `<div class="scroll lib ${st.libView === "list" ? "listview" : st.libView === "small" ? "smallview" : ""}" id="scroll"><div class="sheet" style="max-width:1100px">
+    ${crumbs}
     <div class="libhead">
-    ${S.view !== "__all" || q ? `<button class="btn icon homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">🏠</button>` : ""}
+    ${!home && !inFolder ? `<button class="btn icon homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">${ic("home")}</button>` : ""}
     ${S.view !== "__all" && !q ? `<button class="btn icon" data-view="${esc(S.view.includes(SEP) ? parentOf(S.view) : "__all")}" aria-label="${esc(T("back"))}">${rtl ? "→" : "←"}</button>` : ""}
-      ${inFolder ? `<span class="hcover" data-act="editCover" title="${esc(T("nbEdit"))}">${coverHtml(folderPaths().find((f) => f.path === S.view) || { path: S.view, color: "#7b8597" })}</span>` : ""}
-      <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length)}</small>${inFolder && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
-      ${inFolder ? `<button class="btn" data-act="editCover">🎨 ${esc(T("nbCoverBtn"))}</button>` : ""}
-      <button class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">☑</button>
-      <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⋯</button>
-      ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : (inFolder ? "" : `<button class="btn icon" data-act="importPdf" title="${esc(T("importPdf"))}">${ic("image")}</button>`)}
+      ${isBook ? `<span class="hcover" data-act="editCover" title="${esc(T("nbEdit"))}">${coverHtml(folderPaths().find((f) => f.path === S.view) || { path: S.view, color: "#7b8597" })}</span>` : ""}
+      ${isFold ? `<span class="hfold" style="color:${esc(folderPaths().find((f) => f.path === S.view)?.color || "#7b8597")}">${ic("folder")}</span>` : ""}
+      <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length + (isFold ? subs.length : 0))}</small>${isBook && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
+      ${isBook ? `<button class="btn" data-act="editCover">🎨 ${esc(T("nbCoverBtn"))}</button>` : ""}
+      ${isBook && folderRecOf(S.view)?.vault ? (bookPages(S.view).some((n) => n.locked && S.unlocked.has(n.id)) ? `<button class="btn" data-act="vaultLockBook">${ic("lock")} ${esc(T("vaultLockAll"))}</button>` : `<button class="btn primary" data-act="vaultOpenBook">${ic("unlock")} ${esc(T("vaultOpenBook"))}</button>`) : ""}
+      ${inFolder ? `<button class="btn icon" data-fmenu="${esc(S.view)}" title="${esc(T("more"))}">${ic("more")}</button>` : ""}
+      <button class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
+      <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⇅</button>
+      ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : ""}
     </div>
-    ${inFolder ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importPdf"))}</span></button></div>` : ""}`;
-  if (subs.length) {
-    h += `<div class="books">${subs.map((f) => `<div class="bookw" data-view="${esc(f.path)}">${coverHtml(f, { count: live.filter((n) => inPath(n.folder, f.path)).length, menu: true })}</div>`).join("")}
-      <div class="bookw" data-act="newNotebookHere"><div class="bookc addbook"><span>＋</span><b>${esc(T("newNotebook"))}</b></div></div></div>`;
-  } else if (!trash && !q && S.view === "__all") {
-    h += `<div class="books"><div class="bookw" data-act="newNotebookHere"><div class="bookc addbook"><span>＋</span><b>${esc(T("newNotebook"))}</b></div></div></div>`;
+    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importPdf"))}</span></button></div>`
+      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importPdf"))}</span></button></div>` : ""}`;
+  const cnt = (p) => live.filter((n) => inPath(n.folder, p)).length;
+  if (subF.length) {
+    h += `<div class="sech">${esc(T("foldersSec"))}</div><div class="fgrid">${subF.map((f) => `<div class="fold" data-view="${esc(f.path)}"><span class="fico" style="color:${esc(f.color)}">${ic("folder")}</span><span class="fn"><b>${esc(leaf(f.path))}</b><small>${esc(T("itemsN", { n: num(folderPaths().filter((x) => parentOf(x.path) === f.path).length + live.filter((n) => n.folder === f.path).length) }))}</small></span><button class="more" data-fmenu="${esc(f.path)}" aria-label="${esc(T("more"))}">⋯</button></div>`).join("")}</div>`;
   }
+  if (subB.length || (!trash && !q && (home || isFold))) {
+    h += `${subF.length || subB.length ? `<div class="sech">${esc(T("booksSec"))}</div>` : ""}<div class="books">${subB.map((f) => `<div class="bookw" data-view="${esc(f.path)}">${coverHtml(f, { count: cnt(f.path), menu: true })}</div>`).join("")}
+      ${!isBook ? `<div class="bookw" data-act="newNotebookHere"><div class="bookc addbook"><span>＋</span><b>${esc(T("newNotebook"))}</b></div></div>` : ""}</div>`;
+  }
+  if (arr.length && (subF.length || subB.length)) h += `<div class="sech">${esc(T("pagesSec"))}</div>`;
   if (!arr.length) {
     h += !live.length && !q && !trash
       ? `<div class="welcome" style="margin-top:6vh"><div style="font-size:54px">📓</div><h1>${esc(T("welcome"))}</h1><p>${esc(T("welcomeText"))}</p>
@@ -1621,6 +1670,14 @@ async function sortMenu() {
 
 /* ---------------- icon set (one consistent line style instead of mixed emoji) ---------------- */
 const ICONS = {
+  expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  book: '<path d="M12 6.5C10.5 5 8 4.5 4 4.5v14c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-14c-4 0-6.5.5-8 2z"/><path d="M12 6.5v14"/>',
+  comment: '<path d="M20.5 11.5a8 8 0 0 1-11.7 7.1L4 20l1.3-4.4a8 8 0 1 1 15.2-4.1z"/>',
+  history: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M12 7.5V12l3 2"/>',
+  dots: '<circle cx="5" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="19" cy="12" r="1.4" fill="currentColor"/>',
+  chev: '<path d="m7 10 5 5 5-5"/>',
+  symbols: '<path d="M6 19h4v-2.5a6 6 0 1 1 4 0V19h4"/>',
+
   back: '<path d="M15 5l-7 7 7 7"/>',
   sidebar: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9.5 4v16"/>',
   type: '<path d="M5 7V5h14v2M12 5v14M9 19h6"/>',
@@ -2469,7 +2526,7 @@ function sealBarHtml(n) {
 function openedMap() { return lsGet("babak-sa-opened", {}); }
 function markOpened(id) { const m = openedMap(); m[id] = Date.now(); const keys = Object.keys(m); if (keys.length > 500) keys.sort((a, b) => m[a] - m[b]).slice(0, keys.length - 500).forEach((k) => delete m[k]); lsSet("babak-sa-opened", m); }
 async function plusMenu() {
-  const folder = S.view && !S.view.startsWith("__") ? S.view : "";
+  const folder = S.view && !S.view.startsWith("__") ? S.view : "", box = containerOf(S.view);
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [
     ["quick", "🟨", T("quickNote")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
@@ -2480,10 +2537,10 @@ async function plusMenu() {
   const a = await dialog({ title: "＋ " + T("create"), body: `<div class="plusgrid">${items.map(([v, i, l]) => `<button type="button" class="plusbtn" data-m="${v}"><span>${i}</span><b>${esc(l)}</b></button>`).join("")}</div>`,
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.querySelector(".plusgrid").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
   if (a === "quick") return newNote();
-  if (a === "notebook") return coverDialog(null, folder);
+  if (a === "notebook") return coverDialog(null, box);
   if (a === "templates") { S.view = "__templates"; S.screen = "library"; renderTree(); return renderMain(); }
   if (a === "import") return pickImport(null);
-  if (a === "folder") return newFolder(folder);
+  if (a === "folder") return newFolder(box);
   if (a === "scan") return scanDoc();
   if (a === "photo") { const i = $("#camIn"); i.value = ""; i.click(); return; }
   if (a === "audio") { newNote(); setTimeout(() => toggleRecording(), 300); }
@@ -2795,22 +2852,21 @@ function renderMain() {
    <div class="bar-main">
     <div class="bz bz-start">
       <button class="btn icon ghost" data-act="library" title="${esc(T("back"))}" aria-label="${esc(T("back"))}">${ic("back", rtl ? "flip" : "")}</button>
-      <button class="btn icon ghost homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">🏠</button>
+      <button class="btn icon ghost homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">${ic("home")}</button>
       <button class="btn icon ghost" data-act="sidebar" data-pop="1" title="${esc(T("library"))}">${ic("sidebar")}</button>
       <input id="titleIn" class="ttl" value="${esc(w.title)}" placeholder="${esc(T("untitled"))}" ${ro_ ? "readonly" : ""} maxlength="200" dir="auto">
-      ${n.trashed || S.readOnly || isFrozen(n) ? "" : `<button class="btn icon ghost" id="roBtn" data-act="readMode" aria-pressed="${readMode(n)}" title="${esc(T(readMode(n) ? "readOff" : "readTitle"))}">${readMode(n) ? "📖" : "✏️"}</button>`}
-      <button class="btn icon ghost" id="fsBtn" data-act="focusMode" aria-pressed="${document.body.classList.contains("focusmode")}" title="${esc(T("fullScreen"))}">⛶</button>
+      <button class="btn ghost rochip fsexit" data-act="focusMode" title="${esc(T("fullScreen"))}">${ic("expand")} ✕</button>
+      ${readMode(n) && !n.trashed && !S.readOnly && !isFrozen(n) ? `<button class="btn ghost rochip" id="roBtn" data-act="readMode" aria-pressed="true" title="${esc(T("readOff"))}">${ic("book")}<span>${esc(T("readMode"))}</span> ✕</button>` : ""}
     </div>
     <div class="dock ${ro_ ? "hide" : ""}" role="toolbar">
-      ${tb("type", "type", T("typeMode"))}${tb("pen", "pen", T("penMode"))}${tb("highlighter", "highlighter", T("highlighterTool"))}${tb("eraser", "eraser", T("eraser"))}${tb("lasso", "lasso", T("lassoTool"))}${tb("tape", "tape", T("tapeTool"))}${tb("laser", "laser", T("laserTool"))}
+      ${tb("type", "type", T("typeMode"))}${tb("pen", "pen", T("penMode"))}${tb("highlighter", "highlighter", T("highlighterTool"))}${tb("eraser", "eraser", T("eraser"))}${tb("lasso", "lasso", T("lassoTool"))}<button class="btn icon tool toolmore" id="toolMore" data-act="toolMore" data-pop="1" aria-pressed="${["tape", "laser"].includes(t.mode)}" title="${esc(T("moreTools"))}">${["tape", "laser"].includes(t.mode) ? ic(t.mode) + `<i class="tcb"></i>` : ic("chev")}</button>
     </div>
     <div class="bz bz-end">
       <span class="sdot" id="status2"></span>
       ${ro_ ? "" : `<button class="btn icon ghost" id="undoBtn" data-act="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" id="redoBtn" data-act="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn icon ghost" data-act="insertMenu" data-pop="1" title="${esc(T("insert"))}">${ic("plus")}</button>
-      <button class="btn icon ghost" data-act="pageMenu" data-pop="1" title="${esc(T("pageSettings"))}">${ic("page")}</button>
-      <button class="btn icon ghost star" data-act="pin" title="${esc(n.pinned ? T("unpin") : T("pin"))}" aria-pressed="${n.pinned}">${ic("star")}</button>`}
-      <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("more")}</button>
+      <button class="btn icon ghost" data-act="pageMenu" data-pop="1" title="${esc(T("pageSettings"))}">${ic("page")}</button>`}
+      <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div>
    </div>
    <div class="bar-ctx ${ro_ ? "hide" : ""}" id="ctx">
@@ -2828,13 +2884,9 @@ function renderMain() {
       <button class="btn icon ghost only-narrow" data-act="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost only-narrow" data-act="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn icon ghost" id="beautyBtn" data-act="beautify" aria-pressed="${!!S.meta.settings.smooth}" title="${esc(T("beautify"))}">${ic("sparkle")}</button>
       <button class="btn icon ghost" id="shapesBtn" data-act="shapesMenu" data-pop="1" aria-pressed="${!!(t.shapes || t.shapeKind)}" title="${esc(T("shapesTitle"))}">${t.shapeKind ? shapeIcon(t.shapeKind) : ic("shapes")}</button>
-      <button class="btn icon ghost" data-act="symbolsMenu" data-pop="1" title="${esc(T("symbols"))}"><span class="symic">Ω</span></button>
-      <button class="btn icon ghost" id="lockBtn" data-act="lockCanvas" aria-pressed="${!!t.lockCanvas}" title="${esc(T("lockCanvas"))}">${ic("lock")}</button>
-      <button class="btn icon ghost" data-act="clearInk" title="${esc(T("clearInk"))}">${ic("trash")}</button>
-      ${S.sample && S.sampleImages && !n.locked ? `<button class="btn ghost" data-act="ocr" title="${esc(T("ocr"))}">Aa→</button>` : ""}
+      <button class="btn icon ghost" id="ctxMore" data-act="ctxMore" data-pop="1" title="${esc(T("more"))}">${ic("dots")}</button>
     </span>
     <span id="textTools" class="${t.mode !== "type" ? "hide" : ""}" style="display:contents">
-      <button class="btn icon ghost" data-act="commentAdd" title="${esc(T("commentTitle"))}">💬</button>
       <button class="btn icon ghost" data-cmd="bold" title="${esc(T("bold"))}"><b>B</b></button>
       <button class="btn icon ghost" data-cmd="italic" title="${esc(T("italic"))}"><i>I</i></button>
       <button class="btn icon ghost" data-cmd="underline" title="${esc(T("underline"))}"><u>U</u></button>
@@ -2851,9 +2903,9 @@ function renderMain() {
       <span style="display:inline-flex;gap:6px">${INK_COLORS.slice(0, 4).map((c) => `<button class="swatch" data-fore="${c}" style="background:${c}" title="${esc(T("textColor"))}"></button>`).join("")}</span>
       <span class="sep"></span>
       <span class="seg" role="group" aria-label="${esc(T("direction"))}"><button type="button" class="segb lang" data-tdir="rtl" aria-pressed="${(S.typeDir || (S.meta.settings.lang === "fa" ? "rtl" : "ltr")) === "rtl"}" title="${esc(T("typeFa"))}">فا</button><button type="button" class="segb lang" data-tdir="ltr" aria-pressed="${(S.typeDir || (S.meta.settings.lang === "fa" ? "rtl" : "ltr")) === "ltr"}" title="${esc(T("typeEn"))}">EN</button></span>
-      <button class="btn icon ghost" data-act="symbolsMenu" data-pop="1" title="${esc(T("symbols"))}"><span class="symic">Ω</span></button>
       <button class="btn icon ghost" data-act="tableMenu" data-pop="1" title="${esc(T("tableInsert"))}">${ic("table")}</button>
       <button class="btn icon ghost" data-act="insertImage" title="${esc(T("insertImage"))}">${ic("image")}</button>
+      <button class="btn icon ghost" id="ctxMoreT" data-act="ctxMoreText" data-pop="1" title="${esc(T("more"))}">${ic("dots")}</button>
     </span>
    </div>
   </div>
@@ -2901,6 +2953,7 @@ function renderLockScreen(n) {
       const vk = await vaultKeyFor(pw, n.vault);
       const plain = await openVault(n.vault, vk);
       S.unlocked.set(n.id, { vk, ...fromPlain(plain) });
+      await unlockSameKey(n, vk);
       S.lastActivity = Date.now();
       renderMain(); renderSide();
     } catch { err.textContent = T("wrongPassword"); }
@@ -3035,6 +3088,7 @@ function applyMode() {
     content.setAttribute("contenteditable", editable ? "true" : "false");
   }
   $$("#bar [data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
+  { const tm = $("#toolMore"); if (tm) { const on = ["tape", "laser"].includes(m); tm.setAttribute("aria-pressed", String(on)); tm.innerHTML = on ? ic(m) + `<i class="tcb"></i>` : ic("chev"); } }
   $("#penTools")?.classList.toggle("hide", m === "type");
   $("#textTools")?.classList.toggle("hide", m !== "type");
   const show = (sel, on) => { const el = $(sel); if (el) el.classList.toggle("hide", !on); };
@@ -4056,6 +4110,7 @@ function newNote(opt) {
   openNote(n.id);
   S.tool.mode = "type"; applyMode();
   setTimeout(() => { const c = $("#content"); if (c) { c.focus(); } }, 50);
+  if (folderRecOf(folder)?.vault) vaultNewPage(n);
 }
 function trashNote(n) {
   if (n.seal) return toast("🔒 " + T("sealNoDelete"), { kind: "err" });
@@ -4106,21 +4161,15 @@ async function lockNote(n) {
     return { pw: f.p1.value };
   }, T("lockNote"));
   if (!r) return;
-  captureActive();
   const vk = await vaultKeyFor(r.pw);
-  const u = { vk, title: n.title, html: n.html, attachments: n.attachments, strokes: S.ink.get(n.id) || [] };
-  S.unlocked.set(n.id, u);
-  n.locked = true; n.title = ""; n.html = ""; n.attachments = []; touch(n);
-  S.ink.delete(n.id); writers.delete("ink:" + n.id);
-  saveNote(n.id, 0);
-  S.store.delInk(n.id).catch(() => {});
-  S.lastActivity = Date.now();
+  await lockWith(n, vk);
   renderMain(); renderSide();
 }
-function relock(n) { captureActive(); if (isBusy("note:" + n.id)) runWrite("note:" + n.id).then(() => { S.unlocked.delete(n.id); renderMain(); renderSide(); }); else { S.unlocked.delete(n.id); renderMain(); renderSide(); } }
+async function relock(n) { await sealBeforeLock([n.id]); if (isBusy("note:" + n.id)) runWrite("note:" + n.id).then(() => { S.unlocked.delete(n.id); renderMain(); renderSide(); }); else { S.unlocked.delete(n.id); renderMain(); renderSide(); } }
 async function removeLock(n) {
   const u = S.unlocked.get(n.id); if (!u) return;
   captureActive();
+  try { await unsealNoteAssets(n, u); } catch (e) { console.warn("unseal", e); }
   Object.assign(n, { locked: false, vault: "", title: u.title, html: u.html, attachments: u.attachments });
   S.ink.set(n.id, u.strokes || []); S.unlocked.delete(n.id); touch(n);
   saveNote(n.id, 0); saveInk(n.id, 0);
@@ -4130,10 +4179,13 @@ function noteMenu(n) {
   const items = [];
   if (!n.trashed) {
     if (!sealedLocked(n) && !S.readOnly) items.push(["renamePage", "✏️ " + T("renamePage")]);
+    items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "unpin" : "pin")]);
+    if (!S.readOnly && !isFrozen(n)) items.push(["readMode", "📖 " + T(readMode(n) ? "readOff" : "readTitle")]);
+    items.push(["focusMode", "⛶ " + T("fullScreen")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
     if (n.locked) items.push(["lockNow", "🔒 " + T("lockNow")], ["removeLock", "🔓 " + T("removeLock")]);
     else items.push(["lock", "🔒 " + T("lockNote")]);
-    items.push(["remindNote", "⏰ " + T("newReminder")], ["attach", "📎 " + T("attach")], ["trashNote", "🗑 " + T("delete"), "danger"]);
+    items.push(["history", "🕘 " + T("history")], ["remindNote", "⏰ " + T("newReminder")], ["attach", "📎 " + T("attach")], ["trashNote", "🗑 " + T("delete"), "danger"]);
   } else items.push(["restore", "↩ " + T("restore")], ["deleteForever", T("deleteForever"), "danger"]);
   menuBox(titleOf(n), items).then((a) => a && doAct(a));
 }
@@ -5125,7 +5177,7 @@ async function openAttachment(i) {
 async function newFolder(parent = "") {
   const r = await formBox(parent ? T("subfolder") : T("newFolder"), `
     <div class="field"><label>${esc(T("name"))}</label><input name="name" maxlength="60"></div>
-    <div class="field"><label>${esc(T("parent"))}</label><select name="parent"><option value="">${esc(T("root"))}</option>${folderPaths().map((f) => `<option ${f.path === parent ? "selected" : ""}>${esc(f.path)}</option>`).join("")}</select></div>
+    <div class="field"><label>${esc(T("parent"))}</label><select name="parent"><option value="">${esc(T("root"))}</option>${folderPaths().filter((f) => folderKind(f.path) === "folder").map((f) => `<option ${f.path === parent ? "selected" : ""}>${esc(f.path)}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("color"))}</label><div class="colors">${TAG_COLORS.map((c, i) => `<label><input type="radio" name="color" value="${c}" ${i === 0 ? "checked" : ""} class="hide"><span class="swatch" style="display:inline-block;background:${c}"></span></label>`).join("")}</div></div>`, (f) => {
     const name = cleanName(f.name.value); if (!name) return T("nameRequired");
     const path = (f.parent.value ? f.parent.value + SEP : "") + name;
@@ -5133,7 +5185,7 @@ async function newFolder(parent = "") {
     return { path, color: (f.querySelector("input[name=color]:checked") || {}).value || TAG_COLORS[0] };
   }, T("save"), (el) => colorRadios(el));
   if (!r) return;
-  S.meta.folders.push(r); saveMeta(0);
+  S.meta.folders.push({ ...r, kind: "folder" }); saveMeta(0);
   S.view = r.path; lsSet("babak-sa-view", S.view); renderSide();
 }
 function colorRadios(el) {
@@ -5141,7 +5193,21 @@ function colorRadios(el) {
   el.addEventListener("change", sync); sync();
 }
 async function folderMenu(path) {
-  const a = await menuBox(leaf(path), [["cover", "🎨 " + T("nbEdit")], ["sub", "＋ " + T("subfolder")], ["rename", "✎ " + T("rename")], ["del", "🗑 " + T("delete"), "danger"]]);
+  const v = folderRecOf(path)?.vault, open = v && bookPages(path).some((n) => n.locked && S.unlocked.has(n.id));
+  const isF = folderKind(path) === "folder";
+  const a = await menuBox((isF ? "📁 " : "📓 ") + leaf(path), [...(isF ? [["sub", "📁 " + T("newFolder")], ["subbook", "📓 " + T("newNotebook")]] : [["cover", "🎨 " + T("nbEdit")]]), ["rename", "✎ " + T("renameMove")],
+    isF ? ["kbook", "📓 " + T("toBook")] : ["kfolder", "📁 " + T("toFolder")],
+    ...(v ? [open ? ["vlock", "🔒 " + T("vaultLockAll")] : ["vopen", "🔓 " + T("vaultOpenBook")], ["voff", "🔓 " + T("vaultOff")]] : [["vault", "🔐 " + T("vaultBook")]]),
+    ["del", "🗑 " + T("delete"), "danger"]]);
+  if (a === "vault") return lockBook(path);
+  if (a === "subbook") return coverDialog(null, path);
+  if (a === "kbook" || a === "kfolder") {
+    let rec = S.meta.folders.find((f) => f.path === path); if (!rec) { rec = { path, color: folderPaths().find((f) => f.path === path)?.color || "#7b8597" }; S.meta.folders.push(rec); }
+    rec.kind = a === "kbook" ? "book" : "folder"; saveMeta(0); renderSide(); return renderMain();
+  }
+  if (a === "vlock") return lockBookNow(path);
+  if (a === "vopen") return askBookKey(path);
+  if (a === "voff") return unlockBookRemove(path);
   if (a === "cover") return coverDialog(path);
   if (a === "sub") return newFolder(path);
   if (a === "rename") return renameFolder(path);
@@ -5319,6 +5385,7 @@ function assetsOfDoc(d) {
   const ids = new Set((d?.bgs || []).filter(Boolean));
   for (const m of String(d?.html || "").matchAll(/data-asset="([A-Za-z0-9_-]{8,64})"/g)) ids.add(m[1]);
   for (const a of d?.attachments || []) if (a && a.id) ids.add(a.id);
+  for (const x of d?.sealed || []) ids.add(x);
   return [...ids];
 }
 function setSyncState(s, err = "") { Sync.state = s; Sync.err = err; renderStatus(); const b = $("#syncBox"); if (b) b.innerHTML = syncBoxHtml(); }
@@ -5384,6 +5451,13 @@ async function syncNow(reason = "") {
       await io.putBlob(id, rec);
       up.add(id);
     };
+    const blobDel = lsGet(BLOB_DEL, []) || [];
+    if (blobDel.length && io.delBlob) { for (const id of blobDel) { try { await io.delBlob(id); } catch (e) { if (!(e && e.code === "notfound")) throw e; } up.delete(id); } lsSet(BLOB_DEL, (lsGet(BLOB_DEL, []) || []).filter((x) => !blobDel.includes(x))); }
+    const purge = lsGet(DRIVE_PURGE, []) || [];
+    if (purge.length && io.purge) {
+      for (const id of purge) { await io.purge("note-" + id); await io.purge("ink-" + id); if (S.notes.has(id)) markDirty("notes", id); }
+      lsSet(DRIVE_PURGE, (lsGet(DRIVE_PURGE, []) || []).filter((x) => !purge.includes(x)));
+    }
     const done = { notes: [], ink: [], del: [] };
     for (const id of Object.keys(d.del)) { try { await io.delNote(id); } catch (e) { if (e.code !== "sealed") throw e; } done.del.push(id); }
     for (const id of Object.keys(d.notes)) {
@@ -5617,6 +5691,10 @@ function gdriveIO(cfg) {
     },
     async getBlob(id) { const fid = await idOf("blob-" + id); return fid ? download(fid, "blob") : null; },
     putBlob: (id, rec) => upload("blob-" + id, rec.blob, rec.type || "application/octet-stream"),
+    delBlob: (id) => remove("blob-" + id),
+    purge: (name) => remove(name),
+    async revisions(name) { const fid = await idOf(name); if (!fid) return []; const j = await (await gfetch(GAPI + "/files/" + fid + "/revisions?pageSize=200&fields=revisions(id,modifiedTime,size)")).json(); return j.revisions || []; },
+    async revisionData(name, rid) { const fid = await idOf(name); return (await gfetch(GAPI + "/files/" + fid + "/revisions/" + rid + "?alt=media")).json(); },
     async delNote(id) { await upload("del-" + id, "{}", "application/json"); await remove("note-" + id); await remove("ink-" + id); },
     putNote: (id, doc) => upload("note-" + id, asJson(doc), "application/json"),
     putInk: (id, ink) => upload("ink-" + id, asJson(ink), "application/json"),
@@ -5966,6 +6044,14 @@ function doAct(act, el) {
   if (act === "readMode") return toggleReadMode();
   if (act === "focusMode") return toggleFocus();
   if (act === "home") return goHome();
+  if (act === "toolMore") return toolMoreMenu(el);
+  if (act === "ctxMore") return ctxMoreMenu(el, "pen");
+  if (act === "ctxMoreText") return ctxMoreMenu(el, "text");
+  if (act === "ctxDo") { const anchor = $(el.dataset.anchor) || el; closePop(); return doAct(el.dataset.x, anchor); }
+  if (act === "setTool") { closePop(); if (S.tool.mode !== el.dataset.mode) toast(T("tip_" + el.dataset.mode)); S.tool.mode = el.dataset.mode; applyMode(); return renderToolMore(); }
+  if (act === "vaultLockBook") return lockBookNow(S.view);
+  if (act === "vaultOpenBook") return askBookKey(S.view);
+  if (act === "history") { const hn = S.notes.get(S.activeId); return hn && historyPanel(hn); }
   if (act === "zoomReset") { setZoom(1); return saveZoom(); }
   if (act === "renamePage") return S.activeId && renamePage(S.activeId);
   const n = S.notes.get(S.activeId);
@@ -6002,8 +6088,8 @@ function doAct(act, el) {
     case "sealCert": return n && sealCertificate(n);
     case "scanHere": return n && scanDoc({ noteId: n.id });
     case "checklistHere": S.tool.mode = "type"; applyMode(); $("#content")?.focus(); return makeChecklist();
-    case "plusNotebook": return coverDialog(null, S.view && !S.view.startsWith("__") ? S.view : "");
-    case "newNotebookHere": return coverDialog(null, S.view && !S.view.startsWith("__") ? S.view : "");
+    case "plusNotebook": return coverDialog(null, containerOf(S.view));
+    case "newNotebookHere": return coverDialog(null, containerOf(S.view));
     case "editCover": return S.view && !S.view.startsWith("__") && coverDialog(S.view);
     case "beautify": S.meta.settings.smooth = S.meta.settings.smooth ? 0 : 1; saveMeta(0); el?.setAttribute("aria-pressed", String(!!S.meta.settings.smooth)); return toast(S.meta.settings.smooth ? "✨ " + T("beautifyOn") : T("beautifyOff"));
     case "library": captureActive(); flushAll(); S.screen = "library"; renderMain(); return;
@@ -6015,7 +6101,7 @@ function doAct(act, el) {
     case "record": return toggleRecording();
     case "shapes": S.tool.shapes = !S.tool.shapes; el?.setAttribute("aria-pressed", String(S.tool.shapes)); return toast(S.tool.shapes ? "△ " + T("autoShapesOn") : T("autoShapesOff"));
     case "lockCanvas": S.tool.lockCanvas = !S.tool.lockCanvas; el?.setAttribute("aria-pressed", String(S.tool.lockCanvas)); return toast(S.tool.lockCanvas ? "🔐 " + T("lockCanvasOn") : T("lockCanvasOff"));
-    case "newFolderHere": return newFolder(S.view !== "__all" && S.view !== "__trash" ? S.view : "");
+    case "newFolderHere": return newFolder(containerOf(S.view));
     case "emptyTrash": return emptyTrash();
     case "undo": return undoInk();
     case "redo": return redoInk();
@@ -6175,9 +6261,9 @@ addEventListener("keydown", () => { S.lastActivity = Date.now(); }, true);
 setInterval(() => {
   checkReminders();
   if (S.unlocked.size && Date.now() - S.lastActivity > 10 * 60e3) {
-    captureActive();
     const ids = Array.from(S.unlocked.keys());
-    Promise.all(ids.map((id) => (isBusy("note:" + id) ? runWrite("note:" + id) : null))).then(() => {
+    S.lastActivity = Date.now(); // run once
+    sealBeforeLock(ids).then(() => {
       for (const id of ids) if (!isBusy("note:" + id)) S.unlocked.delete(id);
       renderMain(); renderSide(); toast(T("autoLocked"));
     });
@@ -6565,6 +6651,264 @@ function openFromHash() {
 }
 addEventListener("hashchange", openFromHash);
 
+/* ---------------- vault: locked pages also encrypt their files (PDF, pictures, attachments); a whole notebook can be locked; earlier versions from Google Drive ---------------- */
+Object.assign(I18N.fa, {
+  historyNow: "نسخهٔ فعلی",
+  lockInfo: "متن، عنوان، دست‌نویس و فایل‌های این صفحه (PDF، عکس، پیوست) روی همین دستگاه با رمز شما رمزنگاری می‌شوند (AES-256-GCM) و فقط به‌صورت رمزشده به گوگل درایو می‌روند. رمز جایی ذخیره نمی‌شود: اگر فراموش شود، هیچ راهی برای باز کردن نیست.",
+  vaultBook: "قفل کل دفتر با رمز", vaultBookInfo: "همهٔ صفحه‌های این دفتر با یک رمز قفل می‌شوند؛ صفحه‌های تازهٔ این دفتر هم خودکار قفل می‌شوند. با باز کردن یکی، بقیه هم باز می‌شوند. پس از ۱۰ دقیقه بی‌کاری دوباره قفل می‌شود. رمز فراموش‌شده قابل بازیابی نیست.",
+  vaultBookDone: "دفتر «{n}» قفل شد ({c} صفحه).", vaultLockAll: "همین حالا قفل کن", vaultOpenBook: "باز کردن دفتر", vaultAsk: "رمز دفتر «{n}»", vaultWorking: "در حال رمزنگاری…", vaultLocked: "دفتر قفل شد.",
+  vaultOff: "برداشتن قفل دفتر", vaultOffDone: "قفل دفتر برداشته شد ({c} صفحه).", vaultNeedOpen: "اول دفتر را با رمزش باز کنید.",
+  history: "نسخه‌های قبلی", historyNeedDrive: "نسخه‌های قبلی از گوگل درایو خوانده می‌شوند. اول همگام‌سازی با گوگل درایو را روشن کنید (دکمهٔ ☁️).", historyLoading: "در حال خواندن نسخه‌ها از گوگل درایو…",
+  historyNone: "هنوز نسخهٔ قبلی‌ای از این صفحه در درایو نیست.", historyHint: "گوگل درایو نسخه‌های قبلی هر صفحه را تا حدود ۳۰ روز نگه می‌دارد. نسخهٔ انتخاب‌شده به‌صورت یک صفحهٔ تازه درست بعد از همین صفحه ساخته می‌شود؛ صفحهٔ فعلی دست نمی‌خورد.",
+  historyRestore: "بازگرداندن به‌صورت صفحهٔ تازه", historyDone: "نسخهٔ {d} به‌صورت صفحهٔ تازه ساخته شد.", historyVer: "نسخهٔ",
+});
+Object.assign(I18N.de, {
+  historyNow: "aktuelle Version",
+  lockInfo: "Text, Titel, Handschrift und Dateien dieser Seite (PDF, Bilder, Anhänge) werden auf diesem Gerät mit Ihrem Passwort verschlüsselt (AES-256-GCM) und nur verschlüsselt in Google Drive gespeichert. Das Passwort wird nirgends gespeichert: vergessen = nicht mehr zu öffnen.",
+  vaultBook: "Ganzes Notizbuch mit Passwort sperren", vaultBookInfo: "Alle Seiten dieses Notizbuchs werden mit einem Passwort gesperrt; neue Seiten auch. Eine öffnen öffnet alle. Nach 10 Minuten ohne Nutzung wieder gesperrt. Vergessenes Passwort ist nicht wiederherstellbar.",
+  vaultBookDone: "Notizbuch „{n}“ gesperrt ({c} Seiten).", vaultLockAll: "Jetzt sperren", vaultOpenBook: "Notizbuch öffnen", vaultAsk: "Passwort für „{n}“", vaultWorking: "Verschlüsseln…", vaultLocked: "Notizbuch gesperrt.",
+  vaultOff: "Notizbuch-Sperre entfernen", vaultOffDone: "Sperre entfernt ({c} Seiten).", vaultNeedOpen: "Bitte zuerst das Notizbuch mit seinem Passwort öffnen.",
+  history: "Frühere Versionen", historyNeedDrive: "Frühere Versionen kommen aus Google Drive. Bitte zuerst die Google-Drive-Synchronisierung einschalten (☁️).", historyLoading: "Versionen werden aus Google Drive gelesen…",
+  historyNone: "Noch keine frühere Version dieser Seite in Drive.", historyHint: "Google Drive behält frühere Versionen etwa 30 Tage. Die gewählte Version wird als neue Seite direkt nach dieser Seite angelegt; die aktuelle Seite bleibt unverändert.",
+  historyRestore: "Als neue Seite wiederherstellen", historyDone: "Version vom {d} als neue Seite angelegt.", historyVer: "Version",
+});
+Object.assign(I18N.en, {
+  historyNow: "current version",
+  lockInfo: "This page's text, title, handwriting and files (PDF, pictures, attachments) are encrypted on this device with your password (AES-256-GCM) and reach Google Drive only encrypted. The password is not stored anywhere: if forgotten, the page cannot be opened.",
+  vaultBook: "Lock whole notebook with a password", vaultBookInfo: "All pages of this notebook are locked with one password; new pages too. Opening one opens all. Locks again after 10 idle minutes. A forgotten password cannot be recovered.",
+  vaultBookDone: "Notebook “{n}” locked ({c} pages).", vaultLockAll: "Lock now", vaultOpenBook: "Open notebook", vaultAsk: "Password for “{n}”", vaultWorking: "Encrypting…", vaultLocked: "Notebook locked.",
+  vaultOff: "Remove notebook lock", vaultOffDone: "Lock removed ({c} pages).", vaultNeedOpen: "Open the notebook with its password first.",
+  history: "Earlier versions", historyNeedDrive: "Earlier versions come from Google Drive. Turn on Google Drive sync first (☁️).", historyLoading: "Reading versions from Google Drive…",
+  historyNone: "No earlier version of this page in Drive yet.", historyHint: "Google Drive keeps earlier versions for about 30 days. The chosen version is created as a new page right after this one; the current page stays as it is.",
+  historyRestore: "Restore as a new page", historyDone: "Version of {d} created as a new page.", historyVer: "Version",
+});
+
+/* ---- encrypted files: "BKSEAL1\n" + iv(12) + AES-GCM( u32 header length + {type,name} + bytes ) ---- */
+const SEAL_MAGIC = enc.encode("BKSEAL1\n");
+S.assetKeys = new Map(); // file id -> key of the unlocked page it belongs to
+async function isSealedBlob(b) {
+  if (!b || b.size < 28) return false;
+  const h = new Uint8Array(await b.slice(0, 8).arrayBuffer());
+  return h.every((x, i) => x === SEAL_MAGIC[i]);
+}
+async function sealBlob(blob, vk, name) {
+  const head = enc.encode(JSON.stringify({ t: blob.type || "application/octet-stream", n: name || blob.name || "" })), len = new Uint8Array(4);
+  new DataView(len.buffer).setUint32(0, head.length);
+  const plain = new Uint8Array(await new Blob([len, head, blob]).arrayBuffer()), iv = crypto.getRandomValues(new Uint8Array(12));
+  const c = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, vk.key, plain);
+  return new Blob([SEAL_MAGIC, iv, c], { type: "application/octet-stream" });
+}
+async function unsealBlob(blob, vk) {
+  const all = new Uint8Array(await blob.arrayBuffer());
+  const p = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: all.subarray(8, 20) }, vk.key, all.subarray(20)));
+  const hl = new DataView(p.buffer).getUint32(0), head = JSON.parse(dec.decode(p.subarray(4, 4 + hl)));
+  const b = new Blob([p.subarray(4 + hl)], { type: head.t || "application/octet-stream" });
+  try { Object.defineProperty(b, "name", { value: head.n || "" }); } catch {}
+  return b;
+}
+function noteAssetIds(n, u) {
+  const ids = new Set((n.bgs || []).filter(Boolean));
+  for (const a of (u || n).attachments || []) if (a && a.id) ids.add(a.id);
+  for (const m of String((u || n).html || "").matchAll(/(?:data-asset="|\/_blob\/)([A-Za-z0-9_-]{8,64})/g)) ids.add(m[1]);
+  return [...ids];
+}
+const BLOB_DEL = "babak-blob-del";
+const DRIVE_PURGE = "babak-drive-purge";
+/** Old plain versions of a page that is now locked must not stay in Drive's version history: the files are made new. */
+function queuePurge(id) { const l = lsGet(DRIVE_PURGE, []) || []; if (!l.includes(id)) l.push(id); lsSet(DRIVE_PURGE, l.slice(-2000)); }
+function queueBlobDelete(id) { const l = lsGet(BLOB_DEL, []) || []; if (!l.includes(id)) l.push(id); lsSet(BLOB_DEL, l.slice(-2000)); }
+function replaceAssetId(n, u, from, to) {
+  n.bgs = (n.bgs || []).map((x) => (x === from ? to : x));
+  if (u.attachments) u.attachments = u.attachments.map((a) => (a && a.id === from ? { ...a, id: to } : a));
+  if (u.html) u.html = u.html.split(from).join(to);
+}
+/** Encrypts every plain file of a locked page with the page's key (new file ids); the plain copies are removed here and in Drive. */
+async function sealNoteAssets(n, u) {
+  if (S.mode !== "local" || !u || !u.vk) return 0;
+  let changed = 0;
+  const sealed = new Set(n.sealed || []);
+  for (const id of noteAssetIds(n, u)) {
+    if (sealed.has(id)) { S.assetKeys.set(id, u.vk); continue; }
+    const rec = await localAssets.get(id); if (!rec || !rec.blob) continue;
+    if (await isSealedBlob(rec.blob)) { sealed.add(id); S.assetKeys.set(id, u.vk); continue; }
+    const sb = await sealBlob(rec.blob, u.vk, rec.name);
+    const nid = (await localAssets.upload(sb)).id;
+    replaceAssetId(n, u, id, nid); sealed.add(nid); S.assetKeys.set(nid, u.vk); changed++;
+    const ref = referencedAssets(n.id);
+    if (!ref.unknown && !ref.set.has(id)) { localAssets.delete(id).catch(() => {}); queueBlobDelete(id); }
+  }
+  n.sealed = noteAssetIds(n, u).filter((id) => sealed.has(id));
+  return changed;
+}
+/** Removing a lock: files become plain again. */
+async function unsealNoteAssets(n, u) {
+  if (S.mode !== "local" || !u || !u.vk) return;
+  for (const id of n.sealed || []) {
+    const rec = await localAssets.get(id); if (!rec || !rec.blob || !(await isSealedBlob(rec.blob))) continue;
+    const pb = await unsealBlob(rec.blob, u.vk);
+    const nid = (await localAssets.upload(pb)).id;
+    replaceAssetId(n, u, id, nid); localAssets.delete(id).catch(() => {}); queueBlobDelete(id);
+  }
+  n.sealed = [];
+}
+function registerAssetKeys(n, vk) { for (const id of n.sealed || []) S.assetKeys.set(id, vk); for (const id of n.bgs || []) S.assetKeys.set(id, vk); }
+// whenever a page is locked again, its files are forgotten in memory too
+{
+  const del = S.unlocked.delete.bind(S.unlocked), set = S.unlocked.set.bind(S.unlocked);
+  S.unlocked.delete = (id) => {
+    const n = S.notes.get(id), u = S.unlocked.get(id);
+    if (n && u) for (const a of new Set([...(n.sealed || []), ...noteAssetIds(n, u)])) { if (S.assetKeys.get(a) === u.vk) { S.assetKeys.delete(a); localAssets.forget(a); } }
+    return del(id);
+  };
+  S.unlocked.set = (id, u) => { const n = S.notes.get(id); if (n && u && u.vk) registerAssetKeys(n, u.vk); return set(id, u); };
+}
+const saltOf = (n) => { try { return JSON.parse(n.vault.slice(VP.length)).salt; } catch { return ""; } };
+/** One password opens every locked page that was locked together with it (same notebook lock). */
+async function unlockSameKey(n0, vk) {
+  const s0 = saltOf(n0); if (!s0) return 0;
+  let c = 0;
+  for (const n of S.notes.values()) {
+    if (n === n0 || !n.locked || S.unlocked.has(n.id) || saltOf(n) !== s0) continue;
+    try { const plain = await openVault(n.vault, vk); S.unlocked.set(n.id, { vk, ...fromPlain(plain) }); c++; } catch {}
+  }
+  return c;
+}
+/** Seals new files of unlocked pages and saves them before they are locked again. */
+async function sealBeforeLock(ids) {
+  captureActive();
+  for (const id of ids) {
+    const n = S.notes.get(id), u = S.unlocked.get(id); if (!n || !u) continue;
+    try { if (await sealNoteAssets(n, u)) { touch(n); saveNote(id, 0); } } catch (e) { console.warn("seal", e); }
+    if (isBusy("note:" + id)) await runWrite("note:" + id);
+  }
+}
+async function lockWith(n, vk) {
+  captureActive();
+  queuePurge(n.id);
+  const u = { vk, title: n.title, html: n.html, attachments: n.attachments, strokes: S.ink.get(n.id) || [] };
+  n.locked = true; n.title = ""; n.html = ""; n.attachments = []; touch(n);
+  S.unlocked.set(n.id, u);
+  try { await sealNoteAssets(n, u); } catch (e) { console.warn("seal", e); }
+  S.ink.delete(n.id); writers.delete("ink:" + n.id);
+  saveNote(n.id, 0);
+  S.store.delInk(n.id).catch(() => {});
+  S.lastActivity = Date.now();
+}
+
+/* ---- whole notebook ---- */
+const folderRecOf = (path) => S.meta.folders.find((f) => f.path === path);
+function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && n.folder === path); }
+function bookKey(path) { for (const n of bookPages(path)) { const u = n.locked && S.unlocked.get(n.id); if (u && u.vk) return u.vk; } return null; }
+async function askBookKey(path) {
+  const locked = bookPages(path).filter((n) => n.locked);
+  const known = bookKey(path); if (known) return known;
+  if (!locked.length) return null;
+  const r = await formBox(T("vaultAsk", { n: leaf(path) }), `<div class="field"><input type="password" name="p" autocomplete="current-password"></div>`, (f) => ({ pw: f.p.value }), T("unlock"));
+  if (!r) return null;
+  for (const n of locked) {
+    try { const vk = await vaultKeyFor(r.pw, n.vault), plain = await openVault(n.vault, vk); S.unlocked.set(n.id, { vk, ...fromPlain(plain) }); await unlockSameKey(n, vk); S.lastActivity = Date.now(); renderMain(); renderSide(); return vk; } catch {}
+  }
+  toast(T("wrongPassword"), { kind: "err" }); return null;
+}
+async function lockBook(path) {
+  const rec = folderRecOf(path) || (S.meta.folders.push({ path, color: "#7b8597" }), folderRecOf(path));
+  const r = await formBox(T("vaultBook"), `<p class="msg">${esc(T("vaultBookInfo"))}</p>
+    <div class="field"><label>${esc(T("password"))}</label><input type="password" name="p1" autocomplete="new-password"></div>
+    <div class="field"><label>${esc(T("passwordRepeat"))}</label><input type="password" name="p2" autocomplete="new-password"></div>`, (f) => {
+    if (f.p1.value.length < 4) return T("passShort");
+    if (f.p1.value !== f.p2.value) return T("passMismatch");
+    return { pw: f.p1.value };
+  }, T("lockNote"));
+  if (!r) return;
+  const { t, say } = sayToast(T("vaultWorking"));
+  try {
+    const vk = await vaultKeyFor(r.pw);
+    let c = 0;
+    for (const n of bookPages(path)) { if (n.locked || n.seal) continue; say(`${T("vaultWorking")} ${num(++c)}`); await lockWith(n, vk); }
+    rec.vault = true; saveMeta(0);
+    renderMain(); renderSide();
+    toast("🔐 " + T("vaultBookDone", { n: leaf(path), c: num(c) }));
+  } finally { t.remove(); }
+}
+async function unlockBookRemove(path) {
+  const vk = await askBookKey(path); if (!vk) return toast(T("vaultNeedOpen"), { kind: "err" });
+  let c = 0;
+  for (const n of bookPages(path)) { const u = S.unlocked.get(n.id); if (n.locked && u && u.vk === vk) { await removeLock(n); c++; } }
+  const rec = folderRecOf(path); if (rec) { delete rec.vault; saveMeta(0); }
+  renderMain(); renderSide(); toast("🔓 " + T("vaultOffDone", { c: num(c) }));
+}
+async function lockBookNow(path) {
+  const ids = bookPages(path).filter((n) => n.locked && S.unlocked.has(n.id)).map((n) => n.id);
+  await sealBeforeLock(ids);
+  for (const id of ids) S.unlocked.delete(id);
+  if (S.activeId && ids.includes(S.activeId)) S.screen = "library";
+  renderMain(); renderSide(); toast("🔒 " + T("vaultLocked"));
+}
+/** A new page in a locked notebook is locked at once with the notebook's key. */
+async function vaultNewPage(n) {
+  const rec = folderRecOf(n.folder); if (!rec || !rec.vault || n.locked) return;
+  const vk = bookKey(n.folder) || (await askBookKey(n.folder));
+  if (!vk) return toast(T("vaultNeedOpen"), { kind: "err" });
+  await lockWith(n, vk); renderMain(); renderSide();
+}
+
+/* ---- earlier versions from Google Drive ---- */
+function driveIO() { const c = lsGet(SYNC_KEY, null); return c && c.kind === "gdrive" && c.token ? gdriveIO(JSON.parse(JSON.stringify(c))) : null; }
+async function historyPanel(n) {
+  const io = driveIO(); if (!io) return confirmBox(T("historyNeedDrive"), { ok: T("ok") });
+  const { t } = sayToast(T("historyLoading"));
+  let revs = [];
+  try { revs = (await io.revisions("note-" + n.id)).sort((a, b) => (a.modifiedTime < b.modifiedTime ? 1 : -1)); }
+  catch (e) { t.remove(); return toast(gdsErr(e), { kind: "err" }); }
+  t.remove();
+  if (revs.length < 1) return toast(T("historyNone"));
+  const fmt = (iso) => fmtDate(iso, true);
+  const items = revs.slice(0, 60).map((r, i) => [r.id, `🕘 ${fmt(r.modifiedTime)}${i === 0 ? " — " + T("historyNow") : ""}`]);
+  const pick = await dialog({ title: `${T("history")} — ${titleOf(n)}`, body: `<p class="msg">${esc(T("historyHint"))}</p><div class="menu">${items.map(([v, l]) => `<button type="button" data-m="${esc(v)}">${esc(l)}</button>`).join("")}</div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.querySelector(".menu").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (!pick) return;
+  const rev = revs.find((r) => r.id === pick); if (!rev) return;
+  const { t: t2 } = sayToast(T("historyLoading"));
+  try {
+    const doc = await io.revisionData("note-" + n.id, rev.id);
+    let ink = null;
+    try {
+      const ir = (await io.revisions("ink-" + n.id)).filter((r) => Date.parse(r.modifiedTime) <= Date.parse(rev.modifiedTime) + 120e3).sort((a, b) => (a.modifiedTime < b.modifiedTime ? 1 : -1))[0];
+      if (ir) ink = await io.revisionData("ink-" + n.id, ir.id);
+    } catch {}
+    for (const a of assetsOfDoc(doc)) if (!(await localAssets.has(a))) { try { const b = await io.getBlob(a); if (b) await localAssets.putId(a, b); } catch {} }
+    const now = new Date().toISOString(), label = fmt(rev.modifiedTime);
+    const c = normNote({ ...doc, id: uid(), pinned: false, trashed: false, createdAt: now, updatedAt: now, title: doc.locked ? "" : `${doc.title || T("untitled")} (${T("historyVer")} ${label})` });
+    c.order = orderAfter(n);
+    S.notes.set(c.id, c);
+    if (!c.locked) { S.ink.set(c.id, inkFromDoc(ink)); saveInk(c.id, 0); }
+    saveNote(c.id, 0);
+    openNote(c.id);
+    toast("🕘 " + T("historyDone", { d: label }));
+  } catch (e) { toast(gdsErr(e), { kind: "err" }); }
+  finally { t2.remove(); }
+}
+
+/* ---- tidy toolbar: rarely used tools in small menus ---- */
+function toolMoreMenu(el) {
+  const row = (m, icon, label) => `<button class="irow" data-act="setTool" data-mode="${m}" aria-pressed="${S.tool.mode === m}">${ic(icon)}<span>${esc(label)}</span></button>`;
+  popover(el, `<div class="ilist">${row("tape", "tape", T("tapeTool"))}${row("laser", "laser", T("laserTool"))}</div>`, "toolmorepop");
+}
+function renderToolMore() {
+  const b = $("#toolMore"); if (!b) return;
+  const on = ["tape", "laser"].includes(S.tool.mode);
+  b.setAttribute("aria-pressed", String(on)); b.innerHTML = on ? ic(S.tool.mode) + `<i class="tcb"></i>` : ic("chev");
+  refreshToolChrome();
+}
+function ctxMoreMenu(el, kind) {
+  const n = S.notes.get(S.activeId), t = S.tool, a = "#" + el.id;
+  const row = (x, icon, label, extra = "") => `<button class="irow" data-act="ctxDo" data-x="${x}" data-anchor="${a}" data-pop="1" ${extra}>${icon}<span>${esc(label)}</span></button>`;
+  const html = kind === "pen"
+    ? row("symbolsMenu", `<span class="symic">Ω</span>`, T("symbols")) + row("lockCanvas", ic("lock"), T("lockCanvas"), `aria-pressed="${!!t.lockCanvas}"`) + row("clearInk", ic("trash"), T("clearInk")) + (S.sample && S.sampleImages && n && !n.locked ? row("ocr", `<b>Aa→</b>`, T("ocr")) : "")
+    : row("commentAdd", ic("comment"), T("commentTitle")) + row("symbolsMenu", `<span class="symic">Ω</span>`, T("symbols"));
+  popover(el, `<div class="ilist">${html}</div>`, "ctxmorepop");
+}
+
 /* ---------------- round 2: home button, page names, notebook pages stay inside, pinch zoom, swipe to next page, share target ---------------- */
 Object.assign(I18N.fa, { homeBtn: "صفحهٔ اصلی", renamePage: "تغییر نام صفحه", pageName: "نام صفحه", nextPagePull: "رها کنید: صفحهٔ بعد", prevPagePull: "رها کنید: صفحهٔ قبل", lastPage: "این آخرین صفحهٔ دفترچه است", firstPage: "این اولین صفحه است", zoomReset: "اندازهٔ عادی", shareImported: "فایل اشتراکی وارد شد", sharedText: "متن اشتراکی" });
 Object.assign(I18N.de, { homeBtn: "Startseite", renamePage: "Seite umbenennen", pageName: "Seitenname", nextPagePull: "Loslassen: nächste Seite", prevPagePull: "Loslassen: vorige Seite", lastPage: "Letzte Seite des Notizbuchs", firstPage: "Erste Seite", zoomReset: "Normale Größe", shareImported: "Geteilte Datei importiert", sharedText: "Geteilter Text" });
@@ -6736,7 +7080,7 @@ if ("launchQueue" in window) {
   try { launchQueue.setConsumer(async (lp) => { if (!lp || !lp.files || !lp.files.length) return; const files = []; for (const h of lp.files) { try { files.push(await h.getFile()); } catch {} } takeShared(files); }); } catch {}
 }
 if ("caches" in window) readShareInbox();
-window.__nb = { S, openNote, newNote, siblings, get ZOOM() { return ZOOM; } }; // for automatic tests
+window.__nb = { S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
