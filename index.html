@@ -261,7 +261,7 @@ label.radio input{width:18px;height:18px;accent-color:var(--accent)}
 .qcbar button:hover{background:var(--bg)}
 .pcolors .swatch{display:grid;place-items:center;font-size:13px;color:var(--muted)}
 .pcpick{position:relative;overflow:hidden;cursor:pointer}
-body.focusmode .top,body.focusmode .side,body.focusmode #ctx{display:none!important}
+body.focusmode .top,body.focusmode .side{display:none!important}
 body.focusmode .app{grid-template-columns:1fr!important}
 #roBtn[aria-pressed=true]{background:var(--accent-soft,#fde7dd)}
 .bulkbar{position:fixed;z-index:80;left:50%;bottom:16px;transform:translateX(-50%);display:flex;flex-wrap:wrap;gap:4px;align-items:center;max-width:calc(100vw - 24px);background:var(--card,#fff);border:1px solid var(--line);border-radius:14px;padding:6px 8px;box-shadow:0 8px 28px rgba(0,0,0,.2)}
@@ -685,8 +685,8 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .bar .btn.icon.ghost{color:var(--muted)}.bar .btn.icon.ghost:hover{color:var(--ink)}
 .bar-ctx{gap:4px}.bar-ctx .btn.icon{min-width:34px;min-height:34px}
 .bar-ctx .swatch{width:20px;height:20px}
-.fsexit{display:none!important}body.focusmode .fsexit{display:inline-flex!important}
 @media (max-width:760px){.bar-ctx{flex-wrap:wrap;justify-content:center;width:auto;margin-inline:12px;row-gap:4px;overflow:visible}.bar-ctx .sep{display:none}}
+#fsBtn[aria-pressed="true"]{background:var(--accent-soft,#fde7dd);color:var(--accent)}
 </style>
 
 <div class="app" id="app">
@@ -2855,7 +2855,7 @@ function renderMain() {
       <button class="btn icon ghost homebtn" data-act="home" title="${esc(T("homeBtn"))}" aria-label="${esc(T("homeBtn"))}">${ic("home")}</button>
       <button class="btn icon ghost" data-act="sidebar" data-pop="1" title="${esc(T("library"))}">${ic("sidebar")}</button>
       <input id="titleIn" class="ttl" value="${esc(w.title)}" placeholder="${esc(T("untitled"))}" ${ro_ ? "readonly" : ""} maxlength="200" dir="auto">
-      <button class="btn ghost rochip fsexit" data-act="focusMode" title="${esc(T("fullScreen"))}">${ic("expand")} ✕</button>
+      <button class="btn icon ghost" id="fsBtn" data-act="focusMode" aria-pressed="${document.body.classList.contains("focusmode")}" title="${esc(T("fullScreen"))}" aria-label="${esc(T("fullScreen"))}">${ic("expand")}</button>
       ${readMode(n) && !n.trashed && !S.readOnly && !isFrozen(n) ? `<button class="btn ghost rochip" id="roBtn" data-act="readMode" aria-pressed="true" title="${esc(T("readOff"))}">${ic("book")}<span>${esc(T("readMode"))}</span> ✕</button>` : ""}
     </div>
     <div class="dock ${ro_ ? "hide" : ""}" role="toolbar">
@@ -4181,7 +4181,6 @@ function noteMenu(n) {
     if (!sealedLocked(n) && !S.readOnly) items.push(["renamePage", "✏️ " + T("renamePage")]);
     items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "unpin" : "pin")]);
     if (!S.readOnly && !isFrozen(n)) items.push(["readMode", "📖 " + T(readMode(n) ? "readOff" : "readTitle")]);
-    items.push(["focusMode", "⛶ " + T("fullScreen")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
     if (n.locked) items.push(["lockNow", "🔒 " + T("lockNow")], ["removeLock", "🔓 " + T("removeLock")]);
     else items.push(["lock", "🔒 " + T("lockNote")]);
