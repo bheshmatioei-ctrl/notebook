@@ -822,7 +822,7 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 <input type="file" id="fileIn" class="hide" multiple accept="image/*,application/pdf">
 <input type="file" id="importIn" class="hide" accept=".json,application/json,.zip,application/zip">
 <input type="file" id="syncIn" class="hide" accept=".zip,application/zip,application/x-zip-compressed">
-<input type="file" id="anyIn" class="vhide" multiple accept=".pdf,application/pdf,image/*,.docx,.odt,.md,.markdown,.txt,.text,.rtf,.html,.htm,.enex,.csv,.tsv,.xlsx,.json,.zip">
+<input type="file" id="anyIn" class="vhide" multiple accept=".smmx,.xmind,.mm,.opml,.pdf,application/pdf,image/*,.docx,.odt,.md,.markdown,.txt,.text,.rtf,.html,.htm,.enex,.csv,.tsv,.xlsx,.json,.zip">
 <input type="file" id="docIn" class="vhide" accept="application/pdf,.pdf,image/*">
 <input type="file" id="docIn2" class="vhide" accept="application/pdf,.pdf,image/*">
 <input type="file" id="camIn" class="vhide" accept="image/*" capture="environment">
@@ -4299,6 +4299,7 @@ function noteMenu(n) {
   const items = [];
   if (!n.trashed) {
     if (!sealedLocked(n) && !S.readOnly) items.push(["renamePage", "✏️ " + T("renamePage")]);
+    if (!n.mm && !sealedLocked(n) && !S.readOnly) items.push(["pageToMap", "🧠 " + T("mmToMap")]);
     items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "unpin" : "pin")]);
     if (!S.readOnly && !isFrozen(n)) items.push(["readMode", "📖 " + T(readMode(n) ? "readOff" : "readTitle")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
@@ -5085,6 +5086,7 @@ async function importAny(files, host) {
         continue;
       }
       if (ext === "json") { t.remove(); await importFile(file); continue; }
+      if (MAP_EXTS.includes(ext)) { t.remove(); const m = await mapFromFile(file); if (m) made.push(m); continue; }
       if (ext === "zip") { const r = await importZip(file, host, say); made.push(...r); continue; }
       const items = await fileToItems(file.name, () => file.text(), () => file.arrayBuffer());
       if (!items) { toast(T("importUnknown").replace("{f}", file.name), { kind: "err" }); continue; }
@@ -5094,7 +5096,7 @@ async function importAny(files, host) {
   finally { t.remove(); }
   if (made.length) {
     first = made[0]; renderSide();
-    for (const n of made) makeThumb(n).then((ch) => ch && saveNote(n.id, 0)).catch(() => {});
+    for (const n of made.filter((q) => !q.mm)) makeThumb(n).then((ch) => ch && saveNote(n.id, 0)).catch(() => {});
     if (!host && first.folder) { S.view = first.folder; lsSet("babak-sa-view", S.view); }
     S.tool.mode = "type"; openNote(first.id);
     toast("📥 " + T("importDone", { n: num(made.length) }));
@@ -6166,6 +6168,7 @@ function doAct(act, el) {
   if (act === "home") return goHome();
   if (act === "storeFiles") return pickStoreFiles();
   if (act === "newMap") return newMap();
+  if (act === "pageToMap") { const pn = S.notes.get(S.activeId); return pn && pageToMap(pn); }
   if (act === "toolMore") return toolMoreMenu(el);
   if (act === "ctxMore") return ctxMoreMenu(el, "pen");
   if (act === "ctxMoreText") return ctxMoreMenu(el, "text");
@@ -7270,6 +7273,7 @@ function renderMap(n) {
       <button class="btn icon ghost" data-mm="outline" title="${esc(T("mmOutline"))}" aria-pressed="false">☰</button>
       <button class="btn icon ghost" data-mm="ro" title="${esc(T("mmReadOnly"))}" aria-pressed="false">👁</button>
       <button class="btn icon ghost" data-mm="fit" title="${esc(T("mmFit"))}">⤢</button>
+      <button class="btn icon ghost" data-mm="io" data-pop="1" title="${esc(T("mmIO"))}">⇅</button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
   <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
@@ -7760,13 +7764,14 @@ document.addEventListener("click", (e) => {
   if (a === "fit") return mmFit();
   if (a === "tidy") return mmTidy();
   if (a === "layout") return mmLayoutPop(b);
+  if (a === "io") return mmIOPanel(b);
   if (a === "outline") return mmToggleSide();
   if (a === "ro") return mmToggleRo();
   if (a === "unfocus") { MM.focus = null; mmDraw(); return mmFit(); }
   if (a === "style") return mmStylePop(b);
   if (a === "task" && x) { mmPush(); x.task = !x.task; if (!x.task) { delete x.task; delete x.done; } mmSave(); return mmDraw(); }
   if (a === "focus" && x) { MM.focus = x.id; mmDraw(); return mmFitIds([x.id, ...mmDesc(MM.d, x.id)]); }
-  if (MM.ro && !["fit", "layout", "outline", "ro", "unfocus"].includes(a)) return;
+  if (MM.ro && !["fit", "layout", "outline", "ro", "unfocus", "io"].includes(a)) return;
   if (a === "free") { MM.sel = null; return mmAdd("free"); }
   if (a === "child") return mmAdd("child");
   if (a === "sibling") return mmAdd("sibling");
@@ -7799,6 +7804,273 @@ document.addEventListener("keydown", (e) => {
 });
 addEventListener("resize", () => { if (MM && $("#mmStage")) { mmSize(); mmPlaceTb(); } });
 document.addEventListener("fullscreenchange", () => setTimeout(() => { if (MM && $("#mmStage")) mmSize(); }, 200));
+
+/* ---------------- mind map in & out: PNG, PDF, SVG, OPML, FreeMind, Markdown, text, notebook page; SimpleMind, XMind, FreeMind, OPML, Markdown, text, page ---------------- */
+Object.assign(I18N.fa, { mmIO: "ورودی و خروجی", mmExport: "خروجی گرفتن", mmImport: "وارد کردن نقشه", mmImportHint: "SimpleMind (.smmx)، XMind (.xmind)، FreeMind (.mm)، OPML، Markdown یا متن درختی — یک نقشهٔ تازه ساخته می‌شود.", ex_png: "عکس PNG", ex_pdf: "PDF", ex_svg: "SVG (برداری)", ex_opml: "OPML (بیشتر برنامه‌های نقشهٔ ذهنی)", ex_mm: "FreeMind (.mm) — برای SimpleMind، XMind و…", ex_md: "Markdown", ex_txt: "متن درختی", ex_page: "صفحهٔ دفترچه (فهرست)", mmToMap: "تبدیل به نقشهٔ ذهنی", mmMadePage: "صفحهٔ دفترچه از نقشه ساخته شد.", mmMadeMap: "نقشهٔ ذهنی ساخته شد ({n} ایده).", mmBadFile: "این فایل نقشه خوانده نشد: {f}", mmExporting: "در حال ساختن خروجی…" });
+Object.assign(I18N.de, { mmIO: "Import & Export", mmExport: "Exportieren", mmImport: "Karte importieren", mmImportHint: "SimpleMind (.smmx), XMind (.xmind), FreeMind (.mm), OPML, Markdown oder eingerückter Text — es entsteht eine neue Karte.", ex_png: "Bild PNG", ex_pdf: "PDF", ex_svg: "SVG (Vektor)", ex_opml: "OPML (die meisten Mindmap-Apps)", ex_mm: "FreeMind (.mm) — für SimpleMind, XMind …", ex_md: "Markdown", ex_txt: "Eingerückter Text", ex_page: "Notizbuchseite (Liste)", mmToMap: "In Mindmap umwandeln", mmMadePage: "Notizbuchseite aus der Karte erstellt.", mmMadeMap: "Mindmap erstellt ({n} Ideen).", mmBadFile: "Diese Kartendatei konnte nicht gelesen werden: {f}", mmExporting: "Export wird erstellt…" });
+Object.assign(I18N.en, { mmIO: "Import & export", mmExport: "Export", mmImport: "Import a map", mmImportHint: "SimpleMind (.smmx), XMind (.xmind), FreeMind (.mm), OPML, Markdown or indented text — a new map is created.", ex_png: "Picture PNG", ex_pdf: "PDF", ex_svg: "SVG (vector)", ex_opml: "OPML (most mind-map apps)", ex_mm: "FreeMind (.mm) — for SimpleMind, XMind …", ex_md: "Markdown", ex_txt: "Indented text", ex_page: "Notebook page (list)", mmToMap: "Turn into mind map", mmMadePage: "Notebook page made from the map.", mmMadeMap: "Mind map created ({n} ideas).", mmBadFile: "This map file could not be read: {f}", mmExporting: "Making the export…" });
+const MAP_EXTS = ["smmx", "xmind", "mm", "opml"];
+/** The map as a tree, branches in their order; free ideas follow the centre. */
+function mmTree(d) {
+  const mk = (x) => ({ x, kids: mmKids(d, x.id).map(mk) });
+  return [mk(d.nodes[d.root]), ...Object.values(d.nodes).filter((x) => !x.parent && x.id !== d.root).map(mk)];
+}
+const mmLabel = (x) => (x.sym.filter((s) => !s.startsWith("img:")).join("") + (x.sym.length ? " " : "") + (x.text || "")).trim();
+function mmToText(d) { const out = []; const w = (t, k) => { out.push("\t".repeat(k) + (t.x.task ? (t.x.done ? "[x] " : "[ ] ") : "") + mmLabel(t.x)); t.kids.forEach((c) => w(c, k + 1)); }; mmTree(d).forEach((t) => w(t, 0)); return out.join("\n"); }
+function mmToMd(d) {
+  const out = [];
+  const w = (t, k) => {
+    const x = t.x, lab = mmLabel(x), links = x.links.filter((l) => l.t === "url").map((l) => `[${l.label || l.v}](${/^[a-z]+:/i.test(l.v) ? l.v : "https://" + l.v})`).join(" ");
+    if (k === 0) out.push(`# ${lab}`, ""); else out.push(`${"  ".repeat(k - 1)}- ${x.task ? (x.done ? "[x] " : "[ ] ") : ""}${lab}${links ? " " + links : ""}`);
+    if (x.note) out.push(...x.note.split("\n").map((l) => `${"  ".repeat(Math.max(0, k))}> ${l}`));
+    t.kids.forEach((c) => w(c, k + 1));
+    if (k === 0) out.push("");
+  };
+  mmTree(d).forEach((t) => w(t, 0));
+  if (d.rels.length) { out.push("", "---", ""); for (const r of d.rels) out.push(`- ${mmLabel(d.nodes[r.a])} → ${mmLabel(d.nodes[r.b])}${r.kind ? ` (${r.kind})` : ""}${r.label ? `: ${r.label}` : ""}`); }
+  return out.join("\n");
+}
+function mmToOpml(d, title) {
+  const w = (t, k) => `${"  ".repeat(k + 2)}<outline text="${xmlEsc(mmLabel(t.x))}"${t.x.note ? ` _note="${xmlEsc(t.x.note)}"` : ""}${t.x.task ? ` _status="${t.x.done ? "checked" : "unchecked"}"` : ""}${t.x.links[0]?.t === "url" ? ` type="link" url="${xmlEsc(t.x.links[0].v)}"` : ""}${t.kids.length ? ">\n" + t.kids.map((c) => w(c, k + 1)).join("\n") + `\n${"  ".repeat(k + 2)}</outline>` : "/>"}`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<opml version="2.0">\n  <head><title>${xmlEsc(title)}</title></head>\n  <body>\n${mmTree(d).map((t) => w(t, 0)).join("\n")}\n  </body>\n</opml>\n`;
+}
+function mmToFreeMind(d) {
+  const w = (t, k) => {
+    const x = t.x, url = x.links.find((l) => l.t === "url");
+    return `${"  ".repeat(k)}<node ID="ID_${x.id}" TEXT="${xmlEsc(mmLabel(x))}" COLOR="${x.color}"${url ? ` LINK="${xmlEsc(url.v)}"` : ""}>` +
+      d.rels.filter((r) => r.a === x.id).map((r) => `<arrowlink DESTINATION="ID_${r.b}" ENDARROW="Default"${r.label ? ` MIDDLE_LABEL="${xmlEsc(r.label)}"` : ""}/>`).join("") +
+      (x.task ? `<icon BUILTIN="${x.done ? "button_ok" : "unchecked"}"/>` : "") +
+      (x.note ? `<richcontent TYPE="NOTE"><html><head></head><body>${x.note.split("\n").map((l) => `<p>${xmlEsc(l)}</p>`).join("")}</body></html></richcontent>` : "") +
+      (t.kids.length ? "\n" + t.kids.map((c) => w(c, k + 1)).join("\n") + `\n${"  ".repeat(k)}` : "") + `</node>`;
+  };
+  const [root, ...free] = mmTree(d); root.kids.push(...free);
+  return `<map version="1.0.1">\n${w(root, 0)}\n</map>\n`;
+}
+/** The map exactly as drawn (branches, relations, ideas), as a stand-alone SVG. */
+async function mmToSvg() {
+  const d = MM.d, hid = mmHidden(d), vis = Object.values(d.nodes).filter((x) => !hid.has(x.id)), pad = 40;
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const x of vis) { const s = MM.size[x.id] || { w: 120, h: 40 }; x0 = Math.min(x0, x.x - s.w / 2); x1 = Math.max(x1, x.x + s.w / 2); y0 = Math.min(y0, x.y - s.h / 2); y1 = Math.max(y1, x.y + s.h / 2); }
+  const W = Math.ceil(x1 - x0 + pad * 2), H = Math.ceil(y1 - y0 + pad * 2), tx = pad - x0, ty = pad - y0;
+  const cv = document.createElement("canvas").getContext("2d"), font = getComputedStyle(document.body).fontFamily.replace(/"/g, "'");
+  const wrap = (t, px, bold, maxW) => {
+    cv.font = `${bold ? 700 : 400} ${px}px ${font}`; const lines = [];
+    for (const para of String(t).split("\n")) { let cur = ""; for (const w of para.split(/\s+/)) { const tryS = cur ? cur + " " + w : w; if (cur && cv.measureText(tryS).width > maxW) { lines.push(cur); cur = w; } else cur = tryS; } lines.push(cur); }
+    return lines;
+  };
+  const imgs = {};
+  for (const x of vis) for (const s of x.sym) if (s.startsWith("img:") && !imgs[s]) { try { const rec = await localAssets.get(s.slice(4)); if (rec?.blob) imgs[s] = await new Promise((r) => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(rec.blob); }); } catch {} }
+  let body = "";
+  for (const x of vis) {
+    const s = MM.size[x.id] || { w: 120, h: 40 }, st = x.st || {}, root = x.id === d.root, bx = x.x - s.w / 2, by = x.y - s.h / 2;
+    const fs = st.fs || (root ? 19 : 15), bold = st.b || root, rx = x.shape === "pill" ? s.h / 2 : x.shape === "rect" ? 3 : x.shape === "oval" ? s.h / 2 : 12;
+    const fill = root ? x.color : st.fill || (x.shape === "line" ? "none" : "#ffffff"), tc = root ? "#ffffff" : st.tc || "#25334a";
+    if (x.shape === "line" && !root) body += `<line x1="${bx}" y1="${by + s.h}" x2="${bx + s.w}" y2="${by + s.h}" stroke="${x.color}" stroke-width="3"/>`;
+    else body += `<rect x="${bx}" y="${by}" width="${s.w}" height="${s.h}" rx="${rx}" fill="${fill}" stroke="${st.bs === "none" ? "none" : x.color}" stroke-width="${st.bw ?? 2}"${st.bs === "dashed" ? ' stroke-dasharray="7 5"' : st.bs === "dotted" ? ' stroke-dasharray="2 4"' : ""}/>`;
+    const prog = mmKids(d, x.id).length ? mmProgress(d, x.id) : null;
+    const txt = (x.task ? (x.done ? "☑ " : "☐ ") : "") + x.sym.filter((q) => !q.startsWith("img:")).join("") + (x.sym.some((q) => !q.startsWith("img:")) ? " " : "") + (x.text || "");
+    let iw = x.sym.filter((q) => imgs[q]).length * (fs + 4);
+    if (prog !== null) { // progress circle like on screen
+      const rtl = document.documentElement.dir === "rtl", pc = root ? "#ffffff" : x.color, r = 8, cx = rtl ? bx + s.w - 22 : bx + 22, a = (prog / 100) * Math.PI * 2;
+      body += `<circle cx="${cx}" cy="${x.y}" r="${r}" fill="none" stroke="${pc}" stroke-width="2"/>` + (prog >= 100 ? `<circle cx="${cx}" cy="${x.y}" r="${r}" fill="${pc}"/>` : prog > 0 ? `<path d="M${cx} ${x.y} L${cx} ${x.y - r} A${r} ${r} 0 ${a > Math.PI ? 1 : 0} 1 ${cx + r * Math.sin(a)} ${x.y - r * Math.cos(a)} Z" fill="${pc}"/>` : "");
+      iw += rtl ? -24 : 24;
+    }
+    const lines = wrap(txt, fs, bold, Math.max(40, s.w - 22 - Math.abs(iw))), lh = fs * 1.35, top = x.y - (lines.length * lh) / 2 + fs * 0.95;
+    x.sym.filter((q) => imgs[q]).forEach((q, i) => (body += `<image href="${imgs[q]}" x="${bx + 10 + i * (fs + 4)}" y="${x.y - fs / 2}" width="${fs}" height="${fs}"/>`));
+    body += `<text x="${x.x + iw / 2}" font-size="${fs}" font-weight="${bold ? 700 : 400}"${st.i ? ' font-style="italic"' : ""} fill="${tc}" text-anchor="middle" font-family="${font}"${x.done && prog === null ? ' text-decoration="line-through"' : ""}>${lines.map((l, i) => `<tspan x="${x.x + iw / 2}" y="${top + i * lh}">${xmlEsc(l)}</tspan>`).join("")}</text>`;
+  }
+  for (const el of document.querySelectorAll("#mmNodes .mmrl")) {
+    const r = d.rels.find((q) => q.id === el.dataset.rel); if (!r) continue;
+    const cx = parseFloat(el.style.left), cy = parseFloat(el.style.top), w = el.offsetWidth, h = el.offsetHeight, col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597";
+    body += `<rect x="${cx - w / 2}" y="${cy - h / 2}" width="${w}" height="${h}" rx="7" fill="#fbf8f2" stroke="${col}" stroke-width="1.5"/><text x="${cx}" y="${cy + 4.5}" font-size="12.5" fill="${col}" text-anchor="middle" font-family="${font}">${xmlEsc(r.label)}</text>`;
+  }
+  const lines = ($("#mmSvg")?.innerHTML || "").replace(/<path[^>]*stroke-opacity="0"[^>]*\/>/g, "");
+  return { svg: `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><rect width="100%" height="100%" fill="#fbf8f2"/><g transform="translate(${tx},${ty})">${lines}${body}</g></svg>`, W, H };
+}
+async function mmToCanvas() {
+  const { svg, W, H } = await mmToSvg(), k = Math.min(2, 7000 / Math.max(W, H));
+  const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const c = document.createElement("canvas"); c.width = Math.round(W * k); c.height = Math.round(H * k);
+    const x = c.getContext("2d"); x.fillStyle = "#fbf8f2"; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height); return c;
+  } finally { URL.revokeObjectURL(url); }
+}
+function mmToPageHtml(d) {
+  const li = (t) => { const x = t.x, url = x.links.filter((l) => l.t === "url").map((l) => ` <a href="${esc(/^[a-z]+:/i.test(l.v) ? l.v : "https://" + l.v)}">${esc(l.label || l.v)}</a>`).join("");
+    return `<li>${x.task ? (x.done ? "☑ " : "☐ ") : ""}${esc(mmLabel(x))}${url}${x.note ? `<blockquote>${esc(x.note).replace(/\n/g, "<br>")}</blockquote>` : ""}${t.kids.length ? `<ul>${t.kids.map(li).join("")}</ul>` : ""}</li>`; };
+  return mmTree(d).map((t) => `<h3>${esc(mmLabel(t.x))}</h3>${t.kids.length ? `<ul>${t.kids.map(li).join("")}</ul>` : ""}`).join("");
+}
+async function mmExport(kind) {
+  const n = MM.n, d = MM.d, base = (n.title || mmLabel(d.nodes[d.root]) || "mindmap").replace(/[\\/:*?"<>|]+/g, "-").slice(0, 80);
+  const { t } = sayToast(T("mmExporting"));
+  try {
+    if (kind === "png") return saveFile(base + ".png", await canvasBlob(await mmToCanvas(), "image/png"));
+    if (kind === "pdf") { const c = await mmToCanvas(), wPt = Math.min(1600, c.width / 2); return saveFile(base + ".pdf", await jpegPdf([c], wPt, null, base)); }
+    if (kind === "svg") return saveFile(base + ".svg", new Blob([(await mmToSvg()).svg], { type: "image/svg+xml" }));
+    if (kind === "opml") return saveFile(base + ".opml", new Blob([mmToOpml(d, base)], { type: "text/x-opml" }));
+    if (kind === "mm") return saveFile(base + ".mm", new Blob([mmToFreeMind(d)], { type: "application/x-freemind" }));
+    if (kind === "md") return saveFile(base + ".md", new Blob([mmToMd(d)], { type: "text/markdown" }));
+    if (kind === "txt") return saveFile(base + ".txt", new Blob([mmToText(d)], { type: "text/plain" }));
+    if (kind === "page") {
+      const now = new Date().toISOString(), p = normNote({ id: uid(), title: base, html: sanitize(mmToPageHtml(d)), folder: n.folder, pageStyle: S.meta.settings.pageStyle, createdAt: now, updatedAt: now });
+      p.order = orderAfter(n); S.notes.set(p.id, p); S.ink.set(p.id, []); saveNote(p.id, 0); toast("📄 " + T("mmMadePage")); return openNote(p.id);
+    }
+  } catch (e) { console.error(e); toast(T("exportFailed") + (e?.message || ""), { kind: "err" }); }
+  finally { t.remove(); }
+}
+async function mmIOPanel(anchor) {
+  const ex = ["png", "pdf", "svg", "opml", "mm", "md", "txt", "page"], icon = { png: "🖼", pdf: "📕", svg: "✒️", opml: "🗂", mm: "🧠", md: "Ⓜ️", txt: "📝", page: "📄" };
+  const el = popover(anchor, `<h4>⇅ ${esc(T("mmIO"))}</h4><span class="pl">${esc(T("mmExport"))}</span><div class="ilist">${ex.map((k) => `<button type="button" class="irow" data-ex="${k}"><span>${icon[k]}</span><span>${esc(T("ex_" + k))}</span></button>`).join("")}</div>
+    <span class="pl">${esc(T("mmImport"))}</span><button type="button" class="btn" data-imp="1" style="width:100%">📂 ${esc(T("mmImport"))}</button><p class="msg">${esc(T("mmImportHint"))}</p>`, "mmpop");
+  if (!el) return;
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-ex]"); if (b) { closePop(); return mmExport(b.dataset.ex); } if (e.target.closest("[data-imp]")) { closePop(); mmPickImport(); } });
+}
+let mapIn = null;
+function mmPickImport() {
+  if (!mapIn) { mapIn = document.createElement("input"); mapIn.type = "file"; mapIn.multiple = true; mapIn.className = "vhide"; mapIn.accept = ".smmx,.xmind,.mm,.opml,.md,.markdown,.txt"; document.body.append(mapIn);
+    mapIn.addEventListener("change", async () => { const fs = Array.from(mapIn.files || []); mapIn.value = ""; let last = null; for (const f of fs) last = (await mapFromFile(f)) || last; if (last) openNote(last.id); }); }
+  mapIn.value = ""; mapIn.click();
+}
+/* ---- reading other formats: everything becomes a simple tree {text, note, links, task, done, color, x, y, id, kids}, plus relations ---- */
+function mmFromTree(roots, title, rels = [], free = false) {
+  const d = mmNewData(title); d.layout = free ? "free" : "map"; d.nodes = {}; const ids = new Map();
+  const add = (t, parent, i) => {
+    const id = mmId(); ids.set(t.id ?? t, id);
+    d.nodes[id] = { id, parent, o: i, text: String(t.text || "").trim().slice(0, 2000) || "…", x: +t.x || 0, y: +t.y || 0, color: /^#[0-9a-f]{6}$/i.test(t.color || "") ? t.color.toLowerCase() : parent ? "#5b6b7f" : "#25334a",
+      shape: parent ? "round" : "pill", sym: (t.sym || []).slice(0, 8), note: String(t.note || "").trim().slice(0, 20000), links: (t.links || []).slice(0, 50), ...(t.task ? { task: true } : {}), ...(t.task && t.done ? { done: true } : {}) };
+    (t.kids || []).forEach((k, j) => add(k, id, j));
+    return id;
+  };
+  let root = roots[0]; if (roots.length > 1 && !free) root = { text: title, kids: roots };
+  d.root = add(root, null, 0);
+  if (free) roots.slice(1).forEach((r, i) => add(r, null, i + 1));
+  if (!free) { const kids = Object.values(d.nodes).filter((x) => x.parent === d.root); kids.forEach((k, i) => { const c = MM_COLORS[i % MM_COLORS.length]; [k.id, ...mmDesc(d, k.id)].forEach((q) => { if (d.nodes[q].color === "#5b6b7f") d.nodes[q].color = c; }); }); }
+  for (const r of rels) { const a = ids.get(r.a), b = ids.get(r.b); if (a && b) d.rels.push({ id: mmId(), a, b, label: r.label || "", kind: "", dashed: false }); }
+  return d;
+}
+function linesToTree(text) {
+  const root = { text: "", kids: [] }, stack = [{ lvl: -1, t: root }];
+  let headLvl = 0;
+  for (const raw of String(text).replace(/\r/g, "").split("\n")) {
+    if (!raw.trim() || /^\s*(---|\*\*\*)\s*$/.test(raw)) continue;
+    let lvl, s = raw.replace(/\t/g, "    ");
+    const h = /^(#{1,6})\s+(.*)$/.exec(s.trim());
+    const q = /^(\s*)>\s?(.*)$/.exec(s);
+    if (q && stack.length > 1) { const last = stack[stack.length - 1].t; last.note = (last.note ? last.note + "\n" : "") + q[2]; continue; }
+    if (h) { lvl = h[1].length - 1; headLvl = lvl + 1; s = h[2]; }
+    else { const m = /^(\s*)(?:[-*+•]|\d+[.)])?\s*(.*)$/.exec(s); lvl = headLvl + Math.floor(m[1].length / 2); s = m[2]; }
+    const t = { text: s, kids: [], links: [] };
+    const tk = /^\[( |x|X)\]\s*(.*)$/.exec(t.text); if (tk) { t.task = true; t.done = tk[1] !== " "; t.text = tk[2]; }
+    t.text = t.text.replace(/\[([^\]]*)\]\(([^)\s]+)\)/g, (_, lab, url) => { t.links.push({ t: "url", v: url, label: lab }); return lab; }).replace(/(https?:\/\/\S+)/g, (u) => { if (!t.links.some((l) => l.v === u)) t.links.push({ t: "url", v: u, label: "" }); return u; }).replace(/[*_`]{1,3}/g, "").trim();
+    while (stack.length > 1 && stack[stack.length - 1].lvl >= lvl) stack.pop();
+    stack[stack.length - 1].t.kids.push(t); stack.push({ lvl, t });
+  }
+  return root.kids;
+}
+function xmlDoc(text) { const doc = new DOMParser().parseFromString(text, "application/xml"); if (doc.querySelector("parsererror")) throw new Error("xml"); return doc; }
+function opmlToTree(text) {
+  const doc = xmlDoc(text), title = doc.querySelector("head > title")?.textContent || "";
+  const conv = (o) => ({ text: o.getAttribute("text") || o.getAttribute("title") || "", note: o.getAttribute("_note") || "", links: o.getAttribute("url") ? [{ t: "url", v: o.getAttribute("url"), label: "" }] : [], ...(o.getAttribute("_status") ? { task: true, done: o.getAttribute("_status") === "checked" } : {}), kids: Array.from(o.children).filter((c) => c.tagName === "outline").map(conv) });
+  return { title, roots: Array.from(doc.querySelectorAll("body > outline")).map(conv) };
+}
+function freemindToTree(text) {
+  const doc = xmlDoc(text), rels = [];
+  const conv = (n) => {
+    const note = Array.from(n.children).filter((c) => c.tagName === "richcontent" && /NOTE|DETAILS/i.test(c.getAttribute("TYPE") || "")).map((c) => c.textContent.trim().replace(/\n\s+/g, "\n")).join("\n");
+    const rich = Array.from(n.children).find((c) => c.tagName === "richcontent" && /NODE/i.test(c.getAttribute("TYPE") || ""));
+    const icons = Array.from(n.children).filter((c) => c.tagName === "icon").map((c) => c.getAttribute("BUILTIN") || "");
+    for (const a of Array.from(n.children).filter((c) => c.tagName === "arrowlink")) rels.push({ a: n.getAttribute("ID"), b: a.getAttribute("DESTINATION"), label: a.getAttribute("MIDDLE_LABEL") || "" });
+    return { id: n.getAttribute("ID") || mmId(), text: n.getAttribute("TEXT") || (rich ? rich.textContent.trim() : ""), color: n.getAttribute("COLOR") || "", note,
+      links: n.getAttribute("LINK") ? [{ t: "url", v: n.getAttribute("LINK"), label: "" }] : [], ...(icons.some((i) => /button_ok|unchecked|checked/.test(i)) ? { task: true, done: icons.some((i) => /button_ok|^checked/.test(i)) } : {}),
+      kids: Array.from(n.children).filter((c) => c.tagName === "node").map(conv) };
+  };
+  const root = doc.querySelector("map > node"); if (!root) throw new Error("mm");
+  return { title: root.getAttribute("TEXT") || "", roots: [conv(root)], rels };
+}
+async function smmxToTree(file) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const entry = Object.values(zip.files).find((f) => /mindmap\.xml$/i.test(f.name)) || Object.values(zip.files).find((f) => /\.xml$/i.test(f.name) && !f.dir);
+  if (!entry) throw new Error("smmx");
+  const doc = xmlDoc(await entry.async("string")), topics = Array.from(doc.querySelectorAll("topics > topic, topic"));
+  const byId = new Map(), roots = [], rels = [];
+  const ICON = { stock_check: "✅", stock_cross: "❌", stock_question: "❓", stock_exclamation: "❗", stock_star: "⭐", stock_idea: "💡", stock_warning: "⚠️", stock_flag: "🚩", stock_target: "🎯", stock_money: "💰", stock_chart: "📈", stock_clock: "⏰" };
+  for (const t of topics) {
+    const id = t.getAttribute("id"), links = [], sym = [];
+    const ln = t.querySelector(":scope > link"); if (ln && ln.getAttribute("urllink")) links.push({ t: "url", v: ln.getAttribute("urllink"), label: "" });
+    for (const ic of t.querySelectorAll(":scope > icon, :scope > icons > icon")) { const nm = ic.getAttribute("name") || ic.getAttribute("icon") || ""; if (ICON[nm]) sym.push(ICON[nm]); }
+    const cb = t.querySelector(":scope > checkbox, :scope > task");
+    const node = { id, text: (t.getAttribute("text") || "").replace(/\\N/g, "\n"), note: (t.querySelector(":scope > note")?.textContent || "").replace(/\\N/g, "\n"), x: +t.getAttribute("x") || 0, y: +t.getAttribute("y") || 0, links, sym, kids: [],
+      ...(cb ? { task: true, done: /true|checked|done|1/i.test(cb.getAttribute("checked") || cb.getAttribute("state") || cb.getAttribute("value") || "") } : {}) };
+    byId.set(id, { node, parent: t.getAttribute("parent") });
+  }
+  for (const { node, parent } of byId.values()) { const p = byId.get(parent); if (p && parent !== node.id) p.node.kids.push(node); else roots.push(node); }
+  for (const r of doc.querySelectorAll("relations > relation, relation")) rels.push({ a: r.getAttribute("source"), b: r.getAttribute("target"), label: (r.getAttribute("text") || r.querySelector("label")?.textContent || "").replace(/\\N/g, " ") });
+  if (!roots.length) throw new Error("smmx");
+  roots.sort((a, b) => (a.id === "0" ? -1 : b.id === "0" ? 1 : 0));
+  return { title: (doc.querySelector("meta > title")?.getAttribute("text") || roots[0].text || file.name).replace(/\\N/g, " "), roots, rels, free: true };
+}
+async function xmindToTree(file) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), zip = await JSZip.loadAsync(await file.arrayBuffer());
+  const cj = zip.file("content.json");
+  if (cj) {
+    const sheet = JSON.parse(await cj.async("string"))[0], rels = (sheet.relationships || []).map((r) => ({ a: r.end1Id, b: r.end2Id, label: r.title || "" }));
+    const conv = (t) => ({ id: t.id, text: t.title || "", note: t.notes?.plain?.content || "", links: t.href && /^https?:/.test(t.href) ? [{ t: "url", v: t.href, label: "" }] : [],
+      ...((t.markers || []).some((m) => /^task-/.test(m.markerId)) ? { task: true, done: (t.markers || []).some((m) => m.markerId === "task-done") } : {}),
+      kids: [...(t.children?.attached || []), ...(t.children?.detached || [])].map(conv) });
+    return { title: sheet.rootTopic?.title || file.name, roots: [conv(sheet.rootTopic)], rels };
+  }
+  const cx = zip.file("content.xml"); if (!cx) throw new Error("xmind");
+  const doc = xmlDoc(await cx.async("string"));
+  const conv = (t) => ({ text: t.querySelector(":scope > title")?.textContent || "", note: t.querySelector(":scope > notes plain")?.textContent || "", kids: Array.from(t.querySelectorAll(":scope > children > topics > topic")).map(conv) });
+  const root = doc.querySelector("sheet > topic"); return { title: root?.querySelector(":scope > title")?.textContent || file.name, roots: [conv(root)], rels: [] };
+}
+/** Any supported file -> a new mind-map page in the current folder/notebook. */
+async function mapFromFile(file) {
+  const ext = extOf(file.name);
+  try {
+    let r;
+    if (ext === "smmx") r = await smmxToTree(file);
+    else if (ext === "xmind") r = await xmindToTree(file);
+    else if (ext === "mm") r = freemindToTree(await file.text());
+    else if (ext === "opml") r = opmlToTree(await file.text());
+    else { const roots = linesToTree(await file.text()); r = { title: file.name.replace(/\.[^.]+$/, ""), roots: roots.length === 1 ? roots : [{ text: file.name.replace(/\.[^.]+$/, ""), kids: roots }] }; }
+    if (!r.roots.length) throw new Error("empty");
+    return mmNewNoteFrom(mmFromTree(r.roots, r.title || file.name, r.rels || [], !!r.free), r.title || file.name.replace(/\.[^.]+$/, ""));
+  } catch (e) { console.warn(e); toast(T("mmBadFile", { f: file.name }), { kind: "err" }); return null; }
+}
+function mmNewNoteFrom(d, title) {
+  const folder = S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
+  const n = normNote({ id: uid(), title: title || T("mmNew"), html: "", folder, mm: d, pageStyle: "blank", createdAt: now, updatedAt: now });
+  S.notes.set(n.id, n); saveNote(n.id, 0); renderSide();
+  toast("🧠 " + T("mmMadeMap", { n: num(Object.keys(d.nodes).length) }));
+  return n;
+}
+/** A notebook page (headings, lists, lines) -> a mind map next to it. */
+function pageToMap(n) {
+  if (!n || n.mm || isStored(n) || sealedLocked(n)) return;
+  captureActive();
+  const doc = new DOMParser().parseFromString(`<div>${W(n).html || ""}</div>`, "text/html"), lines = [];
+  const walk = (el, depth) => {
+    for (const c of el.children) {
+      const tag = c.tagName.toLowerCase();
+      if (/^h[1-6]$/.test(tag)) lines.push("#".repeat(+tag[1]) + " " + c.textContent.trim());
+      else if (tag === "ul" || tag === "ol") for (const li of c.children) {
+        const own = Array.from(li.childNodes).filter((x) => !(x.nodeType === 1 && /^(ul|ol|blockquote)$/i.test(x.tagName))).map((x) => x.textContent).join(" ").replace(/\s+/g, " ").trim().replace(/^☑\s*/, "[x] ").replace(/^☐\s*/, "[ ] ");
+        if (own) lines.push("  ".repeat(depth) + "- " + own);
+        for (const q of li.querySelectorAll(":scope > blockquote")) lines.push("  ".repeat(depth) + "> " + q.textContent.trim());
+        for (const sub of li.querySelectorAll(":scope > ul, :scope > ol")) walk({ children: [sub] }, depth + 1);
+      }
+      else if (tag === "blockquote") lines.push("> " + c.textContent.trim());
+      else if (c.children.length && Array.from(c.children).some((k) => /^(ul|ol|h[1-6]|div|p)$/i.test(k.tagName))) walk(c, depth);
+      else { const t = c.textContent.trim(); if (t) lines.push("  ".repeat(depth) + "- " + t); }
+    }
+  };
+  walk(doc.body.firstElementChild, 0);
+  const title = titleOf(n), roots = linesToTree(lines.join("\n"));
+  const d = mmFromTree([{ text: title, kids: roots }], title);
+  const m = mmNewNoteFrom(d, title); m.folder = n.folder; m.order = orderAfter(n); saveNote(m.id, 0); openNote(m.id);
+}
 
 /* ---- tidy toolbar: rarely used tools in small menus ---- */
 function toolMoreMenu(el) {
