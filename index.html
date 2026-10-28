@@ -730,6 +730,46 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .fvpage{background:#fff;box-shadow:var(--shadow);border-radius:3px;max-width:100%;height:auto}
 .fvimg{max-width:100%;max-height:calc(100vh - 90px);object-fit:contain;border-radius:6px}
 .fvdoc{background:var(--paper,#fffdf8);color:var(--paper-ink,#25334a);max-width:860px;width:100%;padding:28px 7%;border-radius:6px;box-shadow:var(--shadow);line-height:1.7}
+.mmstage{position:relative;flex:none;overflow:hidden;touch-action:none;background-color:var(--bg);background-image:radial-gradient(color-mix(in srgb,var(--muted) 28%,transparent) 1px,transparent 1.2px);background-size:22px 22px;outline:none;user-select:none;-webkit-user-select:none;min-height:0}
+.mmworld{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+.mmsvg{position:absolute;left:-50000px;top:-50000px;overflow:visible;pointer-events:none}
+.mmn{position:absolute;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:6px;width:max-content;max-width:320px;padding:7px 13px;border-radius:12px;background:var(--panel);border:2px solid var(--c);color:var(--ink);font-size:15px;line-height:1.35;box-shadow:0 1px 4px rgba(40,30,20,.08);cursor:pointer;white-space:normal;word-break:break-word}
+.mmn .tx{min-width:1ch;outline:none}
+.mmn.root{font-size:19px;font-weight:700;padding:12px 22px;background:var(--c);color:#fff;border-color:var(--c);box-shadow:0 4px 14px rgba(40,30,20,.18)}
+.mmn.s-pill{border-radius:99px}.mmn.s-rect{border-radius:3px}.mmn.s-oval{border-radius:50%;padding:12px 20px}
+.mmn.s-line{background:transparent;border:0;border-bottom:3px solid var(--c);border-radius:0;box-shadow:none;padding:4px 6px 3px}
+.mmn.root.s-line{background:var(--c);border-radius:12px}
+.mmn.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 45%,transparent),0 2px 8px rgba(40,30,20,.12)}
+.mmn.conn{box-shadow:0 0 0 3px #1f8a4c}
+.mmn.editing{cursor:text;user-select:text;-webkit-user-select:text}.mmn.editing .tx{min-width:40px}
+.mmn .syms{display:inline-flex;gap:2px;flex:none}.msym{font-size:1.05em;line-height:1}img.msym{width:1.25em;height:1.25em;object-fit:contain;vertical-align:middle}
+.mmn .badges{display:inline-flex;gap:3px;flex:none;font-size:12px}.mmn .badges b{font-weight:500;background:color-mix(in srgb,var(--c) 14%,transparent);border-radius:7px;padding:1px 5px;color:var(--ink)}
+.mmn.root .badges b{background:rgba(255,255,255,.25);color:#fff}
+.mmn .fold{flex:none;font-size:11px;font-weight:700;background:var(--c);color:#fff;border-radius:99px;padding:1px 7px}
+.mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
+.mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.mmtb button{min-width:36px;height:36px;border:0;background:transparent;border-radius:9px;font-size:16px;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.mmtb button:hover,.mmtb button[aria-pressed="true"]{background:var(--hover)}
+.mmtb button i{display:block;width:18px;height:18px;border-radius:50%}
+.mmhint{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:8;background:#1f8a4c;color:#fff;border-radius:99px;padding:7px 16px;font-size:14px;box-shadow:var(--shadow)}
+.mmbar .mmlab{margin-inline-start:4px;font-size:13px}@media (max-width:760px){.mmbar .mmlab{display:none}}
+.mmcols{align-items:center}.mmcols #mmCc{width:26px;height:26px;border:0;padding:0;background:none}
+.mmshapes{display:flex;gap:6px;flex-wrap:wrap}.mmshapes button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;cursor:pointer}.mmshapes button[aria-pressed="true"]{border-color:var(--accent)}
+.mmprev{display:inline-block;font-style:normal;font-size:12px;padding:3px 10px;border:2px solid var(--c);border-radius:8px;background:var(--panel)}
+.mmprev.s-pill{border-radius:99px}.mmprev.s-rect{border-radius:2px}.mmprev.s-oval{border-radius:50%}.mmprev.s-line{border:0;border-bottom:3px solid var(--c);border-radius:0;background:none}
+.mmsympop{width:min(400px,calc(100vw - 16px))}
+.mmtabs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}.mmtabs button{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;color:var(--ink)}.mmtabs button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.mmsyms{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}.mmsyms button{height:38px;border:1px solid transparent;background:var(--bg);border-radius:9px;font-size:20px;cursor:pointer;display:grid;place-items:center}.mmsyms button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft,#fde7dd)}
+.mmsyms img.msym{width:26px;height:26px}
+.sympad{width:160px;height:160px;border:1px solid var(--line);border-radius:12px;background:#fff;touch-action:none;display:block}
+.mmlinks{display:grid;gap:4px;margin-bottom:8px}.mmlink{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:4px 8px}
+.mmlink .lk{flex:1;min-width:0;text-align:start;border:0;background:none;color:var(--accent);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:inherit}
+.mmlink .x{border:0;background:none;color:var(--muted);cursor:pointer;font-size:14px}
+.mmadd{display:grid;grid-template-columns:1fr;gap:6px}.mmadd input,.mmadd select{width:100%}
+.mmpv{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:6px;padding:8px;text-align:center;background-image:radial-gradient(color-mix(in srgb,var(--muted) 25%,transparent) 1px,transparent 1.2px);background-size:12px 12px}
+.mmpv span{font-size:30px}.mmpv b{font-size:12.5px;font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mmpv small{font-size:11px;color:var(--muted)}
+.qa .qe{font-size:15px;font-weight:400;line-height:1}
 </style>
 
 <div class="app" id="app">
@@ -1407,6 +1447,7 @@ function W(n) { return n.locked ? S.unlocked.get(n.id) : n; } // working copy (t
 function titleOf(n) { if (sealedLocked(n)) return "🔒 " + T("lockedTitle"); const t = W(n).title; return t || T("untitled"); }
 function textOf(n) {
   if (sealedLocked(n)) return "";
+  if (n.mm && n.mm.nodes) return Object.values(n.mm.nodes).map((x) => x.text + " " + (x.note || "") + " " + (x.links || []).map((l) => l.label || "").join(" ")).join(" · ");
   const w = W(n);
   if (w._textFor !== w.html) { w._text = htmlToText(w.html || ""); w._textFor = w.html; }
   return w._text;
@@ -1423,6 +1464,7 @@ function normNote(d) {
     attachments: Array.isArray(d.attachments) ? d.attachments : [], createdAt: d.createdAt || new Date().toISOString(), updatedAt: d.updatedAt || d.createdAt || new Date().toISOString(),
     ...(d.readMode ? { readMode: true } : {}), ...(d.continuous ? { continuous: true } : {}), ...(/^#[0-9a-f]{6}$/i.test(d.paperColor || "") ? { paperColor: d.paperColor } : {}),
     ...(d.file && typeof d.file === "object" && /^[A-Za-z0-9_-]{8,64}$/.test(d.file.id || "") ? { file: { id: d.file.id, name: String(d.file.name || "file").slice(0, 240), type: String(d.file.type || "").slice(0, 120), size: Number(d.file.size) || 0 } } : {}),
+    ...(d.mm && mmNorm(d.mm) ? { mm: mmNorm(d.mm) } : {}),
     ...(Array.isArray(d.sealed) && d.sealed.length ? { sealed: d.sealed.filter((x) => typeof x === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x)) } : {}),
     seal: normSeal(d.seal), ...(typeof d.order === "number" && isFinite(d.order) ? { order: d.order } : {}),
   };
@@ -1479,7 +1521,7 @@ function compactStrokes(strokes) {
 }
 function sizeCheck(obj) { if (S.mode === "cloud" && JSON.stringify(obj).length > DOC_LIMIT) throw { code: "too_big", message: T("tooBig") }; }
 async function noteDoc(n) {
-  const base = { ...(n.file ? { file: n.file } : {}), ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
+  const base = { ...(n.mm ? { mm: n.mm } : {}), ...(n.file ? { file: n.file } : {}), ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
   if (n.locked) {
     const u = S.unlocked.get(n.id);
     if (u) n.vault = await sealWithKey(toPlain(u), u.vk);
@@ -1663,8 +1705,8 @@ function renderLibrary() {
       <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⇅</button>
       ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : ""}
     </div>
-    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>`
-      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>` : ""}`;
+    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>`
+      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>` : ""}`;
   const cnt = (p) => live.filter((n) => inPath(n.folder, p)).length;
   if (subF.length) {
     h += `<div class="sech">${esc(T("foldersSec"))}</div><div class="fgrid">${subF.map((f) => `<div class="fold" data-view="${esc(f.path)}"><span class="fico" style="color:${esc(f.color)}">${ic("folder")}</span><span class="fn"><b>${esc(leaf(f.path))}</b><small>${esc(T("itemsN", { n: num(folderPaths().filter((x) => parentOf(x.path) === f.path).length + live.filter((n) => n.folder === f.path).length) }))}</small></span><button class="more" data-fmenu="${esc(f.path)}" aria-label="${esc(T("more"))}">⋯</button></div>`).join("")}</div>`;
@@ -1691,7 +1733,7 @@ function renderLibrary() {
         const g = groupLabel(n[field]);
         if (g !== lastGroup) { h += `<div class="grouph">${esc(g)}</div>`; lastGroup = g; }
       }
-      const pv = sealedLocked(n) ? `<div class="lockpv">🔒</div>`
+      const pv = n.mm ? `<div class="mmpv"><span>🧠</span><b dir="auto">${esc(n.mm.nodes?.[n.mm.root]?.text || "")}</b><small>${esc(T("mmIdeas", { n: num(Object.keys(n.mm.nodes || {}).length) }))}</small></div>` : sealedLocked(n) ? `<div class="lockpv">🔒</div>`
         : n.thumb ? `<img src="${esc(n.thumb)}" alt="" loading="lazy">${textOf(n) ? `<div class="tx over" dir="auto">${esc(textOf(n).slice(0, 300))}</div>` : ""}`
         : `<div class="tx" dir="auto">${esc(textOf(n).slice(0, 400))}</div>`;
       const folder = n.folder && S.view !== n.folder ? `📁 ${esc(leaf(n.folder))} · ` : "";
@@ -2575,7 +2617,7 @@ async function plusMenu() {
   const folder = S.view && !S.view.startsWith("__") ? S.view : "", box = containerOf(S.view);
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [
-    ["quick", "🟨", T("quickNote")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
+    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
     ["templates", "🗂", T("templates")], ["folder", "📁", T("newFolder")],
     ...(can ? [["photo", "📷", T("photoNote")], ["scan", "📄", T("scanDoc")]] : []),
     ...(mic ? [["audio", "🎙", T("audioNote")]] : []),
@@ -2583,6 +2625,7 @@ async function plusMenu() {
   const a = await dialog({ title: "＋ " + T("create"), body: `<div class="plusgrid">${items.map(([v, i, l]) => `<button type="button" class="plusbtn" data-m="${v}"><span>${i}</span><b>${esc(l)}</b></button>`).join("")}</div>`,
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.querySelector(".plusgrid").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
   if (a === "quick") return newNote();
+  if (a === "mindmap") return newMap();
   if (a === "notebook") return coverDialog(null, box);
   if (a === "templates") { S.view = "__templates"; S.screen = "library"; renderTree(); return renderMain(); }
   if (a === "import") return pickImport(null);
@@ -2890,6 +2933,7 @@ function renderMain() {
   }
   if (S.hist.id !== n.id) S.hist = { id: n.id, undo: [], redo: [] };
   if (sealedLocked(n)) return renderLockScreen(n);
+  if (n.mm) return renderMap(n);
   const w = W(n), ro_ = n.trashed || S.readOnly || isFrozen(n) || readMode(n);
   const t = S.tool;
   const rtl = document.documentElement.dir === "rtl", tb = (m, icon, label) => `<button class="btn icon tool" data-mode="${m}" aria-pressed="${t.mode === m}" title="${esc(label)}">${ic(icon)}${["pen", "highlighter", "tape", "laser"].includes(m) ? `<i class="tcb"></i>` : ""}</button>`;
@@ -4202,6 +4246,7 @@ async function emptyTrash() {
   for (const n of list) await deleteForever(n, false);
 }
 async function lockNote(n) {
+  if (n.mm) return toast(T("mmNoLock"), { kind: "err" });
   if (n.seal) return toast(T("sealNoLocked"), { kind: "err" });
   const r = await formBox(T("lockNote"), `<p class="msg">${esc(T("lockInfo"))}</p>
     <div class="field"><label>${esc(T("password"))}</label><input type="password" name="p1" autocomplete="new-password"></div>
@@ -6095,6 +6140,7 @@ function doAct(act, el) {
   if (act === "focusMode") return toggleFocus();
   if (act === "home") return goHome();
   if (act === "storeFiles") return pickStoreFiles();
+  if (act === "newMap") return newMap();
   if (act === "toolMore") return toolMoreMenu(el);
   if (act === "ctxMore") return ctxMoreMenu(el, "pen");
   if (act === "ctxMoreText") return ctxMoreMenu(el, "text");
@@ -6541,7 +6587,7 @@ const fsTablet = () => fsLastPtr !== "mouse" || matchMedia("(pointer: coarse)").
 function fsRetry(e) {
   if (!S.fsAgain || fsNow() || !document.body.classList.contains("focusmode")) return;
   if (e && e.target && e.target.closest && e.target.closest("#fsBtn")) { S.fsAgain = false; return; } // the button itself decides
-  if (!e || !e.target || !e.target.closest || !e.target.closest("#paper") || e.target.closest("button,input,select,a,.pop,.overlay,#selbar")) return; // only a touch on the page itself
+  if (!e || !e.target || !e.target.closest || !e.target.closest("#paper, #mmStage") || e.target.closest("button,input,select,a,.pop,.overlay,#selbar")) return; // only a touch on the page itself
   if (paperState && (paperState.cur || paperState.erase || paperState.move)) return; // never in the middle of a stroke
   S.fsAgain = false;
   const el = document.documentElement;
@@ -6854,6 +6900,7 @@ async function sealBeforeLock(ids) {
   }
 }
 async function lockWith(n, vk) {
+  if (n.mm) return;
   captureActive();
   queuePurge(n.id);
   const u = { vk, title: n.title, html: n.html, attachments: n.attachments, strokes: S.ink.get(n.id) || [] };
@@ -6868,7 +6915,7 @@ async function lockWith(n, vk) {
 
 /* ---- whole notebook ---- */
 const folderRecOf = (path) => S.meta.folders.find((f) => f.path === path);
-function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && !n.file && n.folder === path); }
+function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && !n.file && !n.mm && n.folder === path); }
 function bookKey(path) { for (const n of bookPages(path)) { const u = n.locked && S.unlocked.get(n.id); if (u && u.vk) return u.vk; } return null; }
 async function askBookKey(path) {
   const locked = bookPages(path).filter((n) => n.locked);
@@ -7093,6 +7140,456 @@ document.addEventListener("click", (e) => {
   e.stopPropagation(); e.preventDefault(); fileMenu(m.dataset.fmore);
 }, true);
 
+/* ---------------- mind map: an endless board of ideas, branches, links, notes, symbols and relations ---------------- */
+Object.assign(I18N.fa, {
+  mmNew: "نقشهٔ ذهنی", mmRoot: "ایدهٔ مرکزی", mmIdea: "ایدهٔ تازه", mmChild: "شاخهٔ تازه", mmSibling: "ایدهٔ هم‌سطح", mmEdit: "نوشتن", mmColor: "رنگ", mmSymbols: "نمادها", mmDetails: "لینک‌ها و یادداشت",
+  mmRelate: "ارتباط با ایدهٔ دیگر", mmRelateHint: "حالا روی ایده‌ای بزنید که با آن ارتباط دارد", mmCollapse: "جمع / باز کردن شاخه", mmDelete: "حذف", mmTidy: "مرتب کردن", mmFit: "دیدن همه", mmFree: "ایدهٔ آزاد",
+  mmBranch: "برای کل شاخه", mmShape: "شکل", mmNote: "یادداشت", mmLinks: "لینک‌ها و منبع‌ها", mmAddLink: "افزودن لینک", mmUrl: "نشانی وب", mmPage: "صفحهٔ دفترچه", mmFile: "فایل ذخیره‌شده", mmLabel: "برچسب (اختیاری)",
+  mmNoLinks: "هنوز لینکی نیست.", mmRelLabel: "برچسب ارتباط", mmPos: "اثر مثبت", mmNeg: "اثر منفی", mmNeutral: "خنثی", mmDashed: "خط‌چین", mmMySymbols: "نمادهای من", mmMakeSymbol: "＋ ساختن نماد",
+  mmSymText: "ایموجی یا حرف (تا ۴ نویسه)", mmSymDraw: "یا با قلم بکشید", mmSymClear: "پاک کردن", mmSymMade: "نماد ساخته شد.", mmNoLock: "نقشهٔ ذهنی هنوز رمزدار نمی‌شود.", mmIdeas: "{n} ایده", mmDeleteQ: "این ایده و {n} شاخهٔ زیرش حذف شوند؟",
+  sym_status: "وضعیت", sym_prio: "اولویت", sym_money: "مالی و بورس", sym_work: "کار و تحقیق", sym_people: "آدم‌ها و حس", sym_arrows: "فلش و رابطه", sym_place: "مکان و طبیعت", sym_mine: "ساخت من",
+});
+Object.assign(I18N.de, {
+  mmNew: "Mindmap", mmRoot: "Zentrale Idee", mmIdea: "Neue Idee", mmChild: "Neuer Zweig", mmSibling: "Idee auf gleicher Ebene", mmEdit: "Schreiben", mmColor: "Farbe", mmSymbols: "Symbole", mmDetails: "Links und Notiz",
+  mmRelate: "Mit anderer Idee verbinden", mmRelateHint: "Jetzt auf die verbundene Idee tippen", mmCollapse: "Zweig ein-/ausklappen", mmDelete: "Löschen", mmTidy: "Ordnen", mmFit: "Alles zeigen", mmFree: "Freie Idee",
+  mmBranch: "Für den ganzen Zweig", mmShape: "Form", mmNote: "Notiz", mmLinks: "Links und Quellen", mmAddLink: "Link hinzufügen", mmUrl: "Webadresse", mmPage: "Notizbuchseite", mmFile: "Gespeicherte Datei", mmLabel: "Bezeichnung (optional)",
+  mmNoLinks: "Noch keine Links.", mmRelLabel: "Beschriftung", mmPos: "Positiver Einfluss", mmNeg: "Negativer Einfluss", mmNeutral: "Neutral", mmDashed: "Gestrichelt", mmMySymbols: "Meine Symbole", mmMakeSymbol: "＋ Symbol erstellen",
+  mmSymText: "Emoji oder Zeichen (bis 4)", mmSymDraw: "oder mit dem Stift zeichnen", mmSymClear: "Löschen", mmSymMade: "Symbol erstellt.", mmNoLock: "Mindmaps können noch nicht gesperrt werden.", mmIdeas: "{n} Ideen", mmDeleteQ: "Diese Idee und {n} Unterzweige löschen?",
+  sym_status: "Status", sym_prio: "Priorität", sym_money: "Finanzen & Börse", sym_work: "Arbeit & Recherche", sym_people: "Menschen & Gefühl", sym_arrows: "Pfeile & Beziehung", sym_place: "Ort & Natur", sym_mine: "Eigene",
+});
+Object.assign(I18N.en, {
+  mmNew: "Mind map", mmRoot: "Central idea", mmIdea: "New idea", mmChild: "New branch", mmSibling: "Idea on same level", mmEdit: "Write", mmColor: "Colour", mmSymbols: "Symbols", mmDetails: "Links and note",
+  mmRelate: "Connect to another idea", mmRelateHint: "Now tap the idea it is connected to", mmCollapse: "Fold / unfold branch", mmDelete: "Delete", mmTidy: "Tidy up", mmFit: "Show all", mmFree: "Free idea",
+  mmBranch: "For the whole branch", mmShape: "Shape", mmNote: "Note", mmLinks: "Links and sources", mmAddLink: "Add link", mmUrl: "Web address", mmPage: "Notebook page", mmFile: "Stored file", mmLabel: "Label (optional)",
+  mmNoLinks: "No links yet.", mmRelLabel: "Relation label", mmPos: "Positive effect", mmNeg: "Negative effect", mmNeutral: "Neutral", mmDashed: "Dashed", mmMySymbols: "My symbols", mmMakeSymbol: "＋ Make a symbol",
+  mmSymText: "Emoji or letters (up to 4)", mmSymDraw: "or draw it with the pen", mmSymClear: "Clear", mmSymMade: "Symbol created.", mmNoLock: "Mind maps cannot be locked yet.", mmIdeas: "{n} ideas", mmDeleteQ: "Delete this idea and {n} sub-branches?",
+  sym_status: "Status", sym_prio: "Priority", sym_money: "Money & markets", sym_work: "Work & research", sym_people: "People & feelings", sym_arrows: "Arrows & relations", sym_place: "Places & nature", sym_mine: "Mine",
+});
+const MM_COLORS = ["#d97757", "#e0a43a", "#4f9d69", "#2f8f9d", "#4f7fe0", "#7b61d6", "#c2508a", "#8a6d55", "#5b6b7f", "#25334a", "#d64545", "#1f8a4c"];
+const MM_SHAPES = ["round", "pill", "rect", "oval", "line"];
+const MM_SYMS = {
+  status: "✅ ❌ ⚠️ ❓ ❗ 💡 ⭐ 🔥 🎯 📌 🚩 🏁 ⏳ 🔒 🔓 🛑 ✳️ ♻️ 🆕 🔔".split(" "),
+  prio: "1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 🔴 🟠 🟡 🟢 🔵 🟣 ⚫ ⚪ 🟥 🟧 🟨 🟩 🟦 🅰️ 🅱️".split(" "),
+  money: "💰 💵 💶 💲 📈 📉 📊 🏦 💹 🪙 💎 🧾 ⚖️ 🛢️ 🏭 🔋 🖥️ 🌾 🏗️ 🚢".split(" "),
+  work: "📁 📄 📚 🔗 🔍 🧪 🧠 🛠️ ⚙️ 💻 📱 🗓️ ⏰ ✉️ ☎️ 📝 📎 🎓 🧩 🗂️".split(" "),
+  people: "👤 👥 🤝 👍 👎 🙂 😐 😟 😠 ❤️ 💔 🙏 💪 👀 🗣️ 👨‍💼 👩‍💼 🧑‍🔧 👨‍👩‍👧 🎉".split(" "),
+  arrows: "➡️ ⬅️ ⬆️ ⬇️ ↗️ ↘️ ↔️ ↕️ 🔁 🔀 🔄 ➕ ➖ ✖️ ➗ 🟰 ♾️ ⛓️ 🧲 🎯".split(" "),
+  place: "🏠 🏢 🌍 🇩🇪 🇮🇷 🇺🇸 🇨🇳 🇪🇺 ✈️ 🚗 🚆 ⚡ 🌱 ☀️ 🌧️ ❄️ 🌊 ⛰️ 🏥 🏫".split(" "),
+};
+const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
+function mmNewData(title) {
+  const r = mmId();
+  return { v: 1, root: r, nodes: { [r]: { id: r, parent: null, text: title || T("mmRoot"), x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] } }, rels: [], view: null };
+}
+function mmNorm(m) {
+  if (!m || typeof m !== "object" || !m.nodes || typeof m.nodes !== "object") return null;
+  const nodes = {};
+  for (const [k, x] of Object.entries(m.nodes)) {
+    if (!x || typeof x !== "object") continue;
+    nodes[k] = { id: k, parent: x.parent && typeof x.parent === "string" ? x.parent : null, text: String(x.text ?? "").slice(0, 2000), x: +x.x || 0, y: +x.y || 0, color: /^#[0-9a-f]{6}$/i.test(x.color || "") ? x.color : "#5b6b7f",
+      shape: MM_SHAPES.includes(x.shape) ? x.shape : "round", sym: Array.isArray(x.sym) ? x.sym.filter((s) => typeof s === "string").slice(0, 8) : [], note: String(x.note || "").slice(0, 20000),
+      links: Array.isArray(x.links) ? x.links.filter((l) => l && typeof l.v === "string").slice(0, 50).map((l) => ({ t: ["url", "page", "file"].includes(l.t) ? l.t : "url", v: l.v.slice(0, 2000), label: String(l.label || "").slice(0, 200) })) : [],
+      ...(x.collapsed ? { collapsed: true } : {}) };
+  }
+  if (!nodes[m.root]) return null;
+  for (const x of Object.values(nodes)) if (x.parent && !nodes[x.parent]) x.parent = m.root === x.id ? null : m.root;
+  const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed })) : [];
+  return { v: 1, root: m.root, nodes, rels, view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
+}
+let MM = null; // the open map: { n, d, sel, rel, edit, connect, undo, redo, size }
+const mmKids = (d, id) => Object.values(d.nodes).filter((x) => x.parent === id);
+function mmDesc(d, id) { const out = []; const walk = (p) => { for (const k of mmKids(d, p)) { out.push(k.id); walk(k.id); } }; walk(id); return out; }
+function mmHidden(d) { const h = new Set(); for (const x of Object.values(d.nodes)) if (x.collapsed) mmDesc(d, x.id).forEach((i) => h.add(i)); return h; }
+function mmSave() { const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
+function mmPush() { MM.undo.push(JSON.stringify(MM.d)); if (MM.undo.length > 60) MM.undo.shift(); MM.redo = []; }
+function mmUndo(redo) { const from = redo ? MM.redo : MM.undo, to = redo ? MM.undo : MM.redo; if (!from.length) return; to.push(JSON.stringify(MM.d)); MM.d = mmNorm(JSON.parse(from.pop())); MM.sel = MM.d.nodes[MM.sel] ? MM.sel : null; mmSave(); mmDraw(); }
+function newMap() {
+  if (S.readOnly) return;
+  const folder = S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
+  const n = normNote({ id: uid(), title: T("mmNew"), html: "", folder, mm: mmNewData(T("mmRoot")), pageStyle: "blank", createdAt: now, updatedAt: now });
+  S.notes.set(n.id, n); saveNote(n.id, 0); openNote(n.id);
+  setTimeout(() => { if (MM) { MM.sel = MM.d.root; mmDraw(); mmStartEdit(MM.d.root, true); } }, 80);
+}
+function renderMap(n) {
+  const rtl = document.documentElement.dir === "rtl";
+  const d = mmNorm(n.mm) || mmNewData(n.title);
+  MM = { n, d, sel: null, rel: null, edit: null, connect: null, undo: [], redo: [], size: {} };
+  $("#main").innerHTML = `
+  <div class="bar" id="bar"><div class="bar-main mmbar">
+    <div class="bz bz-start">
+      <button class="btn icon ghost" data-act="library" title="${esc(T("back"))}">${ic("back", rtl ? "flip" : "")}</button>
+      <button class="btn icon ghost" data-act="home" title="${esc(T("homeBtn"))}">${ic("home")}</button>
+      <input id="titleIn" class="ttl" value="${esc(n.title)}" placeholder="${esc(T("mmNew"))}" maxlength="200" dir="auto">
+      <button class="btn icon ghost" id="fsBtn" data-act="focusMode" aria-pressed="${document.body.classList.contains("focusmode")}" title="${esc(T("fullScreen"))}">${ic("expand")}</button>
+    </div>
+    <div class="bz bz-end">
+      <span class="sdot" id="status2"></span>
+      <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
+      <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
+      <button class="btn ghost" data-mm="tidy" title="${esc(T("mmTidy"))}">⋮⋮<span class="mmlab">${esc(T("mmTidy"))}</span></button>
+      <button class="btn icon ghost" data-mm="fit" title="${esc(T("mmFit"))}">⤢</button>
+      <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
+    </div></div></div>
+  <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div></div>`;
+  renderStatus();
+  $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
+  mmSize();
+  mmBind();
+  mmDraw();
+  if (d.view) mmSetView(d.view.x, d.view.y, d.view.z); else requestAnimationFrame(() => mmFit());
+}
+/** The board fills the screen below the bar. */
+function mmSize() { const st = $("#mmStage"); if (!st) return; const vh = (window.visualViewport && visualViewport.height) || innerHeight; st.style.height = Math.max(200, vh - st.getBoundingClientRect().top) + "px"; }
+function mmApplyView() { const v = MM.view; $("#mmWorld").style.transform = `translate(${v.x}px,${v.y}px) scale(${v.z})`; mmPlaceTb(); }
+function mmSetView(x, y, z) { MM.view = { x, y, z: Math.min(3, Math.max(0.15, z)) }; MM.d.view = MM.view; mmApplyView(); clearTimeout(mmSetView.t); mmSetView.t = setTimeout(() => { if (MM) { MM.n.mm = MM.d; saveNote(MM.n.id, 1500); } }, 1200); }
+function mmFit() {
+  const st = $("#mmStage"); if (!st) return;
+  const hid = mmHidden(MM.d), vis = Object.values(MM.d.nodes).filter((x) => !hid.has(x.id));
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const x of vis) { const s = MM.size[x.id] || { w: 120, h: 40 }; x0 = Math.min(x0, x.x - s.w / 2); x1 = Math.max(x1, x.x + s.w / 2); y0 = Math.min(y0, x.y - s.h / 2); y1 = Math.max(y1, x.y + s.h / 2); }
+  const W = st.clientWidth, H = st.clientHeight, z = Math.min(1.4, Math.max(0.15, Math.min((W - 80) / Math.max(1, x1 - x0), (H - 80) / Math.max(1, y1 - y0))));
+  mmSetView(W / 2 - ((x0 + x1) / 2) * z, H / 2 - ((y0 + y1) / 2) * z, z);
+}
+function mmSymHtml(s) { return s.startsWith("img:") ? `<img class="msym" data-blob="${esc(s.slice(4))}" src="/_blob/${esc(s.slice(4))}" alt="">` : `<span class="msym">${esc(s)}</span>`; }
+function mmDraw() {
+  if (!MM || !$("#mmNodes")) return;
+  const d = MM.d, hid = mmHidden(d), box = $("#mmNodes");
+  box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
+    const kids = mmKids(d, x.id).length, root = x.id === d.root;
+    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color}">
+      ${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>
+      ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
+      ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
+  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && r.label).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""}" data-rel="${r.id}" dir="auto">${esc(r.label)}</div>`).join("");
+  hydrate(box);
+  MM.size = {};
+  for (const el of box.querySelectorAll(".mmn")) MM.size[el.dataset.mmn] = { w: el.offsetWidth, h: el.offsetHeight };
+  // branches
+  let svg = "";
+  for (const x of Object.values(d.nodes)) {
+    if (!x.parent || hid.has(x.id)) continue;
+    const p = d.nodes[x.parent], ps = MM.size[p.id], cs = MM.size[x.id]; if (!ps || !cs) continue;
+    const side = x.x >= p.x ? 1 : -1, sx = p.x + side * ps.w / 2, sy = p.y, ex = x.x - side * cs.w / 2, ey = x.y + (x.shape === "line" ? cs.h / 2 : 0), dx = Math.max(30, Math.abs(ex - sx)) / 2;
+    const depth = (() => { let k = 0, q = x; while (q.parent && k < 20) { k++; q = d.nodes[q.parent]; } return k; })();
+    svg += `<path d="M${sx} ${sy} C${sx + side * dx} ${sy} ${ex - side * dx} ${ey} ${ex} ${ey}" fill="none" stroke="${x.color}" stroke-width="${Math.max(1.6, 4.5 - depth * 0.9)}" stroke-linecap="round" opacity=".85"/>`;
+  }
+  // relations
+  const edge = (c, s, tx, ty) => { const dx = tx - c.x, dy = ty - c.y, w = s.w / 2 + 6, h = s.h / 2 + 6, k = Math.min(w / Math.max(1e-6, Math.abs(dx)), h / Math.max(1e-6, Math.abs(dy))); return [c.x + dx * k, c.y + dy * k]; };
+  for (const r of d.rels) {
+    if (hid.has(r.a) || hid.has(r.b)) continue;
+    const a = d.nodes[r.a], b = d.nodes[r.b], sa = MM.size[a.id], sb = MM.size[b.id]; if (!sa || !sb) continue;
+    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
+    const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
+    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), ah = 11;
+    const on = MM.rel === r.id;
+    svg += `<g data-rel="${r.id}" class="mmrel"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${on ? 3.2 : 2}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
+      <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
+      ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}</g>`;
+    const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
+    if (lab) { const t = 0.5, qx = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1, qy = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y1; lab.style.left = qx + "px"; lab.style.top = qy + "px"; lab.style.borderColor = col; lab.style.color = col; }
+  }
+  $("#mmSvg").innerHTML = svg;
+  if (!MM.view) MM.view = { x: 0, y: 0, z: 1 };
+  mmApplyView();
+}
+/* ---- floating toolbar for the chosen idea / relation ---- */
+function mmPlaceTb() {
+  const tb = $("#mmTb"); if (!tb || !MM) return;
+  const v = MM.view, st = $("#mmStage");
+  if (MM.sel && MM.d.nodes[MM.sel] && !MM.edit) {
+    const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
+    const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
+    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("symbols", T("mmSymbols"), "★") +
+      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
+    tb.classList.remove("hide");
+    const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
+    tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px";
+    tb.style.top = Math.max(6, sy - tb.offsetHeight - 10) + "px";
+  } else if (MM.rel) {
+    const r = MM.d.rels.find((q) => q.id === MM.rel); if (!r) { tb.classList.add("hide"); return; }
+    const a = MM.d.nodes[r.a], c = MM.d.nodes[r.b];
+    const b = (act, label, inner, on) => `<button type="button" data-mm="${act}" title="${esc(label)}" aria-pressed="${!!on}">${inner}</button>`;
+    tb.innerHTML = b("rlabel", T("mmRelLabel"), "✎") + b("rpos", T("mmPos"), "＋", r.kind === "+") + b("rneg", T("mmNeg"), "−", r.kind === "-") + b("rneu", T("mmNeutral"), "○", r.kind === "") + b("rdash", T("mmDashed"), "┄", r.dashed) + b("rdel", T("mmDelete"), "🗑");
+    tb.classList.remove("hide");
+    const sx = ((a.x + c.x) / 2) * v.z + v.x, sy = ((a.y + c.y) / 2) * v.z + v.y;
+    tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px"; tb.style.top = Math.max(6, sy - tb.offsetHeight - 30) + "px";
+  } else tb.classList.add("hide");
+}
+function mmHint(t) { const h = $("#mmHint"); if (!h) return; h.textContent = t || ""; h.classList.toggle("hide", !t); }
+/* ---- editing ---- */
+function mmStartEdit(id, selectAll) {
+  const el = $(`#mmNodes [data-mmn="${id}"] .tx`); if (!el) return;
+  MM.edit = id; mmPlaceTb();
+  el.closest(".mmn").classList.add("editing");
+  el.setAttribute("contenteditable", "plaintext-only"); if (el.contentEditable !== "plaintext-only") el.setAttribute("contenteditable", "true");
+  if (el.textContent === "…") el.textContent = "";
+  el.focus();
+  try { const r = document.createRange(); r.selectNodeContents(el); if (!selectAll) r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } catch {}
+  const done = (keep) => {
+    el.removeEventListener("keydown", key); el.removeEventListener("blur", blur);
+    if (MM.edit !== id) return; MM.edit = null;
+    const t = el.textContent.replace(/\s+/g, " ").trim(), x = MM.d.nodes[id];
+    if (keep && x && t && t !== x.text) { mmPush(); x.text = t; mmSave(); }
+    mmDraw();
+  };
+  const key = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); done(true); }
+    else if (e.key === "Escape") { e.preventDefault(); done(false); }
+    else if (e.key === "Tab") { e.preventDefault(); done(true); mmAdd("child"); }
+  };
+  const blur = () => done(true);
+  el.addEventListener("keydown", key); el.addEventListener("blur", blur);
+}
+function mmAdd(kind) {
+  const d = MM.d; let p = kind === "free" ? null : MM.sel && d.nodes[MM.sel];
+  if (kind === "sibling" && p) p = p.parent ? d.nodes[p.parent] : null;
+  if (kind !== "free" && !p) p = d.nodes[d.root];
+  mmPush();
+  const id = mmId(), root = d.nodes[d.root];
+  let x, y, color = "#5b6b7f";
+  if (!p) { const st = $("#mmStage"), v = MM.view; x = (st.clientWidth / 2 - v.x) / v.z; y = (st.clientHeight / 2 - v.y) / v.z; }
+  else {
+    const kids = mmKids(d, p.id), isRoot = p.id === d.root;
+    let side = isRoot ? (kids.filter((k) => k.x >= p.x).length <= kids.filter((k) => k.x < p.x).length ? 1 : -1) : (p.x >= root.x ? 1 : -1);
+    const same = kids.filter((k) => (k.x >= p.x ? 1 : -1) === side).sort((a, b) => a.y - b.y);
+    x = p.x + side * ((MM.size[p.id]?.w || 120) / 2 + 150);
+    y = same.length ? same.at(-1).y + (MM.size[same.at(-1).id]?.h || 36) + 22 : p.y;
+    color = isRoot ? MM_COLORS[Object.values(d.nodes).filter((k) => k.parent === d.root).length % MM_COLORS.length] : p.color;
+    if (p.collapsed) delete p.collapsed;
+  }
+  d.nodes[id] = { id, parent: p ? p.id : null, text: kind === "free" ? T("mmIdea") : T("mmIdea"), x, y, color, shape: p && p.id === d.root ? "round" : p ? "line" : "round", sym: [], note: "", links: [] };
+  MM.sel = id; MM.rel = null; mmSave(); mmDraw(); mmStartEdit(id, true);
+}
+function mmDelete(id) {
+  const d = MM.d; if (id === d.root) return;
+  const ids = [id, ...mmDesc(d, id)];
+  const go = () => { mmPush(); for (const k of ids) delete d.nodes[k]; d.rels = d.rels.filter((r) => d.nodes[r.a] && d.nodes[r.b]); MM.sel = null; mmSave(); mmDraw(); };
+  if (ids.length > 2) confirmBox(T("mmDeleteQ", { n: num(ids.length - 1) }), { danger: true, ok: T("mmDelete") }).then((ok) => ok && go()); else go();
+}
+/** Classic tree layout: branches to the right and left of the centre, children stacked without overlap. */
+function mmTidy() {
+  const d = MM.d, root = d.nodes[d.root], gapX = 70, gapY = 18, hid = mmHidden(d);
+  mmPush();
+  const sz = (x) => MM.size[x.id] || { w: 120, h: 36 };
+  const kidsOf = (x) => (x.collapsed ? [] : mmKids(d, x.id).sort((a, b) => a.y - b.y));
+  const hOf = (x) => { const k = kidsOf(x); return Math.max(sz(x).h, k.reduce((s, c) => s + hOf(c), 0) + Math.max(0, k.length - 1) * gapY); };
+  const place = (x, side, cx, top) => {
+    const h = hOf(x); x.x = cx; x.y = top + h / 2;
+    let t = top + (h - (kidsOf(x).reduce((s, c) => s + hOf(c), 0) + Math.max(0, kidsOf(x).length - 1) * gapY)) / 2;
+    for (const c of kidsOf(x)) { const ch = hOf(c); place(c, side, cx + side * (sz(x).w / 2 + gapX + sz(c).w / 2), t); t += ch + gapY; }
+  };
+  for (const side of [1, -1]) {
+    const ks = mmKids(d, root.id).filter((k) => (k.x >= root.x ? 1 : -1) === side).sort((a, b) => a.y - b.y);
+    const total = ks.reduce((s, c) => s + hOf(c), 0) + Math.max(0, ks.length - 1) * gapY;
+    let t = root.y - total / 2;
+    for (const c of ks) { place(c, side, root.x + side * (sz(root).w / 2 + gapX + sz(c).w / 2), t); t += hOf(c) + gapY; }
+  }
+  void hid; mmSave(); mmDraw();
+}
+/* ---- colour, symbols, details ---- */
+function mmColorPop(anchor) {
+  const x = MM.d.nodes[MM.sel]; if (!x) return;
+  const el = popover(anchor, `<h4>${esc(T("mmColor"))}</h4><div class="colors mmcols">${MM_COLORS.map((c) => `<button type="button" class="swatch" data-c="${c}" style="background:${c}" aria-pressed="${x.color === c}"></button>`).join("")}<input type="color" value="${x.color}" id="mmCc" title="${esc(T("customColor"))}"></div>
+    <label class="radio" style="margin-top:10px"><input type="checkbox" id="mmBr" ${mmKids(MM.d, x.id).length ? "checked" : ""}> ${esc(T("mmBranch"))}</label>
+    <span class="pl">${esc(T("mmShape"))}</span><div class="mmshapes">${MM_SHAPES.map((s) => `<button type="button" data-s="${s}" aria-pressed="${x.shape === s}"><i class="mmprev s-${s}" style="--c:${x.color}">Aa</i></button>`).join("")}</div>`, "mmpop");
+  if (!el) return;
+  const apply = (c) => { mmPush(); const ids = [x.id, ...($("#mmBr")?.checked ? mmDesc(MM.d, x.id) : [])]; ids.forEach((i) => (MM.d.nodes[i].color = c)); mmSave(); mmDraw(); };
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (b) { apply(b.dataset.c); closePop(); } const s = e.target.closest("[data-s]"); if (s) { mmPush(); x.shape = s.dataset.s; mmSave(); mmDraw(); closePop(); } });
+  el.querySelector("#mmCc").addEventListener("change", (e) => { apply(e.target.value); closePop(); });
+}
+function mySymbols() { return Array.isArray(S.meta.settings.mmSymbols) ? S.meta.settings.mmSymbols : []; }
+function mmSymPop(anchor, tab) {
+  const x = MM.d.nodes[MM.sel]; if (!x) return;
+  tab = tab || mmSymPop.tab || "status"; mmSymPop.tab = tab;
+  const cats = [...Object.keys(MM_SYMS), "mine"], list = tab === "mine" ? mySymbols() : MM_SYMS[tab];
+  const html = `<h4>★ ${esc(T("mmSymbols"))}</h4><div class="mmtabs">${cats.map((c) => `<button type="button" data-tab="${c}" aria-pressed="${c === tab}">${esc(T("sym_" + c))}</button>`).join("")}</div>
+    <div class="mmsyms">${list.map((s) => `<button type="button" data-sym="${esc(s)}" aria-pressed="${x.sym.includes(s)}">${mmSymHtml(s)}</button>`).join("")}</div>
+    ${tab === "mine" ? `<button type="button" class="btn" data-mksym="1" style="margin-top:10px;width:100%">${esc(T("mmMakeSymbol"))}</button>` : ""}`;
+  closePop(); const el = popover(anchor, html, "mmpop mmsympop"); if (!el) return;
+  hydrate(el);
+  el.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-tab]"); if (t) return mmSymPop(anchor, t.dataset.tab);
+    if (e.target.closest("[data-mksym]")) { closePop(); return mmMakeSymbol().then((s) => { if (s && MM && MM.d.nodes[MM.sel]) { mmPush(); MM.d.nodes[MM.sel].sym.push(s); mmSave(); mmDraw(); } }); }
+    const b = e.target.closest("[data-sym]"); if (!b) return;
+    mmPush(); const s = b.dataset.sym, i = x.sym.indexOf(s); if (i >= 0) x.sym.splice(i, 1); else if (x.sym.length < 8) x.sym.push(s);
+    b.setAttribute("aria-pressed", String(i < 0)); mmSave(); mmDraw();
+  });
+}
+/** Your own symbol: a short text/emoji, or a little drawing made with the pen (kept as a picture, synced like other pictures). */
+async function mmMakeSymbol() {
+  let pad = null;
+  const r = await formBox(T("mmMakeSymbol").replace("＋ ", ""), `<div class="field"><label>${esc(T("mmSymText"))}</label><input name="t" maxlength="8" dir="auto" style="font-size:22px;text-align:center"></div>
+    <div class="field"><label>${esc(T("mmSymDraw"))}</label><canvas class="sympad" width="320" height="320"></canvas><button type="button" class="btn" data-clr="1" style="margin-top:6px">${esc(T("mmSymClear"))}</button></div>`,
+    (f) => ({ t: [...f.t.value.trim()].slice(0, 4).join(""), drawn: pad && pad.used }), T("save"), (el) => {
+      const c = el.querySelector(".sympad"), x = c.getContext("2d"); pad = { used: false, c };
+      x.lineCap = "round"; x.lineJoin = "round"; x.lineWidth = 14; x.strokeStyle = "#25334a";
+      let on = false; const pt = (e) => { const b = c.getBoundingClientRect(); return [(e.clientX - b.left) * c.width / b.width, (e.clientY - b.top) * c.height / b.height]; };
+      c.addEventListener("pointerdown", (e) => { e.preventDefault(); on = true; pad.used = true; c.setPointerCapture(e.pointerId); const [a, b] = pt(e); x.beginPath(); x.moveTo(a, b); x.lineTo(a + 0.1, b); x.stroke(); });
+      c.addEventListener("pointermove", (e) => { if (!on) return; const [a, b] = pt(e); x.lineTo(a, b); x.stroke(); });
+      c.addEventListener("pointerup", () => { on = false; });
+      el.querySelector("[data-clr]").addEventListener("click", () => { x.clearRect(0, 0, c.width, c.height); pad.used = false; });
+    });
+  if (!r) return null;
+  let s = r.t;
+  if (r.drawn && S.assets) { const blob = await new Promise((res) => pad.c.toBlob(res, "image/png")); s = "img:" + (await S.assets.upload(blob)).id; }
+  if (!s) return null;
+  const mine = mySymbols().filter((q) => q !== s); mine.unshift(s); S.meta.settings.mmSymbols = mine.slice(0, 200); saveMeta(0);
+  toast("★ " + T("mmSymMade")); return s;
+}
+function mmLinkLabel(l) {
+  if (l.label) return l.label;
+  if (l.t === "page" || l.t === "file") { const n = S.notes.get(l.v); return n ? titleOf(n) : "—"; }
+  return l.v.replace(/^https?:\/\//, "").slice(0, 60);
+}
+function mmOpenLink(l) {
+  if (l.t === "url") { const u = /^[a-z]+:/i.test(l.v) ? l.v : "https://" + l.v; if (/^(https?|mailto|tel):/i.test(u)) window.open(u, "_blank", "noopener"); return; }
+  const n = S.notes.get(l.v); if (!n) return toast(T("ctxMissing"), { kind: "err" });
+  if (isStored(n)) return openFile(n.id);
+  openNote(n.id);
+}
+async function mmDetails(focus) {
+  const x = MM.d.nodes[MM.sel]; if (!x) return;
+  const links = x.links.map((l) => ({ ...l }));
+  const others = Array.from(S.notes.values()).filter((n) => !n.trashed && n.id !== MM.n.id && !sealedLocked(n));
+  const pages = others.filter((n) => !isStored(n)), files = others.filter(isStored);
+  const row = (l, i) => `<div class="mmlink"><span>${l.t === "url" ? "🌐" : l.t === "file" ? "📎" : "📄"}</span><button type="button" class="lk" data-open="${i}" dir="auto">${esc(mmLinkLabel(l))}</button><button type="button" class="x" data-rm="${i}" aria-label="${esc(T("delete"))}">✕</button></div>`;
+  const r = await formBox(x.text || T("mmIdea"), `
+    <div class="field"><label>${esc(T("mmLinks"))}</label><div class="mmlinks" id="mmLinks">${links.length ? links.map(row).join("") : `<p class="msg">${esc(T("mmNoLinks"))}</p>`}</div>
+      <div class="mmadd"><select name="lt"><option value="url">🌐 ${esc(T("mmUrl"))}</option>${pages.length ? `<option value="page">📄 ${esc(T("mmPage"))}</option>` : ""}${files.length ? `<option value="file">📎 ${esc(T("mmFile"))}</option>` : ""}</select>
+      <input name="lv" placeholder="https://…" dir="ltr"><select name="lp" class="hide">${pages.map((n) => `<option value="${esc(n.id)}">${esc((n.folder ? leaf(n.folder) + " › " : "") + titleOf(n))}</option>`).join("")}</select><select name="lf" class="hide">${files.map((n) => `<option value="${esc(n.id)}">${esc(titleOf(n))}</option>`).join("")}</select>
+      <input name="ll" placeholder="${esc(T("mmLabel"))}" dir="auto"><button type="button" class="btn" data-addlink="1">＋ ${esc(T("mmAddLink"))}</button></div></div>
+    <div class="field"><label>${esc(T("mmNote"))}</label><textarea name="note" rows="5" dir="auto">${esc(x.note)}</textarea></div>`,
+    (f) => ({ note: f.note.value }), T("save"), (el) => {
+      const f = el.querySelector("form"), redraw = () => { el.querySelector("#mmLinks").innerHTML = links.length ? links.map(row).join("") : `<p class="msg">${esc(T("mmNoLinks"))}</p>`; };
+      const sync = () => { f.lv.classList.toggle("hide", f.lt.value !== "url"); f.lp.classList.toggle("hide", f.lt.value !== "page"); f.lf.classList.toggle("hide", f.lt.value !== "file"); };
+      f.lt.addEventListener("change", sync); sync();
+      el.addEventListener("click", (e) => {
+        if (e.target.closest("[data-addlink]")) {
+          const t = f.lt.value, v = t === "url" ? f.lv.value.trim() : t === "page" ? f.lp.value : f.lf.value; if (!v) return;
+          links.push({ t, v, label: f.ll.value.trim() }); f.lv.value = ""; f.ll.value = ""; redraw();
+        }
+        const rm = e.target.closest("[data-rm]"); if (rm) { links.splice(+rm.dataset.rm, 1); redraw(); }
+        const op = e.target.closest("[data-open]"); if (op) mmOpenLink(links[+op.dataset.open]);
+      });
+      if (focus === "note") setTimeout(() => f.note.focus(), 60);
+    });
+  if (!r || !MM || !MM.d.nodes[x.id]) return;
+  mmPush(); x.links = links; x.note = r.note.trim(); mmSave(); mmDraw();
+}
+function mmLinksMenu(id) {
+  const x = MM.d.nodes[id]; if (!x) return;
+  if (x.links.length === 1) return mmOpenLink(x.links[0]);
+  menuBox(x.text, x.links.map((l, i) => [String(i), (l.t === "url" ? "🌐 " : l.t === "file" ? "📎 " : "📄 ") + mmLinkLabel(l)])).then((a) => a != null && mmOpenLink(x.links[+a]));
+}
+async function mmRelLabel(r) {
+  const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
+  if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
+}
+/* ---- touch, pen, mouse ---- */
+function mmBind() {
+  const st = $("#mmStage"), pts = new Map(); let g = null, pin = null;
+  const toWorld = (cx, cy) => { const r = st.getBoundingClientRect(), v = MM.view; return [(cx - r.left - v.x) / v.z, (cy - r.top - v.y) / v.z]; };
+  st.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".mmtb") || (MM.edit && e.target.closest(".mmn.editing"))) return;
+    if (MM.edit) { document.activeElement?.blur?.(); }
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    try { st.setPointerCapture(e.pointerId); } catch {}
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()]; g = null;
+      pin = { d0: Math.hypot(a.x - b.x, a.y - b.y) || 1, z0: MM.view.z, m0: [(a.x + b.x) / 2, (a.y + b.y) / 2], v0: { ...MM.view } }; return;
+    }
+    if (pts.size > 2) return;
+    const nodeEl = e.target.closest(".mmn"), relEl = e.target.closest("[data-rel]"), badge = e.target.closest("[data-badge]");
+    g = { id: nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
+  });
+  st.addEventListener("pointermove", (e) => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pin && pts.size >= 2) {
+      const [a, b] = [...pts.values()], dd = Math.hypot(a.x - b.x, a.y - b.y) || 1, z = Math.min(3, Math.max(0.15, pin.z0 * dd / pin.d0));
+      const r = st.getBoundingClientRect(), m = [(a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top], m0 = [pin.m0[0] - r.left, pin.m0[1] - r.top];
+      const wx = (m0[0] - pin.v0.x) / pin.v0.z, wy = (m0[1] - pin.v0.y) / pin.v0.z;
+      MM.view = { x: m[0] - wx * z, y: m[1] - wy * z, z }; mmApplyView(); return;
+    }
+    if (!g) return;
+    const dx = e.clientX - g.x0, dy = e.clientY - g.y0;
+    if (!g.moved && Math.hypot(dx, dy) < 7) return;
+    if (!g.moved) {
+      g.moved = true;
+      if (g.id) { mmPush(); const ids = [g.id, ...mmDesc(MM.d, g.id)]; g.start = ids.map((i) => [i, MM.d.nodes[i].x, MM.d.nodes[i].y]); MM.sel = g.id; MM.rel = null; }
+    }
+    if (g.id && g.start) { const z = MM.view.z; for (const [i, x, y] of g.start) { MM.d.nodes[i].x = x + dx / z; MM.d.nodes[i].y = y + dy / z; } mmDraw(); }
+    else { MM.view = { ...g.v0, x: g.v0.x + dx, y: g.v0.y + dy }; mmApplyView(); }
+  });
+  const up = (e) => {
+    if (!pts.has(e.pointerId)) return;
+    pts.delete(e.pointerId);
+    if (pin) { if (pts.size < 2) { pin = null; mmSetView(MM.view.x, MM.view.y, MM.view.z); } g = null; return; }
+    if (!g) return;
+    const G = g; g = null;
+    if (G.moved) { if (G.id) mmSave(); else mmSetView(MM.view.x, MM.view.y, MM.view.z); return; }
+    if (e.type === "pointercancel") return;
+    if (G.badge && G.id) { MM.sel = G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
+    if (G.id) {
+      if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
+      const now = Date.now(), lt = MM.lt || {}, again = lt.id === G.id && now - lt.t < 380;
+      MM.lt = { id: G.id, t: now };
+      if (again || (MM.sel === G.id && now - (G.selAt || 0) > 0 && e.pointerType !== "mouse")) { MM.sel = G.id; mmDraw(); return mmStartEdit(G.id); }
+      MM.sel = G.id; MM.rel = null; MM.connect = null; mmHint(""); return mmDraw();
+    }
+    if (G.rel) { MM.rel = G.rel; MM.sel = null; return mmDraw(); }
+    MM.sel = null; MM.rel = null; if (MM.connect) { MM.connect = null; mmHint(""); } mmDraw();
+  };
+  st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
+  st.addEventListener("dblclick", (e) => { const n = e.target.closest(".mmn"); if (n && !MM.edit) { MM.sel = n.dataset.mmn; mmDraw(); mmStartEdit(n.dataset.mmn); } });
+  st.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    if (e.ctrlKey) { const r = st.getBoundingClientRect(), m = [e.clientX - r.left, e.clientY - r.top], v = MM.view, z = Math.min(3, Math.max(0.15, v.z * Math.exp(-e.deltaY / 300))); const wx = (m[0] - v.x) / v.z, wy = (m[1] - v.y) / v.z; mmSetView(m[0] - wx * z, m[1] - wy * z, z); }
+    else mmSetView(MM.view.x - e.deltaX, MM.view.y - e.deltaY, MM.view.z);
+  }, { passive: false });
+  void toWorld;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-mm]"); if (!b || !MM || !$("#mmStage")) return;
+  e.stopPropagation(); MM.lt = null;
+  const a = b.dataset.mm, x = MM.d.nodes[MM.sel], r = MM.d.rels.find((q) => q.id === MM.rel);
+  if (a === "undo") return mmUndo(false);
+  if (a === "redo") return mmUndo(true);
+  if (a === "fit") return mmFit();
+  if (a === "tidy") return mmTidy();
+  if (a === "free") { MM.sel = null; return mmAdd("free"); }
+  if (a === "child") return mmAdd("child");
+  if (a === "sibling") return mmAdd("sibling");
+  if (a === "edit" && x) return mmStartEdit(x.id);
+  if (a === "color") return mmColorPop(b);
+  if (a === "symbols") return mmSymPop(b);
+  if (a === "details") return mmDetails();
+  if (a === "relate" && x) { MM.connect = x.id; MM.sel = null; mmHint("↗ " + T("mmRelateHint")); return mmDraw(); }
+  if (a === "fold" && x) { mmPush(); x.collapsed = !x.collapsed; if (!x.collapsed) delete x.collapsed; mmSave(); return mmDraw(); }
+  if (a === "del" && x) return mmDelete(x.id);
+  if (r) {
+    if (a === "rlabel") return mmRelLabel(r);
+    mmPush();
+    if (a === "rpos") r.kind = "+"; if (a === "rneg") r.kind = "-"; if (a === "rneu") r.kind = ""; if (a === "rdash") r.dashed = !r.dashed;
+    if (a === "rdel") { MM.d.rels = MM.d.rels.filter((q) => q !== r); MM.rel = null; }
+    mmSave(); mmDraw();
+  }
+}, true);
+document.addEventListener("keydown", (e) => {
+  if (!MM || !$("#mmStage") || MM.edit || document.querySelector(".overlay") || e.target.closest("input,textarea,select,[contenteditable=true],[contenteditable=plaintext-only]")) return;
+  const k = e.key, mod = e.ctrlKey || e.metaKey;
+  if (mod && k.toLowerCase() === "z") { e.preventDefault(); return mmUndo(e.shiftKey); }
+  if (mod && k.toLowerCase() === "y") { e.preventDefault(); return mmUndo(true); }
+  if (!MM.sel) return;
+  if (k === "Tab") { e.preventDefault(); return mmAdd("child"); }
+  if (k === "Enter") { e.preventDefault(); return mmAdd(MM.d.nodes[MM.sel].parent ? "sibling" : "child"); }
+  if (k === "F2" || k === " ") { e.preventDefault(); return mmStartEdit(MM.sel); }
+  if (k === "Delete" || k === "Backspace") { e.preventDefault(); return mmDelete(MM.sel); }
+  if (k === "Escape") { MM.sel = null; MM.connect = null; mmHint(""); mmDraw(); }
+});
+addEventListener("resize", () => { if (MM && $("#mmStage")) { mmSize(); mmPlaceTb(); } });
+document.addEventListener("fullscreenchange", () => setTimeout(() => { if (MM && $("#mmStage")) mmSize(); }, 200));
+
 /* ---- tidy toolbar: rarely used tools in small menus ---- */
 function toolMoreMenu(el) {
   const row = (m, icon, label) => `<button class="irow" data-act="setTool" data-mode="${m}" aria-pressed="${S.tool.mode === m}">${ic(icon)}<span>${esc(label)}</span></button>`;
@@ -7284,7 +7781,7 @@ if ("launchQueue" in window) {
   try { launchQueue.setConsumer(async (lp) => { if (!lp || !lp.files || !lp.files.length) return; const files = []; for (const h of lp.files) { try { files.push(await h.getFile()); } catch {} } takeShared(files); }); } catch {}
 }
 if ("caches" in window) readShareInbox();
-window.__nb = { S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob }; // for automatic tests
+window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
