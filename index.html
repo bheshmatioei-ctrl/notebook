@@ -795,6 +795,12 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .swatch.none{display:grid;place-items:center;background:var(--bg);border:1px dashed var(--line);font-size:12px;color:var(--muted)}
 .layic{display:inline-grid;place-items:center;width:22px;font-size:16px;color:var(--accent)}
 .mmstylepop{width:min(340px,calc(100vw - 16px))}
+.aibtn{color:#7b61d6!important}
+.aichat{max-height:50vh;overflow:auto;display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.aim{padding:9px 12px;border-radius:12px;line-height:1.6;font-size:14px;max-width:92%}.aim.user{align-self:flex-end;background:var(--accent-soft,#fde7dd)}.aim.assistant{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.aim .btn{display:block;margin-top:6px;min-height:28px;font-size:12px;padding:2px 10px}
+.aiq{display:flex;gap:8px;align-items:flex-end}.aiq textarea{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);color:var(--ink);font:inherit;resize:vertical}
+.airel{display:flex!important;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--line)}.airel .kp{color:#1f8a4c}.airel .kn{color:#d64545}.airel small{color:var(--muted)}
 </style>
 
 <div class="app" id="app">
@@ -2642,7 +2648,7 @@ async function plusMenu() {
   const folder = S.view && !S.view.startsWith("__") ? S.view : "", box = containerOf(S.view);
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [
-    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
+    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["aimap", "✨", T("aiMakeMap")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
     ["templates", "🗂", T("templates")], ["folder", "📁", T("newFolder")],
     ...(can ? [["photo", "📷", T("photoNote")], ["scan", "📄", T("scanDoc")]] : []),
     ...(mic ? [["audio", "🎙", T("audioNote")]] : []),
@@ -2651,6 +2657,7 @@ async function plusMenu() {
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.querySelector(".plusgrid").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
   if (a === "quick") return newNote();
   if (a === "mindmap") return newMap();
+  if (a === "aimap") return aiMakeMap();
   if (a === "notebook") return coverDialog(null, box);
   if (a === "templates") { S.view = "__templates"; S.screen = "library"; renderTree(); return renderMain(); }
   if (a === "import") return pickImport(null);
@@ -6074,6 +6081,7 @@ async function settingsPanel() {
   const st = S.meta.settings;
   const r = await formBox("⚙ " + T("settings"), `
     ${S.mode === "local" || S.mode === "server" ? `<button type="button" class="acctcard" data-x="${isHome() ? "account" : "sync"}"><span class="ai">☁️</span><span><b>${esc(T("syncTitle"))}</b><small>${esc(S.mode === "server" ? (S.account?.email || "") : syncCfg() ? syncCfg().email + " · " + syncLabel() : T("syncAddEmail"))}</small></span><span class="go">›</span></button>` : ""}
+    <button type="button" class="acctcard" data-x="ai"><span class="ai">✨</span><span><b>${esc(T("aiTitle"))}</b><small>${esc(aiReady() ? AI_PROVIDERS[aiCfg().provider]?.name + " · " + (aiCfg().model || AI_PROVIDERS[aiCfg().provider]?.def) : T("aiSub"))}</small></span><span class="go">›</span></button>
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
     <div class="field"><label>${esc(T("theme"))}</label><select name="theme">${["auto", "light", "dark"].map((x) => `<option value="${x}" ${st.theme === x ? "selected" : ""}>${esc(T("theme" + x[0].toUpperCase() + x.slice(1)))}</option>`).join("")}</select></div>
@@ -6097,6 +6105,7 @@ async function settingsPanel() {
     const x = e.target.closest("[data-x]")?.dataset.x; if (!x) return;
     if (x === "testsound") { const v = el.querySelector("select[name=sound]").value; return v === "off" ? toast(T("soundOff")) : playSound(v); }
     close(null);
+    if (x === "ai") return aiSetup();
     if (x === "gdrive") gdPanel(); else if (x === "sync") accountSyncPanel(); else if (x === "backup") fullBackup(); else if (x === "install") installApp(); else if (x === "account") accountPanel(); else if (x === "home") location.href = "/start"; else { const i = $("#importIn"); i.value = ""; i.click(); }
   })));
   if (!r) return;
@@ -7274,6 +7283,7 @@ function renderMap(n) {
       <button class="btn icon ghost" data-mm="ro" title="${esc(T("mmReadOnly"))}" aria-pressed="false">👁</button>
       <button class="btn icon ghost" data-mm="fit" title="${esc(T("mmFit"))}">⤢</button>
       <button class="btn icon ghost" data-mm="io" data-pop="1" title="${esc(T("mmIO"))}">⇅</button>
+      <button class="btn ghost aibtn" data-mm="ai" data-pop="1" title="${esc(T("aiMenu"))}">✨<span class="mmlab">${esc(T("aiMenu"))}</span></button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
   <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
@@ -7385,7 +7395,7 @@ function mmPlaceTb() {
     const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
     const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
     tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") +
-      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
+      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + b("aitb", T("aiMenu"), "✨") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
     tb.classList.remove("hide");
     const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
     tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px";
@@ -7765,6 +7775,7 @@ document.addEventListener("click", (e) => {
   if (a === "tidy") return mmTidy();
   if (a === "layout") return mmLayoutPop(b);
   if (a === "io") return mmIOPanel(b);
+  if (a === "ai") return aiMenu(b);
   if (a === "outline") return mmToggleSide();
   if (a === "ro") return mmToggleRo();
   if (a === "unfocus") { MM.focus = null; mmDraw(); return mmFit(); }
@@ -7772,6 +7783,7 @@ document.addEventListener("click", (e) => {
   if (a === "task" && x) { mmPush(); x.task = !x.task; if (!x.task) { delete x.task; delete x.done; } mmSave(); return mmDraw(); }
   if (a === "focus" && x) { MM.focus = x.id; mmDraw(); return mmFitIds([x.id, ...mmDesc(MM.d, x.id)]); }
   if (MM.ro && !["fit", "layout", "outline", "ro", "unfocus", "io"].includes(a)) return;
+  if (a === "aitb") return aiMenu(b);
   if (a === "free") { MM.sel = null; return mmAdd("free"); }
   if (a === "child") return mmAdd("child");
   if (a === "sibling") return mmAdd("sibling");
@@ -8070,6 +8082,249 @@ function pageToMap(n) {
   const title = titleOf(n), roots = linesToTree(lines.join("\n"));
   const d = mmFromTree([{ text: title, kids: roots }], title);
   const m = mmNewNoteFrom(d, title); m.folder = n.folder; m.order = orderAfter(n); saveNote(m.id, 0); openNote(m.id);
+}
+
+/* ---------------- AI gateway: your own key for Claude, ChatGPT, Gemini or any OpenAI-compatible service; the key stays on this device ---------------- */
+Object.assign(I18N.fa, {
+  aiTitle: "هوش مصنوعی", aiSetup: "تنظیم هوش مصنوعی", aiSub: "Claude، ChatGPT، Gemini یا سرویس سازگار — با کلید خودتان", aiProvider: "سرویس", aiKey: "کلید API", aiModel: "مدل", aiBase: "نشانی سرویس (Base URL)",
+  aiLoadModels: "دریافت فهرست مدل‌ها", aiTest: "آزمایش اتصال", aiTestOk: "اتصال برقرار است ✓ ({m})", aiKeyHint: "کلید فقط روی همین دستگاه ذخیره می‌شود و با گوگل درایو جابه‌جا نمی‌شود. روی هر دستگاه یک بار وارد کنید.",
+  aiPrivacy: "هر بار که از هوش مصنوعی استفاده می‌کنید، متن همان نقشه یا صفحه برای سرویس انتخاب‌شده فرستاده می‌شود. برای نقشه‌های محرمانه از آن استفاده نکنید.", aiNeedKey: "اول هوش مصنوعی را تنظیم کنید (کلید API).",
+  aiThinking: "✨ در حال فکر کردن…", aiFailed: "هوش مصنوعی جواب نداد: ", aiNet: "اتصال برقرار نشد (اینترنت یا اجازهٔ مرورگر).", aiBadKey: "کلید درست نیست یا اجازه ندارد.", aiLimit: "سقف استفاده یا اعتبار حساب تمام شده است.", aiBadAnswer: "جواب قابل استفاده نبود؛ دوباره امتحان کنید.",
+  aiMenu: "هوش مصنوعی", aiBrainstorm: "ایده‌پردازی: شاخه‌های تازه", aiExpand: "باز کردن عمیق‌تر (دو سطح)", aiSummary: "خلاصهٔ این شاخه (در یادداشت)", aiRelations: "پیدا کردن ارتباط‌ها و تأثیرها", aiTranslate: "ترجمهٔ این شاخه",
+  aiAsk: "پرسیدن از نقشه", aiAskPh: "سؤالتان دربارهٔ این نقشه…", aiAddIdea: "افزودن به‌عنوان ایده", aiMakeMap: "ساختن نقشه با هوش مصنوعی", aiMakeHint: "موضوع را بنویسید، یا متنی را اینجا بچسبانید، یا یک فایل (PDF، Word، متن) یا صفحه‌ای از دفترچه را انتخاب کنید.",
+  aiTopic: "موضوع یا متن", aiFromFile: "از فایل", aiFromPage: "از صفحهٔ دفترچه", aiNone: "—", aiDepth: "اندازهٔ نقشه", aiSmall: "کوچک", aiMedium: "متوسط", aiLarge: "بزرگ", aiMake: "بساز",
+  aiRelFound: "{n} ارتباط پیشنهاد شد؛ آن‌هایی را که درست هستند نگه دارید.", aiApply: "افزودن", aiAdded: "{n} ایده اضافه شد.", aiTo: "به زبان", aiSelectFirst: "اول یک ایده را انتخاب کنید.", aiNothing: "پیشنهادی نبود.",
+});
+Object.assign(I18N.de, {
+  aiTitle: "KI", aiSetup: "KI einrichten", aiSub: "Claude, ChatGPT, Gemini oder kompatibler Dienst — mit Ihrem eigenen Schlüssel", aiProvider: "Dienst", aiKey: "API-Schlüssel", aiModel: "Modell", aiBase: "Dienstadresse (Base URL)",
+  aiLoadModels: "Modelle laden", aiTest: "Verbindung testen", aiTestOk: "Verbindung steht ✓ ({m})", aiKeyHint: "Der Schlüssel bleibt nur auf diesem Gerät und wird nicht über Google Drive übertragen. Auf jedem Gerät einmal eingeben.",
+  aiPrivacy: "Bei jeder KI-Nutzung wird der Text dieser Karte oder Seite an den gewählten Dienst geschickt. Nicht für vertrauliche Karten verwenden.", aiNeedKey: "Bitte zuerst die KI einrichten (API-Schlüssel).",
+  aiThinking: "✨ Denkt nach…", aiFailed: "Die KI hat nicht geantwortet: ", aiNet: "Keine Verbindung (Internet oder Browser-Erlaubnis).", aiBadKey: "Schlüssel ungültig oder ohne Berechtigung.", aiLimit: "Nutzungsgrenze oder Guthaben erschöpft.", aiBadAnswer: "Antwort nicht verwendbar; bitte noch einmal.",
+  aiMenu: "KI", aiBrainstorm: "Brainstorming: neue Zweige", aiExpand: "Tiefer ausbauen (zwei Ebenen)", aiSummary: "Zusammenfassung dieses Zweigs (als Notiz)", aiRelations: "Beziehungen und Einflüsse finden", aiTranslate: "Diesen Zweig übersetzen",
+  aiAsk: "Die Karte fragen", aiAskPh: "Ihre Frage zu dieser Karte…", aiAddIdea: "Als Idee hinzufügen", aiMakeMap: "Karte mit KI erstellen", aiMakeHint: "Thema eingeben, Text einfügen oder eine Datei (PDF, Word, Text) bzw. eine Notizbuchseite wählen.",
+  aiTopic: "Thema oder Text", aiFromFile: "Aus Datei", aiFromPage: "Aus Notizbuchseite", aiNone: "—", aiDepth: "Größe der Karte", aiSmall: "Klein", aiMedium: "Mittel", aiLarge: "Groß", aiMake: "Erstellen",
+  aiRelFound: "{n} Beziehungen vorgeschlagen; behalten Sie die richtigen.", aiApply: "Hinzufügen", aiAdded: "{n} Ideen hinzugefügt.", aiTo: "Nach", aiSelectFirst: "Bitte zuerst eine Idee wählen.", aiNothing: "Keine Vorschläge.",
+});
+Object.assign(I18N.en, {
+  aiTitle: "AI", aiSetup: "Set up AI", aiSub: "Claude, ChatGPT, Gemini or a compatible service — with your own key", aiProvider: "Service", aiKey: "API key", aiModel: "Model", aiBase: "Service address (Base URL)",
+  aiLoadModels: "Load model list", aiTest: "Test connection", aiTestOk: "Connected ✓ ({m})", aiKeyHint: "The key is stored only on this device and is not carried through Google Drive. Enter it once per device.",
+  aiPrivacy: "Each time you use AI, the text of this map or page is sent to the chosen service. Do not use it for confidential maps.", aiNeedKey: "Set up AI first (API key).",
+  aiThinking: "✨ Thinking…", aiFailed: "The AI did not answer: ", aiNet: "No connection (internet or browser permission).", aiBadKey: "The key is wrong or not allowed.", aiLimit: "Usage limit or credit used up.", aiBadAnswer: "The answer was not usable; try again.",
+  aiMenu: "AI", aiBrainstorm: "Brainstorm: new branches", aiExpand: "Expand deeper (two levels)", aiSummary: "Summary of this branch (as note)", aiRelations: "Find relations and influences", aiTranslate: "Translate this branch",
+  aiAsk: "Ask the map", aiAskPh: "Your question about this map…", aiAddIdea: "Add as idea", aiMakeMap: "Make a map with AI", aiMakeHint: "Type a topic, paste a text, or choose a file (PDF, Word, text) or a notebook page.",
+  aiTopic: "Topic or text", aiFromFile: "From a file", aiFromPage: "From a notebook page", aiNone: "—", aiDepth: "Map size", aiSmall: "Small", aiMedium: "Medium", aiLarge: "Large", aiMake: "Make",
+  aiRelFound: "{n} relations suggested; keep the ones that are right.", aiApply: "Add", aiAdded: "{n} ideas added.", aiTo: "To", aiSelectFirst: "Choose an idea first.", aiNothing: "No suggestions.",
+});
+const AI_PROVIDERS = {
+  anthropic: { name: "Claude (Anthropic)", keyUrl: "https://console.anthropic.com/settings/keys", def: "claude-sonnet-5-5" },
+  openai: { name: "ChatGPT (OpenAI)", keyUrl: "https://platform.openai.com/api-keys", def: "" },
+  gemini: { name: "Gemini (Google)", keyUrl: "https://aistudio.google.com/apikey", def: "" },
+  compat: { name: "OpenAI-compatible (OpenRouter, Ollama, LM Studio…)", keyUrl: "", def: "" },
+};
+const aiCfg = () => ({ provider: "anthropic", key: "", model: "", base: "", ...(lsGet("babak-ai", null) || {}) });
+const aiReady = () => { const c = aiCfg(); return !!(c.key || (c.provider === "compat" && c.base)) && !!(c.model || AI_PROVIDERS[c.provider]?.def); };
+function aiErr(status, msg) { const e = new Error(msg || String(status)); e.status = status; return e; }
+async function aiFetch(url, opt) {
+  let r; try { r = await fetch(url, opt); } catch { throw aiErr(0, T("aiNet")); }
+  let j = null; try { j = await r.json(); } catch {}
+  if (!r.ok) throw aiErr(r.status, r.status === 401 || r.status === 403 ? T("aiBadKey") : r.status === 429 || r.status === 402 ? T("aiLimit") : (j && (j.error?.message || j.error?.type || j.message)) || "HTTP " + r.status);
+  return j;
+}
+/** One call to the chosen service: a system text and the conversation; returns the answer text. */
+async function aiChat({ system, messages, max = 2000, cfg }) {
+  const c = cfg || aiCfg(), model = c.model || AI_PROVIDERS[c.provider]?.def;
+  if (!aiReady() && !cfg) throw aiErr(-1, T("aiNeedKey"));
+  if (c.provider === "anthropic") {
+    const j = await aiFetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "content-type": "application/json", "x-api-key": c.key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" },
+      body: JSON.stringify({ model, max_tokens: max, system, messages }) });
+    return (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
+  }
+  if (c.provider === "gemini") {
+    const j = await aiFetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model.replace(/^models\//, ""))}:generateContent?key=${encodeURIComponent(c.key)}`, { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ systemInstruction: { parts: [{ text: system }] }, contents: messages.map((m) => ({ role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] })), generationConfig: { maxOutputTokens: max } }) });
+    return (j.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("");
+  }
+  const base = c.provider === "openai" ? "https://api.openai.com/v1" : String(c.base || "").replace(/\/+$/, "");
+  const j = await aiFetch(base + "/chat/completions", { method: "POST", headers: { "content-type": "application/json", ...(c.key ? { authorization: "Bearer " + c.key } : {}) },
+    body: JSON.stringify({ model, messages: [{ role: "system", content: system }, ...messages], ...(c.provider === "openai" ? { max_completion_tokens: max } : { max_tokens: max }) }) });
+  return j.choices?.[0]?.message?.content || "";
+}
+async function aiModels(c) {
+  if (c.provider === "anthropic") return ((await aiFetch("https://api.anthropic.com/v1/models?limit=100", { headers: { "x-api-key": c.key, "anthropic-version": "2023-06-01", "anthropic-dangerous-direct-browser-access": "true" } })).data || []).map((m) => m.id);
+  if (c.provider === "gemini") return ((await aiFetch(`https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key=${encodeURIComponent(c.key)}`, {})).models || []).filter((m) => (m.supportedGenerationMethods || []).includes("generateContent")).map((m) => m.name.replace(/^models\//, ""));
+  const base = c.provider === "openai" ? "https://api.openai.com/v1" : String(c.base || "").replace(/\/+$/, "");
+  return ((await aiFetch(base + "/models", { headers: c.key ? { authorization: "Bearer " + c.key } : {} })).data || []).map((m) => m.id).sort();
+}
+async function aiSetup() {
+  const c = aiCfg();
+  const r = await formBox("✨ " + T("aiSetup"), `
+    <div class="field"><label>${esc(T("aiProvider"))}</label><select name="provider">${Object.entries(AI_PROVIDERS).map(([k, v]) => `<option value="${k}" ${c.provider === k ? "selected" : ""}>${esc(v.name)}</option>`).join("")}</select><small class="msg" id="aiKeyLink"></small></div>
+    <div class="field" id="aiBaseF"><label>${esc(T("aiBase"))}</label><input name="base" dir="ltr" placeholder="https://openrouter.ai/api/v1" value="${esc(c.base)}"></div>
+    <div class="field"><label>${esc(T("aiKey"))}</label><input name="key" type="password" dir="ltr" autocomplete="off" value="${esc(c.key)}"></div>
+    <div class="field"><label>${esc(T("aiModel"))}</label><div style="display:flex;gap:6px"><input name="model" dir="ltr" list="aiModelList" value="${esc(c.model)}" style="flex:1"><datalist id="aiModelList"></datalist><button type="button" class="btn" data-ai="models">${esc(T("aiLoadModels"))}</button></div></div>
+    <div style="display:flex;gap:8px;align-items:center"><button type="button" class="btn" data-ai="test">🔌 ${esc(T("aiTest"))}</button><span class="msg" id="aiTestOut"></span></div>
+    <p class="msg">🔐 ${esc(T("aiKeyHint"))}</p><p class="msg">⚠️ ${esc(T("aiPrivacy"))}</p>`,
+    (f) => ({ provider: f.provider.value, key: f.key.value.trim(), model: f.model.value.trim(), base: f.base.value.trim() }), T("save"), (el) => {
+      const f = el.querySelector("form"), out = el.querySelector("#aiTestOut");
+      const sync = () => { const p = AI_PROVIDERS[f.provider.value]; el.querySelector("#aiBaseF").classList.toggle("hide", f.provider.value !== "compat"); f.model.placeholder = p.def || "…"; el.querySelector("#aiKeyLink").innerHTML = p.keyUrl ? `🔑 <a href="${p.keyUrl}" target="_blank" rel="noopener">${esc(p.keyUrl.replace(/^https:\/\//, ""))}</a>` : ""; };
+      f.provider.addEventListener("change", sync); sync();
+      const cur = () => ({ provider: f.provider.value, key: f.key.value.trim(), model: f.model.value.trim() || AI_PROVIDERS[f.provider.value].def, base: f.base.value.trim() });
+      el.addEventListener("click", async (e) => {
+        const b = e.target.closest("[data-ai]"); if (!b) return;
+        out.textContent = "…";
+        try {
+          if (b.dataset.ai === "models") {
+            const list = await aiModels(cur()); el.querySelector("#aiModelList").innerHTML = list.map((m) => `<option value="${esc(m)}">`).join("");
+            if (!f.model.value && list.length) f.model.value = list.find((m) => /sonnet|mini|flash/i.test(m)) || list[0];
+            out.textContent = `${num(list.length)} ✓`;
+          } else { const a = await aiChat({ system: "Reply with exactly: OK", messages: [{ role: "user", content: "ping" }], max: 20, cfg: cur() }); out.textContent = T("aiTestOk", { m: (cur().model || "") + " → " + a.trim().slice(0, 20) }); }
+        } catch (er) { out.textContent = "⚠️ " + (er.message || er); }
+      });
+    });
+  if (!r) return false;
+  lsSet("babak-ai", r); toast("✨ " + T("saved")); return true;
+}
+/* ---- helpers for the mind map ---- */
+function aiJson(text) {
+  const s = String(text || "").replace(/```(?:json)?/gi, ""), a = s.indexOf("{"), b = s.lastIndexOf("}");
+  if (a < 0 || b <= a) throw aiErr(-2, T("aiBadAnswer"));
+  try { return JSON.parse(s.slice(a, b + 1)); } catch { throw aiErr(-2, T("aiBadAnswer")); }
+}
+function aiLangOf(text) { return detectDir(text || "") === "rtl" ? "Persian (Farsi)" : /[äöüßÄÖÜ]/.test(text || "") ? "German" : "the same language as the map"; }
+const AI_SYS = (lang) => `You help a person think with mind maps inside their private notebook app. Answer with JSON only (no prose, no code fences) that matches the schema in the request. Idea texts are short (2-8 words), concrete and not repeating existing ideas. Write in ${lang}. Notes may be one or two sentences.`;
+function aiOutline(d, withIds) { const out = []; const w = (t, k) => { out.push("  ".repeat(k) + "- " + (withIds ? `[${t.x.id}] ` : "") + mmLabel(t.x) + (t.x.task ? (t.x.done ? " (done)" : " (todo)") : "") + (t.x.note ? ` — note: ${t.x.note.replace(/\s+/g, " ").slice(0, 200)}` : "")); t.kids.forEach((c) => w(c, k + 1)); }; mmTree(d).forEach((t) => w(t, 0)); let s = out.join("\n"); if (s.length > 14000) s = s.slice(0, 14000) + "\n…"; return s; }
+function aiPath(d, id) { const a = []; let q = d.nodes[id]; while (q) { a.unshift(mmLabel(q)); q = q.parent ? d.nodes[q.parent] : null; } return a.join(" > "); }
+let aiBusy = false;
+async function aiRun(work) {
+  if (aiBusy) return; if (!aiReady()) { if (!(await aiSetup()) || !aiReady()) return toast(T("aiNeedKey"), { kind: "err" }); }
+  aiBusy = true; mmHint(T("aiThinking")); const t = !$("#mmHint") ? sayToast(T("aiThinking")).t : null;
+  try { return await work(); }
+  catch (e) { console.warn(e); toast(e.status === -2 ? T("aiBadAnswer") : T("aiFailed") + (e.message || e), { kind: "err" }); }
+  finally { aiBusy = false; mmHint(""); t?.remove(); }
+}
+/** Adds a tree of ideas under a parent (positions: automatic layout, or placed next to the parent on a free board). */
+function aiAddIdeas(parentId, ideas) {
+  const d = MM.d, p = d.nodes[parentId]; if (!p || !ideas?.length) return 0;
+  mmPush(); let n = 0;
+  const side = p.id === d.root ? 1 : p.x >= d.nodes[d.root].x ? 1 : -1, start = Math.max(-1, ...mmKids(d, p.id).map((k) => k.o ?? -1)) + 1;
+  const add = (it, par, i, depth) => {
+    const text = String(it?.text || it || "").trim().slice(0, 300); if (!text) return;
+    const id = mmId(), pp = d.nodes[par], color = par === d.root ? MM_COLORS[(mmKids(d, d.root).length + i) % MM_COLORS.length] : pp.color;
+    d.nodes[id] = { id, parent: par, o: (par === p.id ? start : 0) + i, text, x: pp.x + side * (190 + depth * 10), y: pp.y + (i - (ideas.length - 1) / 2) * 46 / depth, color, shape: par === d.root ? "round" : "line", sym: [], note: String(it?.note || "").trim().slice(0, 4000), links: [] };
+    n++; (Array.isArray(it?.kids) ? it.kids : []).slice(0, 12).forEach((k, j) => add(k, id, j, depth + 1));
+  };
+  ideas.slice(0, 20).forEach((it, i) => add(it, p.id, i, 1));
+  if (p.collapsed) delete p.collapsed;
+  mmSave(); mmDraw(); toast("✨ " + T("aiAdded", { n: num(n) }));
+  return n;
+}
+async function aiBrainstorm(deep) {
+  const d = MM.d, x = d.nodes[MM.sel] || d.nodes[d.root];
+  return aiRun(async () => {
+    const kids = mmKids(d, x.id).map((k) => k.text).join("; ") || "none";
+    const ask = deep
+      ? `Mind map so far:\n${aiOutline(d)}\n\nSelected idea: ${aiPath(d, x.id)}\nExisting children: ${kids}\n\nExpand the selected idea two levels deep: 4-6 new child ideas, each with 2-4 sub-ideas.\nSchema: {"ideas":[{"text":"...","note":"optional","kids":[{"text":"..."}]}]}`
+      : `Mind map so far:\n${aiOutline(d)}\n\nSelected idea: ${aiPath(d, x.id)}\nExisting children: ${kids}\n\nSuggest 6 new, different child ideas for the selected idea (causes, effects, examples, questions, risks, opportunities — whatever fits).\nSchema: {"ideas":[{"text":"...","note":"optional one sentence"}]}`;
+    const j = aiJson(await aiChat({ system: AI_SYS(aiLangOf(d.nodes[d.root].text + " " + x.text)), messages: [{ role: "user", content: ask }], max: deep ? 3000 : 1500 }));
+    if (!aiAddIdeas(x.id, j.ideas)) toast(T("aiNothing"));
+  });
+}
+async function aiSummary() {
+  const d = MM.d, x = d.nodes[MM.sel]; if (!x) return toast(T("aiSelectFirst"));
+  return aiRun(async () => {
+    const sub = { kids: [] }; const w = (q, k) => `${"  ".repeat(k)}- ${mmLabel(q)}${q.note ? " — " + q.note : ""}\n` + mmKids(d, q.id).map((c) => w(c, k + 1)).join("");
+    const j = aiJson(await aiChat({ system: AI_SYS(aiLangOf(x.text)), messages: [{ role: "user", content: `Summarise this branch of a mind map in 3-6 short sentences: the main point, how the parts connect, and what is missing.\n\n${w(x, 0)}\nSchema: {"summary":"..."}` }], max: 1200 }));
+    void sub; const s = String(j.summary || "").trim(); if (!s) return toast(T("aiNothing"));
+    const ok = await confirmBox("✨ " + s, { ok: T("aiApply") }); if (!ok) return;
+    mmPush(); x.note = (x.note ? x.note + "\n\n" : "") + "✨ " + s; mmSave(); mmDraw();
+  });
+}
+async function aiRelations() {
+  const d = MM.d;
+  return aiRun(async () => {
+    const j = aiJson(await aiChat({ system: AI_SYS(aiLangOf(d.nodes[d.root].text)), messages: [{ role: "user", content: `Mind map with idea ids in brackets:\n${aiOutline(d, true)}\n\nExisting relations: ${d.rels.map((r) => `${r.a}->${r.b}`).join(", ") || "none"}\n\nFind up to 8 meaningful cause-and-effect or influence relations between EXISTING ideas that are not parent and child. kind is "+" when a raises/helps b, "-" when a lowers/hurts b, "" otherwise. label: 1-4 words.\nSchema: {"relations":[{"a":"id","b":"id","kind":"+","label":"..."}]}` }], max: 1500 }));
+    const list = (j.relations || []).filter((r) => d.nodes[r.a] && d.nodes[r.b] && r.a !== r.b && !d.rels.some((q) => q.a === r.a && q.b === r.b)).slice(0, 12);
+    if (!list.length) return toast(T("aiNothing"));
+    const r = await formBox("✨ " + T("aiRelations"), `<p class="msg">${esc(T("aiRelFound", { n: num(list.length) }))}</p>${list.map((q, i) => `<label class="radio airel"><input type="checkbox" name="r${i}" checked> <b dir="auto">${esc(mmLabel(d.nodes[q.a]))}</b> <span class="k${q.kind === "+" ? "p" : q.kind === "-" ? "n" : "0"}">${q.kind === "+" ? "⊕" : q.kind === "-" ? "⊖" : "→"}</span> <b dir="auto">${esc(mmLabel(d.nodes[q.b]))}</b>${q.label ? ` <small dir="auto">(${esc(q.label)})</small>` : ""}</label>`).join("")}`,
+      (f) => ({ keep: list.filter((_, i) => f["r" + i].checked) }), T("aiApply"));
+    if (!r || !r.keep.length) return;
+    mmPush(); for (const q of r.keep) d.rels.push({ id: mmId(), a: q.a, b: q.b, label: String(q.label || "").slice(0, 200), kind: ["+", "-"].includes(q.kind) ? q.kind : "", dashed: false }); mmSave(); mmDraw();
+  });
+}
+async function aiTranslate() {
+  const d = MM.d, x = d.nodes[MM.sel] || d.nodes[d.root];
+  const r = await formBox("✨ " + T("aiTranslate"), `<div class="field"><label>${esc(T("aiTo"))}</label><select name="l"><option>فارسی</option><option>English</option><option>Deutsch</option><option>Français</option><option>العربية</option></select></div>`, (f) => ({ l: f.l.value }), T("aiApply"));
+  if (!r) return;
+  return aiRun(async () => {
+    const ids = [x.id, ...mmDesc(d, x.id)].slice(0, 200);
+    const j = aiJson(await aiChat({ system: AI_SYS(r.l), messages: [{ role: "user", content: `Translate these mind-map idea texts (and notes, if present) into ${r.l}. Keep ids.\n${JSON.stringify(ids.map((i) => ({ id: i, text: d.nodes[i].text, note: d.nodes[i].note || undefined })))}\nSchema: {"items":[{"id":"...","text":"...","note":"..."}]}` }], max: 4000 }));
+    mmPush(); let n = 0;
+    for (const it of j.items || []) { const q = d.nodes[it.id]; if (!q || !ids.includes(it.id)) continue; if (it.text) { q.text = String(it.text).slice(0, 2000); n++; } if (it.note && q.note) q.note = String(it.note).slice(0, 20000); }
+    mmSave(); mmDraw(); if (!n) toast(T("aiNothing"));
+  });
+}
+async function aiAsk() {
+  const d = MM.d; let hist = [];
+  const r = await dialog({ title: "✨ " + T("aiAsk"), wide: true, body: `<div class="aichat" id="aiChat"></div><form class="aiq" id="aiQ"><textarea name="q" rows="2" dir="auto" placeholder="${esc(T("aiAskPh"))}"></textarea><button class="btn primary" type="submit">➤</button></form>`,
+    actions: [{ label: T("close"), value: null }], onOpen: (el, close) => {
+      const box = el.querySelector("#aiChat"), f = el.querySelector("#aiQ");
+      const show = () => { box.innerHTML = hist.map((m, i) => `<div class="aim ${m.role}" dir="auto">${esc(m.content).replace(/\n/g, "<br>")}${m.role === "assistant" ? `<button type="button" class="btn" data-addans="${i}">＋ ${esc(T("aiAddIdea"))}</button>` : ""}</div>`).join(""); box.scrollTop = box.scrollHeight; };
+      f.addEventListener("submit", async (e) => {
+        e.preventDefault(); const q = f.q.value.trim(); if (!q || aiBusy) return; f.q.value = ""; hist.push({ role: "user", content: q }); show();
+        await aiRun(async () => {
+          const a = await aiChat({ system: `You answer questions about the person's mind map. Be concise and concrete. Answer in the language of the question.\n\nThe mind map:\n${aiOutline(d)}\n\nRelations: ${d.rels.map((x) => `${mmLabel(d.nodes[x.a])} ${x.kind || "→"} ${mmLabel(d.nodes[x.b])}${x.label ? " (" + x.label + ")" : ""}`).join("; ") || "none"}`, messages: hist.slice(-10), max: 1500 });
+          hist.push({ role: "assistant", content: a.trim() }); show();
+        });
+      });
+      box.addEventListener("click", (e) => { const b = e.target.closest("[data-addans]"); if (!b) return; const a = hist[+b.dataset.addans].content, par = MM.sel && d.nodes[MM.sel] ? MM.sel : d.root; close(null); aiAddIdeas(par, [{ text: a.split("\n")[0].replace(/^[-*#\s]+/, "").slice(0, 80), note: a }]); });
+      setTimeout(() => f.q.focus(), 50);
+    } });
+  void r;
+}
+/** A whole new map from a topic, a pasted text, a file or a notebook page. */
+async function aiMakeMap(preset) {
+  const pages = Array.from(S.notes.values()).filter((n) => !n.trashed && !n.mm && !isStored(n) && !sealedLocked(n) && textOf(n).trim());
+  const files = Array.from(S.notes.values()).filter((n) => !n.trashed && isStored(n) && ["PDF", "DOC", "TXT"].includes(fileKind(n.file)[0]));
+  let pickedFile = null;
+  const r = await formBox("✨ " + T("aiMakeMap"), `<p class="msg">${esc(T("aiMakeHint"))}</p>
+    <div class="field"><label>${esc(T("aiTopic"))}</label><textarea name="t" rows="5" dir="auto">${esc(preset || "")}</textarea></div>
+    <div class="field"><label>${esc(T("aiFromPage"))}</label><select name="p"><option value="">${esc(T("aiNone"))}</option>${pages.map((n) => `<option value="${esc(n.id)}">${esc((n.folder ? leaf(n.folder) + " › " : "") + titleOf(n))}</option>`).join("")}${files.map((n) => `<option value="${esc(n.id)}">📎 ${esc(titleOf(n))}</option>`).join("")}</select></div>
+    <div class="field"><label>${esc(T("aiFromFile"))}</label><input type="file" name="f" accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm,.rtf,.odt"></div>
+    <div class="field"><label>${esc(T("aiDepth"))}</label><select name="z"><option value="s">${esc(T("aiSmall"))}</option><option value="m" selected>${esc(T("aiMedium"))}</option><option value="l">${esc(T("aiLarge"))}</option></select></div>
+    <p class="msg">⚠️ ${esc(T("aiPrivacy"))}</p>`, (f) => { pickedFile = f.f.files?.[0] || null; return { t: f.t.value.trim(), p: f.p.value, z: f.z.value }; }, T("aiMake"));
+  if (!r || (!r.t && !r.p && !pickedFile)) return;
+  return aiRun(async () => {
+    let src = r.t, title = "";
+    const fileText = async (file) => {
+      if (/\.pdf$/i.test(file.name) || /pdf/.test(file.type)) {
+        const lib = await loadPdfJs(), pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise; let s = "";
+        for (let i = 1; i <= Math.min(pdf.numPages, 60) && s.length < 60000; i++) { const tc = await (await pdf.getPage(i)).getTextContent(); s += tc.items.map((x) => x.str).join(" ") + "\n"; }
+        return s;
+      }
+      const items = await fileToItems(file.name, () => file.text(), () => file.arrayBuffer()); return (items || []).map((it) => (it.title || "") + "\n" + htmlToText(it.html || "")).join("\n\n");
+    };
+    if (r.p) { const n = S.notes.get(r.p); title = titleOf(n); src = (src ? src + "\n\n" : "") + (isStored(n) ? await fileText(await storedFile(n)) : textOf(n)); }
+    if (pickedFile) { title = title || pickedFile.name.replace(/\.[^.]+$/, ""); src = (src ? src + "\n\n" : "") + (await fileText(pickedFile)); }
+    src = src.slice(0, 60000);
+    const size = { s: "about 15 ideas, 2 levels", m: "about 30 ideas, 3 levels", l: "about 60 ideas, 3-4 levels" }[r.z];
+    const lang = aiLangOf(src.slice(0, 2000));
+    const j = aiJson(await aiChat({ system: AI_SYS(lang), messages: [{ role: "user", content: `${src.length > 300 ? "Turn this material into a well-structured mind map" : "Make a well-structured mind map about this topic"} (${size}). Group related points into main branches; put key facts, numbers and sources into short notes. Mark action items with "task": true.\n\n${src}\n\nSchema: {"title":"central idea","ideas":[{"text":"...","note":"optional","task":false,"kids":[...]}]}` }], max: r.z === "l" ? 6000 : 4000 }));
+    const conv = (it) => ({ text: String(it.text || ""), note: String(it.note || ""), task: !!it.task, kids: (it.kids || []).map(conv) });
+    if (!Array.isArray(j.ideas) || !j.ideas.length) return toast(T("aiNothing"));
+    const t = String(j.title || title || r.t.slice(0, 60) || T("mmNew")).slice(0, 200);
+    const n = mmNewNoteFrom(mmFromTree([{ text: t, kids: j.ideas.map(conv) }], t), t); openNote(n.id);
+  });
+}
+function aiMenu(anchor) {
+  const sel = MM && MM.sel && MM.d.nodes[MM.sel];
+  const items = [...(sel ? [["brain", "💡", T("aiBrainstorm")], ["deep", "🌳", T("aiExpand")], ["sum", "📝", T("aiSummary")], ["tr", "🌐", T("aiTranslate")]] : [["brain", "💡", T("aiBrainstorm")]]),
+    ["rel", "🔗", T("aiRelations")], ["ask", "💬", T("aiAsk")], ["make", "🧠", T("aiMakeMap")], ["setup", "⚙️", T("aiSetup")]];
+  const el = popover(anchor, `<h4>✨ ${esc(T("aiMenu"))}${aiReady() ? ` <small class="msg" style="margin:0">${esc(AI_PROVIDERS[aiCfg().provider]?.name.split(" ")[0] || "")}</small>` : ""}</h4><div class="ilist">${items.map(([k, i, l]) => `<button type="button" class="irow" data-aim="${k}"><span>${i}</span><span>${esc(l)}</span></button>`).join("")}</div>`, "mmpop");
+  if (!el) return;
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-aim]"); if (!b) return; closePop();
+    ({ brain: () => aiBrainstorm(false), deep: () => aiBrainstorm(true), sum: aiSummary, tr: aiTranslate, rel: aiRelations, ask: aiAsk, make: () => aiMakeMap(), setup: aiSetup })[b.dataset.aim]();
+  });
 }
 
 /* ---- tidy toolbar: rarely used tools in small menus ---- */
