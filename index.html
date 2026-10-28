@@ -746,6 +746,25 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mmn .badges{display:inline-flex;gap:3px;flex:none;font-size:12px}.mmn .badges b{font-weight:500;background:color-mix(in srgb,var(--c) 14%,transparent);border-radius:7px;padding:1px 5px;color:var(--ink)}
 .mmn.root .badges b{background:rgba(255,255,255,.25);color:#fff}
 .mmn .fold{flex:none;font-size:11px;font-weight:700;background:var(--c);color:#fff;border-radius:99px;padding:1px 7px}
+.mmn .nk{flex:none;font-size:13px;line-height:1}
+.mmn .nv{flex:none;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;direction:ltr}
+.mmn .nv i{display:block;width:34px;height:6px;border-radius:3px;background:color-mix(in srgb,currentColor 18%,transparent);position:relative;overflow:hidden}
+.mmn .nv i::after{content:"";position:absolute;top:0;bottom:0;left:0;width:calc(var(--v) * 1%);background:currentColor;border-radius:3px}
+.mmn .nv.p{color:#1f8a4c}.mmn .nv.n{color:#d64545}.mmn .nv.z{color:#7b8597}
+.mmn.root .nv{color:#fff}
+.mmn .nr{flex:none;font-size:11px;opacity:.75;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
+.mmstage.net .mmn.nd{opacity:.38}
+.mmstage.net .mmn.nd.sel{opacity:1}
+.netf .opts{display:flex;flex-wrap:wrap;gap:6px}
+.netf .opts label{display:inline-flex;gap:5px;align-items:center;padding:5px 11px;border:1px solid var(--line);border-radius:99px;cursor:pointer;font-size:14px}
+.netf .opts label:has(input:checked){background:var(--hover);border-color:var(--accent);font-weight:600}
+.netf .opts input{width:15px;height:15px;accent-color:var(--accent);margin:0}
+.netf .rng{display:flex;gap:10px;align-items:center;direction:ltr}
+.netf .rng input[type=range]{flex:1;accent-color:var(--accent)}
+.netf .rng output{min-width:52px;text-align:center;font-weight:700;direction:ltr}
+.netf .two{display:flex;gap:8px}.netf .two input{flex:1;min-width:0}
+.netf small.msg{display:block;opacity:.7;margin-top:4px}
+.netf .chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;cursor:pointer;white-space:nowrap;margin-inline-start:10px;font-weight:400}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7217,6 +7236,19 @@ Object.assign(I18N.fa, { mmTask: "تیک (کار)", mmOutline: "فهرست", mmS
 Object.assign(I18N.de, { mmTask: "Aufgabe (Häkchen)", mmOutline: "Gliederung", mmSearchPh: "In der Karte suchen…", mmAll: "Alle", mmOpen: "Offen", mmDoneF: "Erledigt", mmLayout: "Anordnung", lay_map: "Beidseitig", lay_right: "Nur rechts", lay_left: "Nur links", lay_down: "Von oben nach unten", lay_list: "Liste", lay_radial: "Radial", lay_free: "Frei (manuell)", mmDir: "Richtung", dir_auto: "Automatisch", dir_rtl: "Rechts nach links", dir_ltr: "Links nach rechts", mmStyle: "Stil", mmFont: "Schriftgröße", mmBorder: "Rahmen", mmBorderW: "Rahmenstärke", mmFill: "Hintergrund", mmTextColor: "Textfarbe", mmMinW: "Mindestbreite", mmReset: "Standardstil", mmNone: "Keine", mmFocus: "Auf diesen Zweig fokussieren", mmFocusOn: "Fokus:", mmReadOnly: "Nur lesen", mmReadOnlyOn: "Nur lesen: die Karte bleibt unverändert", mmEditOn: "Bearbeiten an", mmDropHere: "Loslassen, um hierher zu verschieben", mmProgress: "{p} % erledigt" });
 Object.assign(I18N.en, { mmTask: "Task (tick)", mmOutline: "Outline", mmSearchPh: "Search the map…", mmAll: "All", mmOpen: "Open", mmDoneF: "Done", mmLayout: "Layout", lay_map: "Both sides", lay_right: "Right only", lay_left: "Left only", lay_down: "Top down", lay_list: "List", lay_radial: "Radial", lay_free: "Free (manual)", mmDir: "Direction", dir_auto: "Automatic", dir_rtl: "Right to left", dir_ltr: "Left to right", mmStyle: "Style", mmFont: "Font size", mmBorder: "Border", mmBorderW: "Border width", mmFill: "Fill colour", mmTextColor: "Text colour", mmMinW: "Minimum width", mmReset: "Default style", mmNone: "None", mmFocus: "Focus on this branch", mmFocusOn: "Focus:", mmReadOnly: "Read only", mmReadOnlyOn: "Read only: the map will not change", mmEditOn: "Editing on", mmDropHere: "Drop to move it under this idea", mmProgress: "{p}% done" });
 const MM_LAYOUTS = ["map", "right", "left", "down", "list", "radial", "free"];
+Object.assign(I18N.fa, { netView: "شبکه", netOn: "نمای شبکهٔ فکری: فلش‌های تأثیر پررنگ شدند", netOff: "نمای نقشهٔ ذهنی", netNode: "نوع و مقدار", netKind: "نوع", k_none: "ایدهٔ ساده", k_factor: "عامل", k_asset: "سهم / دارایی", k_event: "رویداد", k_goal: "سؤال / هدف",
+  netVal: "مقدار در شبکه", netHasVal: "مقدار دارد", netValHint: "از ۱۰۰− (خیلی منفی) تا ۱۰۰+ (خیلی مثبت)", netReal: "مقدار واقعی (اختیاری)", netRealPh: "مثلاً 4.25", netUnit: "واحد", netUnitPh: "٪ یا $", netAsOf: "ثبت: {d}",
+  netLink: "جزئیات تأثیر", netSign: "جهت تأثیر", netW: "شدت", w1: "ضعیف", w2: "متوسط", w3: "قوی", netLag: "زمان اثر", lag_0: "فوری", lag_w: "چند هفته", lag_m: "چند ماه",
+  netConf: "اطمینان", netHasConf: "مشخص است", netBy: "سازنده", by_me: "من", by_ai: "هوش مصنوعی", by_data: "داده", netWhy: "دلیل", netWhyPh: "چرا این روی آن اثر دارد؟" });
+Object.assign(I18N.de, { netView: "Netz", netOn: "Denknetz-Ansicht: Einflusspfeile hervorgehoben", netOff: "Mindmap-Ansicht", netNode: "Art und Wert", netKind: "Art", k_none: "Einfache Idee", k_factor: "Faktor", k_asset: "Aktie / Wert", k_event: "Ereignis", k_goal: "Frage / Ziel",
+  netVal: "Wert im Netz", netHasVal: "Hat einen Wert", netValHint: "Von −100 (sehr negativ) bis +100 (sehr positiv)", netReal: "Echter Wert (optional)", netRealPh: "z. B. 4.25", netUnit: "Einheit", netUnitPh: "% oder $", netAsOf: "Erfasst: {d}",
+  netLink: "Einfluss-Details", netSign: "Richtung", netW: "Stärke", w1: "Schwach", w2: "Mittel", w3: "Stark", netLag: "Verzögerung", lag_0: "Sofort", lag_w: "Einige Wochen", lag_m: "Einige Monate",
+  netConf: "Sicherheit", netHasConf: "Angegeben", netBy: "Quelle", by_me: "Ich", by_ai: "KI", by_data: "Daten", netWhy: "Begründung", netWhyPh: "Warum wirkt das darauf?" });
+Object.assign(I18N.en, { netView: "Network", netOn: "Thinking-network view: influence arrows highlighted", netOff: "Mind-map view", netNode: "Type and value", netKind: "Type", k_none: "Plain idea", k_factor: "Factor", k_asset: "Stock / asset", k_event: "Event", k_goal: "Question / goal",
+  netVal: "Value in the network", netHasVal: "Has a value", netValHint: "From −100 (very negative) to +100 (very positive)", netReal: "Real value (optional)", netRealPh: "e.g. 4.25", netUnit: "Unit", netUnitPh: "% or $", netAsOf: "Recorded: {d}",
+  netLink: "Influence details", netSign: "Direction", netW: "Strength", w1: "Weak", w2: "Medium", w3: "Strong", netLag: "Delay", lag_0: "Immediate", lag_w: "A few weeks", lag_m: "A few months",
+  netConf: "Confidence", netHasConf: "Known", netBy: "Made by", by_me: "Me", by_ai: "AI", by_data: "Data", netWhy: "Reason", netWhyPh: "Why does this affect that?" });
+const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
   const r = mmId();
@@ -7238,12 +7270,16 @@ function mmNorm(m) {
       shape: MM_SHAPES.includes(x.shape) ? x.shape : "round", sym: Array.isArray(x.sym) ? x.sym.filter((q) => typeof q === "string").slice(0, 8) : [], note: String(x.note || "").slice(0, 20000),
       links: Array.isArray(x.links) ? x.links.filter((l) => l && typeof l.v === "string").slice(0, 50).map((l) => ({ t: ["url", "page", "file"].includes(l.t) ? l.t : "url", v: l.v.slice(0, 2000), label: String(l.label || "").slice(0, 200) })) : [],
       ...(x.collapsed ? { collapsed: true } : {}), ...(x.task ? { task: true } : {}), ...(x.task && x.done ? { done: true } : {}),
-      ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}) };
+      ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}),
+      ...(NET_KINDS.includes(x.kind) ? { kind: x.kind } : {}), ...(x.val !== undefined && x.val !== null && x.val !== "" && isFinite(x.val) ? { val: Math.max(-100, Math.min(100, Math.round(+x.val))) } : {}),
+      ...(x.real && typeof x.real === "object" && String(x.real.v ?? "").trim() ? { real: { v: String(x.real.v).trim().slice(0, 40), u: String(x.real.u || "").slice(0, 20), ts: typeof x.real.ts === "string" ? x.real.ts.slice(0, 30) : "" } } : {}) };
   }
   if (!nodes[m.root]) return null;
   for (const x of Object.values(nodes)) if (x.parent && (!nodes[x.parent] || x.parent === x.id)) x.parent = m.root === x.id ? null : m.root;
-  const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed })) : [];
-  return { v: 1, root: m.root, nodes, rels, layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
+  const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed,
+    w: [1, 2, 3].includes(+r.w) ? +r.w : 2, lag: ["0", "w", "m"].includes(r.lag) ? r.lag : "0", why: String(r.why || "").slice(0, 2000), by: ["me", "ai", "data"].includes(r.by) ? r.by : "me",
+    ...(r.conf !== undefined && r.conf !== null && r.conf !== "" && isFinite(r.conf) ? { conf: Math.max(0, Math.min(100, Math.round(+r.conf))) } : {}) })) : [];
+  return { v: 2, root: m.root, nodes, rels, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
     view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
 }
 let MM = null; // the open map: { n, d, sel, rel, edit, connect, undo, redo, size }
@@ -7278,6 +7314,7 @@ function renderMap(n) {
       <span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
+      <button class="btn ghost" data-mm="net" aria-pressed="${d.mode === "net"}" title="${esc(T("netView"))}">🧠<span class="mmlab">${esc(T("netView"))}</span></button>
       <button class="btn ghost" data-mm="layout" data-pop="1" title="${esc(T("mmLayout"))}">⋮⋮<span class="mmlab">${esc(T("mmLayout"))}</span></button>
       <button class="btn icon ghost" data-mm="outline" title="${esc(T("mmOutline"))}" aria-pressed="false">☰</button>
       <button class="btn icon ghost" data-mm="ro" title="${esc(T("mmReadOnly"))}" aria-pressed="false">👁</button>
@@ -7286,7 +7323,7 @@ function renderMap(n) {
       <button class="btn ghost aibtn" data-mm="ai" data-pop="1" title="${esc(T("aiMenu"))}">✨<span class="mmlab">${esc(T("aiMenu"))}</span></button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
+  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
     <aside class="mmside hide" id="mmSide"><div class="mmsh"><input id="mmQ" type="search" placeholder="${esc(T("mmSearchPh"))}" dir="auto"><span class="seg mmflt"><button type="button" class="segb" data-flt="" aria-pressed="true">${esc(T("mmAll"))}</button><button type="button" class="segb" data-flt="open" aria-pressed="false">☐ ${esc(T("mmOpen"))}</button><button type="button" class="segb" data-flt="done" aria-pressed="false">☑ ${esc(T("mmDoneF"))}</button></span></div><div class="mmtree" id="mmTree"></div></aside></div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
@@ -7337,14 +7374,16 @@ function mmDraw() {
   const d = MM.d, hid = mmHidden(d), box = $("#mmNodes"), match = mmMatches(d);
   const focus = MM.focus && d.nodes[MM.focus] ? new Set([MM.focus, ...mmDesc(d, MM.focus), ...(() => { const a = []; let q = d.nodes[MM.focus]; while (q && q.parent) { a.push(q.parent); q = d.nodes[q.parent]; } return a; })()]) : null;
   const dim = (id) => (focus && !focus.has(id)) || (match && !match.has(id));
+  const net = d.mode === "net", inRel = new Set(d.rels.flatMap((r) => [r.a, r.b]));
+  const valHtml = (x) => x.val === undefined ? "" : `<span class="nv ${x.val > 0 ? "p" : x.val < 0 ? "n" : "z"}" title="${esc(T("netVal"))}"><i style="--v:${Math.abs(x.val)}"></i>${netSigned(x.val)}</span>`;
   box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
     const kids = mmKids(d, x.id).length, root = x.id === d.root, prog = kids ? mmProgress(d, x.id) : null;
     const mark = prog !== null ? `<i class="pie" style="--p:${prog}" title="${esc(T("mmProgress", { p: num(prog) }))}"></i>` : x.task ? `<b class="ck ${x.done ? "on" : ""}" data-badge="check">${x.done ? "✓" : ""}</b>` : "";
-    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}">
-      ${mark}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>
+    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}">
+      ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
-  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && r.label).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto">${esc(r.label)}</div>`).join("");
+  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && (r.label || (r.lag && r.lag !== "0") || r.why)).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto"${r.why ? ` title="${esc(r.why)}"` : ""}>${r.lag && r.lag !== "0" ? NET_LAG[r.lag] : ""}${esc(r.label)}${r.why ? " 💬" : ""}</div>`).join("");
   hydrate(box);
   MM.size = {};
   for (const el of box.querySelectorAll(".mmn")) MM.size[el.dataset.mmn] = { w: el.offsetWidth, h: el.offsetHeight };
@@ -7359,7 +7398,7 @@ function mmDraw() {
     if (!x.parent || hid.has(x.id)) continue;
     const p = d.nodes[x.parent], ps = MM.size[p.id], cs = MM.size[x.id]; if (!ps || !cs) continue;
     const depth = (() => { let k = 0, q = x; while (q.parent && k < 30) { k++; q = d.nodes[q.parent]; } return k; })();
-    const sw = Math.max(1.6, 4.5 - depth * 0.9), op = dim(x.id) ? 0.15 : 0.85;
+    const sw = Math.max(1.6, 4.5 - depth * 0.9), op = dim(x.id) ? 0.15 : net ? 0.16 : 0.85;
     let path;
     if (L === "down") { const sy = p.y + ps.h / 2, ey = x.y - cs.h / 2, my = (sy + ey) / 2; path = `M${p.x} ${sy} V${my} H${x.x} V${ey}`; }
     else if (L === "list") { const ix = rtl ? p.x + ps.w / 2 - 14 : p.x - ps.w / 2 + 14, ex = rtl ? x.x + cs.w / 2 : x.x - cs.w / 2; path = `M${ix} ${p.y + ps.h / 2} V${x.y} H${ex}`; }
@@ -7373,8 +7412,9 @@ function mmDraw() {
     const a = d.nodes[r.a], b = d.nodes[r.b], sa = MM.size[a.id], sb = MM.size[b.id]; if (!sa || !sb) continue;
     const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
     const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
-    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), ah = 11, on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : 1;
-    svg += `<g data-rel="${r.id}" class="mmrel" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${on ? 3.2 : 2}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
+    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
+    const rw = ([1.4, 2.4, 4][(r.w || 2) - 1]) + (net ? 0.8 : 0) + (on ? 1.2 : 0), ah = 8 + rw * 1.5;
+    svg += `<g data-rel="${r.id}" class="mmrel" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
       ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}</g>`;
     const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
@@ -7394,7 +7434,7 @@ function mmPlaceTb() {
   if (MM.sel && MM.d.nodes[MM.sel] && !MM.edit) {
     const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
     const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
-    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") +
+    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") + b("netnode", T("netNode"), x.kind ? NET_KIC[x.kind] : "◇") +
       b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + b("aitb", T("aiMenu"), "✨") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
     tb.classList.remove("hide");
     const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
@@ -7404,7 +7444,7 @@ function mmPlaceTb() {
     const r = MM.d.rels.find((q) => q.id === MM.rel); if (!r) { tb.classList.add("hide"); return; }
     const a = MM.d.nodes[r.a], c = MM.d.nodes[r.b];
     const b = (act, label, inner, on) => `<button type="button" data-mm="${act}" title="${esc(label)}" aria-pressed="${!!on}">${inner}</button>`;
-    tb.innerHTML = b("rlabel", T("mmRelLabel"), "✎") + b("rpos", T("mmPos"), "＋", r.kind === "+") + b("rneg", T("mmNeg"), "−", r.kind === "-") + b("rneu", T("mmNeutral"), "○", r.kind === "") + b("rdash", T("mmDashed"), "┄", r.dashed) + b("rdel", T("mmDelete"), "🗑");
+    tb.innerHTML = b("rlabel", T("mmRelLabel"), "✎") + b("rpos", T("mmPos"), "＋", r.kind === "+") + b("rneg", T("mmNeg"), "−", r.kind === "-") + b("rneu", T("mmNeutral"), "○", r.kind === "") + b("rw", T("netW") + ": " + T("w" + (r.w || 2)), ["◔", "◑", "●"][(r.w || 2) - 1]) + b("rinfo", T("netLink"), "ⓘ") + b("rdash", T("mmDashed"), "┄", r.dashed) + b("rdel", T("mmDelete"), "🗑");
     tb.classList.remove("hide");
     const sx = ((a.x + c.x) / 2) * v.z + v.x, sy = ((a.y + c.y) / 2) * v.z + v.y;
     tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px"; tb.style.top = Math.max(6, sy - tb.offsetHeight - 30) + "px";
@@ -7674,6 +7714,58 @@ function mmLinksMenu(id) {
   if (x.links.length === 1) return mmOpenLink(x.links[0]);
   menuBox(x.text, x.links.map((l, i) => [String(i), (l.t === "url" ? "🌐 " : l.t === "file" ? "📎 " : "📄 ") + mmLinkLabel(l)])).then((a) => a != null && mmOpenLink(x.links[+a]));
 }
+const netOpts = (name, list, cur) => `<div class="opts">${list.map(([v, l]) => `<label><input type="radio" name="${name}" value="${esc(v)}" ${String(cur) === String(v) ? "checked" : ""}> ${l}</label>`).join("")}</div>`;
+const netSigned = (v) => "\u200E" + (v > 0 ? "+" : v < 0 ? "−" : "") + "\u200E" + num(Math.abs(v));
+/** Type, value and real value of an idea (thinking network). */
+async function mmNetNode() {
+  const x = MM.d.nodes[MM.sel]; if (!x) return;
+  const has = x.val !== undefined, v0 = has ? x.val : 0;
+  const r = await formBox((x.kind ? NET_KIC[x.kind] + " " : "◇ ") + (x.text || T("mmIdea")), `<div class="netf">
+    <div class="field"><label>${esc(T("netKind"))}</label>${netOpts("k", [["", "○ " + esc(T("k_none"))], ...NET_KINDS.map((k) => [k, NET_KIC[k] + " " + esc(T("k_" + k))])], x.kind || "")}</div>
+    <div class="field"><label>${esc(T("netVal"))} <span class="chk"><input type="checkbox" name="hv" ${has ? "checked" : ""}> ${esc(T("netHasVal"))}</span></label>
+      <div class="rng"><span>−</span><input type="range" name="v" min="-100" max="100" step="5" value="${v0}" ${has ? "" : "disabled"}><span>+</span><output>${netSigned(v0)}</output></div><small class="msg">${esc(T("netValHint"))}</small></div>
+    <div class="field"><label>${esc(T("netReal"))}</label><div class="two"><input name="rv" dir="ltr" maxlength="40" placeholder="${esc(T("netRealPh"))}" value="${esc(x.real?.v || "")}"><input name="ru" dir="auto" maxlength="20" style="max-width:110px" placeholder="${esc(T("netUnitPh"))}" value="${esc(x.real?.u || "")}"></div>
+      ${x.real?.ts ? `<small class="msg">${esc(T("netAsOf", { d: new Date(x.real.ts).toLocaleString(document.documentElement.lang || undefined) }))}</small>` : ""}</div></div>`,
+    (f) => ({ k: f.k.value, hv: f.hv.checked, v: +f.v.value, rv: f.rv.value.trim(), ru: f.ru.value.trim() }), T("save"), (el) => {
+      const f = el.querySelector("form"), out = el.querySelector(".rng output");
+      f.v.addEventListener("input", () => { out.textContent = netSigned(+f.v.value); });
+      f.hv.addEventListener("change", () => { f.v.disabled = !f.hv.checked; out.style.opacity = f.hv.checked ? 1 : 0.35; });
+      out.style.opacity = has ? 1 : 0.35;
+    });
+  if (!r || !MM || !MM.d.nodes[x.id]) return;
+  mmPush();
+  if (NET_KINDS.includes(r.k)) x.kind = r.k; else delete x.kind;
+  if (r.hv) x.val = Math.max(-100, Math.min(100, Math.round(r.v))); else delete x.val;
+  if (r.rv) { if (!x.real || x.real.v !== r.rv || x.real.u !== r.ru) x.real = { v: r.rv, u: r.ru, ts: new Date().toISOString() }; } else delete x.real;
+  mmSave(); mmDraw();
+}
+/** Everything about one influence arrow. */
+async function mmNetRel(r) {
+  const d = MM.d, a = d.nodes[r.a], b = d.nodes[r.b]; if (!a || !b) return;
+  const hc = r.conf !== undefined, c0 = hc ? r.conf : 70;
+  const v = await formBox("ⓘ " + T("netLink"), `<div class="netf">
+    <p class="msg" dir="auto"><b>${esc(a.text || "…")}</b> → <b>${esc(b.text || "…")}</b></p>
+    <div class="field"><label>${esc(T("netSign"))}</label>${netOpts("k", [["+", "⊕ " + esc(T("mmPos"))], ["-", "⊖ " + esc(T("mmNeg"))], ["", "○ " + esc(T("mmNeutral"))]], r.kind)}</div>
+    <div class="field"><label>${esc(T("netW"))}</label>${netOpts("w", [[1, "◔ " + esc(T("w1"))], [2, "◑ " + esc(T("w2"))], [3, "● " + esc(T("w3"))]], r.w || 2)}</div>
+    <div class="field"><label>${esc(T("netLag"))}</label>${netOpts("lag", [["0", esc(T("lag_0"))], ["w", "⏱ " + esc(T("lag_w"))], ["m", "⏱⏱ " + esc(T("lag_m"))]], r.lag || "0")}</div>
+    <div class="field"><label>${esc(T("netConf"))} <span class="chk"><input type="checkbox" name="hc" ${hc ? "checked" : ""}> ${esc(T("netHasConf"))}</span></label>
+      <div class="rng"><input type="range" name="c" min="0" max="100" step="5" value="${c0}" ${hc ? "" : "disabled"}><output>${num(c0)}٪</output></div></div>
+    <div class="field"><label>${esc(T("netBy"))}</label>${netOpts("by", [["me", "👤 " + esc(T("by_me"))], ["ai", "✨ " + esc(T("by_ai"))], ["data", "📊 " + esc(T("by_data"))]], r.by || "me")}</div>
+    <div class="field"><label>${esc(T("netWhy"))}</label><textarea name="why" rows="3" dir="auto" maxlength="2000" placeholder="${esc(T("netWhyPh"))}">${esc(r.why || "")}</textarea></div>
+    <div class="field"><label>${esc(T("mmRelLabel"))}</label><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div></div>`,
+    (f) => ({ k: f.k.value, w: +f.w.value, lag: f.lag.value, hc: f.hc.checked, c: +f.c.value, by: f.by.value, why: f.why.value.trim(), t: f.t.value.trim() }), T("save"), (el) => {
+      const f = el.querySelector("form"), out = el.querySelector(".rng output");
+      f.c.addEventListener("input", () => { out.textContent = num(+f.c.value) + "٪"; });
+      f.hc.addEventListener("change", () => { f.c.disabled = !f.hc.checked; out.style.opacity = f.hc.checked ? 1 : 0.35; });
+      out.style.opacity = hc ? 1 : 0.35;
+    });
+  if (!v || !MM || !MM.d.rels.includes(r)) return;
+  mmPush();
+  r.kind = ["+", "-"].includes(v.k) ? v.k : ""; r.w = [1, 2, 3].includes(v.w) ? v.w : 2; r.lag = ["0", "w", "m"].includes(v.lag) ? v.lag : "0";
+  if (v.hc) r.conf = Math.max(0, Math.min(100, Math.round(v.c))); else delete r.conf;
+  r.by = ["me", "ai", "data"].includes(v.by) ? v.by : "me"; r.why = v.why.slice(0, 2000); r.label = v.t.slice(0, 200);
+  mmSave(); mmDraw();
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -7746,7 +7838,7 @@ function mmBind() {
     if (G.badge === "check" && G.id) { if (MM.ro) return; const x = MM.d.nodes[G.id]; mmPush(); x.done = !x.done; if (!x.done) delete x.done; mmSave(); return mmDraw(); }
     if (G.badge && G.id) { MM.sel = MM.ro ? null : G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
     if (G.id) {
-      if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
+      if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false, w: 2, lag: "0", why: "", by: "me" }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
       if (MM.ro) return;
       const now = Date.now(), lt = MM.lt || {}, again = lt.id === G.id && now - lt.t < 380;
       MM.lt = { id: G.id, t: now };
@@ -7777,6 +7869,7 @@ document.addEventListener("click", (e) => {
   if (a === "io") return mmIOPanel(b);
   if (a === "ai") return aiMenu(b);
   if (a === "outline") return mmToggleSide();
+  if (a === "net") { MM.d.mode = MM.d.mode === "net" ? "map" : "net"; b.setAttribute("aria-pressed", String(MM.d.mode === "net")); $("#mmStage").classList.toggle("net", MM.d.mode === "net"); toast((MM.d.mode === "net" ? "🧠 " : "🗺 ") + T(MM.d.mode === "net" ? "netOn" : "netOff")); mmSave(); return mmDraw(); }
   if (a === "ro") return mmToggleRo();
   if (a === "unfocus") { MM.focus = null; mmDraw(); return mmFit(); }
   if (a === "style") return mmStylePop(b);
@@ -7791,11 +7884,14 @@ document.addEventListener("click", (e) => {
   if (a === "color") return mmColorPop(b);
   if (a === "symbols") return mmSymPop(b);
   if (a === "details") return mmDetails();
+  if (a === "netnode") return mmNetNode();
   if (a === "relate" && x) { MM.connect = x.id; MM.sel = null; mmHint("↗ " + T("mmRelateHint")); return mmDraw(); }
   if (a === "fold" && x) { mmPush(); x.collapsed = !x.collapsed; if (!x.collapsed) delete x.collapsed; mmSave(); return mmDraw(); }
   if (a === "del" && x) return mmDelete(x.id);
   if (r) {
     if (a === "rlabel") return mmRelLabel(r);
+    if (a === "rinfo") return mmNetRel(r);
+    if (a === "rw") { mmPush(); r.w = ((r.w || 2) % 3) + 1; mmSave(); return mmDraw(); }
     mmPush();
     if (a === "rpos") r.kind = "+"; if (a === "rneg") r.kind = "-"; if (a === "rneu") r.kind = ""; if (a === "rdash") r.dashed = !r.dashed;
     if (a === "rdel") { MM.d.rels = MM.d.rels.filter((q) => q !== r); MM.rel = null; }
@@ -8242,13 +8338,13 @@ async function aiSummary() {
 async function aiRelations() {
   const d = MM.d;
   return aiRun(async () => {
-    const j = aiJson(await aiChat({ system: AI_SYS(aiLangOf(d.nodes[d.root].text)), messages: [{ role: "user", content: `Mind map with idea ids in brackets:\n${aiOutline(d, true)}\n\nExisting relations: ${d.rels.map((r) => `${r.a}->${r.b}`).join(", ") || "none"}\n\nFind up to 8 meaningful cause-and-effect or influence relations between EXISTING ideas that are not parent and child. kind is "+" when a raises/helps b, "-" when a lowers/hurts b, "" otherwise. label: 1-4 words.\nSchema: {"relations":[{"a":"id","b":"id","kind":"+","label":"..."}]}` }], max: 1500 }));
+    const j = aiJson(await aiChat({ system: AI_SYS(aiLangOf(d.nodes[d.root].text)), messages: [{ role: "user", content: `Mind map with idea ids in brackets:\n${aiOutline(d, true)}\n\nExisting relations: ${d.rels.map((r) => `${r.a}->${r.b}`).join(", ") || "none"}\n\nFind up to 8 meaningful cause-and-effect or influence relations between EXISTING ideas that are not parent and child. kind is "+" when a raises/helps b, "-" when a lowers/hurts b, "" otherwise. label: 1-4 words. w is the strength: 1 weak, 2 medium, 3 strong. why: one short sentence explaining the mechanism, in the language of the map. conf: your confidence 0-100.\nSchema: {"relations":[{"a":"id","b":"id","kind":"+","label":"...","w":2,"why":"...","conf":70}]}` }], max: 1500 }));
     const list = (j.relations || []).filter((r) => d.nodes[r.a] && d.nodes[r.b] && r.a !== r.b && !d.rels.some((q) => q.a === r.a && q.b === r.b)).slice(0, 12);
     if (!list.length) return toast(T("aiNothing"));
     const r = await formBox("✨ " + T("aiRelations"), `<p class="msg">${esc(T("aiRelFound", { n: num(list.length) }))}</p>${list.map((q, i) => `<label class="radio airel"><input type="checkbox" name="r${i}" checked> <b dir="auto">${esc(mmLabel(d.nodes[q.a]))}</b> <span class="k${q.kind === "+" ? "p" : q.kind === "-" ? "n" : "0"}">${q.kind === "+" ? "⊕" : q.kind === "-" ? "⊖" : "→"}</span> <b dir="auto">${esc(mmLabel(d.nodes[q.b]))}</b>${q.label ? ` <small dir="auto">(${esc(q.label)})</small>` : ""}</label>`).join("")}`,
       (f) => ({ keep: list.filter((_, i) => f["r" + i].checked) }), T("aiApply"));
     if (!r || !r.keep.length) return;
-    mmPush(); for (const q of r.keep) d.rels.push({ id: mmId(), a: q.a, b: q.b, label: String(q.label || "").slice(0, 200), kind: ["+", "-"].includes(q.kind) ? q.kind : "", dashed: false }); mmSave(); mmDraw();
+    mmPush(); for (const q of r.keep) d.rels.push({ id: mmId(), a: q.a, b: q.b, label: String(q.label || "").slice(0, 200), kind: ["+", "-"].includes(q.kind) ? q.kind : "", dashed: false, w: [1, 2, 3].includes(+q.w) ? +q.w : 2, lag: "0", why: String(q.why || "").slice(0, 2000), by: "ai", ...(isFinite(q.conf) && q.conf !== null && q.conf !== "" ? { conf: Math.max(0, Math.min(100, Math.round(+q.conf))) } : {}) }); mmSave(); mmDraw();
   });
 }
 async function aiTranslate() {
@@ -8272,7 +8368,7 @@ async function aiAsk() {
       f.addEventListener("submit", async (e) => {
         e.preventDefault(); const q = f.q.value.trim(); if (!q || aiBusy) return; f.q.value = ""; hist.push({ role: "user", content: q }); show();
         await aiRun(async () => {
-          const a = await aiChat({ system: `You answer questions about the person's mind map. Be concise and concrete. Answer in the language of the question.\n\nThe mind map:\n${aiOutline(d)}\n\nRelations: ${d.rels.map((x) => `${mmLabel(d.nodes[x.a])} ${x.kind || "→"} ${mmLabel(d.nodes[x.b])}${x.label ? " (" + x.label + ")" : ""}`).join("; ") || "none"}`, messages: hist.slice(-10), max: 1500 });
+          const a = await aiChat({ system: `You answer questions about the person's mind map. Be concise and concrete. Answer in the language of the question.\n\nThe mind map:\n${aiOutline(d)}\n\nRelations: ${d.rels.map((x) => `${mmLabel(d.nodes[x.a])} ${x.kind || "→"} ${mmLabel(d.nodes[x.b])}${x.label ? " (" + x.label + ")" : ""} [strength ${x.w || 2}/3${x.lag && x.lag !== "0" ? ", delay " + (x.lag === "w" ? "weeks" : "months") : ""}${x.conf !== undefined ? ", confidence " + x.conf + "%" : ""}${x.why ? ", why: " + x.why : ""}]`).join("; ") || "none"}\n\nIdea types and values (−100..+100): ${Object.values(d.nodes).filter((x) => x.kind || x.val !== undefined || x.real).map((x) => `${mmLabel(x)}: ${x.kind || "idea"}${x.val !== undefined ? ", value " + x.val : ""}${x.real ? ", real " + x.real.v + " " + (x.real.u || "") : ""}`).join("; ") || "none"}`, messages: hist.slice(-10), max: 1500 });
           hist.push({ role: "assistant", content: a.trim() }); show();
         });
       });
