@@ -770,6 +770,31 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mmpv{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:6px;padding:8px;text-align:center;background-image:radial-gradient(color-mix(in srgb,var(--muted) 25%,transparent) 1px,transparent 1.2px);background-size:12px 12px}
 .mmpv span{font-size:30px}.mmpv b{font-size:12.5px;font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mmpv small{font-size:11px;color:var(--muted)}
 .qa .qe{font-size:15px;font-weight:400;line-height:1}
+.mmn .pie,.mmrow2 .pie{flex:none;width:17px;height:17px;border-radius:50%;border:2px solid var(--c);background:conic-gradient(var(--c) calc(var(--p) * 1%),transparent 0)}
+.mmn.root .pie{border-color:#fff;background:conic-gradient(#fff calc(var(--p) * 1%),transparent 0)}
+.mmn .ck{flex:none;display:grid;place-items:center;width:18px;height:18px;border:2px solid var(--c);border-radius:5px;font-size:12px;line-height:1;color:#fff;cursor:pointer}
+.mmn .ck.on{background:var(--c)}
+.mmn.done .tx{text-decoration:line-through;opacity:.6}
+.mmn.dim,.mmrl.dim{opacity:.16}
+.mmn.drop{box-shadow:0 0 0 4px #1f8a4c}
+.mmstage.ro .mmn{cursor:default}
+.mmfocus{position:absolute;top:10px;inset-inline-start:12px;z-index:8;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 6px 5px 14px;font-size:13px;box-shadow:var(--shadow);display:flex;align-items:center;gap:6px;max-width:70%}
+.mmfocus b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mmfocus button{border:0;background:var(--hover);border-radius:99px;width:26px;height:26px;cursor:pointer}
+.mmside{position:absolute;top:0;bottom:0;inset-inline-end:0;width:min(320px,85%);z-index:9;background:var(--panel);border-inline-start:1px solid var(--line);display:flex;flex-direction:column;box-shadow:var(--shadow)}
+.mmsh{padding:10px;border-bottom:1px solid var(--line);display:grid;gap:8px}.mmsh input{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg);color:var(--ink)}
+.mmflt{justify-self:start}
+.mmtree{flex:1;overflow:auto;padding:6px 0}
+.mmrow2{display:flex;align-items:center;gap:6px;padding:6px 10px;cursor:pointer;font-size:14px}.mmrow2:hover{background:var(--hover)}.mmrow2.on{background:var(--accent-soft,#fde7dd)}.mmrow2.ctx{opacity:.5}
+.mmrow2 .tw{width:18px;border:0;background:none;color:var(--muted);cursor:pointer;flex:none;padding:0}
+.mmrow2 .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.mmrow2 .ot{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mmrow2 .ock{flex:none;width:20px;height:20px;border:2px solid #4f7fe0;border-radius:5px;background:none;color:#fff;font-size:12px;cursor:pointer;padding:0}.mmrow2 .ock.on{background:#4f7fe0}
+.mmrow2 .pie.sm{width:16px;height:16px}
+.mmrow{display:flex;align-items:center;gap:8px;margin:8px 0;font-size:13px}.mmrow>span:first-child{flex:1;color:var(--muted)}
+.stp{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}.stp button{border:0;background:var(--bg);width:32px;height:30px;cursor:pointer;font-size:15px;color:var(--ink)}.stp b{min-width:34px;text-align:center;font-size:13px}
+.swatch.none{display:grid;place-items:center;background:var(--bg);border:1px dashed var(--line);font-size:12px;color:var(--muted)}
+.layic{display:inline-grid;place-items:center;width:22px;font-size:16px;color:var(--accent)}
+.mmstylepop{width:min(340px,calc(100vw - 16px))}
 </style>
 
 <div class="app" id="app">
@@ -7176,28 +7201,43 @@ const MM_SYMS = {
   arrows: "➡️ ⬅️ ⬆️ ⬇️ ↗️ ↘️ ↔️ ↕️ 🔁 🔀 🔄 ➕ ➖ ✖️ ➗ 🟰 ♾️ ⛓️ 🧲 🎯".split(" "),
   place: "🏠 🏢 🌍 🇩🇪 🇮🇷 🇺🇸 🇨🇳 🇪🇺 ✈️ 🚗 🚆 ⚡ 🌱 ☀️ 🌧️ ❄️ 🌊 ⛰️ 🏥 🏫".split(" "),
 };
+Object.assign(I18N.fa, { mmTask: "تیک (کار)", mmOutline: "فهرست", mmSearchPh: "جستجو در نقشه…", mmAll: "همه", mmOpen: "مانده", mmDoneF: "انجام‌شده", mmLayout: "چیدمان", lay_map: "دوطرفه", lay_right: "فقط راست", lay_left: "فقط چپ", lay_down: "از بالا به پایین", lay_list: "فهرستی", lay_radial: "شعاعی", lay_free: "آزاد (دستی)", mmDir: "جهت", dir_auto: "خودکار", dir_rtl: "راست به چپ", dir_ltr: "چپ به راست", mmStyle: "سبک", mmFont: "اندازهٔ قلم", mmBorder: "خط دور", mmBorderW: "ضخامت خط", mmFill: "رنگ زمینه", mmTextColor: "رنگ متن", mmMinW: "پهنای کمینه", mmReset: "سبک پیش‌فرض", mmNone: "هیچ", mmFocus: "تمرکز روی این شاخه", mmFocusOn: "تمرکز:", mmReadOnly: "فقط خواندن", mmReadOnlyOn: "فقط خواندن: نقشه تغییر نمی‌کند", mmEditOn: "ویرایش روشن شد", mmDropHere: "رها کنید تا زیر این ایده برود", mmProgress: "{p}٪ انجام شده" });
+Object.assign(I18N.de, { mmTask: "Aufgabe (Häkchen)", mmOutline: "Gliederung", mmSearchPh: "In der Karte suchen…", mmAll: "Alle", mmOpen: "Offen", mmDoneF: "Erledigt", mmLayout: "Anordnung", lay_map: "Beidseitig", lay_right: "Nur rechts", lay_left: "Nur links", lay_down: "Von oben nach unten", lay_list: "Liste", lay_radial: "Radial", lay_free: "Frei (manuell)", mmDir: "Richtung", dir_auto: "Automatisch", dir_rtl: "Rechts nach links", dir_ltr: "Links nach rechts", mmStyle: "Stil", mmFont: "Schriftgröße", mmBorder: "Rahmen", mmBorderW: "Rahmenstärke", mmFill: "Hintergrund", mmTextColor: "Textfarbe", mmMinW: "Mindestbreite", mmReset: "Standardstil", mmNone: "Keine", mmFocus: "Auf diesen Zweig fokussieren", mmFocusOn: "Fokus:", mmReadOnly: "Nur lesen", mmReadOnlyOn: "Nur lesen: die Karte bleibt unverändert", mmEditOn: "Bearbeiten an", mmDropHere: "Loslassen, um hierher zu verschieben", mmProgress: "{p} % erledigt" });
+Object.assign(I18N.en, { mmTask: "Task (tick)", mmOutline: "Outline", mmSearchPh: "Search the map…", mmAll: "All", mmOpen: "Open", mmDoneF: "Done", mmLayout: "Layout", lay_map: "Both sides", lay_right: "Right only", lay_left: "Left only", lay_down: "Top down", lay_list: "List", lay_radial: "Radial", lay_free: "Free (manual)", mmDir: "Direction", dir_auto: "Automatic", dir_rtl: "Right to left", dir_ltr: "Left to right", mmStyle: "Style", mmFont: "Font size", mmBorder: "Border", mmBorderW: "Border width", mmFill: "Fill colour", mmTextColor: "Text colour", mmMinW: "Minimum width", mmReset: "Default style", mmNone: "None", mmFocus: "Focus on this branch", mmFocusOn: "Focus:", mmReadOnly: "Read only", mmReadOnlyOn: "Read only: the map will not change", mmEditOn: "Editing on", mmDropHere: "Drop to move it under this idea", mmProgress: "{p}% done" });
+const MM_LAYOUTS = ["map", "right", "left", "down", "list", "radial", "free"];
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
   const r = mmId();
-  return { v: 1, root: r, nodes: { [r]: { id: r, parent: null, text: title || T("mmRoot"), x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] } }, rels: [], view: null };
+  return { v: 1, root: r, nodes: { [r]: { id: r, parent: null, text: title || T("mmRoot"), x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] } }, rels: [], layout: "map", dir: "auto", view: null };
 }
 function mmNorm(m) {
   if (!m || typeof m !== "object" || !m.nodes || typeof m.nodes !== "object") return null;
-  const nodes = {};
+  const hex = (c) => (/^#[0-9a-f]{6}$/i.test(c || "") ? c : null), nodes = {};
   for (const [k, x] of Object.entries(m.nodes)) {
     if (!x || typeof x !== "object") continue;
-    nodes[k] = { id: k, parent: x.parent && typeof x.parent === "string" ? x.parent : null, text: String(x.text ?? "").slice(0, 2000), x: +x.x || 0, y: +x.y || 0, color: /^#[0-9a-f]{6}$/i.test(x.color || "") ? x.color : "#5b6b7f",
-      shape: MM_SHAPES.includes(x.shape) ? x.shape : "round", sym: Array.isArray(x.sym) ? x.sym.filter((s) => typeof s === "string").slice(0, 8) : [], note: String(x.note || "").slice(0, 20000),
+    const st = x.st && typeof x.st === "object" ? x.st : {}, cst = {};
+    if (+st.fs >= 9 && +st.fs <= 48) cst.fs = +st.fs;
+    if (st.b) cst.b = 1; if (st.i) cst.i = 1;
+    if (["solid", "dashed", "dotted", "none"].includes(st.bs)) cst.bs = st.bs;
+    if (+st.bw >= 0 && +st.bw <= 8 && st.bw !== undefined && st.bw !== null && st.bw !== "") cst.bw = +st.bw;
+    if (hex(st.fill)) cst.fill = st.fill; if (hex(st.tc)) cst.tc = st.tc;
+    if (+st.w > 0 && +st.w <= 600) cst.w = +st.w;
+    nodes[k] = { id: k, parent: x.parent && typeof x.parent === "string" ? x.parent : null, text: String(x.text ?? "").slice(0, 2000), x: +x.x || 0, y: +x.y || 0, color: hex(x.color) || "#5b6b7f",
+      shape: MM_SHAPES.includes(x.shape) ? x.shape : "round", sym: Array.isArray(x.sym) ? x.sym.filter((q) => typeof q === "string").slice(0, 8) : [], note: String(x.note || "").slice(0, 20000),
       links: Array.isArray(x.links) ? x.links.filter((l) => l && typeof l.v === "string").slice(0, 50).map((l) => ({ t: ["url", "page", "file"].includes(l.t) ? l.t : "url", v: l.v.slice(0, 2000), label: String(l.label || "").slice(0, 200) })) : [],
-      ...(x.collapsed ? { collapsed: true } : {}) };
+      ...(x.collapsed ? { collapsed: true } : {}), ...(x.task ? { task: true } : {}), ...(x.task && x.done ? { done: true } : {}),
+      ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}) };
   }
   if (!nodes[m.root]) return null;
-  for (const x of Object.values(nodes)) if (x.parent && !nodes[x.parent]) x.parent = m.root === x.id ? null : m.root;
+  for (const x of Object.values(nodes)) if (x.parent && (!nodes[x.parent] || x.parent === x.id)) x.parent = m.root === x.id ? null : m.root;
   const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed })) : [];
-  return { v: 1, root: m.root, nodes, rels, view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
+  return { v: 1, root: m.root, nodes, rels, layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
+    view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
 }
 let MM = null; // the open map: { n, d, sel, rel, edit, connect, undo, redo, size }
-const mmKids = (d, id) => Object.values(d.nodes).filter((x) => x.parent === id);
+const mmKids = (d, id) => Object.values(d.nodes).filter((x) => x.parent === id).sort((a, b) => (a.o ?? 1e9) - (b.o ?? 1e9) || 0);
+function mmIsRtl(d) { return d.dir === "rtl" || (d.dir === "auto" && (detectDir(d.nodes[d.root]?.text || "") === "rtl" || (!d.nodes[d.root]?.text && document.documentElement.dir === "rtl"))); }
+function mmProgress(d, id) { let t = 0, k = 0; for (const i of mmDesc(d, id)) { const x = d.nodes[i]; if (x.task) { t++; if (x.done) k++; } } return t ? Math.round((k / t) * 100) : null; }
 function mmDesc(d, id) { const out = []; const walk = (p) => { for (const k of mmKids(d, p)) { out.push(k.id); walk(k.id); } }; walk(id); return out; }
 function mmHidden(d) { const h = new Set(); for (const x of Object.values(d.nodes)) if (x.collapsed) mmDesc(d, x.id).forEach((i) => h.add(i)); return h; }
 function mmSave() { const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
@@ -7213,7 +7253,7 @@ function newMap() {
 function renderMap(n) {
   const rtl = document.documentElement.dir === "rtl";
   const d = mmNorm(n.mm) || mmNewData(n.title);
-  MM = { n, d, sel: null, rel: null, edit: null, connect: null, undo: [], redo: [], size: {} };
+  MM = { n, d, sel: null, rel: null, edit: null, connect: null, undo: [], redo: [], size: {}, q: "", flt: "", focus: null, ro: false, side: false };
   $("#main").innerHTML = `
   <div class="bar" id="bar"><div class="bar-main mmbar">
     <div class="bz bz-start">
@@ -7226,15 +7266,20 @@ function renderMap(n) {
       <span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
-      <button class="btn ghost" data-mm="tidy" title="${esc(T("mmTidy"))}">⋮⋮<span class="mmlab">${esc(T("mmTidy"))}</span></button>
+      <button class="btn ghost" data-mm="layout" data-pop="1" title="${esc(T("mmLayout"))}">⋮⋮<span class="mmlab">${esc(T("mmLayout"))}</span></button>
+      <button class="btn icon ghost" data-mm="outline" title="${esc(T("mmOutline"))}" aria-pressed="false">☰</button>
+      <button class="btn icon ghost" data-mm="ro" title="${esc(T("mmReadOnly"))}" aria-pressed="false">👁</button>
       <button class="btn icon ghost" data-mm="fit" title="${esc(T("mmFit"))}">⤢</button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div></div>`;
+  <div class="mmstage" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
+    <aside class="mmside hide" id="mmSide"><div class="mmsh"><input id="mmQ" type="search" placeholder="${esc(T("mmSearchPh"))}" dir="auto"><span class="seg mmflt"><button type="button" class="segb" data-flt="" aria-pressed="true">${esc(T("mmAll"))}</button><button type="button" class="segb" data-flt="open" aria-pressed="false">☐ ${esc(T("mmOpen"))}</button><button type="button" class="segb" data-flt="done" aria-pressed="false">☑ ${esc(T("mmDoneF"))}</button></span></div><div class="mmtree" id="mmTree"></div></aside></div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
   mmSize();
   mmBind();
+  $("#mmQ").addEventListener("input", (e) => { MM.q = e.target.value.trim(); mmDraw(); });
+  $("#mmSide").addEventListener("click", mmSideClick);
   mmDraw();
   if (d.view) mmSetView(d.view.x, d.view.y, d.view.z); else requestAnimationFrame(() => mmFit());
 }
@@ -7242,47 +7287,80 @@ function renderMap(n) {
 function mmSize() { const st = $("#mmStage"); if (!st) return; const vh = (window.visualViewport && visualViewport.height) || innerHeight; st.style.height = Math.max(200, vh - st.getBoundingClientRect().top) + "px"; }
 function mmApplyView() { const v = MM.view; $("#mmWorld").style.transform = `translate(${v.x}px,${v.y}px) scale(${v.z})`; mmPlaceTb(); }
 function mmSetView(x, y, z) { MM.view = { x, y, z: Math.min(3, Math.max(0.15, z)) }; MM.d.view = MM.view; mmApplyView(); clearTimeout(mmSetView.t); mmSetView.t = setTimeout(() => { if (MM) { MM.n.mm = MM.d; saveNote(MM.n.id, 1500); } }, 1200); }
-function mmFit() {
+function mmFit() { const hid = mmHidden(MM.d); return mmFitIds(Object.keys(MM.d.nodes).filter((i) => !hid.has(i))); }
+function mmFitIds(ids) {
   const st = $("#mmStage"); if (!st) return;
-  const hid = mmHidden(MM.d), vis = Object.values(MM.d.nodes).filter((x) => !hid.has(x.id));
+  const hid = mmHidden(MM.d), vis = ids.map((i) => MM.d.nodes[i]).filter((x) => x && !hid.has(x.id));
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const x of vis) { const s = MM.size[x.id] || { w: 120, h: 40 }; x0 = Math.min(x0, x.x - s.w / 2); x1 = Math.max(x1, x.x + s.w / 2); y0 = Math.min(y0, x.y - s.h / 2); y1 = Math.max(y1, x.y + s.h / 2); }
   const W = st.clientWidth, H = st.clientHeight, z = Math.min(1.4, Math.max(0.15, Math.min((W - 80) / Math.max(1, x1 - x0), (H - 80) / Math.max(1, y1 - y0))));
   mmSetView(W / 2 - ((x0 + x1) / 2) * z, H / 2 - ((y0 + y1) / 2) * z, z);
 }
 function mmSymHtml(s) { return s.startsWith("img:") ? `<img class="msym" data-blob="${esc(s.slice(4))}" src="/_blob/${esc(s.slice(4))}" alt="">` : `<span class="msym">${esc(s)}</span>`; }
+/** Which ideas match the search / tick filter (null = no filter). */
+function mmMatches(d) {
+  const q = (MM.q || "").toLowerCase(), f = MM.flt;
+  if (!q && !f) return null;
+  const set = new Set();
+  for (const x of Object.values(d.nodes)) {
+    if (f === "open" && !(x.task && !x.done)) continue;
+    if (f === "done" && !(x.task && x.done)) continue;
+    if (q && !(x.text + " " + x.note + " " + x.links.map((l) => l.label + " " + l.v).join(" ") + " " + x.sym.join(" ")).toLowerCase().includes(q)) continue;
+    set.add(x.id);
+  }
+  return set;
+}
+function mmStyleCss(x) {
+  const s = x.st || {}; let c = "";
+  if (s.fs) c += `font-size:${s.fs}px;`; if (s.b) c += "font-weight:700;"; if (s.i) c += "font-style:italic;";
+  if (s.bs) c += s.bs === "none" ? "border-color:transparent;" : `border-style:${s.bs};`;
+  if (s.bw !== undefined) c += `border-width:${s.bw}px;`;
+  if (s.fill) c += `background:${s.fill};`; if (s.tc) c += `color:${s.tc};`; if (s.w) c += `min-width:${s.w}px;`;
+  return c;
+}
 function mmDraw() {
   if (!MM || !$("#mmNodes")) return;
-  const d = MM.d, hid = mmHidden(d), box = $("#mmNodes");
+  const d = MM.d, hid = mmHidden(d), box = $("#mmNodes"), match = mmMatches(d);
+  const focus = MM.focus && d.nodes[MM.focus] ? new Set([MM.focus, ...mmDesc(d, MM.focus), ...(() => { const a = []; let q = d.nodes[MM.focus]; while (q && q.parent) { a.push(q.parent); q = d.nodes[q.parent]; } return a; })()]) : null;
+  const dim = (id) => (focus && !focus.has(id)) || (match && !match.has(id));
   box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
-    const kids = mmKids(d, x.id).length, root = x.id === d.root;
-    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color}">
-      ${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>
+    const kids = mmKids(d, x.id).length, root = x.id === d.root, prog = kids ? mmProgress(d, x.id) : null;
+    const mark = prog !== null ? `<i class="pie" style="--p:${prog}" title="${esc(T("mmProgress", { p: num(prog) }))}"></i>` : x.task ? `<b class="ck ${x.done ? "on" : ""}" data-badge="check">${x.done ? "✓" : ""}</b>` : "";
+    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}">
+      ${mark}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
-  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && r.label).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""}" data-rel="${r.id}" dir="auto">${esc(r.label)}</div>`).join("");
+  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && r.label).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto">${esc(r.label)}</div>`).join("");
   hydrate(box);
   MM.size = {};
   for (const el of box.querySelectorAll(".mmn")) MM.size[el.dataset.mmn] = { w: el.offsetWidth, h: el.offsetHeight };
-  // branches
+  // automatic layouts place every idea again (not while an idea is being dragged)
+  if (d.layout !== "free" && !MM.dragging) {
+    mmLayoutApply();
+    for (const el of box.querySelectorAll(".mmn")) { const x = d.nodes[el.dataset.mmn]; el.style.left = x.x + "px"; el.style.top = x.y + "px"; }
+  }
+  const L = d.layout, rtl = mmIsRtl(d);
   let svg = "";
   for (const x of Object.values(d.nodes)) {
     if (!x.parent || hid.has(x.id)) continue;
     const p = d.nodes[x.parent], ps = MM.size[p.id], cs = MM.size[x.id]; if (!ps || !cs) continue;
-    const side = x.x >= p.x ? 1 : -1, sx = p.x + side * ps.w / 2, sy = p.y, ex = x.x - side * cs.w / 2, ey = x.y + (x.shape === "line" ? cs.h / 2 : 0), dx = Math.max(30, Math.abs(ex - sx)) / 2;
-    const depth = (() => { let k = 0, q = x; while (q.parent && k < 20) { k++; q = d.nodes[q.parent]; } return k; })();
-    svg += `<path d="M${sx} ${sy} C${sx + side * dx} ${sy} ${ex - side * dx} ${ey} ${ex} ${ey}" fill="none" stroke="${x.color}" stroke-width="${Math.max(1.6, 4.5 - depth * 0.9)}" stroke-linecap="round" opacity=".85"/>`;
+    const depth = (() => { let k = 0, q = x; while (q.parent && k < 30) { k++; q = d.nodes[q.parent]; } return k; })();
+    const sw = Math.max(1.6, 4.5 - depth * 0.9), op = dim(x.id) ? 0.15 : 0.85;
+    let path;
+    if (L === "down") { const sy = p.y + ps.h / 2, ey = x.y - cs.h / 2, my = (sy + ey) / 2; path = `M${p.x} ${sy} V${my} H${x.x} V${ey}`; }
+    else if (L === "list") { const ix = rtl ? p.x + ps.w / 2 - 14 : p.x - ps.w / 2 + 14, ex = rtl ? x.x + cs.w / 2 : x.x - cs.w / 2; path = `M${ix} ${p.y + ps.h / 2} V${x.y} H${ex}`; }
+    else if (L === "radial") { path = `M${p.x} ${p.y} L${x.x} ${x.y}`; }
+    else { const side = x.x >= p.x ? 1 : -1, sx = p.x + side * ps.w / 2, sy = p.y, ex = x.x - side * cs.w / 2, ey = x.y + (x.shape === "line" ? cs.h / 2 : 0), dx = Math.max(30, Math.abs(ex - sx)) / 2; path = `M${sx} ${sy} C${sx + side * dx} ${sy} ${ex - side * dx} ${ey} ${ex} ${ey}`; }
+    svg += `<path d="${path}" fill="none" stroke="${x.color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"/>`;
   }
-  // relations
   const edge = (c, s, tx, ty) => { const dx = tx - c.x, dy = ty - c.y, w = s.w / 2 + 6, h = s.h / 2 + 6, k = Math.min(w / Math.max(1e-6, Math.abs(dx)), h / Math.max(1e-6, Math.abs(dy))); return [c.x + dx * k, c.y + dy * k]; };
   for (const r of d.rels) {
     if (hid.has(r.a) || hid.has(r.b)) continue;
     const a = d.nodes[r.a], b = d.nodes[r.b], sa = MM.size[a.id], sb = MM.size[b.id]; if (!sa || !sb) continue;
     const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
     const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
-    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), ah = 11;
-    const on = MM.rel === r.id;
-    svg += `<g data-rel="${r.id}" class="mmrel"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${on ? 3.2 : 2}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
+    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), ah = 11, on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : 1;
+    svg += `<g data-rel="${r.id}" class="mmrel" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${on ? 3.2 : 2}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
       ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}</g>`;
     const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
@@ -7291,16 +7369,19 @@ function mmDraw() {
   $("#mmSvg").innerHTML = svg;
   if (!MM.view) MM.view = { x: 0, y: 0, z: 1 };
   mmApplyView();
+  if (MM.side) mmOutline();
+  const fc = $("#mmFocus"); if (fc) { fc.classList.toggle("hide", !MM.focus); if (MM.focus) fc.innerHTML = `🎯 ${esc(T("mmFocusOn"))} <b dir="auto">${esc(d.nodes[MM.focus]?.text || "")}</b> <button type="button" data-mm="unfocus">✕</button>`; }
 }
 /* ---- floating toolbar for the chosen idea / relation ---- */
 function mmPlaceTb() {
   const tb = $("#mmTb"); if (!tb || !MM) return;
   const v = MM.view, st = $("#mmStage");
+  if (MM.ro) { tb.classList.add("hide"); return; }
   if (MM.sel && MM.d.nodes[MM.sel] && !MM.edit) {
     const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
     const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
-    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("symbols", T("mmSymbols"), "★") +
-      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
+    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") +
+      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
     tb.classList.remove("hide");
     const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
     tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px";
@@ -7357,7 +7438,8 @@ function mmAdd(kind) {
     color = isRoot ? MM_COLORS[Object.values(d.nodes).filter((k) => k.parent === d.root).length % MM_COLORS.length] : p.color;
     if (p.collapsed) delete p.collapsed;
   }
-  d.nodes[id] = { id, parent: p ? p.id : null, text: kind === "free" ? T("mmIdea") : T("mmIdea"), x, y, color, shape: p && p.id === d.root ? "round" : p ? "line" : "round", sym: [], note: "", links: [] };
+  const oMax = p ? Math.max(-1, ...mmKids(d, p.id).map((k) => k.o ?? -1)) + 1 : 0;
+  d.nodes[id] = { o: oMax, id, parent: p ? p.id : null, text: kind === "free" ? T("mmIdea") : T("mmIdea"), x, y, color, shape: p && p.id === d.root ? "round" : p ? "line" : "round", sym: [], note: "", links: [] };
   MM.sel = id; MM.rel = null; mmSave(); mmDraw(); mmStartEdit(id, true);
 }
 function mmDelete(id) {
@@ -7367,25 +7449,122 @@ function mmDelete(id) {
   if (ids.length > 2) confirmBox(T("mmDeleteQ", { n: num(ids.length - 1) }), { danger: true, ok: T("mmDelete") }).then((ok) => ok && go()); else go();
 }
 /** Classic tree layout: branches to the right and left of the centre, children stacked without overlap. */
-function mmTidy() {
-  const d = MM.d, root = d.nodes[d.root], gapX = 70, gapY = 18, hid = mmHidden(d);
-  mmPush();
-  const sz = (x) => MM.size[x.id] || { w: 120, h: 36 };
-  const kidsOf = (x) => (x.collapsed ? [] : mmKids(d, x.id).sort((a, b) => a.y - b.y));
-  const hOf = (x) => { const k = kidsOf(x); return Math.max(sz(x).h, k.reduce((s, c) => s + hOf(c), 0) + Math.max(0, k.length - 1) * gapY); };
-  const place = (x, side, cx, top) => {
-    const h = hOf(x); x.x = cx; x.y = top + h / 2;
-    let t = top + (h - (kidsOf(x).reduce((s, c) => s + hOf(c), 0) + Math.max(0, kidsOf(x).length - 1) * gapY)) / 2;
-    for (const c of kidsOf(x)) { const ch = hOf(c); place(c, side, cx + side * (sz(x).w / 2 + gapX + sz(c).w / 2), t); t += ch + gapY; }
-  };
-  for (const side of [1, -1]) {
-    const ks = mmKids(d, root.id).filter((k) => (k.x >= root.x ? 1 : -1) === side).sort((a, b) => a.y - b.y);
-    const total = ks.reduce((s, c) => s + hOf(c), 0) + Math.max(0, ks.length - 1) * gapY;
-    let t = root.y - total / 2;
-    for (const c of ks) { place(c, side, root.x + side * (sz(root).w / 2 + gapX + sz(c).w / 2), t); t += hOf(c) + gapY; }
+/** Automatic layouts (like SimpleMind): both sides, one side, top-down, list, radial. "free" keeps hand-placed positions. */
+function mmLayoutApply(kind) {
+  const d = MM.d, L = kind || d.layout, root = d.nodes[d.root], rtl = mmIsRtl(d);
+  if (L === "free") return;
+  const sz = (x) => MM.size[x.id] || { w: 120, h: 36 }, gapX = 64, gapY = 16;
+  const kidsOf = (x) => (x.collapsed ? [] : mmKids(d, x.id));
+  const memo = new Map();
+  if (L === "map" || L === "right" || L === "left") {
+    const hOf = (x) => { if (memo.has(x.id)) return memo.get(x.id); const k = kidsOf(x), v = Math.max(sz(x).h, k.reduce((s, c) => s + hOf(c), 0) + Math.max(0, k.length - 1) * gapY); memo.set(x.id, v); return v; };
+    const place = (x, side, edge, top) => {
+      const h = hOf(x); x.x = edge + side * sz(x).w / 2; x.y = top + h / 2;
+      const ks = kidsOf(x), tot = ks.reduce((s, c) => s + hOf(c), 0) + Math.max(0, ks.length - 1) * gapY; let t = top + (h - tot) / 2;
+      for (const c of ks) { place(c, side, x.x + side * (sz(x).w / 2 + gapX), t); t += hOf(c) + gapY; }
+    };
+    const all = kidsOf(root), first = rtl ? -1 : 1;
+    let sideOf;
+    if (L === "right") sideOf = () => 1; else if (L === "left") sideOf = () => -1;
+    else { const half = Math.ceil(all.length / 2); sideOf = (c, i) => c.side || (i < half ? first : -first); }
+    for (const side of [1, -1]) {
+      const ks = all.filter((c, i) => sideOf(c, i) === side), tot = ks.reduce((s, c) => s + hOf(c), 0) + Math.max(0, ks.length - 1) * gapY; let t = root.y - tot / 2;
+      for (const c of ks) { place(c, side, root.x + side * (sz(root).w / 2 + gapX), t); t += hOf(c) + gapY; }
+    }
+  } else if (L === "down") {
+    const wOf = (x) => { if (memo.has(x.id)) return memo.get(x.id); const k = kidsOf(x), v = Math.max(sz(x).w, k.reduce((s, c) => s + wOf(c), 0) + Math.max(0, k.length - 1) * 24); memo.set(x.id, v); return v; };
+    const place = (x, left, top) => {
+      const w = wOf(x); x.x = left + w / 2; x.y = top + sz(x).h / 2;
+      let ks = kidsOf(x); if (rtl) ks = ks.slice().reverse();
+      const tot = ks.reduce((s, c) => s + wOf(c), 0) + Math.max(0, ks.length - 1) * 24; let l = left + (w - tot) / 2;
+      for (const c of ks) { place(c, l, top + sz(x).h + 56); l += wOf(c) + 24; }
+    };
+    place(root, root.x - wOf(root) / 2, root.y - sz(root).h / 2);
+  } else if (L === "list") {
+    let y = root.y - sz(root).h / 2; const indent = 34;
+    const place = (x, edge) => { x.x = rtl ? edge - sz(x).w / 2 : edge + sz(x).w / 2; x.y = y + sz(x).h / 2; y += sz(x).h + 12; for (const c of kidsOf(x)) place(c, rtl ? edge - indent : edge + indent); };
+    place(root, rtl ? root.x + sz(root).w / 2 : root.x - sz(root).w / 2);
+  } else if (L === "radial") {
+    const leaves = (x) => { const k = kidsOf(x); return k.length ? k.reduce((s, c) => s + leaves(c), 0) : 1; };
+    const R = Math.max(170, sz(root).w * 0.9);
+    const place = (x, a0, a1, depth) => {
+      const ks = kidsOf(x), tot = ks.reduce((s, c) => s + leaves(c), 0) || 1; let a = a0;
+      for (const c of ks) { const span = (a1 - a0) * leaves(c) / tot, m = a + span / 2, r = R + (depth - 1) * 150; c.x = root.x + Math.cos(m) * r; c.y = root.y + Math.sin(m) * r * 0.82; place(c, a, a + span, depth + 1); a += span; }
+    };
+    place(root, -Math.PI / 2, Math.PI * 1.5, 1);
   }
-  void hid; mmSave(); mmDraw();
 }
+function mmTidy() { mmPush(); const L = MM.d.layout === "free" ? "map" : MM.d.layout; mmDraw(); mmLayoutApply(L); mmSave(); mmDraw(); }
+function mmLayoutPop(anchor) {
+  const d = MM.d;
+  const el = popover(anchor, `<h4>⋮⋮ ${esc(T("mmLayout"))}</h4><div class="ilist">${MM_LAYOUTS.map((l) => `<button type="button" class="irow" data-lay="${l}" aria-pressed="${d.layout === l}"><span class="layic">${{ map: "⟷", right: "→", left: "←", down: "⇣", list: "☰", radial: "✳", free: "✥" }[l]}</span><span>${esc(T("lay_" + l))}</span></button>`).join("")}</div>
+    <span class="pl">${esc(T("mmDir"))}</span><span class="seg">${["auto", "rtl", "ltr"].map((v) => `<button type="button" class="segb" data-dir="${v}" aria-pressed="${d.dir === v}">${esc(T("dir_" + v))}</button>`).join("")}</span>
+    ${d.layout === "free" ? `<button type="button" class="btn" data-tidy="1" style="width:100%;margin-top:12px">⋮⋮ ${esc(T("mmTidy"))}</button>` : ""}`, "mmpop");
+  if (!el) return;
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-lay]"), dr = e.target.closest("[data-dir]");
+    if (b) { mmPush(); d.layout = b.dataset.lay; mmSave(); mmDraw(); closePop(); requestAnimationFrame(mmFit); }
+    if (dr) { mmPush(); d.dir = dr.dataset.dir; mmSave(); mmDraw(); closePop(); }
+    if (e.target.closest("[data-tidy]")) { closePop(); mmTidy(); }
+  });
+}
+/* ---- style panel ---- */
+function mmStylePop(anchor) {
+  const x = MM.d.nodes[MM.sel]; if (!x) return;
+  const s = x.st || {}, fs = s.fs || (x.id === MM.d.root ? 19 : 15), bw = s.bw ?? 2, w = s.w || 0;
+  const sw = (key, cur) => `<div class="colors mmcols"><button type="button" class="swatch none" data-${key}="" aria-pressed="${!cur}" title="${esc(T("mmNone"))}">⌀</button>${MM_COLORS.concat(["#ffffff", "#fff4c2", "#e6f4ea", "#e7efff"]).map((c) => `<button type="button" class="swatch" data-${key}="${c}" style="background:${c}" aria-pressed="${cur === c}"></button>`).join("")}</div>`;
+  const el = popover(anchor, `<h4>Aa ${esc(T("mmStyle"))}</h4>
+    <div class="mmrow"><span>${esc(T("mmFont"))}</span><span class="stp"><button type="button" data-fs="-1">−</button><b>${fs}</b><button type="button" data-fs="1">＋</button></span>
+      <span class="seg"><button type="button" class="segb" data-tog="b" aria-pressed="${!!s.b}"><b>B</b></button><button type="button" class="segb" data-tog="i" aria-pressed="${!!s.i}"><i>I</i></button></span></div>
+    <div class="mmrow"><span>${esc(T("mmBorder"))}</span><span class="seg">${["solid", "dashed", "dotted", "none"].map((v) => `<button type="button" class="segb" data-bs="${v}" aria-pressed="${(s.bs || "solid") === v}">${{ solid: "━", dashed: "┅", dotted: "┈", none: "⌀" }[v]}</button>`).join("")}</span></div>
+    <div class="mmrow"><span>${esc(T("mmBorderW"))}</span><span class="stp"><button type="button" data-bw="-1">−</button><b>${bw}</b><button type="button" data-bw="1">＋</button></span></div>
+    <div class="mmrow"><span>${esc(T("mmMinW"))}</span><span class="stp"><button type="button" data-w="-20">−</button><b>${w || "—"}</b><button type="button" data-w="20">＋</button></span></div>
+    <span class="pl">${esc(T("mmFill"))}</span>${sw("fill", s.fill)}
+    <span class="pl">${esc(T("mmTextColor"))}</span>${sw("tc", s.tc)}
+    <button type="button" class="btn" data-reset="1" style="width:100%;margin-top:12px">${esc(T("mmReset"))}</button>`, "mmpop mmstylepop");
+  if (!el) return;
+  el.addEventListener("click", (e) => {
+    const t = e.target.closest("button"); if (!t) return;
+    const st = { ...(x.st || {}) }, ds = t.dataset;
+    if (ds.fs) st.fs = Math.min(48, Math.max(9, (st.fs || fs) + +ds.fs));
+    else if (ds.tog) { if (st[ds.tog]) delete st[ds.tog]; else st[ds.tog] = 1; }
+    else if (ds.bs) st.bs = ds.bs;
+    else if (ds.bw) st.bw = Math.min(8, Math.max(0, (st.bw ?? 2) + +ds.bw));
+    else if (ds.w) { st.w = Math.min(600, Math.max(0, (st.w || 0) + +ds.w)); if (!st.w) delete st.w; }
+    else if (ds.fill !== undefined) { if (ds.fill) st.fill = ds.fill; else delete st.fill; }
+    else if (ds.tc !== undefined) { if (ds.tc) st.tc = ds.tc; else delete st.tc; }
+    else if (ds.reset) { mmPush(); delete x.st; mmSave(); mmDraw(); closePop(); return mmStylePop(anchor); }
+    else return;
+    mmPush(); x.st = st; if (!Object.keys(st).length) delete x.st; mmSave(); mmDraw(); closePop(); mmStylePop(anchor);
+  });
+}
+/* ---- outline (side list), search and tick filter ---- */
+function mmOutline() {
+  const box = $("#mmTree"); if (!box || !MM) return;
+  const d = MM.d, match = mmMatches(d), rows = [];
+  const show = (x) => !match || match.has(x.id) || mmDesc(d, x.id).some((i) => match.has(i));
+  const walk = (x, depth) => {
+    if (!show(x)) return;
+    const kids = mmKids(d, x.id), prog = kids.length ? mmProgress(d, x.id) : null;
+    rows.push(`<div class="mmrow2 ${MM.sel === x.id ? "on" : ""} ${match && !match.has(x.id) ? "ctx" : ""}" data-oid="${x.id}" style="padding-inline-start:${8 + depth * 18}px">
+      <button type="button" class="tw" data-otog="${x.id}">${kids.length ? (x.collapsed ? (document.documentElement.dir === "rtl" ? "◂" : "▸") : "▾") : ""}</button>
+      <span class="dot" style="background:${x.color}"></span><span class="ot" dir="auto">${x.sym.filter((q) => !q.startsWith("img:")).join("")} ${esc(x.text || "…")}</span>
+      ${prog !== null ? `<i class="pie sm" style="--p:${prog};--c:${x.color}"></i>` : x.task ? `<button type="button" class="ock ${x.done ? "on" : ""}" data-ock="${x.id}">${x.done ? "✓" : ""}</button>` : ""}</div>`);
+    if (!x.collapsed || match) for (const k of kids) walk(k, depth + 1);
+  };
+  walk(d.nodes[d.root], 0);
+  for (const x of Object.values(d.nodes)) if (!x.parent && x.id !== d.root) walk(x, 0);
+  box.innerHTML = rows.join("") || `<div class="empty">${esc(T("noResults"))}</div>`;
+}
+function mmCenter(id) { const x = MM.d.nodes[id], st = $("#mmStage"); if (!x || !st) return; const v = MM.view, side = MM.side ? Math.min(320, st.clientWidth * 0.4) : 0, cx = (st.clientWidth - side) / 2 + (document.documentElement.dir === "rtl" && MM.side ? side : 0); mmSetView(cx - x.x * v.z, st.clientHeight / 2 - x.y * v.z, v.z); }
+function mmSideClick(e) {
+  const fl = e.target.closest("[data-flt]"); if (fl) { MM.flt = fl.dataset.flt; $$("#mmSide [data-flt]").forEach((b) => b.setAttribute("aria-pressed", String(b === fl))); return mmDraw(); }
+  const ck = e.target.closest("[data-ock]"); if (ck) { if (MM.ro) return; const x = MM.d.nodes[ck.dataset.ock]; mmPush(); x.done = !x.done; if (!x.done) delete x.done; mmSave(); return mmDraw(); }
+  const tg = e.target.closest("[data-otog]"); if (tg) { const x = MM.d.nodes[tg.dataset.otog]; if (!mmKids(MM.d, x.id).length) return; mmPush(); x.collapsed = !x.collapsed; if (!x.collapsed) delete x.collapsed; mmSave(); return mmDraw(); }
+  const r = e.target.closest("[data-oid]"); if (r) { let q = MM.d.nodes[r.dataset.oid]; let opened = false; while (q && q.parent) { const p = MM.d.nodes[q.parent]; if (p.collapsed) { delete p.collapsed; opened = true; } q = p; } MM.sel = r.dataset.oid; MM.rel = null; if (opened) mmSave(); mmDraw(); mmCenter(MM.sel); }
+}
+function mmToggleSide() { MM.side = !MM.side; $("#mmSide").classList.toggle("hide", !MM.side); $('[data-mm="outline"]')?.setAttribute("aria-pressed", String(MM.side)); if (MM.side) { mmOutline(); setTimeout(() => $("#mmQ")?.focus({ preventScroll: true }), 50); } else { MM.q = ""; MM.flt = ""; const q = $("#mmQ"); if (q) q.value = ""; $$("#mmSide [data-flt]").forEach((b) => b.setAttribute("aria-pressed", String(!b.dataset.flt))); mmDraw(); } }
+function mmToggleRo() { MM.ro = !MM.ro; MM.sel = null; MM.rel = null; MM.connect = null; mmHint(""); $('[data-mm="ro"]')?.setAttribute("aria-pressed", String(MM.ro)); $("#mmStage").classList.toggle("ro", MM.ro); toast(MM.ro ? "👁 " + T("mmReadOnlyOn") : "✎ " + T("mmEditOn")); mmDraw(); }
 /* ---- colour, symbols, details ---- */
 function mmColorPop(anchor) {
   const x = MM.d.nodes[MM.sel]; if (!x) return;
@@ -7490,7 +7669,7 @@ function mmBind() {
   const st = $("#mmStage"), pts = new Map(); let g = null, pin = null;
   const toWorld = (cx, cy) => { const r = st.getBoundingClientRect(), v = MM.view; return [(cx - r.left - v.x) / v.z, (cy - r.top - v.y) / v.z]; };
   st.addEventListener("pointerdown", (e) => {
-    if (e.target.closest(".mmtb") || (MM.edit && e.target.closest(".mmn.editing"))) return;
+    if (e.target.closest(".mmtb, .mmside, .mmfocus") || (MM.edit && e.target.closest(".mmn.editing"))) return;
     if (MM.edit) { document.activeElement?.blur?.(); }
     pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
     try { st.setPointerCapture(e.pointerId); } catch {}
@@ -7516,9 +7695,16 @@ function mmBind() {
     if (!g.moved && Math.hypot(dx, dy) < 7) return;
     if (!g.moved) {
       g.moved = true;
+      if (g.id && MM.ro) g.id = null;
+      if (g.id && g.id === MM.d.root && MM.d.layout !== "free") g.id = null; // the centre moves the whole board in automatic layouts
       if (g.id) { mmPush(); const ids = [g.id, ...mmDesc(MM.d, g.id)]; g.start = ids.map((i) => [i, MM.d.nodes[i].x, MM.d.nodes[i].y]); MM.sel = g.id; MM.rel = null; }
     }
-    if (g.id && g.start) { const z = MM.view.z; for (const [i, x, y] of g.start) { MM.d.nodes[i].x = x + dx / z; MM.d.nodes[i].y = y + dy / z; } mmDraw(); }
+    if (g.id && g.start) {
+      const z = MM.view.z; MM.dragging = true;
+      for (const [i, x, y] of g.start) { MM.d.nodes[i].x = x + dx / z; MM.d.nodes[i].y = y + dy / z; }
+      const under = document.elementsFromPoint(e.clientX, e.clientY).map((el) => el.closest && el.closest(".mmn")).find((el) => el && !g.start.some(([i]) => i === el.dataset.mmn));
+      MM.drop = under ? under.dataset.mmn : null; mmDraw();
+    }
     else { MM.view = { ...g.v0, x: g.v0.x + dx, y: g.v0.y + dy }; mmApplyView(); }
   });
   const up = (e) => {
@@ -7527,11 +7713,27 @@ function mmBind() {
     if (pin) { if (pts.size < 2) { pin = null; mmSetView(MM.view.x, MM.view.y, MM.view.z); } g = null; return; }
     if (!g) return;
     const G = g; g = null;
-    if (G.moved) { if (G.id) mmSave(); else mmSetView(MM.view.x, MM.view.y, MM.view.z); return; }
+    if (G.moved) {
+      if (G.id && G.start) {
+        const d = MM.d, x = d.nodes[G.id], drop = MM.drop; MM.drop = null; MM.dragging = false;
+        if (drop && drop !== x.parent && d.nodes[drop]) { x.parent = drop; delete x.o; delete x.side; if (d.nodes[drop].collapsed) delete d.nodes[drop].collapsed; }
+        else if (d.layout !== "free" && x.parent) {
+          // automatic layout: the drop position decides the order among siblings (and the side of the centre)
+          const p = d.nodes[x.parent], sib = mmKids(d, p.id), vertical = d.layout === "down" ? false : true;
+          if (p.id === d.root && d.layout === "map") x.side = x.x >= p.x ? 1 : -1;
+          const key = (q) => (d.layout === "radial" ? Math.atan2(q.y - p.y, q.x - p.x) : vertical ? q.y : q.x);
+          sib.sort((a, b) => key(a) - key(b)).forEach((q, i) => (q.o = i));
+        }
+        mmSave(); mmDraw();
+      } else mmSetView(MM.view.x, MM.view.y, MM.view.z);
+      return;
+    }
     if (e.type === "pointercancel") return;
-    if (G.badge && G.id) { MM.sel = G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
+    if (G.badge === "check" && G.id) { if (MM.ro) return; const x = MM.d.nodes[G.id]; mmPush(); x.done = !x.done; if (!x.done) delete x.done; mmSave(); return mmDraw(); }
+    if (G.badge && G.id) { MM.sel = MM.ro ? null : G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
     if (G.id) {
       if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
+      if (MM.ro) return;
       const now = Date.now(), lt = MM.lt || {}, again = lt.id === G.id && now - lt.t < 380;
       MM.lt = { id: G.id, t: now };
       if (again || (MM.sel === G.id && now - (G.selAt || 0) > 0 && e.pointerType !== "mouse")) { MM.sel = G.id; mmDraw(); return mmStartEdit(G.id); }
@@ -7541,7 +7743,7 @@ function mmBind() {
     MM.sel = null; MM.rel = null; if (MM.connect) { MM.connect = null; mmHint(""); } mmDraw();
   };
   st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
-  st.addEventListener("dblclick", (e) => { const n = e.target.closest(".mmn"); if (n && !MM.edit) { MM.sel = n.dataset.mmn; mmDraw(); mmStartEdit(n.dataset.mmn); } });
+  st.addEventListener("dblclick", (e) => { const n = e.target.closest(".mmn"); if (n && !MM.edit && !MM.ro) { MM.sel = n.dataset.mmn; mmDraw(); mmStartEdit(n.dataset.mmn); } });
   st.addEventListener("wheel", (e) => {
     e.preventDefault();
     if (e.ctrlKey) { const r = st.getBoundingClientRect(), m = [e.clientX - r.left, e.clientY - r.top], v = MM.view, z = Math.min(3, Math.max(0.15, v.z * Math.exp(-e.deltaY / 300))); const wx = (m[0] - v.x) / v.z, wy = (m[1] - v.y) / v.z; mmSetView(m[0] - wx * z, m[1] - wy * z, z); }
@@ -7557,6 +7759,14 @@ document.addEventListener("click", (e) => {
   if (a === "redo") return mmUndo(true);
   if (a === "fit") return mmFit();
   if (a === "tidy") return mmTidy();
+  if (a === "layout") return mmLayoutPop(b);
+  if (a === "outline") return mmToggleSide();
+  if (a === "ro") return mmToggleRo();
+  if (a === "unfocus") { MM.focus = null; mmDraw(); return mmFit(); }
+  if (a === "style") return mmStylePop(b);
+  if (a === "task" && x) { mmPush(); x.task = !x.task; if (!x.task) { delete x.task; delete x.done; } mmSave(); return mmDraw(); }
+  if (a === "focus" && x) { MM.focus = x.id; mmDraw(); return mmFitIds([x.id, ...mmDesc(MM.d, x.id)]); }
+  if (MM.ro && !["fit", "layout", "outline", "ro", "unfocus"].includes(a)) return;
   if (a === "free") { MM.sel = null; return mmAdd("free"); }
   if (a === "child") return mmAdd("child");
   if (a === "sibling") return mmAdd("sibling");
@@ -7580,7 +7790,7 @@ document.addEventListener("keydown", (e) => {
   const k = e.key, mod = e.ctrlKey || e.metaKey;
   if (mod && k.toLowerCase() === "z") { e.preventDefault(); return mmUndo(e.shiftKey); }
   if (mod && k.toLowerCase() === "y") { e.preventDefault(); return mmUndo(true); }
-  if (!MM.sel) return;
+  if (!MM.sel || MM.ro) return;
   if (k === "Tab") { e.preventDefault(); return mmAdd("child"); }
   if (k === "Enter") { e.preventDefault(); return mmAdd(MM.d.nodes[MM.sel].parent ? "sibling" : "child"); }
   if (k === "F2" || k === " ") { e.preventDefault(); return mmStartEdit(MM.sel); }
