@@ -713,6 +713,23 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .lib .bookc{--bw:88px}
 .lib .bookc.addbook{border-width:1.5px}.lib .bookc.addbook span{font-size:22px}.lib .bookc.addbook b{font-size:11.5px;font-weight:500}
 .crumbs{font-size:12.5px;margin-bottom:2px}
+.vhide{position:fixed!important;left:-9999px!important;top:0!important;width:1px!important;height:1px!important;opacity:0!important;display:block!important}
+.flist{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px}
+.frow{display:flex;align-items:center;gap:10px;padding:7px 4px 7px 10px;border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:10px;cursor:pointer;min-width:0}
+.frow:hover{background:var(--panel)}
+.fbadge{flex:none;display:grid;place-items:center;width:34px;height:40px;border-radius:4px 9px 4px 4px;background:color-mix(in srgb,var(--fc) 12%,var(--panel));color:var(--fc);border:1px solid color-mix(in srgb,var(--fc) 35%,transparent);font-size:10px;font-weight:700;letter-spacing:.02em}
+.fbadge.sm{width:26px;height:30px;font-size:9px}
+.frow .fn{flex:1;min-width:0;display:flex;flex-direction:column}.frow .fn b{font-size:13.5px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.frow .fn small{font-size:11px;color:var(--muted)}
+.frow .more{border:0;background:none;color:var(--muted);font-size:15px;padding:2px 8px;border-radius:8px;opacity:.6;cursor:pointer}.frow:hover .more{opacity:1}
+.frow.picked{outline:2px solid var(--accent)}
+.fview{position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;flex-direction:column}
+.fvbar{display:flex;align-items:center;gap:8px;padding:8px max(12px,env(safe-area-inset-right)) 8px max(12px,env(safe-area-inset-left));border-bottom:1px solid var(--line);background:var(--panel)}
+.fvbar b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.fvsp{flex:1}
+.fvbar .btn{min-height:34px;font-size:13px;padding:4px 10px}
+.fvbody{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.fvpage{background:#fff;box-shadow:var(--shadow);border-radius:3px;max-width:100%;height:auto}
+.fvimg{max-width:100%;max-height:calc(100vh - 90px);object-fit:contain;border-radius:6px}
+.fvdoc{background:var(--paper,#fffdf8);color:var(--paper-ink,#25334a);max-width:860px;width:100%;padding:28px 7%;border-radius:6px;box-shadow:var(--shadow);line-height:1.7}
 </style>
 
 <div class="app" id="app">
@@ -740,10 +757,10 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 <input type="file" id="fileIn" class="hide" multiple accept="image/*,application/pdf">
 <input type="file" id="importIn" class="hide" accept=".json,application/json,.zip,application/zip">
 <input type="file" id="syncIn" class="hide" accept=".zip,application/zip,application/x-zip-compressed">
-<input type="file" id="anyIn" class="hide" multiple accept=".pdf,application/pdf,image/*,.docx,.odt,.md,.markdown,.txt,.text,.rtf,.html,.htm,.enex,.csv,.tsv,.xlsx,.json,.zip">
-<input type="file" id="docIn" class="hide" accept="application/pdf,.pdf,image/*">
-<input type="file" id="docIn2" class="hide" accept="application/pdf,.pdf,image/*">
-<input type="file" id="camIn" class="hide" accept="image/*" capture="environment">
+<input type="file" id="anyIn" class="vhide" multiple accept=".pdf,application/pdf,image/*,.docx,.odt,.md,.markdown,.txt,.text,.rtf,.html,.htm,.enex,.csv,.tsv,.xlsx,.json,.zip">
+<input type="file" id="docIn" class="vhide" accept="application/pdf,.pdf,image/*">
+<input type="file" id="docIn2" class="vhide" accept="application/pdf,.pdf,image/*">
+<input type="file" id="camIn" class="vhide" accept="image/*" capture="environment">
 
 <script>
 window.addEventListener("error", function (e) {
@@ -1405,6 +1422,7 @@ function normNote(d) {
     pinned: !!d.pinned, trashed: !!d.trashed, locked: !!d.locked, vault: d.vault || "", pages: Math.max(1, Math.min(60, Number(d.pages) || 1)),
     attachments: Array.isArray(d.attachments) ? d.attachments : [], createdAt: d.createdAt || new Date().toISOString(), updatedAt: d.updatedAt || d.createdAt || new Date().toISOString(),
     ...(d.readMode ? { readMode: true } : {}), ...(d.continuous ? { continuous: true } : {}), ...(/^#[0-9a-f]{6}$/i.test(d.paperColor || "") ? { paperColor: d.paperColor } : {}),
+    ...(d.file && typeof d.file === "object" && /^[A-Za-z0-9_-]{8,64}$/.test(d.file.id || "") ? { file: { id: d.file.id, name: String(d.file.name || "file").slice(0, 240), type: String(d.file.type || "").slice(0, 120), size: Number(d.file.size) || 0 } } : {}),
     ...(Array.isArray(d.sealed) && d.sealed.length ? { sealed: d.sealed.filter((x) => typeof x === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x)) } : {}),
     seal: normSeal(d.seal), ...(typeof d.order === "number" && isFinite(d.order) ? { order: d.order } : {}),
   };
@@ -1461,7 +1479,7 @@ function compactStrokes(strokes) {
 }
 function sizeCheck(obj) { if (S.mode === "cloud" && JSON.stringify(obj).length > DOC_LIMIT) throw { code: "too_big", message: T("tooBig") }; }
 async function noteDoc(n) {
-  const base = { ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
+  const base = { ...(n.file ? { file: n.file } : {}), ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
   if (n.locked) {
     const u = S.unlocked.get(n.id);
     if (u) n.vault = await sealWithKey(toPlain(u), u.vk);
@@ -1623,7 +1641,7 @@ function renderLibrary() {
     if (S.view === "__photos") return renderMedia("image");
     if (S.view === "__recordings") return renderMedia("audio");
   }
-  const arr = visibleNotes(), q = S.query.trim(), trash = S.view === "__trash";
+  const all = visibleNotes(), files = all.filter((n) => isStored(n)), arr = all.filter((n) => !isStored(n)), q = S.query.trim(), trash = S.view === "__trash";
   const live = Array.from(S.notes.values()).filter((n) => !n.trashed);
   const subs = trash || q || S.view.startsWith("__") && S.view !== "__all" ? [] : folderPaths().filter((f) => (S.view === "__all" ? !f.path.includes(SEP) : parentOf(f.path) === S.view));
   const rtl = document.documentElement.dir === "rtl", inFolder = !S.view.startsWith("__") && !q;
@@ -1637,7 +1655,7 @@ function renderLibrary() {
     ${S.view !== "__all" && !q ? `<button class="btn icon" data-view="${esc(S.view.includes(SEP) ? parentOf(S.view) : "__all")}" aria-label="${esc(T("back"))}">${rtl ? "→" : "←"}</button>` : ""}
       ${isBook ? `<span class="hcover" data-act="editCover" title="${esc(T("nbEdit"))}">${coverHtml(folderPaths().find((f) => f.path === S.view) || { path: S.view, color: "#7b8597" })}</span>` : ""}
       ${isFold ? `<span class="hfold" style="color:${esc(folderPaths().find((f) => f.path === S.view)?.color || "#7b8597")}">${ic("folder")}</span>` : ""}
-      <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length + (isFold ? subs.length : 0))}</small>${isBook && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
+      <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length + files.length + (isFold ? subs.length : 0))}</small>${isBook && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
       ${isBook ? `<button class="btn" data-act="editCover">🎨 ${esc(T("nbCoverBtn"))}</button>` : ""}
       ${isBook && folderRecOf(S.view)?.vault ? (bookPages(S.view).some((n) => n.locked && S.unlocked.has(n.id)) ? `<button class="btn" data-act="vaultLockBook">${ic("lock")} ${esc(T("vaultLockAll"))}</button>` : `<button class="btn primary" data-act="vaultOpenBook">${ic("unlock")} ${esc(T("vaultOpenBook"))}</button>`) : ""}
       ${inFolder ? `<button class="btn icon" data-fmenu="${esc(S.view)}" title="${esc(T("more"))}">${ic("more")}</button>` : ""}
@@ -1645,8 +1663,8 @@ function renderLibrary() {
       <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⇅</button>
       ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : ""}
     </div>
-    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importPdf"))}</span></button></div>`
-      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importPdf"))}</span></button></div>` : ""}`;
+    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>`
+      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>` : ""}`;
   const cnt = (p) => live.filter((n) => inPath(n.folder, p)).length;
   if (subF.length) {
     h += `<div class="sech">${esc(T("foldersSec"))}</div><div class="fgrid">${subF.map((f) => `<div class="fold" data-view="${esc(f.path)}"><span class="fico" style="color:${esc(f.color)}">${ic("folder")}</span><span class="fn"><b>${esc(leaf(f.path))}</b><small>${esc(T("itemsN", { n: num(folderPaths().filter((x) => parentOf(x.path) === f.path).length + live.filter((n) => n.folder === f.path).length) }))}</small></span><button class="more" data-fmenu="${esc(f.path)}" aria-label="${esc(T("more"))}">⋯</button></div>`).join("")}</div>`;
@@ -1655,8 +1673,9 @@ function renderLibrary() {
     h += `${subF.length || subB.length ? `<div class="sech">${esc(T("booksSec"))}</div>` : ""}<div class="books">${subB.map((f) => `<div class="bookw" data-view="${esc(f.path)}">${coverHtml(f, { count: cnt(f.path), menu: true })}</div>`).join("")}
       ${!isBook ? `<div class="bookw" data-act="newNotebookHere"><div class="bookc addbook"><span>＋</span><b>${esc(T("newNotebook"))}</b></div></div>` : ""}</div>`;
   }
-  if (arr.length && (subF.length || subB.length)) h += `<div class="sech">${esc(T("pagesSec"))}</div>`;
-  if (!arr.length && (subF.length || subB.length)) { /* folders and notebooks are the content here: no "nothing here" line */ }
+  if (files.length) h += filesSection(files);
+  if (arr.length && (subF.length || subB.length || files.length)) h += `<div class="sech">${esc(T("pagesSec"))}</div>`;
+  if (!arr.length && (subF.length || subB.length || files.length)) { /* folders and notebooks are the content here: no "nothing here" line */ }
   else if (!arr.length) {
     h += !live.length && !q && !trash
       ? `<div class="welcome" style="margin-top:6vh"><div style="font-size:54px">📓</div><h1>${esc(T("welcome"))}</h1><p>${esc(T("welcomeText"))}</p>
@@ -2942,7 +2961,7 @@ function renderMain() {
     ${n.trashed ? `<div class="lockview" style="margin:0 auto 16px;padding:14px"><div>${esc(T("trashedInfo"))}</div><div class="acts" style="justify-content:center;display:flex;gap:8px;margin-top:10px"><button class="btn" data-act="restore">↩ ${esc(T("restore"))}</button><button class="btn danger" data-act="deleteForever">${esc(T("deleteForever"))}</button></div></div>` : ""}
     <div class="paper ps-${n.pageStyle}" id="paper" style="--pages:${n.pages};--aspect:${aspectOf(n)}">
       <div id="pdeco"></div>${sealStampHtml(n)}
-      <div class="content" id="content" data-id="${esc(n.id)}" contenteditable="${ro_ ? "false" : "true"}" spellcheck="true" dir="${S.meta.settings.lang === "fa" ? "rtl" : "ltr"}" data-ph="${(n.bgs && n.bgs.length) ? "" : esc(T("welcomeText"))}"></div>
+      <div class="content" id="content" data-id="${esc(n.id)}" contenteditable="${ro_ ? "false" : "true"}" spellcheck="true" dir="${S.meta.settings.lang === "fa" ? "rtl" : "ltr"}" data-ph=""></div>
       <canvas id="ink"></canvas><canvas id="live"></canvas>
     </div>
     <div class="atts" id="atts"></div>
@@ -2961,7 +2980,7 @@ function renderMain() {
   else if (!n.locked) watchActiveInk(n.id);
 }
 function siblings(n) {
-  return Array.from(S.notes.values()).filter((x) => !x.trashed && x.folder === n.folder && !n.trashed).sort((a, b) => orderOf(a) - orderOf(b) || (a.createdAt < b.createdAt ? -1 : 1));
+  return Array.from(S.notes.values()).filter((x) => !x.trashed && !x.file && x.folder === n.folder && !n.trashed).sort((a, b) => orderOf(a) - orderOf(b) || (a.createdAt < b.createdAt ? -1 : 1));
 }
 function renderLockScreen(n) {
   $("#main").innerHTML = `<div class="scroll"><form class="lockview" id="unlockForm">
@@ -4034,6 +4053,7 @@ function penMove(e) {
   for (const ev of evs.length ? evs : [e]) {
     if (ev.pointerType === "pen" && ev.buttons === 0) continue; // hover sample, not ink
     const pt = ptFrom(ev), last = p.cur.path.at(-1);
+    if (p.cur.path.length === 1 && !p.cur.shape && Math.hypot((pt[0] - last[0]) * p.W, (pt[1] - last[1]) * p.H0) > Math.max(48, p.W * 0.07)) { p.cur.path[0] = pt; continue; } // the pen-down point was stale
     if (Math.hypot((pt[0] - last[0]) * p.W, (pt[1] - last[1]) * p.H0) < 0.6) continue;
     if (p.cur.tool === "pen" && p.cur.path.length > 1) { const k = 0.62; pt[0] = last[0] + (pt[0] - last[0]) * k; pt[1] = last[1] + (pt[1] - last[1]) * k; pt[2] = Math.round((last[2] * 0.35 + pt[2] * 0.65) * 100) / 100; } // steadier line, like a heavier pen
     p.cur.path.push(pt);
@@ -4050,7 +4070,9 @@ function penUp(e) {
   const n = p.n;
   if (p.erase && p.erase.pid === e.pointerId) { const er = p.erase; p.erase = null; if (er.side) paperSide(false); if (er.changed) setStrokes(n, strokesOf(n), er.prev); return; }
   if (p.move && p.move.pid === e.pointerId) { const mv = p.move; p.move = null; if (mv.next) setStrokes(n, mv.next, mv.prev); showSelbar(); drawLive(); return; }
+  try { if (e.pointerType !== "touch" && p.canvas.hasPointerCapture && p.canvas.hasPointerCapture(e.pointerId)) p.canvas.releasePointerCapture(e.pointerId); } catch {}
   if (!p.cur || p.cur.pid !== e.pointerId) return;
+  if (p.cur.path.length === 1 && !p.cur.lasso && !p.cur.laser && e.clientX != null) { const q = ptFrom(e), a0 = p.cur.path[0]; if (Math.hypot((q[0] - a0[0]) * p.W, (q[1] - a0[1]) * p.H0) > Math.max(48, p.W * 0.07)) p.cur.path[0] = [q[0], q[1], a0[2]]; } // a dot lands where the pen really was
   const st = p.cur; p.cur = null; delete st.pid; clearTimeout(p.holdT);
   if (st.tool === "pen" && !st.shape && !st.snapped && e.clientX != null && st.path.length > 1) { const q = ptFrom(e), l = st.path.at(-1); q[2] = l[2]; if (Math.hypot((q[0] - l[0]) * p.W, (q[1] - l[1]) * p.H0) > 0.6) st.path.push(q); } // end exactly where the pen left
   const exact = !!(st.shape || st.snapped);
@@ -4108,6 +4130,7 @@ function watchActiveInk(id) {
 
 /* ---------------- actions ---------------- */
 function openNote(id) {
+  if (isStored(S.notes.get(id))) return openFile(id);
   captureActive();
   if (S.activeId && S.activeId !== id) { const old = S.activeId; if (isBusy("note:" + old)) runWrite("note:" + old); if (isBusy("ink:" + old)) runWrite("ink:" + old); }
   S.activeId = id; lsSet("babak-sa-active", id); S.screen = "editor"; markOpened(id);
@@ -4156,14 +4179,14 @@ function referencedAssets(exceptId) {
   for (const n of S.notes.values()) {
     if (n.id === exceptId) continue;
     if (sealedLocked(n)) { unknown = true; continue; }
-    const w = W(n); (w.attachments || []).forEach((a) => set.add(a.id)); (n.bgs || []).forEach((id) => set.add(id));
+    const w = W(n); (w.attachments || []).forEach((a) => set.add(a.id)); (n.bgs || []).forEach((id) => set.add(id)); if (n.file) set.add(n.file.id);
     for (const m of String(w.html || "").matchAll(/\/_blob\/([A-Za-z0-9_-]+)/g)) set.add(m[1]);
   }
   return { set, unknown };
 }
 async function deleteForever(n, ask = true) {
   if (ask && !(await confirmBox(T("deleteForeverQ"), { danger: true, ok: T("deleteForever") }))) return;
-  const ids = sealedLocked(n) ? [...(n.bgs || [])] : [...(n.bgs || []), ...(W(n).attachments || []).map((a) => a.id), ...Array.from(String(W(n).html || "").matchAll(/\/_blob\/([A-Za-z0-9_-]+)/g)).map((m) => m[1])];
+  const ids = n.file ? [n.file.id] : sealedLocked(n) ? [...(n.bgs || [])] : [...(n.bgs || []), ...(W(n).attachments || []).map((a) => a.id), ...Array.from(String(W(n).html || "").matchAll(/\/_blob\/([A-Za-z0-9_-]+)/g)).map((m) => m[1])];
   S.notes.delete(n.id); S.ink.delete(n.id); S.unlocked.delete(n.id);
   writers.delete("note:" + n.id); writers.delete("ink:" + n.id);
   if (S.activeId === n.id) { S.activeId = null; S.screen = "library"; lsSet("babak-sa-active", null); }
@@ -5412,6 +5435,7 @@ function assetsOfDoc(d) {
   for (const m of String(d?.html || "").matchAll(/data-asset="([A-Za-z0-9_-]{8,64})"/g)) ids.add(m[1]);
   for (const a of d?.attachments || []) if (a && a.id) ids.add(a.id);
   for (const x of d?.sealed || []) ids.add(x);
+  if (d?.file && d.file.id) ids.add(d.file.id);
   return [...ids];
 }
 function setSyncState(s, err = "") { Sync.state = s; Sync.err = err; renderStatus(); const b = $("#syncBox"); if (b) b.innerHTML = syncBoxHtml(); }
@@ -6070,6 +6094,7 @@ function doAct(act, el) {
   if (act === "readMode") return toggleReadMode();
   if (act === "focusMode") return toggleFocus();
   if (act === "home") return goHome();
+  if (act === "storeFiles") return pickStoreFiles();
   if (act === "toolMore") return toolMoreMenu(el);
   if (act === "ctxMore") return ctxMoreMenu(el, "pen");
   if (act === "ctxMoreText") return ctxMoreMenu(el, "text");
@@ -6516,6 +6541,7 @@ const fsTablet = () => fsLastPtr !== "mouse" || matchMedia("(pointer: coarse)").
 function fsRetry(e) {
   if (!S.fsAgain || fsNow() || !document.body.classList.contains("focusmode")) return;
   if (e && e.target && e.target.closest && e.target.closest("#fsBtn")) { S.fsAgain = false; return; } // the button itself decides
+  if (!e || !e.target || !e.target.closest || !e.target.closest("#paper") || e.target.closest("button,input,select,a,.pop,.overlay,#selbar")) return; // only a touch on the page itself
   if (paperState && (paperState.cur || paperState.erase || paperState.move)) return; // never in the middle of a stroke
   S.fsAgain = false;
   const el = document.documentElement;
@@ -6582,7 +6608,7 @@ function showSelBar() {
 function startSelect() { S.sel = new Set(); showSelBar(); toast(T("selectHint")); }
 function endSelect() { S.sel = null; showSelBar(); }
 const selNotes = () => Array.from(S.sel || []).map((id) => S.notes.get(id)).filter(Boolean);
-async function selAction(a) {
+async function bulkAction(a) { // the bulk bar (many pages); the lasso bar has its own selAction
   if (a === "done") return endSelect();
   if (a === "all") { const all = $$(".lib [data-note]").map((c) => c.dataset.note); const every = all.every((id) => S.sel.has(id)); S.sel = new Set(every ? [] : all); return showSelBar(); }
   const notes = selNotes(); if (!notes.length) return;
@@ -6604,7 +6630,7 @@ async function selAction(a) {
   finally { t.remove(); }
 }
 document.addEventListener("click", (e) => {
-  const sb = e.target.closest("#bulkBar [data-sel]"); if (sb) { e.stopPropagation(); return selAction(sb.dataset.sel); }
+  const sb = e.target.closest("#bulkBar [data-sel]"); if (sb) { e.stopPropagation(); return bulkAction(sb.dataset.sel); }
   if (!S.sel) return;
   const c = e.target.closest(".lib [data-note]"); if (!c) return;
   e.stopPropagation(); e.preventDefault();
@@ -6651,6 +6677,7 @@ function toggleContinuous() {
 const pageUrl = (id) => location.href.split("#")[0] + "#note=" + encodeURIComponent(id);
 async function noteCtxMenu(id) {
   const n = S.notes.get(id); if (!n) return;
+  if (isStored(n)) return fileMenu(id);
   const items = [["open", "📄 " + T("ctxOpen")], ["win", "🗗 " + T("ctxWindow")], ["tab", "↗ " + T("ctxTab")]];
   if (!n.trashed && !sealedLocked(n) && !S.readOnly) items.push(["rename", "✏️ " + T("renamePage")]);
   if (!n.trashed) items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "ctxUnstar" : "ctxStar")], ["del", "🗑 " + T("delete"), "danger"]);
@@ -6841,7 +6868,7 @@ async function lockWith(n, vk) {
 
 /* ---- whole notebook ---- */
 const folderRecOf = (path) => S.meta.folders.find((f) => f.path === path);
-function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && n.folder === path); }
+function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && !n.file && n.folder === path); }
 function bookKey(path) { for (const n of bookPages(path)) { const u = n.locked && S.unlocked.get(n.id); if (u && u.vk) return u.vk; } return null; }
 async function askBookKey(path) {
   const locked = bookPages(path).filter((n) => n.locked);
@@ -6932,6 +6959,139 @@ async function historyPanel(n) {
   } catch (e) { toast(gdsErr(e), { kind: "err" }); }
   finally { t2.remove(); }
 }
+
+/* ---------------- stored files (like Google Drive): a file stays a file, shown as an icon; tap opens it inside the app ---------------- */
+Object.assign(I18N.fa, { filesSec: "فایل‌ها", storeFiles: "افزودن فایل", importAsPages: "فایل ← صفحهٔ دفترچه", fileOpen: "باز کردن", fileSave: "ذخیره / اشتراک", fileToPages: "تبدیل به صفحه‌های دفترچه (برای نوشتن روی آن)", fileRename: "تغییر نام", fileMove: "انتقال به…", fileMissing: "این فایل هنوز از گوگل درایو به این دستگاه نرسیده؛ کمی بعد دوباره امتحان کنید.", fileStored: "{n} فایل ذخیره شد.", fileNoPreview: "پیش‌نمایش این نوع فایل در دفترچه ممکن نیست. با «ذخیره / اشتراک» آن را در برنامهٔ مناسب باز کنید.", fileLoading: "در حال باز کردن…", fileName: "نام فایل" });
+Object.assign(I18N.de, { filesSec: "Dateien", storeFiles: "Datei hinzufügen", importAsPages: "Datei → Notizbuchseiten", fileOpen: "Öffnen", fileSave: "Speichern / Teilen", fileToPages: "In Notizbuchseiten umwandeln (zum Beschreiben)", fileRename: "Umbenennen", fileMove: "Verschieben nach…", fileMissing: "Diese Datei ist noch nicht aus Google Drive angekommen; bitte gleich noch einmal.", fileStored: "{n} Datei(en) gespeichert.", fileNoPreview: "Für diesen Dateityp gibt es keine Vorschau. Mit „Speichern / Teilen“ in einer passenden App öffnen.", fileLoading: "Wird geöffnet…", fileName: "Dateiname" });
+Object.assign(I18N.en, { filesSec: "Files", storeFiles: "Add file", importAsPages: "File → notebook pages", fileOpen: "Open", fileSave: "Save / share", fileToPages: "Turn into notebook pages (to write on it)", fileRename: "Rename", fileMove: "Move to…", fileMissing: "This file has not arrived from Google Drive on this device yet; try again shortly.", fileStored: "{n} file(s) stored.", fileNoPreview: "No preview for this kind of file. Use “Save / share” to open it in a suitable app.", fileLoading: "Opening…", fileName: "File name" });
+
+const isStored = (n) => !!(n && n.file && n.file.id);
+function fileKind(f) {
+  const n = String(f.name || "").toLowerCase(), t = String(f.type || "");
+  if (/pdf/.test(t) || n.endsWith(".pdf")) return ["PDF", "#d64545"];
+  if (/^image\//.test(t) || /\.(jpe?g|png|gif|webp|heic|bmp|svg)$/.test(n)) return ["IMG", "#8a55c5"];
+  if (/word|opendocument\.text/.test(t) || /\.(docx?|odt|rtf|pages)$/.test(n)) return ["DOC", "#2b6cd4"];
+  if (/sheet|excel|csv/.test(t) || /\.(xlsx?|ods|csv|tsv|numbers)$/.test(n)) return ["XLS", "#1f8a4c"];
+  if (/presentation|powerpoint/.test(t) || /\.(pptx?|odp|key)$/.test(n)) return ["PPT", "#d4782b"];
+  if (/^audio\//.test(t) || /\.(mp3|m4a|wav|ogg|aac)$/.test(n)) return ["♪", "#c2410c"];
+  if (/^video\//.test(t) || /\.(mp4|mov|webm|mkv)$/.test(n)) return ["▶", "#0e7490"];
+  if (/zip|compressed/.test(t) || /\.(zip|rar|7z|tar|gz)$/.test(n)) return ["ZIP", "#6b7280"];
+  if (/^text\//.test(t) || /\.(txt|md|markdown|html?|json)$/.test(n)) return ["TXT", "#475569"];
+  return [(n.split(".").pop() || "?").slice(0, 4).toUpperCase(), "#6b7280"];
+}
+const fmtSize = (b) => (b >= 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1024)) + " KB");
+function filesSection(list) {
+  return `<div class="sech">${esc(T("filesSec"))}</div><div class="flist">${list.map((n) => {
+    const [lab, col] = fileKind(n.file);
+    return `<div class="frow" data-note="${esc(n.id)}"><span class="fbadge" style="--fc:${col}">${esc(lab)}</span><span class="fn"><b dir="auto">${esc(n.title || n.file.name)}</b><small><bdi>${esc(fmtSize(n.file.size || 0))}</bdi> · ${esc(fmtDate(n.updatedAt, false))}</small></span><button type="button" class="more" data-fmore="${esc(n.id)}" aria-label="${esc(T("more"))}">⋯</button></div>`;
+  }).join("")}</div>`;
+}
+let fileStoreIn = null;
+function pickStoreFiles() {
+  if (!S.assets) return toast(T("pdfNeedsCloud"), { kind: "err" });
+  if (!fileStoreIn) {
+    fileStoreIn = document.createElement("input"); fileStoreIn.type = "file"; fileStoreIn.multiple = true; fileStoreIn.className = "vhide";
+    fileStoreIn.addEventListener("change", () => { const f = Array.from(fileStoreIn.files || []); fileStoreIn.value = ""; if (f.length) storeFiles(f); });
+    document.body.append(fileStoreIn);
+  }
+  fileStoreIn.value = ""; fileStoreIn.click();
+}
+async function storeFiles(files, folder) {
+  folder = folder != null ? folder : S.view && !S.view.startsWith("__") ? S.view : "";
+  const { t, say } = sayToast(T("importing")); let c = 0;
+  try {
+    for (const f of files) {
+      say(`${T("importing")} ${f.name}`);
+      const id = (await S.assets.upload(f)).id, now = new Date().toISOString();
+      const n = normNote({ id: uid(), title: f.name, folder, file: { id, name: f.name, type: f.type || "", size: f.size || 0 }, pageStyle: "blank", createdAt: now, updatedAt: now });
+      S.notes.set(n.id, n); saveNote(n.id, 0); c++;
+    }
+  } catch (e) { toast(T("importPdfFailed") + (e && (e.message || e.code) || ""), { kind: "err" }); }
+  finally { t.remove(); }
+  if (c) { renderSide(); renderMain(); toast("📎 " + T("fileStored", { n: num(c) })); }
+}
+async function storedBlob(n) {
+  try { if (S.mode === "local") { const rec = await localAssets.get(n.file.id); if (rec && rec.blob) return rec.blob; return null; } return await assetBlob(n.file.id); } catch { return null; }
+}
+async function storedFile(n) { const b = await storedBlob(n); return b ? new File([b], n.file.name || n.title || "file", { type: n.file.type || b.type || "" }) : null; }
+/** In-app viewer: PDF pages, pictures, Word/Excel/text as readable text, sound and video. */
+async function openFile(id) {
+  const n = S.notes.get(id); if (!isStored(n)) return;
+  markOpened(id);
+  const ov = document.createElement("div"); ov.className = "fview"; ov.setAttribute("role", "dialog");
+  const [lab, col] = fileKind(n.file);
+  ov.innerHTML = `<div class="fvbar"><button type="button" class="btn icon ghost" data-fv="close" aria-label="${esc(T("close"))}">✕</button><span class="fbadge sm" style="--fc:${col}">${esc(lab)}</span><b dir="auto">${esc(n.title || n.file.name)}</b>
+    <span class="fvsp"></span><button type="button" class="btn" data-fv="save">⤓ ${esc(T("fileSave"))}</button><button type="button" class="btn" data-fv="pages">📄 ${esc(T("importAsPages"))}</button></div><div class="fvbody"><div class="spinner"></div><div class="empty">${esc(T("fileLoading"))}</div></div>`;
+  document.body.append(ov);
+  const urls = [];
+  const close = () => { ov.remove(); urls.forEach((u) => URL.revokeObjectURL(u)); document.removeEventListener("keydown", key, true); };
+  const key = (e) => { if (e.key === "Escape") { e.stopPropagation(); close(); } };
+  document.addEventListener("keydown", key, true);
+  ov.addEventListener("click", async (e) => {
+    const b = e.target.closest("[data-fv]"); if (!b) return;
+    if (b.dataset.fv === "close") return close();
+    if (b.dataset.fv === "save") return fileSaveShare(n);
+    if (b.dataset.fv === "pages") { close(); return fileToPages(n); }
+  });
+  const body = ov.querySelector(".fvbody"), blob = await storedBlob(n);
+  if (!blob) { body.innerHTML = `<div class="empty">${esc(T("fileMissing"))}</div>`; return; }
+  const file = new File([blob], n.file.name || "file", { type: n.file.type || blob.type || "" }), ext = extOf(file.name);
+  try {
+    if (lab === "PDF") {
+      const lib = await loadPdfJs(), data = new Uint8Array(await file.arrayBuffer());
+      let pdf; try { pdf = await lib.getDocument({ data }).promise; } catch { pdf = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()), disableWorker: true }).promise; }
+      body.innerHTML = ""; const W = Math.min(1100, body.clientWidth - 24), dpr = Math.min(2, devicePixelRatio || 1);
+      for (let i = 1; i <= pdf.numPages && ov.isConnected; i++) {
+        const page = await pdf.getPage(i), v1 = page.getViewport({ scale: 1 }), vp = page.getViewport({ scale: (W * dpr) / v1.width });
+        const c = document.createElement("canvas"); c.width = Math.round(vp.width); c.height = Math.round(vp.height); c.style.width = W + "px"; c.className = "fvpage";
+        body.append(c); await page.render({ canvasContext: c.getContext("2d"), viewport: vp }).promise;
+      }
+    } else if (lab === "IMG") {
+      const u = URL.createObjectURL(file); urls.push(u); body.innerHTML = `<img class="fvimg" src="${u}" alt="">`;
+    } else if (lab === "♪" || lab === "▶") {
+      const u = URL.createObjectURL(file); urls.push(u); body.innerHTML = lab === "♪" ? `<audio controls src="${u}" style="width:min(600px,100%);margin:40px auto;display:block"></audio>` : `<video controls playsinline src="${u}" class="fvimg"></video>`;
+    } else {
+      const items = ["docx", "odt", "md", "markdown", "txt", "text", "rtf", "html", "htm", "csv", "tsv", "xlsx", "json"].includes(ext) ? await fileToItems(file.name, () => file.text(), () => file.arrayBuffer()) : null;
+      body.innerHTML = items && items.length ? `<div class="fvdoc" dir="auto">${items.map((it) => `<h3>${esc(it.title || "")}</h3>${sanitize(it.html || "")}`).join("<hr>")}</div>` : `<div class="empty">${esc(T("fileNoPreview"))}</div>`;
+      hydrate(body);
+    }
+  } catch (e) { console.warn(e); body.innerHTML = `<div class="empty">${esc(T("fileNoPreview"))}</div>`; }
+}
+async function fileSaveShare(n) {
+  const f = await storedFile(n); if (!f) return toast(T("fileMissing"), { kind: "err" });
+  if (navigator.canShare && navigator.canShare({ files: [f] })) { try { await navigator.share({ files: [f], title: f.name }); return; } catch (e) { if (e && e.name === "AbortError") return; } }
+  await saveFile(f.name, f);
+}
+async function fileToPages(n) {
+  const f = await storedFile(n); if (!f) return toast(T("fileMissing"), { kind: "err" });
+  S.view = n.folder || "__all"; lsSet("babak-sa-view", S.view); S.query = "";
+  await importAny([f]);
+}
+async function fileMenu(id) {
+  const n = S.notes.get(id); if (!isStored(n)) return;
+  const items = n.trashed ? [["restore", "↩ " + T("restore")], ["forever", T("deleteForever"), "danger"]]
+    : [["open", "👁 " + T("fileOpen")], ["save", "⤓ " + T("fileSave")], ["pages", "📄 " + T("fileToPages")], ["rename", "✏️ " + T("fileRename")], ["move", "📂 " + T("fileMove")], ["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "ctxUnstar" : "ctxStar")], ["del", "🗑 " + T("delete"), "danger"]];
+  const a = await menuBox(n.title || n.file.name, items);
+  if (a === "open") return openFile(id);
+  if (a === "save") return fileSaveShare(n);
+  if (a === "pages") return fileToPages(n);
+  if (a === "pin") { n.pinned = !n.pinned; touch(n); saveNote(id, 0); return renderMain(); }
+  if (a === "del") return trashNote(n);
+  if (a === "restore") return restoreNote(n);
+  if (a === "forever") return deleteForever(n);
+  if (a === "rename") {
+    const r = await formBox(T("fileRename"), `<div class="field"><label>${esc(T("fileName"))}</label><input name="t" maxlength="200" dir="auto" value="${esc(n.title || n.file.name)}"></div>`, (f) => (f.t.value.trim() ? { t: f.t.value.trim() } : T("nameRequired")), T("save"));
+    if (r) { n.title = r.t; touch(n); saveNote(id, 0); renderSide(); renderMain(); }
+  }
+  if (a === "move") {
+    const r = await formBox(T("fileMove"), `<div class="field"><select name="p"><option value="">${esc(T("root"))}</option>${folderPaths().map((f) => `<option ${f.path === n.folder ? "selected" : ""}>${esc(f.path)}</option>`).join("")}</select></div>`, (f) => ({ p: f.p.value }), T("save"));
+    if (r) { n.folder = r.p; touch(n); saveNote(id, 0); renderSide(); renderMain(); }
+  }
+}
+document.addEventListener("click", (e) => {
+  const m = e.target.closest && e.target.closest("[data-fmore]"); if (!m) return;
+  e.stopPropagation(); e.preventDefault(); fileMenu(m.dataset.fmore);
+}, true);
 
 /* ---- tidy toolbar: rarely used tools in small menus ---- */
 function toolMoreMenu(el) {
