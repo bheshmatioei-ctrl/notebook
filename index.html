@@ -1367,8 +1367,11 @@ function setupApp() {
   navigator.serviceWorker.addEventListener("controllerchange", () => { if (wantUpdate && !reloading) { reloading = true; captureActive(); flushAll(); setTimeout(() => location.reload(), 300); } });
   navigator.serviceWorker.register("sw.js").then((reg) => {
     const offer = (w) => toast("✨ " + T("updateReady"), { sticky: true, actions: [{ label: T("updateNow"), run: () => { wantUpdate = true; w.postMessage("skipWaiting"); } }] });
-    if (reg.waiting && navigator.serviceWorker.controller) offer(reg.waiting);
-    reg.addEventListener("updatefound", () => { const w = reg.installing; w && w.addEventListener("statechange", () => { if (w.state === "installed" && navigator.serviceWorker.controller) offer(w); }); });
+    // apply a new version by itself, unless the person is typing right now (then ask)
+    const busy = () => !!document.querySelector(".overlay") || !!document.activeElement?.closest?.("input,textarea,select,[contenteditable=true],[contenteditable=plaintext-only]");
+    const apply = (w) => { if (busy()) return offer(w); wantUpdate = true; toast("✨ " + T("updateReady")); w.postMessage("skipWaiting"); };
+    if (reg.waiting && navigator.serviceWorker.controller) apply(reg.waiting);
+    reg.addEventListener("updatefound", () => { const w = reg.installing; w && w.addEventListener("statechange", () => { if (w.state === "installed" && navigator.serviceWorker.controller) apply(w); }); });
     document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") reg.update().catch(() => {}); });
     setInterval(() => reg.update().catch(() => {}), 30 * 60e3);
   }).catch(() => {});
@@ -7480,6 +7483,7 @@ function mmDraw() {
     if (L === "down") { const sy = p.y + ps.h / 2, ey = x.y - cs.h / 2, my = (sy + ey) / 2; path = `M${p.x} ${sy} V${my} H${x.x} V${ey}`; }
     else if (L === "list") { const ix = rtl ? p.x + ps.w / 2 - 14 : p.x - ps.w / 2 + 14, ex = rtl ? x.x + cs.w / 2 : x.x - cs.w / 2; path = `M${ix} ${p.y + ps.h / 2} V${x.y} H${ex}`; }
     else if (L === "radial") { path = `M${p.x} ${p.y} L${x.x} ${x.y}`; }
+    else if (Math.abs(x.y - p.y) > Math.abs(x.x - p.x) * 1.3 + 20) { const sg = x.y > p.y ? 1 : -1, sy = p.y + sg * ps.h / 2, ey = x.y - sg * cs.h / 2, my = (sy + ey) / 2; path = `M${p.x} ${sy} C${p.x} ${my} ${x.x} ${my} ${x.x} ${ey}`; }
     else { const side = x.x >= p.x ? 1 : -1, sx = p.x + side * ps.w / 2, sy = p.y, ex = x.x - side * cs.w / 2, ey = x.y + (x.shape === "line" ? cs.h / 2 : 0), dx = Math.max(30, Math.abs(ex - sx)) / 2; path = `M${sx} ${sy} C${sx + side * dx} ${sy} ${ex - side * dx} ${ey} ${ex} ${ey}`; }
     svg += `<path d="${path}" fill="none" stroke="${x.color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"/>`;
   }
