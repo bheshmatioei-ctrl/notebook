@@ -765,6 +765,35 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .netf .two{display:flex;gap:8px}.netf .two input{flex:1;min-width:0}
 .netf small.msg{display:block;opacity:.7;margin-top:4px}
 .netf .chk{display:inline-flex;gap:6px;align-items:center;font-size:13px;cursor:pointer;white-space:nowrap;margin-inline-start:10px;font-weight:400}
+.mmn.sg{box-shadow:0 0 var(--gs) calc(var(--gs) / 2.5) var(--gc)}
+.mmn .nv.sim{border:1.5px dashed currentColor;border-radius:6px;padding:0 4px}
+.mmn .nv.ov{outline:2px solid #e0a43a;outline-offset:1px;border-radius:6px;padding:0 3px}
+.mmrel.flow path:nth-child(2){stroke-dasharray:9 6;animation:netflow .8s linear infinite}
+@keyframes netflow{to{stroke-dashoffset:-15}}
+@media (prefers-reduced-motion:reduce){.mmrel.flow path:nth-child(2){animation:none}}
+.mmsim{position:absolute;bottom:12px;inset-inline-start:50%;transform:translateX(-50%);z-index:8;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:5px 6px 5px 14px;font-size:13px;box-shadow:var(--shadow);display:flex;align-items:center;gap:6px;max-width:calc(100% - 24px);white-space:nowrap}
+[dir=rtl] .mmsim{transform:translateX(50%)}
+.mmsim b{overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.mmsim small{opacity:.7}
+.mmsim button{border:0;background:var(--hover);border-radius:99px;min-width:28px;height:28px;padding:0 9px;cursor:pointer;font-size:13px;color:var(--ink)}
+.netsc{display:flex;flex-direction:column;gap:6px}
+.netsc .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.netsc .row{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:12px}
+.netsc .row b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.netsc .row small{opacity:.65;white-space:nowrap}
+.netsc .row button{border:0;background:var(--hover);border-radius:9px;min-width:34px;height:32px;cursor:pointer;color:var(--ink)}
+.netov{display:flex;flex-direction:column;gap:4px;max-height:46vh;overflow:auto}
+.netov .r{display:flex;align-items:center;gap:8px;padding:4px 2px}
+.netov .r .nm{flex:0 0 38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.netov .r input[type=range]{flex:1;accent-color:var(--accent);direction:ltr}
+.netov .r output{min-width:46px;text-align:center;font-weight:700;direction:ltr}
+.netov .r input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}
+.netcmp{width:100%;border-collapse:collapse;font-size:14px}
+.netcmp th,.netcmp td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:start}
+.netcmp td.n{direction:ltr;text-align:center;font-weight:600;white-space:nowrap}
+.netcmp .p{color:#1f8a4c}.netcmp .ng{color:#d64545}
+.netwhy li{margin:4px 0}.netwhy .p{color:#1f8a4c;font-weight:700}.netwhy .ng{color:#d64545;font-weight:700}
+.netwhy h4{margin:12px 0 4px;font-size:14px}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7248,11 +7277,26 @@ Object.assign(I18N.en, { netView: "Network", netOn: "Thinking-network view: infl
   netVal: "Value in the network", netHasVal: "Has a value", netValHint: "From −100 (very negative) to +100 (very positive)", netReal: "Real value (optional)", netRealPh: "e.g. 4.25", netUnit: "Unit", netUnitPh: "% or $", netAsOf: "Recorded: {d}",
   netLink: "Influence details", netSign: "Direction", netW: "Strength", w1: "Weak", w2: "Medium", w3: "Strong", netLag: "Delay", lag_0: "Immediate", lag_w: "A few weeks", lag_m: "A few months",
   netConf: "Confidence", netHasConf: "Known", netBy: "Made by", by_me: "Me", by_ai: "AI", by_data: "Data", netWhy: "Reason", netWhyPh: "Why does this affect that?" });
+Object.assign(I18N.fa, { netThink: "فکر کن", netNoEdges: "اول بین ایده‌ها فلش تأثیر مثبت یا منفی بکشید: ↗ و بعد ＋ یا −.", netNoInput: "حداقل به یک ایده مقدار بدهید: ◇ نوع و مقدار.", netBase: "پایه (مقدارهای فعلی)",
+  netScen: "سناریوها", netScenNew: "＋ سناریوی تازه", netScenName: "نام سناریو", netScenNamePh: "مثلاً: اگر نرخ بهره بالا برود", netScenHint: "برای هر ایده‌ای که در این سناریو فرق دارد، تیک بزنید و مقدارش را تعیین کنید.",
+  netChanges: "{n} تغییر", netCompare: "⚖ مقایسه", netCmpA: "اولی", netCmpB: "دومی", netDiff: "تفاوت", netTick: "ضربان {i} از {n}", netReplay: "دوباره", netClear: "پاک کردن نتیجه",
+  netWhy2: "چرا؟", netWhyIn: "این ایده ورودی است: مقدارش را خودتان یا سناریو تعیین کرده‌اید.", netWhyOut: "اثری که روی بقیه می‌گذارد", netWhyFrom: "اثرهای مستقیم", netPaths: "مهم‌ترین مسیرها از ورودی‌ها",
+  netNoWhy: "هیچ اثری به این ایده نمی‌رسد.", netResult: "نتیجه", netNoScen: "هنوز سناریویی نساخته‌اید.", netDelQ: "سناریوی «{n}» پاک شود؟", netNoNet: "هنوز شبکه‌ای نیست؛ اول به ایده‌ها نوع و مقدار بدهید.", netIdea: "ایده" });
+Object.assign(I18N.de, { netThink: "Denken", netNoEdges: "Zuerst Einflusspfeile ziehen: ↗ und dann ＋ oder −.", netNoInput: "Mindestens einer Idee einen Wert geben: ◇ Art und Wert.", netBase: "Basis (aktuelle Werte)",
+  netScen: "Szenarien", netScenNew: "＋ Neues Szenario", netScenName: "Name des Szenarios", netScenNamePh: "z. B. Wenn die Zinsen steigen", netScenHint: "Für jede Idee, die in diesem Szenario anders ist, Häkchen setzen und Wert wählen.",
+  netChanges: "{n} Änderungen", netCompare: "⚖ Vergleichen", netCmpA: "Erstes", netCmpB: "Zweites", netDiff: "Differenz", netTick: "Takt {i} von {n}", netReplay: "Nochmal", netClear: "Ergebnis löschen",
+  netWhy2: "Warum?", netWhyIn: "Diese Idee ist ein Eingang: ihren Wert legen Sie oder das Szenario fest.", netWhyOut: "Ihr Einfluss auf andere", netWhyFrom: "Direkte Einflüsse", netPaths: "Wichtigste Wege von den Eingängen",
+  netNoWhy: "Kein Einfluss erreicht diese Idee.", netResult: "Ergebnis", netNoScen: "Noch keine Szenarien.", netDelQ: "Szenario „{n}“ löschen?", netNoNet: "Noch kein Netz – zuerst Ideen Art und Wert geben.", netIdea: "Idee" });
+Object.assign(I18N.en, { netThink: "Think", netNoEdges: "First draw positive or negative influence arrows: ↗ then ＋ or −.", netNoInput: "Give at least one idea a value: ◇ Type and value.", netBase: "Base (current values)",
+  netScen: "Scenarios", netScenNew: "＋ New scenario", netScenName: "Scenario name", netScenNamePh: "e.g. If interest rates rise", netScenHint: "Tick every idea that is different in this scenario and set its value.",
+  netChanges: "{n} changes", netCompare: "⚖ Compare", netCmpA: "First", netCmpB: "Second", netDiff: "Difference", netTick: "Tick {i} of {n}", netReplay: "Replay", netClear: "Clear result",
+  netWhy2: "Why?", netWhyIn: "This idea is an input: its value is set by you or by the scenario.", netWhyOut: "Its effect on others", netWhyFrom: "Direct effects", netPaths: "Strongest paths from the inputs",
+  netNoWhy: "No effect reaches this idea.", netResult: "Result", netNoScen: "No scenarios yet.", netDelQ: "Delete scenario “{n}”?", netNoNet: "No network yet – first give ideas a type and value.", netIdea: "Idea" });
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
   const r = mmId();
-  return { v: 1, root: r, nodes: { [r]: { id: r, parent: null, text: title || T("mmRoot"), x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] } }, rels: [], layout: "map", dir: "auto", view: null };
+  return { v: 2, root: r, nodes: { [r]: { id: r, parent: null, text: title || T("mmRoot"), x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] } }, rels: [], scen: [], mode: "map", layout: "map", dir: "auto", view: null };
 }
 function mmNorm(m) {
   if (!m || typeof m !== "object" || !m.nodes || typeof m.nodes !== "object") return null;
@@ -7279,7 +7323,9 @@ function mmNorm(m) {
   const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed,
     w: [1, 2, 3].includes(+r.w) ? +r.w : 2, lag: ["0", "w", "m"].includes(r.lag) ? r.lag : "0", why: String(r.why || "").slice(0, 2000), by: ["me", "ai", "data"].includes(r.by) ? r.by : "me",
     ...(r.conf !== undefined && r.conf !== null && r.conf !== "" && isFinite(r.conf) ? { conf: Math.max(0, Math.min(100, Math.round(+r.conf))) } : {}) })) : [];
-  return { v: 2, root: m.root, nodes, rels, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
+  const scen = Array.isArray(m.scen) ? m.scen.filter((q) => q && typeof q === "object").slice(0, 30).map((q) => ({ id: String(q.id || mmId()).slice(0, 20), name: String(q.name || "").slice(0, 80),
+    ov: Object.fromEntries(Object.entries(q.ov && typeof q.ov === "object" ? q.ov : {}).filter(([k, v]) => nodes[k] && v !== null && v !== "" && isFinite(v)).map(([k, v]) => [k, Math.max(-100, Math.min(100, Math.round(+v)))])) })) : [];
+  return { v: 2, root: m.root, nodes, rels, scen, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
     view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
 }
 let MM = null; // the open map: { n, d, sel, rel, edit, connect, undo, redo, size }
@@ -7289,8 +7335,8 @@ function mmProgress(d, id) { let t = 0, k = 0; for (const i of mmDesc(d, id)) { 
 function mmDesc(d, id) { const out = []; const walk = (p) => { for (const k of mmKids(d, p)) { out.push(k.id); walk(k.id); } }; walk(id); return out; }
 function mmHidden(d) { const h = new Set(); for (const x of Object.values(d.nodes)) if (x.collapsed) mmDesc(d, x.id).forEach((i) => h.add(i)); return h; }
 function mmSave() { const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
-function mmPush() { MM.undo.push(JSON.stringify(MM.d)); if (MM.undo.length > 60) MM.undo.shift(); MM.redo = []; }
-function mmUndo(redo) { const from = redo ? MM.redo : MM.undo, to = redo ? MM.undo : MM.redo; if (!from.length) return; to.push(JSON.stringify(MM.d)); MM.d = mmNorm(JSON.parse(from.pop())); MM.sel = MM.d.nodes[MM.sel] ? MM.sel : null; mmSave(); mmDraw(); }
+function mmPush() { if (MM.sim) netStop(); MM.undo.push(JSON.stringify(MM.d)); if (MM.undo.length > 60) MM.undo.shift(); MM.redo = []; }
+function mmUndo(redo) { if (MM.sim) netStop(); const from = redo ? MM.redo : MM.undo, to = redo ? MM.undo : MM.redo; if (!from.length) return; to.push(JSON.stringify(MM.d)); MM.d = mmNorm(JSON.parse(from.pop())); MM.sel = MM.d.nodes[MM.sel] ? MM.sel : null; mmSave(); mmDraw(); }
 function newMap() {
   if (S.readOnly) return;
   const folder = S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
@@ -7314,6 +7360,8 @@ function renderMap(n) {
       <span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
+      <button class="btn ghost" data-mm="think" title="${esc(T("netThink"))}">▶<span class="mmlab">${esc(T("netThink"))}</span></button>
+      <button class="btn icon ghost" data-mm="scen" title="${esc(T("netScen"))}">🧪</button>
       <button class="btn ghost" data-mm="net" aria-pressed="${d.mode === "net"}" title="${esc(T("netView"))}">🧠<span class="mmlab">${esc(T("netView"))}</span></button>
       <button class="btn ghost" data-mm="layout" data-pop="1" title="${esc(T("mmLayout"))}">⋮⋮<span class="mmlab">${esc(T("mmLayout"))}</span></button>
       <button class="btn icon ghost" data-mm="outline" title="${esc(T("mmOutline"))}" aria-pressed="false">☰</button>
@@ -7323,7 +7371,7 @@ function renderMap(n) {
       <button class="btn ghost aibtn" data-mm="ai" data-pop="1" title="${esc(T("aiMenu"))}">✨<span class="mmlab">${esc(T("aiMenu"))}</span></button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div>
+  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div><div id="mmSim" class="mmsim hide"></div>
     <aside class="mmside hide" id="mmSide"><div class="mmsh"><input id="mmQ" type="search" placeholder="${esc(T("mmSearchPh"))}" dir="auto"><span class="seg mmflt"><button type="button" class="segb" data-flt="" aria-pressed="true">${esc(T("mmAll"))}</button><button type="button" class="segb" data-flt="open" aria-pressed="false">☐ ${esc(T("mmOpen"))}</button><button type="button" class="segb" data-flt="done" aria-pressed="false">☑ ${esc(T("mmDoneF"))}</button></span></div><div class="mmtree" id="mmTree"></div></aside></div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
@@ -7375,11 +7423,15 @@ function mmDraw() {
   const focus = MM.focus && d.nodes[MM.focus] ? new Set([MM.focus, ...mmDesc(d, MM.focus), ...(() => { const a = []; let q = d.nodes[MM.focus]; while (q && q.parent) { a.push(q.parent); q = d.nodes[q.parent]; } return a; })()]) : null;
   const dim = (id) => (focus && !focus.has(id)) || (match && !match.has(id));
   const net = d.mode === "net", inRel = new Set(d.rels.flatMap((r) => [r.a, r.b]));
-  const valHtml = (x) => x.val === undefined ? "" : `<span class="nv ${x.val > 0 ? "p" : x.val < 0 ? "n" : "z"}" title="${esc(T("netVal"))}"><i style="--v:${Math.abs(x.val)}"></i>${netSigned(x.val)}</span>`;
+  const sim = MM.sim, cur = sim ? sim.res.frames[sim.i] : null;
+  const simV = (x) => (cur && cur[x.id] !== undefined && sim.res.nodes.has(x.id) ? Math.round(cur[x.id] * 100) : null);
+  const simStyle = (x) => { const v = simV(x); return v === null || Math.abs(v) < 3 ? "" : `--gc:${v > 0 ? "rgba(31,138,76,.55)" : "rgba(214,69,69,.55)"};--gs:${Math.round(Math.abs(v) / 7) + 2}px;`; };
+  const valHtml = (x) => { const v = simV(x); if (v !== null) { const fx = sim.res.fixed.has(x.id); return `<span class="nv ${v > 0 ? "p" : v < 0 ? "n" : "z"} ${fx ? "" : "sim"} ${sim.ov && sim.ov[x.id] !== undefined ? "ov" : ""}" title="${esc(T("netResult"))}"><i style="--v:${Math.abs(v)}"></i>${fx ? "" : "≈"}${netSigned(v)}</span>`; } return valHtml0(x); };
+  const valHtml0 = (x) => x.val === undefined ? "" : `<span class="nv ${x.val > 0 ? "p" : x.val < 0 ? "n" : "z"}" title="${esc(T("netVal"))}"><i style="--v:${Math.abs(x.val)}"></i>${netSigned(x.val)}</span>`;
   box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
     const kids = mmKids(d, x.id).length, root = x.id === d.root, prog = kids ? mmProgress(d, x.id) : null;
     const mark = prog !== null ? `<i class="pie" style="--p:${prog}" title="${esc(T("mmProgress", { p: num(prog) }))}"></i>` : x.task ? `<b class="ck ${x.done ? "on" : ""}" data-badge="check">${x.done ? "✓" : ""}</b>` : "";
-    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}">
+    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""} ${simStyle(x) ? "sg" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}${simStyle(x)}">
       ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
@@ -7414,7 +7466,7 @@ function mmDraw() {
     const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
     const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
     const rw = ([1.4, 2.4, 4][(r.w || 2) - 1]) + (net ? 0.8 : 0) + (on ? 1.2 : 0), ah = 8 + rw * 1.5;
-    svg += `<g data-rel="${r.id}" class="mmrel" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
+    svg += `<g data-rel="${r.id}" class="mmrel ${sim && Math.abs(sim.res.flowAt(sim.i, r.id)) > 0.03 ? "flow" : ""}" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
       ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}</g>`;
     const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
@@ -7424,6 +7476,7 @@ function mmDraw() {
   if (!MM.view) MM.view = { x: 0, y: 0, z: 1 };
   mmApplyView();
   if (MM.side) mmOutline();
+  const sc = $("#mmSim"); if (sc) { sc.classList.toggle("hide", !sim); if (sim) { const n = sim.res.frames.length; sc.innerHTML = `🧠 <b dir="auto">${esc(sim.name)}</b> <small>${esc(T("netTick", { i: num(sim.i + 1), n: num(n) }))}</small><button type="button" data-mm="simre" title="${esc(T("netReplay"))}">⟲</button><button type="button" data-mm="scen" title="${esc(T("netScen"))}">🧪</button><button type="button" data-mm="simx" title="${esc(T("netClear"))}">✕</button>`; } }
   const fc = $("#mmFocus"); if (fc) { fc.classList.toggle("hide", !MM.focus); if (MM.focus) fc.innerHTML = `🎯 ${esc(T("mmFocusOn"))} <b dir="auto">${esc(d.nodes[MM.focus]?.text || "")}</b> <button type="button" data-mm="unfocus">✕</button>`; }
 }
 /* ---- floating toolbar for the chosen idea / relation ---- */
@@ -7434,7 +7487,7 @@ function mmPlaceTb() {
   if (MM.sel && MM.d.nodes[MM.sel] && !MM.edit) {
     const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
     const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
-    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") + b("netnode", T("netNode"), x.kind ? NET_KIC[x.kind] : "◇") +
+    tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") + b("netnode", T("netNode"), x.kind ? NET_KIC[x.kind] : "◇") + (MM.sim && MM.sim.res.nodes.has(x.id) ? b("why", T("netWhy2"), "؟") : "") +
       b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + b("aitb", T("aiMenu"), "✨") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
     tb.classList.remove("hide");
     const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
@@ -7766,6 +7819,135 @@ async function mmNetRel(r) {
   r.by = ["me", "ai", "data"].includes(v.by) ? v.by : "me"; r.why = v.why.slice(0, 2000); r.label = v.t.slice(0, 200);
   mmSave(); mmDraw();
 }
+/* ---------------- thinking network: the engine ----------------
+   Every idea with a value is an input (fixed). Every other idea in the network starts at 0.
+   On each tick all ideas are updated at the same time, like a processor clock:
+   new = ½·old + ½·tanh(1.5 · Σ sign·strength·confidence·source).  Arrows with a delay only act after 3 (weeks) or 6 (months) ticks. */
+const NET_WV = [0.3, 0.6, 0.9], NET_LAGT = { "0": 0, w: 3, m: 6 };
+function netEdges(d) {
+  return d.rels.filter((r) => (r.kind === "+" || r.kind === "-") && d.nodes[r.a] && d.nodes[r.b] && r.a !== r.b)
+    .map((r) => ({ id: r.id, a: r.a, b: r.b, w: (r.kind === "-" ? -1 : 1) * NET_WV[(r.w || 2) - 1] * (r.conf !== undefined ? 0.5 + 0.5 * r.conf / 100 : 1), lag: NET_LAGT[r.lag || "0"] || 0 }));
+}
+function netNodes(d) { const ids = new Set(); for (const x of Object.values(d.nodes)) if (x.kind || x.val !== undefined) ids.add(x.id); for (const e of netEdges(d)) { ids.add(e.a); ids.add(e.b); } return ids; }
+function netRun(d, ov) {
+  ov = ov || {};
+  const E = netEdges(d), nodes = netNodes(d), fixed = new Map();
+  for (const id of nodes) { const x = d.nodes[id]; if (ov[id] !== undefined) fixed.set(id, ov[id] / 100); else if (x.val !== undefined) fixed.set(id, x.val / 100); }
+  let a = {}; for (const id of nodes) a[id] = fixed.has(id) ? fixed.get(id) : 0;
+  const frames = [{ ...a }];
+  for (let t = 1; t <= 40; t++) {
+    const n = {}; let delta = 0;
+    for (const id of nodes) {
+      if (fixed.has(id)) { n[id] = fixed.get(id); continue; }
+      let sum = 0; for (const e of E) if (e.b === id && t > e.lag) sum += e.w * a[e.a];
+      n[id] = 0.5 * a[id] + 0.5 * Math.tanh(1.5 * sum); delta = Math.max(delta, Math.abs(n[id] - a[id]));
+    }
+    a = n; frames.push({ ...a });
+    if (t > 7 && delta < 0.002) break;
+  }
+  const flowAt = (i, rid) => { const e = E.find((q) => q.id === rid); return e && i > e.lag ? e.w * (frames[i] || a)[e.a] : 0; };
+  return { frames, final: a, fixed: new Set(fixed.keys()), nodes, edges: E, flowAt };
+}
+function netStop() { if (MM && MM.sim) { clearInterval(MM.sim.timer); MM.sim = null; } }
+function netAnimate() {
+  const sim = MM.sim; clearInterval(sim.timer); sim.i = 0;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { sim.i = sim.res.frames.length - 1; return mmDraw(); }
+  mmDraw();
+  sim.timer = setInterval(() => { if (!MM || MM.sim !== sim || !$("#mmStage")) return clearInterval(sim.timer); if (sim.i >= sim.res.frames.length - 1) { clearInterval(sim.timer); return; } sim.i++; mmDraw(); }, 170);
+}
+function netThink(scId) {
+  const d = MM.d;
+  if (!netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
+  const sc = scId ? (d.scen || []).find((q) => q.id === scId) : null, ov = sc ? sc.ov : {};
+  const res = netRun(d, ov);
+  if (!res.fixed.size) return toast(T("netNoInput"), { kind: "err" });
+  if (MM.sim) clearInterval(MM.sim.timer);
+  MM.sim = { res, i: 0, name: sc ? sc.name || T("netScen") : T("netBase"), ov: sc ? ov : null, scId: sc ? sc.id : null, timer: 0 };
+  if (d.mode !== "net") { d.mode = "net"; $("#mmStage").classList.add("net"); $('[data-mm="net"]')?.setAttribute("aria-pressed", "true"); }
+  netAnimate();
+}
+const netLbl = (x) => (x ? (x.text || "…").slice(0, 60) : "—");
+const netPct = (v) => `<span class="${v > 0.004 ? "p" : v < -0.004 ? "ng" : ""}">${netSigned(Math.round(v * 100))}</span>`;
+/** Why does this idea have its value? Direct effects and the strongest paths from the inputs. */
+async function netWhy(id) {
+  const d = MM.d, sim = MM.sim; if (!sim) return;
+  const res = sim.res, a = res.frames[sim.i], x = d.nodes[id], E = res.edges;
+  const wName = (e) => T("w" + (d.rels.find((r) => r.id === e.id)?.w || 2));
+  let body = `<p dir="auto"><b>${esc(netLbl(x))}</b>: ${netPct(a[id] || 0)}</p><div class="netwhy">`;
+  if (res.fixed.has(id)) {
+    body += `<p class="msg">${esc(T("netWhyIn"))}</p>`;
+    const out = E.filter((e) => e.a === id).map((e) => ({ e, v: e.w * a[id] })).sort((p, q) => Math.abs(q.v) - Math.abs(p.v));
+    if (out.length) body += `<h4>${esc(T("netWhyOut"))}</h4><ul>${out.map(({ e, v }) => `<li dir="auto">→ <b>${esc(netLbl(d.nodes[e.b]))}</b> (${esc(wName(e))}) ${netPct(v)}</li>`).join("")}</ul>`;
+  } else {
+    const inn = E.filter((e) => e.b === id && sim.i > e.lag).map((e) => ({ e, v: e.w * a[e.a] })).filter((q) => Math.abs(q.v) > 0.001).sort((p, q) => Math.abs(q.v) - Math.abs(p.v));
+    if (!inn.length) body += `<p class="msg">${esc(T("netNoWhy"))}</p>`;
+    else body += `<h4>${esc(T("netWhyFrom"))}</h4><ul>${inn.map(({ e, v }) => `<li dir="auto"><b>${esc(netLbl(d.nodes[e.a]))}</b> ${netPct(a[e.a])} ${e.w > 0 ? "⊕" : "⊖"} ${esc(wName(e))} → ${netPct(v)}</li>`).join("")}</ul>`;
+    // strongest paths back to the inputs (up to 5 steps)
+    const paths = [];
+    const walk = (node, prod, path, seen) => {
+      if (res.fixed.has(node) && path.length > 1) { paths.push({ path: path.slice().reverse(), v: prod * a[node] }); return; }
+      if (path.length > 5) return;
+      for (const e of E) if (e.b === node && !seen.has(e.a)) { seen.add(e.a); path.push(e.a); walk(e.a, prod * e.w, path, seen); path.pop(); seen.delete(e.a); }
+    };
+    walk(id, 1, [id], new Set([id]));
+    paths.sort((p, q) => Math.abs(q.v) - Math.abs(p.v));
+    if (paths.length) body += `<h4>${esc(T("netPaths"))}</h4><ul>${paths.slice(0, 5).map((p) => `<li dir="auto">${p.path.map((i) => `<b>${esc(netLbl(d.nodes[i]))}</b>`).join(" → ")} ${netPct(p.v)}</li>`).join("")}</ul>`;
+  }
+  body += "</div>";
+  await dialog({ title: "؟ " + T("netWhy2"), body, actions: [{ label: T("close"), value: null }] });
+}
+/** List of scenarios: run, edit, delete, compare. */
+async function netScenarios() {
+  const d = MM.d; d.scen = d.scen || [];
+  const row = (q) => `<div class="row"><b dir="auto">${esc(q ? q.name || T("netScen") : T("netBase"))}</b>${q ? `<small>${esc(T("netChanges", { n: num(Object.keys(q.ov).length) }))}</small>` : ""}<button type="button" data-sc="run" data-id="${q ? esc(q.id) : ""}" title="${esc(T("netThink"))}">▶</button>${q ? `<button type="button" data-sc="edit" data-id="${esc(q.id)}" title="${esc(T("mmEdit"))}">✎</button><button type="button" data-sc="del" data-id="${esc(q.id)}" title="${esc(T("delete"))}">🗑</button>` : ""}</div>`;
+  const v = await dialog({ title: "🧪 " + T("netScen"), wide: true,
+    body: `<div class="netsc"><div class="tools"><button type="button" class="btn primary" data-sc="new">${esc(T("netScenNew"))}</button>${d.scen.length ? `<button type="button" class="btn" data-sc="cmp">${esc(T("netCompare"))}</button>` : ""}</div>${row(null)}${d.scen.map(row).join("") || `<p class="msg">${esc(T("netNoScen"))}</p>`}</div>`,
+    actions: [{ label: T("close"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-sc]"); if (b) close({ a: b.dataset.sc, id: b.dataset.id }); }) });
+  if (!v || !MM) return;
+  if (v.a === "run") return netThink(v.id || null);
+  if (v.a === "new") return netScenEdit(null);
+  if (v.a === "edit") return netScenEdit(v.id);
+  if (v.a === "cmp") return netCompare();
+  if (v.a === "del") {
+    const q = d.scen.find((z) => z.id === v.id); if (!q) return;
+    if (!(await confirmBox(T("netDelQ", { n: q.name || "—" }), { danger: true }))) return netScenarios();
+    mmPush(); d.scen = d.scen.filter((z) => z !== q); mmSave(); mmDraw(); return netScenarios();
+  }
+}
+async function netScenEdit(id) {
+  const d = MM.d, q = id ? d.scen.find((z) => z.id === id) : null, ids = [...netNodes(d)];
+  if (!ids.length) return toast(T("netNoNet"), { kind: "err" });
+  ids.sort((p, r) => (d.nodes[r].val !== undefined) - (d.nodes[p].val !== undefined));
+  const rows = ids.map((i, k) => { const x = d.nodes[i], on = q && q.ov[i] !== undefined, v0 = on ? q.ov[i] : x.val ?? 0;
+    return `<div class="r"><input type="checkbox" name="o${k}" ${on ? "checked" : ""}><span class="nm" dir="auto">${x.kind ? NET_KIC[x.kind] + " " : ""}${esc(netLbl(x))}</span><input type="range" name="v${k}" min="-100" max="100" step="5" value="${v0}" ${on ? "" : "disabled"}><output>${netSigned(v0)}</output></div>`; }).join("");
+  const r = await formBox("🧪 " + (q ? q.name : T("netScenNew").replace("＋ ", "")), `<div class="netf"><div class="field"><label>${esc(T("netScenName"))}</label><input name="nm" maxlength="80" dir="auto" required value="${esc(q ? q.name : "")}" placeholder="${esc(T("netScenNamePh"))}"></div>
+    <p class="msg">${esc(T("netScenHint"))}</p><div class="netov">${rows}</div></div>`,
+    (f) => { if (!f.nm.value.trim()) return T("netScenName"); const ov = {}; ids.forEach((i, k) => { if (f["o" + k].checked) ov[i] = +f["v" + k].value; }); return { name: f.nm.value.trim(), ov }; }, T("save"), (el) => {
+      const f = el.querySelector("form");
+      ids.forEach((_, k) => { const rg = f["v" + k], out = rg.nextElementSibling, ck = f["o" + k];
+        rg.addEventListener("input", () => { out.textContent = netSigned(+rg.value); ck.checked = true; });
+        ck.addEventListener("change", () => { rg.disabled = !ck.checked; out.style.opacity = ck.checked ? 1 : 0.4; }); out.style.opacity = ck.checked ? 1 : 0.4;
+        rg.closest(".r").addEventListener("pointerdown", () => { if (rg.disabled) { rg.disabled = false; ck.checked = true; out.style.opacity = 1; } });
+      });
+      if (!q) setTimeout(() => f.nm.focus(), 60);
+    });
+  if (!r || !MM) return;
+  mmPush();
+  let sc = q && d.scen.includes(q) ? q : null;
+  if (sc) { sc.name = r.name; sc.ov = r.ov; } else { sc = { id: mmId(), name: r.name, ov: r.ov }; d.scen.push(sc); }
+  mmSave(); netThink(sc.id);
+}
+async function netCompare() {
+  const d = MM.d, opt = (sel) => `<option value="">${esc(T("netBase"))}</option>${d.scen.map((q) => `<option value="${esc(q.id)}" ${q.id === sel ? "selected" : ""}>${esc(q.name)}</option>`).join("")}`;
+  const r = await formBox(T("netCompare"), `<div class="field"><label>${esc(T("netCmpA"))}</label><select name="a">${opt("")}</select></div><div class="field"><label>${esc(T("netCmpB"))}</label><select name="b">${opt(MM.sim?.scId || d.scen[0]?.id)}</select></div>`, (f) => ({ a: f.a.value, b: f.b.value }), T("netCompare").replace("⚖ ", ""));
+  if (!r || !MM) return;
+  const ovOf = (sid) => (sid ? d.scen.find((q) => q.id === sid)?.ov || {} : {}), nm = (sid) => (sid ? d.scen.find((q) => q.id === sid)?.name : T("netBase"));
+  const A = netRun(d, ovOf(r.a)), B = netRun(d, ovOf(r.b));
+  const ids = [...A.nodes].sort((p, q) => Math.abs((B.final[q] || 0) - (A.final[q] || 0)) - Math.abs((B.final[p] || 0) - (A.final[p] || 0)));
+  const cell = (v) => `<td class="n ${v > 0.004 ? "p" : v < -0.004 ? "ng" : ""}">${netSigned(Math.round(v * 100))}</td>`;
+  await dialog({ title: "⚖ " + T("netCompare").replace("⚖ ", ""), wide: true, actions: [{ label: T("close"), value: null }],
+    body: `<table class="netcmp"><thead><tr><th>${esc(T("netIdea"))}</th><th dir="auto">${esc(nm(r.a))}</th><th dir="auto">${esc(nm(r.b))}</th><th>${esc(T("netDiff"))}</th></tr></thead><tbody>${ids.map((i) => `<tr><td dir="auto">${d.nodes[i].kind ? NET_KIC[d.nodes[i].kind] + " " : ""}${esc(netLbl(d.nodes[i]))}</td>${cell(A.final[i] || 0)}${cell(B.final[i] || 0)}${cell((B.final[i] || 0) - (A.final[i] || 0))}</tr>`).join("")}</tbody></table>` });
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -7869,6 +8051,11 @@ document.addEventListener("click", (e) => {
   if (a === "io") return mmIOPanel(b);
   if (a === "ai") return aiMenu(b);
   if (a === "outline") return mmToggleSide();
+  if (a === "think") return netThink(null);
+  if (a === "scen") return netScenarios();
+  if (a === "simx") { netStop(); return mmDraw(); }
+  if (a === "simre" && MM.sim) return netAnimate();
+  if (a === "why" && x) return netWhy(x.id);
   if (a === "net") { MM.d.mode = MM.d.mode === "net" ? "map" : "net"; b.setAttribute("aria-pressed", String(MM.d.mode === "net")); $("#mmStage").classList.toggle("net", MM.d.mode === "net"); toast((MM.d.mode === "net" ? "🧠 " : "🗺 ") + T(MM.d.mode === "net" ? "netOn" : "netOff")); mmSave(); return mmDraw(); }
   if (a === "ro") return mmToggleRo();
   if (a === "unfocus") { MM.focus = null; mmDraw(); return mmFit(); }
