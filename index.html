@@ -794,6 +794,14 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .netcmp .p{color:#1f8a4c}.netcmp .ng{color:#d64545}
 .netwhy li{margin:4px 0}.netwhy .p{color:#1f8a4c;font-weight:700}.netwhy .ng{color:#d64545;font-weight:700}
 .netwhy h4{margin:12px 0 4px;font-size:14px}
+.cmlist{display:flex;flex-direction:column;gap:6px;max-height:40vh;overflow:auto;margin-bottom:8px}
+.cmrow{border:1px solid var(--line);border-radius:10px;padding:7px 10px;position:relative}
+.cmrow small{opacity:.6;font-size:11.5px}
+.cmrow p{margin:3px 0 0;white-space:pre-wrap}
+.cmrow button{position:absolute;top:5px;inset-inline-end:6px;border:0;background:transparent;cursor:pointer;opacity:.6}
+.mmconns{display:flex;flex-direction:column;gap:4px}
+.mmconns button{display:flex;gap:6px;align-items:center;text-align:start;border:1px solid var(--line);background:transparent;border-radius:9px;padding:6px 9px;cursor:pointer;color:var(--ink);font:inherit}
+.mmconns .p{color:#1f8a4c;font-weight:700}.mmconns .ng{color:#d64545;font-weight:700}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7292,6 +7300,12 @@ Object.assign(I18N.en, { netThink: "Think", netNoEdges: "First draw positive or 
   netChanges: "{n} changes", netCompare: "⚖ Compare", netCmpA: "First", netCmpB: "Second", netDiff: "Difference", netTick: "Tick {i} of {n}", netReplay: "Replay", netClear: "Clear result",
   netWhy2: "Why?", netWhyIn: "This idea is an input: its value is set by you or by the scenario.", netWhyOut: "Its effect on others", netWhyFrom: "Direct effects", netPaths: "Strongest paths from the inputs",
   netNoWhy: "No effect reaches this idea.", netResult: "Result", netNoScen: "No scenarios yet.", netDelQ: "Delete scenario “{n}”?", netNoNet: "No network yet – first give ideas a type and value.", netIdea: "Idea" });
+Object.assign(I18N.fa, { relRev: "برعکس کردن جهت", relCm: "یادداشت‌ها و گفتگو", relCmPh: "یک یادداشت بنویسید…", relCmAdd: "＋ افزودن یادداشت", relCmNone: "هنوز یادداشتی نیست.", relInfo: "منبع‌ها و توضیح", mmConns: "ارتباط‌های این ایده", mmNoConns: "این ایده هنوز فلش تأثیری ندارد.",
+  relDragHint: "برای وصل کردن به ایدهٔ دیگر، دایرهٔ سفید سر فلش را بکشید و روی آن ایده رها کنید.", mmRoWarn: "حالت «فقط خواندن» روشن است؛ با دکمهٔ 👁 خاموشش کنید.", mmAutoWarn: "چیدمان خودکار روشن است و جای ایده‌ها را خودش تعیین می‌کند. برای جابه‌جایی آزاد: چیدمان ← «آزاد (دستی)»." });
+Object.assign(I18N.de, { relRev: "Richtung umkehren", relCm: "Notizen und Diskussion", relCmPh: "Notiz schreiben…", relCmAdd: "＋ Notiz hinzufügen", relCmNone: "Noch keine Notizen.", relInfo: "Quellen und Erklärung", mmConns: "Verbindungen dieser Idee", mmNoConns: "Diese Idee hat noch keine Einflusspfeile.",
+  relDragHint: "Zum Umhängen den weißen Kreis am Pfeilende ziehen und auf einer anderen Idee loslassen.", mmRoWarn: "„Nur lesen“ ist an – mit 👁 ausschalten.", mmAutoWarn: "Automatische Anordnung ist an. Für freies Verschieben: Anordnung → „Frei (manuell)“." });
+Object.assign(I18N.en, { relRev: "Reverse direction", relCm: "Notes and discussion", relCmPh: "Write a note…", relCmAdd: "＋ Add note", relCmNone: "No notes yet.", relInfo: "Sources and explanation", mmConns: "Connections of this idea", mmNoConns: "This idea has no influence arrows yet.",
+  relDragHint: "To reconnect, drag the white circle at the arrow's end onto another idea.", mmRoWarn: "Read only is on – turn it off with 👁.", mmAutoWarn: "Automatic layout is on and places ideas itself. To move freely: Layout → “Free (manual)”." });
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -7322,7 +7336,9 @@ function mmNorm(m) {
   for (const x of Object.values(nodes)) if (x.parent && (!nodes[x.parent] || x.parent === x.id)) x.parent = m.root === x.id ? null : m.root;
   const rels = Array.isArray(m.rels) ? m.rels.filter((r) => r && nodes[r.a] && nodes[r.b]).map((r) => ({ id: r.id || mmId(), a: r.a, b: r.b, label: String(r.label || "").slice(0, 200), kind: ["+", "-", ""].includes(r.kind) ? r.kind : "", dashed: !!r.dashed,
     w: [1, 2, 3].includes(+r.w) ? +r.w : 2, lag: ["0", "w", "m"].includes(r.lag) ? r.lag : "0", why: String(r.why || "").slice(0, 2000), by: ["me", "ai", "data"].includes(r.by) ? r.by : "me",
-    ...(r.conf !== undefined && r.conf !== null && r.conf !== "" && isFinite(r.conf) ? { conf: Math.max(0, Math.min(100, Math.round(+r.conf))) } : {}) })) : [];
+    ...(r.conf !== undefined && r.conf !== null && r.conf !== "" && isFinite(r.conf) ? { conf: Math.max(0, Math.min(100, Math.round(+r.conf))) } : {}),
+    links: Array.isArray(r.links) ? r.links.filter((l) => l && typeof l.v === "string").slice(0, 50).map((l) => ({ t: ["url", "page", "file"].includes(l.t) ? l.t : "url", v: l.v.slice(0, 2000), label: String(l.label || "").slice(0, 200) })) : [],
+    note: String(r.note || "").slice(0, 20000), cm: Array.isArray(r.cm) ? r.cm.filter((c) => c && String(c.t || "").trim()).slice(-200).map((c) => ({ t: String(c.t).slice(0, 4000), at: typeof c.at === "string" ? c.at.slice(0, 30) : "" })) : [] })) : [];
   const scen = Array.isArray(m.scen) ? m.scen.filter((q) => q && typeof q === "object").slice(0, 30).map((q) => ({ id: String(q.id || mmId()).slice(0, 20), name: String(q.name || "").slice(0, 80),
     ov: Object.fromEntries(Object.entries(q.ov && typeof q.ov === "object" ? q.ov : {}).filter(([k, v]) => nodes[k] && v !== null && v !== "" && isFinite(v)).map(([k, v]) => [k, Math.max(-100, Math.min(100, Math.round(+v)))])) })) : [];
   return { v: 2, root: m.root, nodes, rels, scen, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
@@ -7435,7 +7451,7 @@ function mmDraw() {
       ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
-  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && (r.label || (r.lag && r.lag !== "0") || r.why)).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto"${r.why ? ` title="${esc(r.why)}"` : ""}>${r.lag && r.lag !== "0" ? NET_LAG[r.lag] : ""}${esc(r.label)}${r.why ? " 💬" : ""}</div>`).join("");
+  }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && (r.label || (r.lag && r.lag !== "0") || r.why || r.cm?.length || r.links?.length || r.note)).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto"${r.why ? ` title="${esc(r.why)}"` : ""}>${r.lag && r.lag !== "0" ? NET_LAG[r.lag] : ""}${esc(r.label)}${r.cm?.length ? " 💬" + num(r.cm.length) : r.why || r.note ? " 💬" : ""}${r.links?.length ? " 🔗" : ""}</div>`).join("");
   hydrate(box);
   MM.size = {};
   for (const el of box.querySelectorAll(".mmn")) MM.size[el.dataset.mmn] = { w: el.offsetWidth, h: el.offsetHeight };
@@ -7461,14 +7477,15 @@ function mmDraw() {
   const edge = (c, s, tx, ty) => { const dx = tx - c.x, dy = ty - c.y, w = s.w / 2 + 6, h = s.h / 2 + 6, k = Math.min(w / Math.max(1e-6, Math.abs(dx)), h / Math.max(1e-6, Math.abs(dy))); return [c.x + dx * k, c.y + dy * k]; };
   for (const r of d.rels) {
     if (hid.has(r.a) || hid.has(r.b)) continue;
-    const a = d.nodes[r.a], b = d.nodes[r.b], sa = MM.size[a.id], sb = MM.size[b.id]; if (!sa || !sb) continue;
+    const RD = MM.rhDrag && MM.rhDrag.id === r.id ? MM.rhDrag : null, pt = RD ? { id: "_", x: RD.x, y: RD.y } : null;
+    const a = RD && RD.end === "a" ? pt : d.nodes[r.a], b = RD && RD.end === "b" ? pt : d.nodes[r.b], sa = a === pt ? { w: 2, h: 2 } : MM.size[a.id], sb = b === pt ? { w: 2, h: 2 } : MM.size[b.id]; if (!sa || !sb) continue;
     const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
     const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
     const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
     const rw = ([1.4, 2.4, 4][(r.w || 2) - 1]) + (net ? 0.8 : 0) + (on ? 1.2 : 0), ah = 8 + rw * 1.5;
-    svg += `<g data-rel="${r.id}" class="mmrel ${sim && Math.abs(sim.res.flowAt(sim.i, r.id)) > 0.03 ? "flow" : ""}" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="18" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
+    svg += `<g data-rel="${r.id}" class="mmrel ${sim && Math.abs(sim.res.flowAt(sim.i, r.id)) > 0.03 ? "flow" : ""}" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="26" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
-      ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}</g>`;
+      ${r.kind ? `<circle cx="${x0}" cy="${y0}" r="8" fill="${col}"/><text x="${x0}" y="${y0 + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${r.kind === "+" ? "+" : "−"}</text>` : ""}${on && !MM.ro ? `<circle data-rh="a" cx="${x0}" cy="${y0}" r="11" fill="#fff" stroke="${col}" stroke-width="3" pointer-events="all" style="cursor:grab"/><circle data-rh="b" cx="${x1}" cy="${y1}" r="11" fill="#fff" stroke="${col}" stroke-width="3" pointer-events="all" style="cursor:grab"/>` : ""}</g>`;
     const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
     if (lab) { const t = 0.5, qx = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1, qy = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y1; lab.style.left = qx + "px"; lab.style.top = qy + "px"; lab.style.borderColor = col; lab.style.color = col; }
   }
@@ -7497,7 +7514,7 @@ function mmPlaceTb() {
     const r = MM.d.rels.find((q) => q.id === MM.rel); if (!r) { tb.classList.add("hide"); return; }
     const a = MM.d.nodes[r.a], c = MM.d.nodes[r.b];
     const b = (act, label, inner, on) => `<button type="button" data-mm="${act}" title="${esc(label)}" aria-pressed="${!!on}">${inner}</button>`;
-    tb.innerHTML = b("rlabel", T("mmRelLabel"), "✎") + b("rpos", T("mmPos"), "＋", r.kind === "+") + b("rneg", T("mmNeg"), "−", r.kind === "-") + b("rneu", T("mmNeutral"), "○", r.kind === "") + b("rw", T("netW") + ": " + T("w" + (r.w || 2)), ["◔", "◑", "●"][(r.w || 2) - 1]) + b("rinfo", T("netLink"), "ⓘ") + b("rdash", T("mmDashed"), "┄", r.dashed) + b("rdel", T("mmDelete"), "🗑");
+    tb.innerHTML = b("rlabel", T("mmRelLabel"), "✎") + b("rpos", T("mmPos"), "＋", r.kind === "+") + b("rneg", T("mmNeg"), "−", r.kind === "-") + b("rneu", T("mmNeutral"), "○", r.kind === "") + b("rw", T("netW") + ": " + T("w" + (r.w || 2)), ["◔", "◑", "●"][(r.w || 2) - 1]) + b("rinfo", T("netLink"), "ⓘ") + b("rcm", T("relCm"), "💬") + b("rsrc", T("relInfo"), "🔗") + b("rrev", T("relRev"), "⇄") + b("rdash", T("mmDashed"), "┄", r.dashed) + b("rdel", T("mmDelete"), "🗑");
     tb.classList.remove("hide");
     const sx = ((a.x + c.x) / 2) * v.z + v.x, sy = ((a.y + c.y) / 2) * v.z + v.y;
     tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px"; tb.style.top = Math.max(6, sy - tb.offsetHeight - 30) + "px";
@@ -7733,19 +7750,24 @@ function mmOpenLink(l) {
   if (isStored(n)) return openFile(n.id);
   openNote(n.id);
 }
-async function mmDetails(focus) {
-  const x = MM.d.nodes[MM.sel]; if (!x) return;
-  const links = x.links.map((l) => ({ ...l }));
+async function mmDetails(focus, rel) {
+  const x = rel || MM.d.nodes[MM.sel]; if (!x) return;
+  const links = (x.links || []).map((l) => ({ ...l }));
+  const title = rel ? `${MM.d.nodes[rel.a]?.text || "…"} → ${MM.d.nodes[rel.b]?.text || "…"}` : x.text || T("mmIdea");
+  const conns = rel ? [] : MM.d.rels.filter((q) => q.a === x.id || q.b === x.id);
+  const connHtml = rel ? "" : `<div class="field"><label>${esc(T("mmConns"))}</label><div class="mmconns">${conns.length ? conns.map((q) => { const out = q.a === x.id, o = MM.d.nodes[out ? q.b : q.a];
+    return `<button type="button" data-gorel="${esc(q.id)}" dir="auto">${out ? "→" : "←"} <span class="${q.kind === "+" ? "p" : q.kind === "-" ? "ng" : ""}">${q.kind === "+" ? "⊕" : q.kind === "-" ? "⊖" : "○"}</span> ${esc(o?.text || "…")}${q.label ? ` <small>(${esc(q.label)})</small>` : ""}</button>`; }).join("") : `<p class="msg">${esc(T("mmNoConns"))}</p>`}</div></div>`;
   const others = Array.from(S.notes.values()).filter((n) => !n.trashed && n.id !== MM.n.id && !sealedLocked(n));
   const pages = others.filter((n) => !isStored(n)), files = others.filter(isStored);
   const row = (l, i) => `<div class="mmlink"><span>${l.t === "url" ? "🌐" : l.t === "file" ? "📎" : "📄"}</span><button type="button" class="lk" data-open="${i}" dir="auto">${esc(mmLinkLabel(l))}</button><button type="button" class="x" data-rm="${i}" aria-label="${esc(T("delete"))}">✕</button></div>`;
-  const r = await formBox(x.text || T("mmIdea"), `
+  const r = await formBox(title, `
     <div class="field"><label>${esc(T("mmLinks"))}</label><div class="mmlinks" id="mmLinks">${links.length ? links.map(row).join("") : `<p class="msg">${esc(T("mmNoLinks"))}</p>`}</div>
       <div class="mmadd"><select name="lt"><option value="url">🌐 ${esc(T("mmUrl"))}</option>${pages.length ? `<option value="page">📄 ${esc(T("mmPage"))}</option>` : ""}${files.length ? `<option value="file">📎 ${esc(T("mmFile"))}</option>` : ""}</select>
       <input name="lv" placeholder="https://…" dir="ltr"><select name="lp" class="hide">${pages.map((n) => `<option value="${esc(n.id)}">${esc((n.folder ? leaf(n.folder) + " › " : "") + titleOf(n))}</option>`).join("")}</select><select name="lf" class="hide">${files.map((n) => `<option value="${esc(n.id)}">${esc(titleOf(n))}</option>`).join("")}</select>
       <input name="ll" placeholder="${esc(T("mmLabel"))}" dir="auto"><button type="button" class="btn" data-addlink="1">＋ ${esc(T("mmAddLink"))}</button></div></div>
-    <div class="field"><label>${esc(T("mmNote"))}</label><textarea name="note" rows="5" dir="auto">${esc(x.note)}</textarea></div>`,
-    (f) => ({ note: f.note.value }), T("save"), (el) => {
+    <div class="field"><label>${esc(T("mmNote"))}</label><textarea name="note" rows="5" dir="auto">${esc(x.note || "")}</textarea></div>${connHtml}`,
+    (f) => ({ note: f.note.value }), T("save"), (el, close) => {
+      el.addEventListener("click", (e) => { const gr = e.target.closest("[data-gorel]"); if (!gr) return; close(null); setTimeout(() => { if (!MM) return; MM.sel = null; MM.rel = gr.dataset.gorel; mmDraw(); }, 0); });
       const f = el.querySelector("form"), redraw = () => { el.querySelector("#mmLinks").innerHTML = links.length ? links.map(row).join("") : `<p class="msg">${esc(T("mmNoLinks"))}</p>`; };
       const sync = () => { f.lv.classList.toggle("hide", f.lt.value !== "url"); f.lp.classList.toggle("hide", f.lt.value !== "page"); f.lf.classList.toggle("hide", f.lt.value !== "file"); };
       f.lt.addEventListener("change", sync); sync();
@@ -7759,7 +7781,7 @@ async function mmDetails(focus) {
       });
       if (focus === "note") setTimeout(() => f.note.focus(), 60);
     });
-  if (!r || !MM || !MM.d.nodes[x.id]) return;
+  if (!r || !MM || (rel ? !MM.d.rels.includes(rel) : !MM.d.nodes[x.id])) return;
   mmPush(); x.links = links; x.note = r.note.trim(); mmSave(); mmDraw();
 }
 function mmLinksMenu(id) {
@@ -7948,6 +7970,24 @@ async function netCompare() {
   await dialog({ title: "⚖ " + T("netCompare").replace("⚖ ", ""), wide: true, actions: [{ label: T("close"), value: null }],
     body: `<table class="netcmp"><thead><tr><th>${esc(T("netIdea"))}</th><th dir="auto">${esc(nm(r.a))}</th><th dir="auto">${esc(nm(r.b))}</th><th>${esc(T("netDiff"))}</th></tr></thead><tbody>${ids.map((i) => `<tr><td dir="auto">${d.nodes[i].kind ? NET_KIC[d.nodes[i].kind] + " " : ""}${esc(netLbl(d.nodes[i]))}</td>${cell(A.final[i] || 0)}${cell(B.final[i] || 0)}${cell((B.final[i] || 0) - (A.final[i] || 0))}</tr>`).join("")}</tbody></table>` });
 }
+/** Dated notes and discussion on one arrow. */
+async function mmRelComments(r) {
+  const d = MM.d, list = (r.cm || []).map((c) => ({ ...c }));
+  const fmt = (at) => { try { return at ? new Date(at).toLocaleString(document.documentElement.lang || undefined, { dateStyle: "medium", timeStyle: "short" }) : ""; } catch { return ""; } };
+  const rows = () => list.length ? list.map((c, i) => `<div class="cmrow"><small>${esc(fmt(c.at))}</small><p dir="auto">${esc(c.t)}</p><button type="button" data-cdel="${i}" aria-label="${esc(T("delete"))}">✕</button></div>`).join("") : `<p class="msg">${esc(T("relCmNone"))}</p>`;
+  const v = await formBox("💬 " + `${d.nodes[r.a]?.text || "…"} → ${d.nodes[r.b]?.text || "…"}`, `<div class="cmlist" id="cmList">${rows()}</div>
+    <div class="field"><textarea name="c" rows="3" dir="auto" placeholder="${esc(T("relCmPh"))}"></textarea></div><button type="button" class="btn" data-cadd="1">${esc(T("relCmAdd"))}</button>`,
+    (f) => { const t = f.c.value.trim(); if (t) list.push({ t, at: new Date().toISOString() }); return { list }; }, T("save"), (el) => {
+      const f = el.querySelector("form"), box = el.querySelector("#cmList"), redraw = () => { box.innerHTML = rows(); box.scrollTop = box.scrollHeight; };
+      el.addEventListener("click", (e) => {
+        if (e.target.closest("[data-cadd]")) { const t = f.c.value.trim(); if (!t) return; list.push({ t, at: new Date().toISOString() }); f.c.value = ""; redraw(); f.c.focus(); }
+        const del = e.target.closest("[data-cdel]"); if (del) { list.splice(+del.dataset.cdel, 1); redraw(); }
+      });
+      box.scrollTop = box.scrollHeight; setTimeout(() => f.c.focus(), 60);
+    });
+  if (!v || !MM || !MM.d.rels.includes(r)) return;
+  mmPush(); r.cm = v.list.slice(-200); mmSave(); mmDraw();
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -7956,8 +7996,12 @@ async function mmRelLabel(r) {
 function mmBind() {
   const st = $("#mmStage"), pts = new Map(); let g = null, pin = null;
   const toWorld = (cx, cy) => { const r = st.getBoundingClientRect(), v = MM.view; return [(cx - r.left - v.x) / v.z, (cy - r.top - v.y) / v.z]; };
+  st.addEventListener("lostpointercapture", (e) => { if (pts.has(e.pointerId) && !document.contains(e.target)) pts.delete(e.pointerId); });
   st.addEventListener("pointerdown", (e) => {
-    if (e.target.closest(".mmtb, .mmside, .mmfocus") || (MM.edit && e.target.closest(".mmn.editing"))) return;
+    if (e.target.closest(".mmtb, .mmside, .mmfocus, .mmsim") || (MM.edit && e.target.closest(".mmn.editing"))) return;
+    if (e.pointerType === "pen") MM.penAt = Date.now();
+    if (e.pointerType === "touch" && MM.penAt && Date.now() - MM.penAt < 900) return; // palm while drawing or writing
+    if (e.isPrimary) { pts.clear(); pin = null; } // a new gesture: forget any finger that never said goodbye
     if (MM.edit) { document.activeElement?.blur?.(); }
     pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
     try { st.setPointerCapture(e.pointerId); } catch {}
@@ -7967,7 +8011,8 @@ function mmBind() {
     }
     if (pts.size > 2) return;
     const nodeEl = e.target.closest(".mmn"), relEl = e.target.closest("[data-rel]"), badge = e.target.closest("[data-badge]");
-    g = { id: nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
+    const rh = e.target.closest("[data-rh]");
+    g = { id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
   });
   st.addEventListener("pointermove", (e) => {
     if (!pts.has(e.pointerId)) return;
@@ -7981,6 +8026,12 @@ function mmBind() {
     if (!g) return;
     const dx = e.clientX - g.x0, dy = e.clientY - g.y0;
     if (!g.moved && Math.hypot(dx, dy) < 7) return;
+    if (g.rh) { // dragging the end of an arrow to another idea
+      g.moved = true; const [wx, wy] = toWorld(e.clientX, e.clientY), r = MM.d.rels.find((q) => q.id === g.rel); if (!r) return;
+      const other = g.rh === "a" ? r.b : r.a;
+      const under = document.elementsFromPoint(e.clientX, e.clientY).map((el) => el.closest && el.closest(".mmn")).find((el) => el && el.dataset.mmn !== other);
+      MM.rhDrag = { id: r.id, end: g.rh, x: wx, y: wy }; MM.drop = under ? under.dataset.mmn : null; return mmDraw();
+    }
     if (!g.moved) {
       g.moved = true;
       if (g.id && MM.ro) g.id = null;
@@ -8001,6 +8052,11 @@ function mmBind() {
     if (pin) { if (pts.size < 2) { pin = null; mmSetView(MM.view.x, MM.view.y, MM.view.z); } g = null; return; }
     if (!g) return;
     const G = g; g = null;
+    if (G.rh && G.moved) {
+      const r = MM.d.rels.find((q) => q.id === G.rel), drop = MM.drop; MM.rhDrag = null; MM.drop = null;
+      if (r && drop && MM.d.nodes[drop] && drop !== (G.rh === "a" ? r.b : r.a) && drop !== r[G.rh]) { mmPush(); r[G.rh] = drop; MM.rel = r.id; mmSave(); }
+      return mmDraw();
+    }
     if (G.moved) {
       if (G.id && G.start) {
         const d = MM.d, x = d.nodes[G.id], drop = MM.drop; MM.drop = null; MM.dragging = false;
@@ -8011,6 +8067,7 @@ function mmBind() {
           if (p.id === d.root && d.layout === "map") x.side = x.x >= p.x ? 1 : -1;
           const key = (q) => (d.layout === "radial" ? Math.atan2(q.y - p.y, q.x - p.x) : vertical ? q.y : q.x);
           sib.sort((a, b) => key(a) - key(b)).forEach((q, i) => (q.o = i));
+          if (!MM.autoWarned) { MM.autoWarned = true; toast("⋮⋮ " + T("mmAutoWarn")); }
         }
         mmSave(); mmDraw();
       } else mmSetView(MM.view.x, MM.view.y, MM.view.z);
@@ -8021,13 +8078,13 @@ function mmBind() {
     if (G.badge && G.id) { MM.sel = MM.ro ? null : G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
     if (G.id) {
       if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false, w: 2, lag: "0", why: "", by: "me" }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
-      if (MM.ro) return;
+      if (MM.ro) { if (!MM.roWarned) { MM.roWarned = true; toast("👁 " + T("mmRoWarn")); } return; }
       const now = Date.now(), lt = MM.lt || {}, again = lt.id === G.id && now - lt.t < 380;
       MM.lt = { id: G.id, t: now };
       if (again || (MM.sel === G.id && now - (G.selAt || 0) > 0 && e.pointerType !== "mouse")) { MM.sel = G.id; mmDraw(); return mmStartEdit(G.id); }
       MM.sel = G.id; MM.rel = null; MM.connect = null; mmHint(""); return mmDraw();
     }
-    if (G.rel) { MM.rel = G.rel; MM.sel = null; return mmDraw(); }
+    if (G.rel) { MM.rel = G.rel; MM.sel = null; if (!MM.ro && !MM.rhHinted) { MM.rhHinted = true; toast("↗ " + T("relDragHint")); } return mmDraw(); }
     MM.sel = null; MM.rel = null; if (MM.connect) { MM.connect = null; mmHint(""); } mmDraw();
   };
   st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
@@ -8078,6 +8135,9 @@ document.addEventListener("click", (e) => {
   if (r) {
     if (a === "rlabel") return mmRelLabel(r);
     if (a === "rinfo") return mmNetRel(r);
+    if (a === "rcm") return mmRelComments(r);
+    if (a === "rsrc") return mmDetails(null, r);
+    if (a === "rrev") { mmPush(); [r.a, r.b] = [r.b, r.a]; mmSave(); return mmDraw(); }
     if (a === "rw") { mmPush(); r.w = ((r.w || 2) % 3) + 1; mmSave(); return mmDraw(); }
     mmPush();
     if (a === "rpos") r.kind = "+"; if (a === "rneg") r.kind = "-"; if (a === "rneu") r.kind = ""; if (a === "rdash") r.dashed = !r.dashed;
