@@ -802,6 +802,15 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mmconns{display:flex;flex-direction:column;gap:4px}
 .mmconns button{display:flex;gap:6px;align-items:center;text-align:start;border:1px solid var(--line);background:transparent;border-radius:9px;padding:6px 9px;cursor:pointer;color:var(--ink);font:inherit}
 .mmconns .p{color:#1f8a4c;font-weight:700}.mmconns .ng{color:#d64545;font-weight:700}
+.bar-main.mmbar{grid-template-columns:auto minmax(0,1fr)}
+.mmbar .bz-start{min-width:0;max-width:44vw}
+.mmbar .bz-start .ttl{min-width:80px;max-width:240px}
+.mmbar .bz-end{min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;justify-content:flex-start}
+.mmbar .bz-end::-webkit-scrollbar{display:none}
+.mmbar .bz-end>*{flex:none}
+.mmbar .bz-end>:first-child{margin-inline-start:auto}
+@media (max-width:1200px){.mmbar .mmlab:not(.keep){display:none}}
+@media (max-width:600px){.mmbar .bz-start{max-width:60vw}.mmbar .bz-start .ttl{min-width:36px}.mmbar .mmlab{display:none}}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7376,7 +7385,7 @@ function renderMap(n) {
       <span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
-      <button class="btn ghost" data-mm="think" title="${esc(T("netThink"))}">▶<span class="mmlab">${esc(T("netThink"))}</span></button>
+      <button class="btn ghost" data-mm="think" title="${esc(T("netThink"))}">▶<span class="mmlab keep">${esc(T("netThink"))}</span></button>
       <button class="btn icon ghost" data-mm="scen" title="${esc(T("netScen"))}">🧪</button>
       <button class="btn ghost" data-mm="net" aria-pressed="${d.mode === "net"}" title="${esc(T("netView"))}">🧠<span class="mmlab">${esc(T("netView"))}</span></button>
       <button class="btn ghost" data-mm="layout" data-pop="1" title="${esc(T("mmLayout"))}">⋮⋮<span class="mmlab">${esc(T("mmLayout"))}</span></button>
