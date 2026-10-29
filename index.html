@@ -811,6 +811,31 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mmbar .bz-end>:first-child{margin-inline-start:auto}
 @media (max-width:1200px){.mmbar .mmlab:not(.keep){display:none}}
 @media (max-width:600px){.mmbar .bz-start{max-width:60vw}.mmbar .bz-start .ttl{min-width:36px}.mmbar .mmlab{display:none}}
+.mmn .nout{flex:none;font-size:11.5px;font-weight:700;border-radius:99px;padding:1px 8px;color:#fff;background:#7b8597;white-space:nowrap}
+.mmn .nout.hi{background:#1f8a4c}.mmn .nout.lo{background:#d64545}
+.mmhl{top:54px}
+.mmlive{position:absolute;bottom:58px;inset-inline-start:50%;transform:translateX(-50%);z-index:8;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 12px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;width:min(520px,calc(100% - 24px))}
+.mmlive{direction:ltr;left:50%;right:auto;inset-inline-start:auto}
+[dir=rtl] .mmlive{transform:translateX(-50%);left:50%}
+.mmlive b{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.mmlive input[type=range]{flex:1;accent-color:var(--accent);direction:ltr;height:28px}
+.mmlive output{min-width:46px;text-align:center;font-weight:700;direction:ltr}
+.mmlive button{border:0;background:var(--hover);border-radius:99px;min-width:30px;height:30px;cursor:pointer;color:var(--ink)}
+.netchart svg{width:100%;height:auto;display:block}
+.netchart .lg{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:13px}
+.netchart .lg label{display:inline-flex;gap:5px;align-items:center;cursor:pointer}
+.netchart .lg i{display:inline-block;width:14px;height:4px;border-radius:2px}
+.netbars{width:100%;border-collapse:collapse;font-size:14px}
+.netbars td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.netbars .bar{position:relative;height:10px;min-width:120px;background:color-mix(in srgb,var(--muted) 15%,transparent);border-radius:5px;direction:ltr}
+.netbars .bar i{position:absolute;top:0;bottom:0;border-radius:5px}
+.netbars .n{direction:ltr;text-align:center;white-space:nowrap;font-weight:600}
+.netbars .p{color:#1f8a4c}.netbars .ng{color:#d64545}
+.netnote{padding:8px 12px;border-radius:10px;margin:0 0 10px;font-size:14px}
+.netnote.warn{background:color-mix(in srgb,#e0a43a 18%,transparent)}.netnote.ok{background:color-mix(in srgb,#1f8a4c 14%,transparent)}
+.netloops{display:flex;flex-direction:column;gap:6px}
+.netloops button{display:block;text-align:start;border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit}
+.netloops .t{font-weight:700;margin-inline-end:6px}.netloops .R{color:#c2508a}.netloops .B{color:#2f8f9d}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7318,6 +7343,30 @@ Object.assign(I18N.de, { relRev: "Richtung umkehren", relCm: "Notizen und Diskus
   relDragHint: "Zum Umhängen den weißen Kreis am Pfeilende ziehen und auf einer anderen Idee loslassen.", mmRoWarn: "„Nur lesen“ ist an – mit 👁 ausschalten.", mmAutoWarn: "Automatische Anordnung ist an. Für freies Verschieben: Anordnung → „Frei (manuell)“." });
 Object.assign(I18N.en, { relRev: "Reverse direction", relCm: "Notes and discussion", relCmPh: "Write a note…", relCmAdd: "＋ Add note", relCmNone: "No notes yet.", relInfo: "Sources and explanation", mmConns: "Connections of this idea", mmNoConns: "This idea has no influence arrows yet.",
   relDragHint: "To reconnect, drag the white circle at the arrow's end onto another idea.", mmRoWarn: "Read only is on – turn it off with 👁.", mmAutoWarn: "Automatic layout is on and places ideas itself. To move freely: Layout → “Free (manual)”." });
+Object.assign(I18N.fa, { anaMenu: "تحلیل", anaLive: "⚡ حالت زنده", anaLiveOff: "⚡ خاموش کردن حالت زنده", anaLoops: "🔁 حلقه‌ها", anaChart: "📈 نمودار زمانی", anaSens: "🎯 حساسیت و شکنندگی", anaImp: "⭐ مهم‌ترین عامل‌ها",
+  anaStrong: "🔍 فقط فلش‌های قوی", anaPaths: "🔍 مسیرهای رسیده به ایدهٔ انتخاب‌شده", anaUnfilter: "✕ برداشتن فیلتر", liveName: "زنده", liveHint: "حالت زنده: روی یک ایده بزنید و لغزنده را تکان دهید. مقدارهای ذخیره‌شده عوض نمی‌شوند.",
+  liveSave: "ذخیره به‌عنوان سناریو", liveReset: "برگرداندن همه", liveScen: "زنده {d}", loopR: "تقویت‌کننده", loopB: "متعادل‌کننده", loopNone: "هیچ حلقه‌ای در شبکه نیست. حلقه یعنی مسیری از فلش‌ها که به نقطهٔ شروع برگردد.",
+  loopHelp: "حلقهٔ تقویت‌کننده (R) تغییر را بزرگ‌تر می‌کند — مثل حباب یا سقوط. حلقهٔ متعادل‌کننده (B) تغییر را مهار می‌کند. روی هر حلقه بزنید تا روی نقشه دیده شود.", loopN: "{n} حلقه",
+  chartHelp: "هر خط یک ایده است، در طول ضربان‌های فکر. خطی که دیر بالا یا پایین می‌رود، اثر تأخیری دارد.", chartTick: "ضربان", sensTarget: "اثر روی کدام ایده؟", sensHelp: "هر ورودی یک بار ۲۵ واحد بالا و یک بار ۲۵ واحد پایین برده شد.",
+  sensUp: "+۲۵", sensDn: "−۲۵", sensFragile: "⚠️ تصمیم شکننده است: تغییر ۲۵ واحدی «{x}» علامت نتیجه را برعکس می‌کند.", sensStable: "✅ نتیجه پایدار است: هیچ تغییر ۲۵ واحدی در یک ورودی علامتش را برعکس نمی‌کند.", sensNoIn: "هیچ ورودی‌ای (ایدهٔ دارای مقدار) نیست.",
+  impHelp: "اثرگذاری: اگر این ایده تکان بخورد، کل شبکه چقدر تکان می‌خورد. اثرپذیری: چقدر فلش به آن می‌رسد.", impOut: "اثرگذاری", impIn: "اثرپذیری", hlStrong: "فقط فلش‌های قوی", hlPaths: "مسیرهای رسیده به «{x}»", hlLoop: "حلقهٔ {t}",
+  pickIdea: "اول روی یک ایده بزنید.", outTitle: "نوشتهٔ خودکار (اختیاری)", outHelp: "بر اساس مقدار این ایده، یکی از این نوشته‌ها روی آن نشان داده می‌شود.", outHi: "بالاتر از آستانه", outMid: "بین دو آستانه", outLo: "پایین‌تر از منفی آستانه", outT: "آستانه", outPhHi: "مثلاً خرید", outPhMid: "مثلاً نگه‌داری", outPhLo: "مثلاً فروش" });
+Object.assign(I18N.de, { anaMenu: "Analyse", anaLive: "⚡ Live-Modus", anaLiveOff: "⚡ Live-Modus aus", anaLoops: "🔁 Schleifen", anaChart: "📈 Zeitverlauf", anaSens: "🎯 Sensitivität", anaImp: "⭐ Wichtigste Faktoren",
+  anaStrong: "🔍 Nur starke Pfeile", anaPaths: "🔍 Wege zur gewählten Idee", anaUnfilter: "✕ Filter entfernen", liveName: "Live", liveHint: "Live: Idee antippen und Regler bewegen. Gespeicherte Werte bleiben unverändert.",
+  liveSave: "Als Szenario speichern", liveReset: "Alles zurücksetzen", liveScen: "Live {d}", loopR: "verstärkend", loopB: "ausgleichend", loopNone: "Keine Schleifen im Netz.",
+  loopHelp: "Verstärkende Schleifen (R) vergrößern Veränderungen, ausgleichende (B) bremsen sie. Antippen zeigt die Schleife auf der Karte.", loopN: "{n} Schleifen",
+  chartHelp: "Jede Linie ist eine Idee über die Takte hinweg.", chartTick: "Takt", sensTarget: "Wirkung auf welche Idee?", sensHelp: "Jeder Eingang wurde um 25 erhöht und um 25 gesenkt.",
+  sensUp: "+25", sensDn: "−25", sensFragile: "⚠️ Fragil: 25 Punkte bei „{x}“ kehren das Vorzeichen um.", sensStable: "✅ Stabil: keine Änderung um 25 kehrt das Vorzeichen um.", sensNoIn: "Keine Eingänge (Ideen mit Wert).",
+  impHelp: "Einfluss: wie stark das Netz reagiert, wenn diese Idee sich bewegt. Abhängigkeit: wie viele Pfeile ankommen.", impOut: "Einfluss", impIn: "Abhängigkeit", hlStrong: "Nur starke Pfeile", hlPaths: "Wege zu „{x}“", hlLoop: "Schleife {t}",
+  pickIdea: "Zuerst eine Idee antippen.", outTitle: "Automatischer Text (optional)", outHelp: "Je nach Wert erscheint einer dieser Texte.", outHi: "Über der Schwelle", outMid: "Dazwischen", outLo: "Unter minus Schwelle", outT: "Schwelle", outPhHi: "z. B. Kaufen", outPhMid: "z. B. Halten", outPhLo: "z. B. Verkaufen" });
+Object.assign(I18N.en, { anaMenu: "Analysis", anaLive: "⚡ Live mode", anaLiveOff: "⚡ Turn live mode off", anaLoops: "🔁 Loops", anaChart: "📈 Time chart", anaSens: "🎯 Sensitivity", anaImp: "⭐ Key factors",
+  anaStrong: "🔍 Strong arrows only", anaPaths: "🔍 Paths into the chosen idea", anaUnfilter: "✕ Remove filter", liveName: "Live", liveHint: "Live mode: tap an idea and move the slider. Saved values do not change.",
+  liveSave: "Save as scenario", liveReset: "Reset all", liveScen: "Live {d}", loopR: "reinforcing", loopB: "balancing", loopNone: "No loops in the network.",
+  loopHelp: "Reinforcing loops (R) amplify change — bubbles and crashes. Balancing loops (B) hold it back. Tap one to see it on the map.", loopN: "{n} loops",
+  chartHelp: "Each line is an idea across the thinking ticks.", chartTick: "Tick", sensTarget: "Effect on which idea?", sensHelp: "Each input was moved up by 25 and down by 25.",
+  sensUp: "+25", sensDn: "−25", sensFragile: "⚠️ Fragile: moving “{x}” by 25 flips the result's sign.", sensStable: "✅ Stable: no 25-point change of one input flips the sign.", sensNoIn: "No inputs (ideas with a value).",
+  impHelp: "Influence: how much the network moves when this idea moves. Exposure: how many arrows reach it.", impOut: "Influence", impIn: "Exposure", hlStrong: "Strong arrows only", hlPaths: "Paths into “{x}”", hlLoop: "Loop {t}",
+  pickIdea: "Tap an idea first.", outTitle: "Automatic text (optional)", outHelp: "Depending on the value, one of these texts is shown.", outHi: "Above threshold", outMid: "In between", outLo: "Below minus threshold", outT: "Threshold", outPhHi: "e.g. Buy", outPhMid: "e.g. Hold", outPhLo: "e.g. Sell" });
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -7342,6 +7391,7 @@ function mmNorm(m) {
       ...(x.collapsed ? { collapsed: true } : {}), ...(x.task ? { task: true } : {}), ...(x.task && x.done ? { done: true } : {}),
       ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}),
       ...(NET_KINDS.includes(x.kind) ? { kind: x.kind } : {}), ...(x.val !== undefined && x.val !== null && x.val !== "" && isFinite(x.val) ? { val: Math.max(-100, Math.min(100, Math.round(+x.val))) } : {}),
+      ...(x.out && typeof x.out === "object" && (x.out.hi || x.out.mid || x.out.lo) ? { out: { t: Math.max(1, Math.min(99, Math.round(+x.out.t) || 30)), hi: String(x.out.hi || "").slice(0, 40), mid: String(x.out.mid || "").slice(0, 40), lo: String(x.out.lo || "").slice(0, 40) } } : {}),
       ...(x.real && typeof x.real === "object" && String(x.real.v ?? "").trim() ? { real: { v: String(x.real.v).trim().slice(0, 40), u: String(x.real.u || "").slice(0, 20), ts: typeof x.real.ts === "string" ? x.real.ts.slice(0, 30) : "" } } : {}) };
   }
   if (!nodes[m.root]) return null;
@@ -7362,7 +7412,7 @@ function mmIsRtl(d) { return d.dir === "rtl" || (d.dir === "auto" && (detectDir(
 function mmProgress(d, id) { let t = 0, k = 0; for (const i of mmDesc(d, id)) { const x = d.nodes[i]; if (x.task) { t++; if (x.done) k++; } } return t ? Math.round((k / t) * 100) : null; }
 function mmDesc(d, id) { const out = []; const walk = (p) => { for (const k of mmKids(d, p)) { out.push(k.id); walk(k.id); } }; walk(id); return out; }
 function mmHidden(d) { const h = new Set(); for (const x of Object.values(d.nodes)) if (x.collapsed) mmDesc(d, x.id).forEach((i) => h.add(i)); return h; }
-function mmSave() { const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
+function mmSave() { if (MM.live) requestAnimationFrame(() => { if (MM && MM.live && $("#mmStage")) netLive(); }); const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
 function mmPush() { if (MM.sim) netStop(); MM.undo.push(JSON.stringify(MM.d)); if (MM.undo.length > 60) MM.undo.shift(); MM.redo = []; }
 function mmUndo(redo) { if (MM.sim) netStop(); const from = redo ? MM.redo : MM.undo, to = redo ? MM.undo : MM.redo; if (!from.length) return; to.push(JSON.stringify(MM.d)); MM.d = mmNorm(JSON.parse(from.pop())); MM.sel = MM.d.nodes[MM.sel] ? MM.sel : null; mmSave(); mmDraw(); }
 function newMap() {
@@ -7390,6 +7440,7 @@ function renderMap(n) {
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
       <button class="btn ghost" data-mm="think" title="${esc(T("netThink"))}">▶<span class="mmlab keep">${esc(T("netThink"))}</span></button>
       <button class="btn icon ghost" data-mm="scen" title="${esc(T("netScen"))}">🧪</button>
+      <button class="btn icon ghost" data-mm="ana" title="${esc(T("anaMenu"))}">📊</button>
       <button class="btn ghost" data-mm="net" aria-pressed="${d.mode === "net"}" title="${esc(T("netView"))}">🧠<span class="mmlab">${esc(T("netView"))}</span></button>
       <button class="btn ghost" data-mm="layout" data-pop="1" title="${esc(T("mmLayout"))}">⋮⋮<span class="mmlab">${esc(T("mmLayout"))}</span></button>
       <button class="btn icon ghost" data-mm="outline" title="${esc(T("mmOutline"))}" aria-pressed="false">☰</button>
@@ -7399,7 +7450,7 @@ function renderMap(n) {
       <button class="btn ghost aibtn" data-mm="ai" data-pop="1" title="${esc(T("aiMenu"))}">✨<span class="mmlab">${esc(T("aiMenu"))}</span></button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div><div id="mmSim" class="mmsim hide"></div>
+  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div><div id="mmSim" class="mmsim hide"></div><div id="mmHl" class="mmfocus mmhl hide"></div><div id="mmLive" class="mmlive hide"></div>
     <aside class="mmside hide" id="mmSide"><div class="mmsh"><input id="mmQ" type="search" placeholder="${esc(T("mmSearchPh"))}" dir="auto"><span class="seg mmflt"><button type="button" class="segb" data-flt="" aria-pressed="true">${esc(T("mmAll"))}</button><button type="button" class="segb" data-flt="open" aria-pressed="false">☐ ${esc(T("mmOpen"))}</button><button type="button" class="segb" data-flt="done" aria-pressed="false">☑ ${esc(T("mmDoneF"))}</button></span></div><div class="mmtree" id="mmTree"></div></aside></div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
@@ -7449,18 +7500,19 @@ function mmDraw() {
   if (!MM || !$("#mmNodes")) return;
   const d = MM.d, hid = mmHidden(d), box = $("#mmNodes"), match = mmMatches(d);
   const focus = MM.focus && d.nodes[MM.focus] ? new Set([MM.focus, ...mmDesc(d, MM.focus), ...(() => { const a = []; let q = d.nodes[MM.focus]; while (q && q.parent) { a.push(q.parent); q = d.nodes[q.parent]; } return a; })()]) : null;
-  const dim = (id) => (focus && !focus.has(id)) || (match && !match.has(id));
+  const dim = (id) => (focus && !focus.has(id)) || (match && !match.has(id)) || (MM.hl && !MM.hl.nodes.has(id));
   const net = d.mode === "net", inRel = new Set(d.rels.flatMap((r) => [r.a, r.b]));
   const sim = MM.sim, cur = sim ? sim.res.frames[sim.i] : null;
   const simV = (x) => (cur && cur[x.id] !== undefined && sim.res.nodes.has(x.id) ? Math.round(cur[x.id] * 100) : null);
   const simStyle = (x) => { const v = simV(x); return v === null || Math.abs(v) < 3 ? "" : `--gc:${v > 0 ? "rgba(31,138,76,.55)" : "rgba(214,69,69,.55)"};--gs:${Math.round(Math.abs(v) / 7) + 2}px;`; };
   const valHtml = (x) => { const v = simV(x); if (v !== null) { const fx = sim.res.fixed.has(x.id); return `<span class="nv ${v > 0 ? "p" : v < 0 ? "n" : "z"} ${fx ? "" : "sim"} ${sim.ov && sim.ov[x.id] !== undefined ? "ov" : ""}" title="${esc(T("netResult"))}"><i style="--v:${Math.abs(v)}"></i>${fx ? "" : "≈"}${netSigned(v)}</span>`; } return valHtml0(x); };
+  const outHtml = (x) => { if (!x.out) return ""; const sv = simV(x), v = sv !== null ? sv : x.val; if (v === undefined || v === null) return ""; const k = v >= x.out.t ? "hi" : v <= -x.out.t ? "lo" : "mid", t = x.out[k]; return t ? `<b class="nout ${k}" dir="auto">${esc(t)}</b>` : ""; };
   const valHtml0 = (x) => x.val === undefined ? "" : `<span class="nv ${x.val > 0 ? "p" : x.val < 0 ? "n" : "z"}" title="${esc(T("netVal"))}"><i style="--v:${Math.abs(x.val)}"></i>${netSigned(x.val)}</span>`;
   box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
     const kids = mmKids(d, x.id).length, root = x.id === d.root, prog = kids ? mmProgress(d, x.id) : null;
     const mark = prog !== null ? `<i class="pie" style="--p:${prog}" title="${esc(T("mmProgress", { p: num(prog) }))}"></i>` : x.task ? `<b class="ck ${x.done ? "on" : ""}" data-badge="check">${x.done ? "✓" : ""}</b>` : "";
     return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""} ${simStyle(x) ? "sg" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}${simStyle(x)}">
-      ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}
+      ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}${outHtml(x)}
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
   }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && (r.label || (r.lag && r.lag !== "0") || r.why || r.cm?.length || r.links?.length || r.note)).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto"${r.why ? ` title="${esc(r.why)}"` : ""}>${r.lag && r.lag !== "0" ? NET_LAG[r.lag] : ""}${esc(r.label)}${r.cm?.length ? " 💬" + num(r.cm.length) : r.why || r.note ? " 💬" : ""}${r.links?.length ? " 🔗" : ""}</div>`).join("");
@@ -7494,7 +7546,7 @@ function mmDraw() {
     const a = RD && RD.end === "a" ? pt : d.nodes[r.a], b = RD && RD.end === "b" ? pt : d.nodes[r.b], sa = a === pt ? { w: 2, h: 2 } : MM.size[a.id], sb = b === pt ? { w: 2, h: 2 } : MM.size[b.id]; if (!sa || !sb) continue;
     const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
     const cx = mx + nx * bend, cy = my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
-    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
+    const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = MM.hl ? (MM.hl.rels.has(r.id) ? 1 : 0.08) : dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
     const rw = ([1.4, 2.4, 4][(r.w || 2) - 1]) + (net ? 0.8 : 0) + (on ? 1.2 : 0), ah = 8 + rw * 1.5;
     svg += `<g data-rel="${r.id}" class="mmrel ${sim && Math.abs(sim.res.flowAt(sim.i, r.id)) > 0.03 ? "flow" : ""}" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="26" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
@@ -7506,7 +7558,10 @@ function mmDraw() {
   if (!MM.view) MM.view = { x: 0, y: 0, z: 1 };
   mmApplyView();
   if (MM.side) mmOutline();
-  const sc = $("#mmSim"); if (sc) { sc.classList.toggle("hide", !sim); if (sim) { const n = sim.res.frames.length; sc.innerHTML = `🧠 <b dir="auto">${esc(sim.name)}</b> <small>${esc(T("netTick", { i: num(sim.i + 1), n: num(n) }))}</small><button type="button" data-mm="simre" title="${esc(T("netReplay"))}">⟲</button><button type="button" data-mm="scen" title="${esc(T("netScen"))}">🧪</button><button type="button" data-mm="simx" title="${esc(T("netClear"))}">✕</button>`; } }
+  const hc = $("#mmHl"); if (hc) { hc.classList.toggle("hide", !MM.hl); if (MM.hl) hc.innerHTML = `${esc(MM.hl.label)} <button type="button" data-mm="unhl">✕</button>`; }
+  netLivePanel();
+  const sc = $("#mmSim"); if (sc) { sc.classList.toggle("hide", !sim); if (sim && sim.live) sc.innerHTML = `⚡ <b>${esc(T("liveName"))}</b> <small>${esc(T("netChanges", { n: num(Object.keys(MM.play || {}).length) }))}</small><button type="button" data-mm="livesave" title="${esc(T("liveSave"))}">💾</button><button type="button" data-mm="livereset" title="${esc(T("liveReset"))}">↺</button><button type="button" data-mm="liveoff" title="${esc(T("anaLiveOff"))}">✕</button>`;
+    else if (sim) { const n = sim.res.frames.length; sc.innerHTML = `🧠 <b dir="auto">${esc(sim.name)}</b> <small>${esc(T("netTick", { i: num(sim.i + 1), n: num(n) }))}</small><button type="button" data-mm="simre" title="${esc(T("netReplay"))}">⟲</button><button type="button" data-mm="scen" title="${esc(T("netScen"))}">🧪</button><button type="button" data-mm="simx" title="${esc(T("netClear"))}">✕</button>`; } }
   const fc = $("#mmFocus"); if (fc) { fc.classList.toggle("hide", !MM.focus); if (MM.focus) fc.innerHTML = `🎯 ${esc(T("mmFocusOn"))} <b dir="auto">${esc(d.nodes[MM.focus]?.text || "")}</b> <button type="button" data-mm="unfocus">✕</button>`; }
 }
 /* ---- floating toolbar for the chosen idea / relation ---- */
@@ -7813,8 +7868,12 @@ async function mmNetNode() {
     <div class="field"><label>${esc(T("netVal"))} <span class="chk"><input type="checkbox" name="hv" ${has ? "checked" : ""}> ${esc(T("netHasVal"))}</span></label>
       <div class="rng"><span>−</span><input type="range" name="v" min="-100" max="100" step="5" value="${v0}" ${has ? "" : "disabled"}><span>+</span><output>${netSigned(v0)}</output></div><small class="msg">${esc(T("netValHint"))}</small></div>
     <div class="field"><label>${esc(T("netReal"))}</label><div class="two"><input name="rv" dir="ltr" maxlength="40" placeholder="${esc(T("netRealPh"))}" value="${esc(x.real?.v || "")}"><input name="ru" dir="auto" maxlength="20" style="max-width:110px" placeholder="${esc(T("netUnitPh"))}" value="${esc(x.real?.u || "")}"></div>
-      ${x.real?.ts ? `<small class="msg">${esc(T("netAsOf", { d: new Date(x.real.ts).toLocaleString(document.documentElement.lang || undefined) }))}</small>` : ""}</div></div>`,
-    (f) => ({ k: f.k.value, hv: f.hv.checked, v: +f.v.value, rv: f.rv.value.trim(), ru: f.ru.value.trim() }), T("save"), (el) => {
+      ${x.real?.ts ? `<small class="msg">${esc(T("netAsOf", { d: new Date(x.real.ts).toLocaleString(document.documentElement.lang || undefined) }))}</small>` : ""}</div>
+    <div class="field"><label>${esc(T("outTitle"))}</label><small class="msg">${esc(T("outHelp"))}</small>
+      <div class="two" style="margin-top:6px"><input name="oh" maxlength="40" dir="auto" placeholder="${esc(T("outPhHi"))}" value="${esc(x.out?.hi || "")}" title="${esc(T("outHi"))}"><input name="om" maxlength="40" dir="auto" placeholder="${esc(T("outPhMid"))}" value="${esc(x.out?.mid || "")}" title="${esc(T("outMid"))}"><input name="ol" maxlength="40" dir="auto" placeholder="${esc(T("outPhLo"))}" value="${esc(x.out?.lo || "")}" title="${esc(T("outLo"))}"></div>
+      <div class="rng" style="margin-top:6px"><span>${esc(T("outT"))}</span><input type="range" name="ot" min="5" max="95" step="5" value="${x.out?.t || 30}"><output>±${num(x.out?.t || 30)}</output></div></div></div>`,
+    (f) => ({ k: f.k.value, hv: f.hv.checked, v: +f.v.value, rv: f.rv.value.trim(), ru: f.ru.value.trim(), oh: f.oh.value.trim(), om: f.om.value.trim(), ol: f.ol.value.trim(), ot: +f.ot.value }), T("save"), (el) => {
+      { const f0 = el.querySelector("form"), o2 = f0.ot.nextElementSibling; f0.ot.addEventListener("input", () => { o2.textContent = "±" + num(+f0.ot.value); }); }
       const f = el.querySelector("form"), out = el.querySelector(".rng output");
       f.v.addEventListener("input", () => { out.textContent = netSigned(+f.v.value); });
       f.hv.addEventListener("change", () => { f.v.disabled = !f.hv.checked; out.style.opacity = f.hv.checked ? 1 : 0.35; });
@@ -7824,6 +7883,7 @@ async function mmNetNode() {
   mmPush();
   if (NET_KINDS.includes(r.k)) x.kind = r.k; else delete x.kind;
   if (r.hv) x.val = Math.max(-100, Math.min(100, Math.round(r.v))); else delete x.val;
+  if (r.oh || r.om || r.ol) x.out = { t: r.ot || 30, hi: r.oh, mid: r.om, lo: r.ol }; else delete x.out;
   if (r.rv) { if (!x.real || x.real.v !== r.rv || x.real.u !== r.ru) x.real = { v: r.rv, u: r.ru, ts: new Date().toISOString() }; } else delete x.real;
   mmSave(); mmDraw();
 }
@@ -7891,7 +7951,7 @@ function netAnimate() {
   sim.timer = setInterval(() => { if (!MM || MM.sim !== sim || !$("#mmStage")) return clearInterval(sim.timer); if (sim.i >= sim.res.frames.length - 1) { clearInterval(sim.timer); return; } sim.i++; mmDraw(); }, 170);
 }
 function netThink(scId) {
-  const d = MM.d;
+  const d = MM.d; MM.live = false;
   if (!netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
   const sc = scId ? (d.scen || []).find((q) => q.id === scId) : null, ov = sc ? sc.ov : {};
   const res = netRun(d, ov);
@@ -8001,6 +8061,132 @@ async function mmRelComments(r) {
   if (!v || !MM || !MM.d.rels.includes(r)) return;
   mmPush(); r.cm = v.list.slice(-200); mmSave(); mmDraw();
 }
+/* ---------------- analysis: live mode, loops, time chart, sensitivity, key factors, filters ---------------- */
+async function netAnalysis() {
+  const items = [["live", MM.live ? T("anaLiveOff") : T("anaLive")], ["loops", T("anaLoops")], ["chart", T("anaChart")], ["sens", T("anaSens")], ["imp", T("anaImp")], ["strong", T("anaStrong")], ["paths", T("anaPaths")]];
+  if (MM.hl) items.push(["unhl", T("anaUnfilter")]);
+  const v = await menuBox("📊 " + T("anaMenu"), items);
+  if (!v || !MM) return;
+  if (v === "live") { if (MM.live) { MM.live = false; MM.play = {}; netStop(); return mmDraw(); } MM.live = true; MM.play = MM.play || {}; if (netLive()) toast("⚡ " + T("liveHint")); return; }
+  if (v === "loops") return netLoopsDlg();
+  if (v === "chart") return netChart();
+  if (v === "sens") return netSens();
+  if (v === "imp") return netImportance();
+  if (v === "unhl") { MM.hl = null; return mmDraw(); }
+  if (v === "strong") { const E = netEdges(MM.d).filter((e) => (MM.d.rels.find((r) => r.id === e.id)?.w || 2) === 3); MM.hl = { nodes: new Set(E.flatMap((e) => [e.a, e.b])), rels: new Set(E.map((e) => e.id)), label: "🔍 " + T("hlStrong") }; return mmDraw(); }
+  if (v === "paths") {
+    const t = MM.sel && MM.d.nodes[MM.sel] ? MM.sel : null; if (!t) return toast(T("pickIdea"), { kind: "err" });
+    const E = netEdges(MM.d), nodes = new Set([t]), rels = new Set(), q = [t];
+    while (q.length) { const c = q.shift(); for (const e of E) if (e.b === c) { rels.add(e.id); if (!nodes.has(e.a)) { nodes.add(e.a); q.push(e.a); } } }
+    MM.hl = { nodes, rels, label: "🔍 " + T("hlPaths", { x: netLbl(MM.d.nodes[t]) }) }; return mmDraw();
+  }
+}
+/** Live mode: recompute instantly with the play values (saved values stay as they are). */
+function netLive() {
+  const d = MM.d;
+  if (!netEdges(d).length) { MM.live = false; toast(T("netNoEdges"), { kind: "err" }); return false; }
+  const ov = { ...(MM.liveBase || {}), ...(MM.play || {}) }, res = netRun(d, ov);
+  if (!res.fixed.size) { MM.live = false; toast(T("netNoInput"), { kind: "err" }); return false; }
+  if (MM.sim) clearInterval(MM.sim.timer);
+  MM.sim = { res, i: res.frames.length - 1, name: T("liveName"), ov, scId: null, timer: 0, live: true };
+  if (d.mode !== "net") { d.mode = "net"; $("#mmStage").classList.add("net"); $('[data-mm="net"]')?.setAttribute("aria-pressed", "true"); }
+  mmDraw(); return true;
+}
+function netLivePanel() {
+  const el = $("#mmLive"); if (!el) return;
+  const sim = MM.sim, id = MM.sel, x = id && MM.d.nodes[id];
+  const show = !!(MM.live && sim && sim.live && x && sim.res.nodes.has(id) && !MM.ro);
+  el.classList.toggle("hide", !show); if (!show) { el.dataset.id = ""; return; }
+  const cur = Math.round((sim.res.final[id] || 0) * 100), played = MM.play && MM.play[id] !== undefined;
+  if (el.dataset.id === id) { const o = el.querySelector("output"); if (o) o.textContent = netSigned(cur); el.querySelector("[data-mm=liveclr]")?.classList.toggle("hide", !played); return; }
+  el.dataset.id = id;
+  el.innerHTML = `<b dir="auto">${x.kind ? NET_KIC[x.kind] + " " : ""}${esc(netLbl(x))}</b><span>−</span><input type="range" min="-100" max="100" step="1" value="${cur}"><span>+</span><output>${netSigned(cur)}</output><button type="button" data-mm="liveclr" data-id="${esc(id)}" class="${played ? "" : "hide"}" title="${esc(T("liveReset"))}">↺</button>`;
+  const rg = el.querySelector("input"); let raf = 0;
+  rg.addEventListener("input", () => { MM.play = MM.play || {}; MM.play[id] = +rg.value; cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { if (MM && MM.live) netLive(); }); });
+  rg.addEventListener("pointerdown", (e) => e.stopPropagation());
+}
+async function netLiveSave() {
+  const d = MM.d, ov = { ...(MM.play || {}) }; if (!Object.keys(ov).length) return toast(T("netNoScen"));
+  const name = T("liveScen", { d: new Date().toLocaleString(document.documentElement.lang || undefined, { dateStyle: "short", timeStyle: "short" }) });
+  mmPush(); d.scen = d.scen || []; const sc = { id: mmId(), name, ov }; d.scen.push(sc); MM.live = false; MM.play = {}; mmSave(); toast("💾 " + name); netThink(sc.id);
+}
+/** All feedback loops (each found once), with their type: reinforcing when the signs multiply to +. */
+function netLoops(d) {
+  const E = netEdges(d), ids = [...new Set(E.flatMap((e) => [e.a, e.b]))], idx = new Map(ids.map((k, i) => [k, i])), out = [];
+  for (let s = 0; s < ids.length && out.length < 60; s++) {
+    const start = ids[s], path = [start], rp = [], on = new Set([start]);
+    const dfs = (u) => {
+      if (out.length >= 60 || path.length > 10) return;
+      for (const e of E) {
+        if (e.a !== u || idx.get(e.b) < s) continue;
+        if (e.b === start) { const sign = [...rp, e].reduce((p, q) => p * Math.sign(q.w), 1); out.push({ nodes: path.slice(), rels: [...rp.map((q) => q.id), e.id], R: sign > 0 }); continue; }
+        if (on.has(e.b)) continue;
+        on.add(e.b); path.push(e.b); rp.push(e); dfs(e.b); rp.pop(); path.pop(); on.delete(e.b);
+      }
+    };
+    dfs(start);
+  }
+  return out.sort((p, q) => p.nodes.length - q.nodes.length);
+}
+async function netLoopsDlg() {
+  const d = MM.d, L = netLoops(d); let nr = 0, nb = 0;
+  const tag = L.map((l) => (l.R ? "R" + ++nr : "B" + ++nb));
+  const body = L.length ? `<p class="msg">${esc(T("loopHelp"))}</p><div class="netloops">${L.map((l, i) => `<button type="button" data-lp="${i}" dir="auto"><span class="t ${l.R ? "R" : "B"}">${tag[i]} — ${esc(T(l.R ? "loopR" : "loopB"))}:</span> ${l.nodes.map((k) => esc(netLbl(d.nodes[k]))).join(" → ")} → ${esc(netLbl(d.nodes[l.nodes[0]]))}</button>`).join("")}</div>` : `<p class="msg">${esc(T("loopNone"))}</p>`;
+  const v = await dialog({ title: "🔁 " + T("anaLoops") + (L.length ? " — " + T("loopN", { n: num(L.length) }) : ""), wide: true, body, actions: [{ label: T("close"), value: null }],
+    onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-lp]"); if (b) close(+b.dataset.lp); }) });
+  if (v === null || v === undefined || !MM) return;
+  const l = L[v]; MM.hl = { nodes: new Set(l.nodes), rels: new Set(l.rels), label: "🔁 " + T("hlLoop", { t: tag[v] + " — " + T(l.R ? "loopR" : "loopB") }) }; mmDraw(); mmFitIds(l.nodes);
+}
+const NET_PAL = ["#d97757", "#4f7fe0", "#1f8a4c", "#c2508a", "#e0a43a", "#7b61d6", "#2f8f9d", "#8a6d55", "#d64545", "#5b6b7f"];
+async function netChart() {
+  const d = MM.d; if (!netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
+  const res = MM.sim ? MM.sim.res : netRun(d, {}); if (!res.fixed.size) return toast(T("netNoInput"), { kind: "err" });
+  const ids = [...res.nodes], computed = ids.filter((k) => !res.fixed.has(k));
+  let on = new Set((computed.length ? computed : ids).slice(0, 6));
+  const W = 640, H = 300, pl = 40, pr = 12, pt = 12, pb = 28, F = res.frames, nx = Math.max(1, F.length - 1);
+  const X = (i) => pl + (i / nx) * (W - pl - pr), Y = (v) => pt + (1 - (v + 1) / 2) * (H - pt - pb);
+  const svg = () => { let g = `<svg viewBox="0 0 ${W} ${H}" role="img"><rect x="${pl}" y="${pt}" width="${W - pl - pr}" height="${H - pt - pb}" fill="none" stroke="currentColor" stroke-opacity=".15"/>`;
+    for (const v of [-1, -0.5, 0, 0.5, 1]) g += `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" stroke-opacity="${v === 0 ? 0.35 : 0.1}"/><text x="${pl - 6}" y="${Y(v) + 4}" font-size="11" text-anchor="end" fill="currentColor" opacity=".6">${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v * 100)}</text>`;
+    for (let i = 0; i <= nx; i += Math.max(1, Math.ceil(nx / 8))) g += `<text x="${X(i)}" y="${H - 8}" font-size="11" text-anchor="middle" fill="currentColor" opacity=".6">${i}</text>`;
+    ids.forEach((k, j) => { if (!on.has(k)) return; g += `<polyline fill="none" stroke="${NET_PAL[j % NET_PAL.length]}" stroke-width="2.5" stroke-linejoin="round" points="${F.map((f, i) => `${X(i).toFixed(1)},${Y(f[k] || 0).toFixed(1)}`).join(" ")}"/>`; });
+    return g + "</svg>"; };
+  const legend = () => ids.map((k, j) => `<label><input type="checkbox" data-ck="${esc(k)}" ${on.has(k) ? "checked" : ""}><i style="background:${NET_PAL[j % NET_PAL.length]}"></i><span dir="auto">${esc(netLbl(d.nodes[k]))}${res.fixed.has(k) ? "" : " ≈"}</span></label>`).join("");
+  await dialog({ title: "📈 " + T("anaChart") + (MM.sim ? " — " + MM.sim.name : ""), wide: true, actions: [{ label: T("close"), value: null }],
+    body: `<div class="netchart"><p class="msg">${esc(T("chartHelp"))}</p><div id="ncSvg" dir="ltr">${svg()}</div><div class="lg">${legend()}</div></div>`,
+    onOpen: (el) => el.addEventListener("change", (e) => { const c = e.target.closest("[data-ck]"); if (!c) return; if (c.checked) on.add(c.dataset.ck); else on.delete(c.dataset.ck); el.querySelector("#ncSvg").innerHTML = svg(); }) });
+}
+async function netSens() {
+  const d = MM.d; if (!netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
+  const baseOv = MM.sim && MM.sim.ov ? { ...MM.sim.ov } : {}, base = netRun(d, baseOv);
+  const inputs = [...base.fixed]; if (!inputs.length) return toast(T("sensNoIn"), { kind: "err" });
+  const cands = [...base.nodes].filter((k) => !base.fixed.has(k)); if (!cands.length) return toast(T("netNoWhy"), { kind: "err" });
+  const pre = MM.sel && cands.includes(MM.sel) ? MM.sel : cands.find((k) => d.nodes[k].kind === "goal") || cands[cands.length - 1];
+  const r = await formBox("🎯 " + T("anaSens"), `<div class="field"><label>${esc(T("sensTarget"))}</label><select name="t">${cands.map((k) => `<option value="${esc(k)}" ${k === pre ? "selected" : ""}>${esc(netLbl(d.nodes[k]))}</option>`).join("")}</select></div>`, (f) => ({ t: f.t.value }), T("anaSens").replace("🎯 ", ""));
+  if (!r || !MM) return;
+  const t = r.t, b0 = base.final[t] || 0, val0 = (k) => Math.round((base.final[k] || 0) * 100);
+  const rows = inputs.map((k) => { const run = (v) => (netRun(d, { ...baseOv, [k]: Math.max(-100, Math.min(100, v)) }).final[t] || 0) - b0; return { k, up: run(val0(k) + 25), dn: run(val0(k) - 25) }; })
+    .sort((p, q) => Math.max(Math.abs(q.up), Math.abs(q.dn)) - Math.max(Math.abs(p.up), Math.abs(p.dn)));
+  const flip = Math.abs(b0) > 0.03 ? rows.find((q) => Math.sign(b0 + q.up) !== Math.sign(b0) || Math.sign(b0 + q.dn) !== Math.sign(b0)) : null;
+  const mx = Math.max(0.01, ...rows.map((q) => Math.max(Math.abs(q.up), Math.abs(q.dn))));
+  const bar = (v) => { const w = Math.abs(v) / mx * 50; return `<div class="bar"><i style="left:${v >= 0 ? 50 : 50 - w}%;width:${w}%;background:${v >= 0 ? "#1f8a4c" : "#d64545"}"></i><i style="left:50%;width:1px;background:currentColor;opacity:.3"></i></div>`; };
+  const n = (v) => `<td class="n ${v > 0.004 ? "p" : v < -0.004 ? "ng" : ""}">${netSigned(Math.round(v * 100))}</td>`;
+  await dialog({ title: "🎯 " + netLbl(d.nodes[t]) + ": " + netSigned(Math.round(b0 * 100)), wide: true, actions: [{ label: T("close"), value: null }],
+    body: `<p class="netnote ${flip ? "warn" : "ok"}" dir="auto">${esc(flip ? T("sensFragile", { x: netLbl(d.nodes[flip.k]) }) : T("sensStable"))}</p><p class="msg">${esc(T("sensHelp"))}</p>
+      <table class="netbars"><thead><tr><td></td><td></td><td class="n">${esc(T("sensUp"))}</td><td class="n">${esc(T("sensDn"))}</td></tr></thead><tbody>${rows.map((q) => `<tr><td dir="auto">${esc(netLbl(d.nodes[q.k]))}</td><td style="width:40%">${bar(q.up)}</td>${n(q.up)}${n(q.dn)}</tr>`).join("")}</tbody></table>` });
+}
+async function netImportance() {
+  const d = MM.d; if (!netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
+  const baseOv = MM.sim && MM.sim.ov ? { ...MM.sim.ov } : {}, base = netRun(d, baseOv), E = base.edges;
+  const rows = [...base.nodes].map((k) => {
+    const v0 = Math.round((base.final[k] || 0) * 100), alt = netRun(d, { ...baseOv, [k]: v0 >= 0 ? Math.max(-100, v0 - 50) : Math.min(100, v0 + 50) });
+    let out = 0; for (const j of base.nodes) if (j !== k) out += Math.abs((alt.final[j] || 0) - (base.final[j] || 0));
+    return { k, out, inn: E.filter((e) => e.b === k).reduce((p, e) => p + Math.abs(e.w), 0) };
+  }).sort((p, q) => q.out - p.out);
+  const mo = Math.max(0.01, ...rows.map((q) => q.out)), mi = Math.max(0.01, ...rows.map((q) => q.inn));
+  const bar = (v, m, c) => `<div class="bar"><i style="left:0;width:${(v / m) * 100}%;background:${c}"></i></div>`;
+  await dialog({ title: "⭐ " + T("anaImp"), wide: true, actions: [{ label: T("close"), value: null }],
+    body: `<p class="msg">${esc(T("impHelp"))}</p><table class="netbars"><thead><tr><td></td><td>${esc(T("impOut"))}</td><td>${esc(T("impIn"))}</td></tr></thead><tbody>${rows.map((q, i) => `<tr><td dir="auto">${i < 3 && q.out > 0.01 ? "⭐ " : ""}${d.nodes[q.k].kind ? NET_KIC[d.nodes[q.k].kind] + " " : ""}${esc(netLbl(d.nodes[q.k]))}</td><td style="width:32%">${bar(q.out, mo, "#d97757")}</td><td style="width:32%">${bar(q.inn, mi, "#4f7fe0")}</td></tr>`).join("")}</tbody></table>` });
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -8011,7 +8197,7 @@ function mmBind() {
   const toWorld = (cx, cy) => { const r = st.getBoundingClientRect(), v = MM.view; return [(cx - r.left - v.x) / v.z, (cy - r.top - v.y) / v.z]; };
   st.addEventListener("lostpointercapture", (e) => { if (pts.has(e.pointerId) && !document.contains(e.target)) pts.delete(e.pointerId); });
   st.addEventListener("pointerdown", (e) => {
-    if (e.target.closest(".mmtb, .mmside, .mmfocus, .mmsim") || (MM.edit && e.target.closest(".mmn.editing"))) return;
+    if (e.target.closest(".mmtb, .mmside, .mmfocus, .mmsim, .mmlive") || (MM.edit && e.target.closest(".mmn.editing"))) return;
     if (e.pointerType === "pen") MM.penAt = Date.now();
     if (e.pointerType === "touch" && MM.penAt && Date.now() - MM.penAt < 900) return; // palm while drawing or writing
     if (e.isPrimary) { pts.clear(); pin = null; } // a new gesture: forget any finger that never said goodbye
@@ -8124,6 +8310,12 @@ document.addEventListener("click", (e) => {
   if (a === "think") return netThink(null);
   if (a === "scen") return netScenarios();
   if (a === "simx") { netStop(); return mmDraw(); }
+  if (a === "ana") return netAnalysis();
+  if (a === "unhl") { MM.hl = null; return mmDraw(); }
+  if (a === "liveoff") { MM.live = false; MM.play = {}; netStop(); return mmDraw(); }
+  if (a === "livereset") { MM.play = {}; return netLive(); }
+  if (a === "livesave") return netLiveSave();
+  if (a === "liveclr") { const id = b.dataset.id; if (MM.play) delete MM.play[id]; return netLive(); }
   if (a === "simre" && MM.sim) return netAnimate();
   if (a === "why" && x) return netWhy(x.id);
   if (a === "net") { MM.d.mode = MM.d.mode === "net" ? "map" : "net"; b.setAttribute("aria-pressed", String(MM.d.mode === "net")); $("#mmStage").classList.toggle("net", MM.d.mode === "net"); toast((MM.d.mode === "net" ? "🧠 " : "🗺 ") + T(MM.d.mode === "net" ? "netOn" : "netOff")); mmSave(); return mmDraw(); }
