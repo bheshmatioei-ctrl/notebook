@@ -836,6 +836,18 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .netloops{display:flex;flex-direction:column;gap:6px}
 .netloops button{display:block;text-align:start;border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit}
 .netloops .t{font-weight:700;margin-inline-end:6px}.netloops .R{color:#c2508a}.netloops .B{color:#2f8f9d}
+.mmn.msel{box-shadow:0 0 0 3px #4f7fe0,0 2px 8px rgba(40,30,20,.12)}
+.mmn.hasimg{flex-wrap:wrap;justify-content:center;max-width:240px}
+.mmn .mmimg{display:block;flex-basis:100%;order:-1;max-width:212px;max-height:150px;width:auto;height:auto;margin:2px auto 4px;object-fit:contain;border-radius:8px}
+.mmfr{position:absolute;transform:translateY(-100%);background:var(--fc);color:#fff;font-size:12.5px;font-weight:600;border-radius:8px 8px 0 0;padding:2px 10px;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.mmtb .mcount{padding:0 8px;font-weight:700;font-size:13px;white-space:nowrap;display:flex;align-items:center}
+.mmpres{bottom:12px;top:auto}
+.drawpad{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:10px;touch-action:none}
+.drawtools{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.drawtools .swatch{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer}
+.drawtools .swatch[aria-pressed=true]{border-color:var(--ink)}
+.tplgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.tplgrid button{border:1px solid var(--line);background:transparent;border-radius:10px;padding:8px;cursor:pointer;color:var(--ink);font:inherit;font-size:13px;text-align:start}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -3043,7 +3055,7 @@ async function handwritingToText() {
 let ro = null;
 function renderMain() {
   const main = $("#main");
-  closePop();
+  closePop(); clearTblHandles(); document.querySelectorAll(".tblguide").forEach((g) => g.remove()); // table grips belong to one page only
   captureActive(); S.contentDirty = false; paperState = null;
   if (ro) { ro.disconnect(); ro = null; }
   if (S.inkUnsub) { try { S.inkUnsub(); } catch {} S.inkUnsub = null; }
@@ -5608,6 +5620,7 @@ function assetsOfDoc(d) {
   for (const a of d?.attachments || []) if (a && a.id) ids.add(a.id);
   for (const x of d?.sealed || []) ids.add(x);
   if (d?.file && d.file.id) ids.add(d.file.id);
+  if (d?.mm && d.mm.nodes) for (const x of Object.values(d.mm.nodes)) { if (x && x.img) ids.add(x.img); for (const q of (x && x.sym) || []) if (typeof q === "string" && q.startsWith("img:")) ids.add(q.slice(4)); }
   return [...ids];
 }
 function setSyncState(s, err = "") { Sync.state = s; Sync.err = err; renderStatus(); const b = $("#syncBox"); if (b) b.innerHTML = syncBoxHtml(); }
@@ -7367,6 +7380,22 @@ Object.assign(I18N.en, { anaMenu: "Analysis", anaLive: "⚡ Live mode", anaLiveO
   sensUp: "+25", sensDn: "−25", sensFragile: "⚠️ Fragile: moving “{x}” by 25 flips the result's sign.", sensStable: "✅ Stable: no 25-point change of one input flips the sign.", sensNoIn: "No inputs (ideas with a value).",
   impHelp: "Influence: how much the network moves when this idea moves. Exposure: how many arrows reach it.", impOut: "Influence", impIn: "Exposure", hlStrong: "Strong arrows only", hlPaths: "Paths into “{x}”", hlLoop: "Loop {t}",
   pickIdea: "Tap an idea first.", outTitle: "Automatic text (optional)", outHelp: "Depending on the value, one of these texts is shown.", outHi: "Above threshold", outMid: "In between", outLo: "Below minus threshold", outT: "Threshold", outPhHi: "e.g. Buy", outPhMid: "e.g. Hold", outPhLo: "e.g. Sell" });
+Object.assign(I18N.fa, { mmMore: "بیشتر", mmDup: "⧉ تکثیر شاخه", mmCopy: "📋 کپی شاخه", mmPaste: "📥 چسباندن زیر این ایده", mmCopied: "شاخه کپی شد. در هر نقشه‌ای زیر یک ایده «چسباندن» را بزنید.", mmFrame: "▢ قاب دور این شاخه", mmMulti: "☑ انتخاب چندتایی",
+  mmImg: "🖼 افزودن عکس", mmDraw: "✍️ دست‌خط یا طرح داخل ایده", mmImgDel: "🗑 حذف عکس", mmMultiHint: "روی ایده‌های دیگر بزنید تا به انتخاب اضافه یا کم شوند. با کشیدن یکی، همه با هم جابه‌جا می‌شوند.", mmMultiN: "{n} انتخاب",
+  mmFrameName: "نام قاب", mmFrameRen: "✎ تغییر نام", mmFrameColor: "🎨 رنگ بعدی", mmFrameDel: "🗑 حذف قاب", mmDrawTitle: "دست‌خط یا طرح", mmDrawClear: "پاک کردن", mmNoAssets: "ذخیرهٔ تصویر اینجا ممکن نیست.",
+  mmTpl: "الگوهای آماده", tpl_decision: "📈 تصمیم بورسی", tpl_swot: "🧭 تحلیل SWOT", tpl_causal: "🔁 علت و معلول", tpl_pros: "⚖️ مزایا و معایب", tpl_project: "✅ برنامهٔ پروژه",
+  presStart: "🎬 ارائهٔ قدم‌به‌قدم", presStep: "{i} از {n}", mmKindSet: "◇ نوع همه", mmMultiDelQ: "{n} ایده و زیرشاخه‌هایشان پاک شوند؟" });
+Object.assign(I18N.de, { mmMore: "Mehr", mmDup: "⧉ Zweig duplizieren", mmCopy: "📋 Zweig kopieren", mmPaste: "📥 Unter dieser Idee einfügen", mmCopied: "Zweig kopiert. In jeder Karte unter einer Idee „Einfügen“ wählen.", mmFrame: "▢ Rahmen um diesen Zweig", mmMulti: "☑ Mehrfachauswahl",
+  mmImg: "🖼 Bild hinzufügen", mmDraw: "✍️ Handschrift oder Skizze", mmImgDel: "🗑 Bild entfernen", mmMultiHint: "Weitere Ideen antippen, um sie hinzuzufügen oder zu entfernen. Ziehen bewegt alle zusammen.", mmMultiN: "{n} gewählt",
+  mmFrameName: "Name des Rahmens", mmFrameRen: "✎ Umbenennen", mmFrameColor: "🎨 Nächste Farbe", mmFrameDel: "🗑 Rahmen löschen", mmDrawTitle: "Handschrift oder Skizze", mmDrawClear: "Löschen", mmNoAssets: "Bilder können hier nicht gespeichert werden.",
+  mmTpl: "Vorlagen", tpl_decision: "📈 Börsenentscheidung", tpl_swot: "🧭 SWOT-Analyse", tpl_causal: "🔁 Ursache und Wirkung", tpl_pros: "⚖️ Vor- und Nachteile", tpl_project: "✅ Projektplan",
+  presStart: "🎬 Schritt-für-Schritt-Präsentation", presStep: "{i} von {n}", mmKindSet: "◇ Art für alle", mmMultiDelQ: "{n} Ideen samt Unterzweigen löschen?" });
+Object.assign(I18N.en, { mmMore: "More", mmDup: "⧉ Duplicate branch", mmCopy: "📋 Copy branch", mmPaste: "📥 Paste under this idea", mmCopied: "Branch copied. In any map, choose “Paste” under an idea.", mmFrame: "▢ Frame around this branch", mmMulti: "☑ Select several",
+  mmImg: "🖼 Add picture", mmDraw: "✍️ Handwriting or sketch", mmImgDel: "🗑 Remove picture", mmMultiHint: "Tap other ideas to add or remove them. Dragging one moves them all.", mmMultiN: "{n} selected",
+  mmFrameName: "Frame name", mmFrameRen: "✎ Rename", mmFrameColor: "🎨 Next colour", mmFrameDel: "🗑 Delete frame", mmDrawTitle: "Handwriting or sketch", mmDrawClear: "Clear", mmNoAssets: "Pictures cannot be stored here.",
+  mmTpl: "Templates", tpl_decision: "📈 Stock decision", tpl_swot: "🧭 SWOT analysis", tpl_causal: "🔁 Cause and effect", tpl_pros: "⚖️ Pros and cons", tpl_project: "✅ Project plan",
+  presStart: "🎬 Step-by-step presentation", presStep: "{i} of {n}", mmKindSet: "◇ Type for all", mmMultiDelQ: "Delete {n} ideas and their sub-branches?" });
+let MM_CLIP = null;
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -7391,6 +7420,7 @@ function mmNorm(m) {
       ...(x.collapsed ? { collapsed: true } : {}), ...(x.task ? { task: true } : {}), ...(x.task && x.done ? { done: true } : {}),
       ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}),
       ...(NET_KINDS.includes(x.kind) ? { kind: x.kind } : {}), ...(x.val !== undefined && x.val !== null && x.val !== "" && isFinite(x.val) ? { val: Math.max(-100, Math.min(100, Math.round(+x.val))) } : {}),
+      ...(typeof x.img === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x.img) ? { img: x.img } : {}),
       ...(x.out && typeof x.out === "object" && (x.out.hi || x.out.mid || x.out.lo) ? { out: { t: Math.max(1, Math.min(99, Math.round(+x.out.t) || 30)), hi: String(x.out.hi || "").slice(0, 40), mid: String(x.out.mid || "").slice(0, 40), lo: String(x.out.lo || "").slice(0, 40) } } : {}),
       ...(x.real && typeof x.real === "object" && String(x.real.v ?? "").trim() ? { real: { v: String(x.real.v).trim().slice(0, 40), u: String(x.real.u || "").slice(0, 20), ts: typeof x.real.ts === "string" ? x.real.ts.slice(0, 30) : "" } } : {}) };
   }
@@ -7403,7 +7433,8 @@ function mmNorm(m) {
     note: String(r.note || "").slice(0, 20000), cm: Array.isArray(r.cm) ? r.cm.filter((c) => c && String(c.t || "").trim()).slice(-200).map((c) => ({ t: String(c.t).slice(0, 4000), at: typeof c.at === "string" ? c.at.slice(0, 30) : "" })) : [] })) : [];
   const scen = Array.isArray(m.scen) ? m.scen.filter((q) => q && typeof q === "object").slice(0, 30).map((q) => ({ id: String(q.id || mmId()).slice(0, 20), name: String(q.name || "").slice(0, 80),
     ov: Object.fromEntries(Object.entries(q.ov && typeof q.ov === "object" ? q.ov : {}).filter(([k, v]) => nodes[k] && v !== null && v !== "" && isFinite(v)).map(([k, v]) => [k, Math.max(-100, Math.min(100, Math.round(+v)))])) })) : [];
-  return { v: 2, root: m.root, nodes, rels, scen, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
+  const frames = Array.isArray(m.frames) ? m.frames.filter((f) => f && typeof f === "object").slice(0, 60).map((f) => ({ id: String(f.id || mmId()).slice(0, 20), ids: (Array.isArray(f.ids) ? f.ids : []).filter((k) => nodes[k]).slice(0, 500), br: !!f.br, label: String(f.label || "").slice(0, 80), color: hex(f.color) || "#7b61d6" })).filter((f) => f.ids.length) : [];
+  return { v: 2, root: m.root, nodes, rels, scen, frames, mode: m.mode === "net" ? "net" : "map", layout: MM_LAYOUTS.includes(m.layout) ? m.layout : "free", dir: ["auto", "rtl", "ltr"].includes(m.dir) ? m.dir : "auto",
     view: m.view && isFinite(m.view.z) ? { x: +m.view.x || 0, y: +m.view.y || 0, z: Math.min(3, Math.max(0.15, +m.view.z)) } : null };
 }
 let MM = null; // the open map: { n, d, sel, rel, edit, connect, undo, redo, size }
@@ -7450,7 +7481,7 @@ function renderMap(n) {
       <button class="btn ghost aibtn" data-mm="ai" data-pop="1" title="${esc(T("aiMenu"))}">✨<span class="mmlab">${esc(T("aiMenu"))}</span></button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div><div id="mmSim" class="mmsim hide"></div><div id="mmHl" class="mmfocus mmhl hide"></div><div id="mmLive" class="mmlive hide"></div>
+  <div class="mmstage ${d.mode === "net" ? "net" : ""}" id="mmStage" tabindex="-1"><div class="mmworld" id="mmWorld"><svg class="mmsvg" width="100000" height="100000"><g id="mmSvg" transform="translate(50000,50000)"></g></svg><div id="mmNodes"></div></div><div id="mmTb" class="mmtb hide"></div><div id="mmHint" class="mmhint hide"></div><div id="mmFocus" class="mmfocus hide"></div><div id="mmSim" class="mmsim hide"></div><div id="mmHl" class="mmfocus mmhl hide"></div><div id="mmLive" class="mmlive hide"></div><div id="mmPres" class="mmsim mmpres hide"></div>
     <aside class="mmside hide" id="mmSide"><div class="mmsh"><input id="mmQ" type="search" placeholder="${esc(T("mmSearchPh"))}" dir="auto"><span class="seg mmflt"><button type="button" class="segb" data-flt="" aria-pressed="true">${esc(T("mmAll"))}</button><button type="button" class="segb" data-flt="open" aria-pressed="false">☐ ${esc(T("mmOpen"))}</button><button type="button" class="segb" data-flt="done" aria-pressed="false">☑ ${esc(T("mmDoneF"))}</button></span></div><div class="mmtree" id="mmTree"></div></aside></div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
@@ -7511,12 +7542,13 @@ function mmDraw() {
   box.innerHTML = Object.values(d.nodes).filter((x) => !hid.has(x.id)).map((x) => {
     const kids = mmKids(d, x.id).length, root = x.id === d.root, prog = kids ? mmProgress(d, x.id) : null;
     const mark = prog !== null ? `<i class="pie" style="--p:${prog}" title="${esc(T("mmProgress", { p: num(prog) }))}"></i>` : x.task ? `<b class="ck ${x.done ? "on" : ""}" data-badge="check">${x.done ? "✓" : ""}</b>` : "";
-    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""} ${simStyle(x) ? "sg" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}${simStyle(x)}">
-      ${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}${outHtml(x)}
+    return `<div class="mmn s-${x.shape} ${root ? "root" : ""} ${MM.sel === x.id ? "sel" : ""} ${MM.connect === x.id ? "conn" : ""} ${dim(x.id) ? "dim" : ""} ${x.done && prog === null ? "done" : ""} ${MM.drop === x.id ? "drop" : ""} ${net && !x.kind && !inRel.has(x.id) && !root ? "nd" : ""} ${x.kind ? "k-" + x.kind : ""} ${simStyle(x) ? "sg" : ""} ${MM.multi && MM.multi.has(x.id) ? "msel" : ""} ${x.img ? "hasimg" : ""}" data-mmn="${x.id}" style="left:${x.x}px;top:${x.y}px;--c:${x.color};${mmStyleCss(x)}${simStyle(x)}">
+      ${x.img ? `<img class="mmimg" data-blob="${esc(x.img)}" src="/_blob/${esc(x.img)}" alt="">` : ""}${mark}${x.kind ? `<span class="nk" title="${esc(T("k_" + x.kind))}">${NET_KIC[x.kind]}</span>` : ""}${x.sym.length ? `<span class="syms">${x.sym.map(mmSymHtml).join("")}</span>` : ""}<span class="tx" dir="auto">${esc(x.text || "…")}</span>${x.real ? `<small class="nr" title="${esc(T("netReal"))}">${esc(x.real.v + (x.real.u ? " " + x.real.u : ""))}</small>` : ""}${valHtml(x)}${outHtml(x)}
       ${x.links.length || x.note ? `<span class="badges">${x.links.length ? `<b data-badge="links">🔗${x.links.length > 1 ? num(x.links.length) : ""}</b>` : ""}${x.note ? `<b data-badge="note">📝</b>` : ""}</span>` : ""}
       ${x.collapsed && kids ? `<span class="fold" data-badge="fold">+${num(mmDesc(d, x.id).length)}</span>` : ""}</div>`;
   }).join("") + d.rels.filter((r) => !hid.has(r.a) && !hid.has(r.b) && (r.label || (r.lag && r.lag !== "0") || r.why || r.cm?.length || r.links?.length || r.note)).map((r) => `<div class="mmrl k${r.kind === "+" ? "p" : r.kind === "-" ? "n" : "0"} ${MM.rel === r.id ? "sel" : ""} ${dim(r.a) && dim(r.b) ? "dim" : ""}" data-rel="${r.id}" dir="auto"${r.why ? ` title="${esc(r.why)}"` : ""}>${r.lag && r.lag !== "0" ? NET_LAG[r.lag] : ""}${esc(r.label)}${r.cm?.length ? " 💬" + num(r.cm.length) : r.why || r.note ? " 💬" : ""}${r.links?.length ? " 🔗" : ""}</div>`).join("");
   hydrate(box);
+  for (const im of box.querySelectorAll("img.mmimg, img.msym")) if (!im.complete) im.addEventListener("load", () => { clearTimeout(mmDraw.imgT); mmDraw.imgT = setTimeout(() => { if (MM && $("#mmNodes")) mmDraw(); }, 60); }, { once: true });
   MM.size = {};
   for (const el of box.querySelectorAll(".mmn")) MM.size[el.dataset.mmn] = { w: el.offsetWidth, h: el.offsetHeight };
   // automatic layouts place every idea again (not while an idea is being dragged)
@@ -7525,7 +7557,16 @@ function mmDraw() {
     for (const el of box.querySelectorAll(".mmn")) { const x = d.nodes[el.dataset.mmn]; el.style.left = x.x + "px"; el.style.top = x.y + "px"; }
   }
   const L = d.layout, rtl = mmIsRtl(d);
-  let svg = "";
+  let svg = "", frl = "";
+  for (const f of d.frames || []) {
+    const mem = (f.br ? [f.ids[0], ...mmDesc(d, f.ids[0])] : f.ids).filter((k) => d.nodes[k] && !hid.has(k) && MM.size[k]); if (!mem.length) continue;
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const k of mem) { const q = d.nodes[k], z = MM.size[k]; x0 = Math.min(x0, q.x - z.w / 2); x1 = Math.max(x1, q.x + z.w / 2); y0 = Math.min(y0, q.y - z.h / 2); y1 = Math.max(y1, q.y + z.h / 2); }
+    x0 -= 18; y0 -= 18; x1 += 18; y1 += 18;
+    svg += `<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${y1 - y0}" rx="18" fill="${f.color}" fill-opacity="${MM.hl ? 0.03 : 0.08}" stroke="${f.color}" stroke-opacity=".7" stroke-width="2" stroke-dasharray="8 6"/>`;
+    frl += `<div class="mmfr" data-fr="${esc(f.id)}" style="left:${x0 + 14}px;top:${y0 + 1}px;--fc:${f.color}" dir="auto">${esc(f.label || "▢")}</div>`;
+  }
+  if (frl) box.insertAdjacentHTML("beforeend", frl);
   for (const x of Object.values(d.nodes)) {
     if (!x.parent || hid.has(x.id)) continue;
     const p = d.nodes[x.parent], ps = MM.size[p.id], cs = MM.size[x.id]; if (!ps || !cs) continue;
@@ -7558,6 +7599,7 @@ function mmDraw() {
   if (!MM.view) MM.view = { x: 0, y: 0, z: 1 };
   mmApplyView();
   if (MM.side) mmOutline();
+  const pc = $("#mmPres"); if (pc) { pc.classList.toggle("hide", !MM.pres); if (MM.pres) pc.innerHTML = `🎬 <b>${esc(T("presStep", { i: num(MM.pres.i + 1), n: num(MM.pres.steps.length) }))}</b> <button type="button" data-mm="presP">‹</button><button type="button" data-mm="presN">›</button><button type="button" data-mm="presX">✕</button>`; }
   const hc = $("#mmHl"); if (hc) { hc.classList.toggle("hide", !MM.hl); if (MM.hl) hc.innerHTML = `${esc(MM.hl.label)} <button type="button" data-mm="unhl">✕</button>`; }
   netLivePanel();
   const sc = $("#mmSim"); if (sc) { sc.classList.toggle("hide", !sim); if (sim && sim.live) sc.innerHTML = `⚡ <b>${esc(T("liveName"))}</b> <small>${esc(T("netChanges", { n: num(Object.keys(MM.play || {}).length) }))}</small><button type="button" data-mm="livesave" title="${esc(T("liveSave"))}">💾</button><button type="button" data-mm="livereset" title="${esc(T("liveReset"))}">↺</button><button type="button" data-mm="liveoff" title="${esc(T("anaLiveOff"))}">✕</button>`;
@@ -7569,11 +7611,16 @@ function mmPlaceTb() {
   const tb = $("#mmTb"); if (!tb || !MM) return;
   const v = MM.view, st = $("#mmStage");
   if (MM.ro) { tb.classList.add("hide"); return; }
+  if (MM.multi) {
+    const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
+    tb.innerHTML = `<span class="mcount">☑ ${esc(T("mmMultiN", { n: num(MM.multi.size) }))}</span>` + b("mcolor", T("mmColor"), "🎨") + b("mkind", T("mmKindSet"), "◇") + b("mframe", T("mmFrame"), "▢") + b("mdel", T("mmDelete"), "🗑") + b("mdone", T("close"), "✕");
+    tb.classList.remove("hide"); tb.style.left = Math.max(6, (st.clientWidth - tb.offsetWidth) / 2) + "px"; tb.style.top = "10px"; return;
+  }
   if (MM.sel && MM.d.nodes[MM.sel] && !MM.edit) {
     const x = MM.d.nodes[MM.sel], s = MM.size[x.id] || { w: 100, h: 36 }, kids = mmKids(MM.d, x.id).length, root = x.id === MM.d.root;
     const b = (a, label, inner) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}">${inner}</button>`;
     tb.innerHTML = b("child", T("mmChild"), "＋") + (root || !x.parent ? "" : b("sibling", T("mmSibling"), "⇣＋")) + b("edit", T("mmEdit"), "✎") + b("color", T("mmColor"), `<i style="background:${x.color}"></i>`) + b("style", T("mmStyle"), "Aa") + b("symbols", T("mmSymbols"), "★") + b("task", T("mmTask"), x.task ? "☑" : "☐") + b("netnode", T("netNode"), x.kind ? NET_KIC[x.kind] : "◇") + (MM.sim && MM.sim.res.nodes.has(x.id) ? b("why", T("netWhy2"), "؟") : "") +
-      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + b("aitb", T("aiMenu"), "✨") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + (root ? "" : b("del", T("mmDelete"), "🗑"));
+      b("details", T("mmDetails"), "🔗") + b("relate", T("mmRelate"), "↗") + b("aitb", T("aiMenu"), "✨") + (kids ? b("fold", T("mmCollapse"), x.collapsed ? "▸" : "▾") + b("focus", T("mmFocus"), "🎯") : "") + b("more", T("mmMore"), "⋯") + (root ? "" : b("del", T("mmDelete"), "🗑"));
     tb.classList.remove("hide");
     const sx = x.x * v.z + v.x, sy = (x.y - s.h / 2) * v.z + v.y;
     tb.style.left = Math.min(st.clientWidth - tb.offsetWidth - 6, Math.max(6, sx - tb.offsetWidth / 2)) + "px";
@@ -8063,12 +8110,13 @@ async function mmRelComments(r) {
 }
 /* ---------------- analysis: live mode, loops, time chart, sensitivity, key factors, filters ---------------- */
 async function netAnalysis() {
-  const items = [["live", MM.live ? T("anaLiveOff") : T("anaLive")], ["loops", T("anaLoops")], ["chart", T("anaChart")], ["sens", T("anaSens")], ["imp", T("anaImp")], ["strong", T("anaStrong")], ["paths", T("anaPaths")]];
+  const items = [["live", MM.live ? T("anaLiveOff") : T("anaLive")], ["loops", T("anaLoops")], ["chart", T("anaChart")], ["sens", T("anaSens")], ["imp", T("anaImp")], ["strong", T("anaStrong")], ["paths", T("anaPaths")], ["pres", T("presStart")]];
   if (MM.hl) items.push(["unhl", T("anaUnfilter")]);
   const v = await menuBox("📊 " + T("anaMenu"), items);
   if (!v || !MM) return;
   if (v === "live") { if (MM.live) { MM.live = false; MM.play = {}; netStop(); return mmDraw(); } MM.live = true; MM.play = MM.play || {}; if (netLive()) toast("⚡ " + T("liveHint")); return; }
   if (v === "loops") return netLoopsDlg();
+  if (v === "pres") return mmPresStart();
   if (v === "chart") return netChart();
   if (v === "sens") return netSens();
   if (v === "imp") return netImportance();
@@ -8187,6 +8235,164 @@ async function netImportance() {
   await dialog({ title: "⭐ " + T("anaImp"), wide: true, actions: [{ label: T("close"), value: null }],
     body: `<p class="msg">${esc(T("impHelp"))}</p><table class="netbars"><thead><tr><td></td><td>${esc(T("impOut"))}</td><td>${esc(T("impIn"))}</td></tr></thead><tbody>${rows.map((q, i) => `<tr><td dir="auto">${i < 3 && q.out > 0.01 ? "⭐ " : ""}${d.nodes[q.k].kind ? NET_KIC[d.nodes[q.k].kind] + " " : ""}${esc(netLbl(d.nodes[q.k]))}</td><td style="width:32%">${bar(q.out, mo, "#d97757")}</td><td style="width:32%">${bar(q.inn, mi, "#4f7fe0")}</td></tr>`).join("")}</tbody></table>` });
 }
+/* ---------------- more for one idea: duplicate, copy/paste, frame, several, pictures ---------------- */
+async function mmMoreMenu(x) {
+  const items = x.id === MM.d.root ? [["copy", T("mmCopy")]] : [["dup", T("mmDup")], ["copy", T("mmCopy")]];
+  if (MM_CLIP) items.push(["paste", T("mmPaste")]);
+  items.push(["frame", T("mmFrame")], ["multi", T("mmMulti")], ["img", T("mmImg")], ["draw", T("mmDraw")]);
+  if (x.img) items.push(["imgdel", T("mmImgDel")]);
+  const v = await menuBox(x.text || T("mmIdea"), items);
+  if (!v || !MM || !MM.d.nodes[x.id]) return;
+  if (v === "copy") { MM_CLIP = mmBranchOf(MM.d, x.id); return toast("📋 " + T("mmCopied")); }
+  if (v === "dup" && x.parent) return mmPasteUnder(x.parent, mmBranchOf(MM.d, x.id), x);
+  if (v === "paste" && MM_CLIP) return mmPasteUnder(x.id, MM_CLIP);
+  if (v === "frame") { mmPush(); MM.d.frames = MM.d.frames || []; MM.d.frames.push({ id: mmId(), ids: [x.id], br: true, label: x.text.slice(0, 80), color: x.color }); mmSave(); return mmDraw(); }
+  if (v === "multi") { MM.multi = new Set([x.id]); MM.sel = null; toast("☑ " + T("mmMultiHint")); return mmDraw(); }
+  if (v === "img") return mmPickImage(x.id);
+  if (v === "draw") return mmDrawIn(x.id);
+  if (v === "imgdel") { mmPush(); delete x.img; mmSave(); return mmDraw(); }
+}
+/** A branch as a stand-alone copy: its ideas and the arrows between them. */
+function mmBranchOf(d, id) {
+  const ids = [id, ...mmDesc(d, id)], set = new Set(ids);
+  return { root: id, nodes: ids.map((k) => JSON.parse(JSON.stringify(d.nodes[k]))), rels: d.rels.filter((r) => set.has(r.a) && set.has(r.b)).map((r) => JSON.parse(JSON.stringify(r))) };
+}
+function mmPasteUnder(parentId, clip, after) {
+  const d = MM.d; if (!clip || !d.nodes[parentId]) return;
+  mmPush();
+  const map = new Map(clip.nodes.map((q) => [q.id, mmId()])), top = clip.nodes.find((q) => q.id === clip.root) || clip.nodes[0], p = d.nodes[parentId];
+  const dx = (after ? 0 : p.x - top.x + 160) + 30, dy = (after ? 70 : p.y - top.y + 40);
+  const oMax = Math.max(-1, ...mmKids(d, parentId).map((k) => k.o ?? -1)) + 1;
+  for (const q of clip.nodes) {
+    const n = { ...JSON.parse(JSON.stringify(q)), id: map.get(q.id), x: q.x + dx, y: q.y + dy };
+    n.parent = q.id === top.id ? parentId : map.get(q.parent) || parentId;
+    if (q.id === top.id) { n.o = oMax; delete n.side; }
+    d.nodes[n.id] = n;
+  }
+  for (const r of clip.rels) d.rels.push({ ...JSON.parse(JSON.stringify(r)), id: mmId(), a: map.get(r.a), b: map.get(r.b) });
+  MM.sel = map.get(top.id); MM.rel = null; mmSave(); mmDraw();
+}
+async function mmFrameMenu(fid, fresh) {
+  const d = MM.d, f = (d.frames || []).find((q) => q.id === fid); if (!f) return;
+  const v = fresh ? "ren" : await menuBox("▢ " + (f.label || T("mmFrameName")), [["ren", T("mmFrameRen")], ["color", T("mmFrameColor")], ["del", T("mmFrameDel")]]);
+  if (!v || !MM) return;
+  if (v === "ren") { const r = await formBox(T("mmFrameName"), `<div class="field"><input name="t" maxlength="80" dir="auto" value="${esc(f.label)}"></div>`, (fm) => ({ t: fm.t.value.trim() }), T("save")); if (r) { mmPush(); f.label = r.t; mmSave(); mmDraw(); } return; }
+  mmPush();
+  if (v === "color") f.color = MM_COLORS[(MM_COLORS.indexOf(f.color) + 1) % MM_COLORS.length];
+  if (v === "del") d.frames = d.frames.filter((q) => q !== f);
+  mmSave(); mmDraw();
+}
+function mmMultiColor(anchor) {
+  const el = popover(anchor, `<h4>${esc(T("mmColor"))}</h4><div class="colors mmcols">${MM_COLORS.map((c) => `<button type="button" class="swatch" data-c="${c}" style="background:${c}"></button>`).join("")}</div>`, "mmpop");
+  if (!el) return;
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (!b || !MM.multi) return; mmPush(); for (const k of MM.multi) if (MM.d.nodes[k]) MM.d.nodes[k].color = b.dataset.c; mmSave(); mmDraw(); closePop(); });
+}
+async function mmMultiKind() {
+  const v = await menuBox(T("mmKindSet"), [["", "○ " + T("k_none")], ...NET_KINDS.map((k) => [k, NET_KIC[k] + " " + T("k_" + k)])]);
+  if (v === null || v === undefined || !MM || !MM.multi) return;
+  mmPush(); for (const k of MM.multi) { const q = MM.d.nodes[k]; if (!q) continue; if (v) q.kind = v; else delete q.kind; } mmSave(); mmDraw();
+}
+async function mmMultiDelete() {
+  const ids = [...MM.multi].filter((k) => k !== MM.d.root && MM.d.nodes[k]); if (!ids.length) return;
+  if (!(await confirmBox(T("mmMultiDelQ", { n: num(ids.length) }), { danger: true }))) return;
+  mmPush(); const all = new Set(ids.flatMap((k) => [k, ...mmDesc(MM.d, k)])); for (const k of all) delete MM.d.nodes[k];
+  MM.d.rels = MM.d.rels.filter((r) => MM.d.nodes[r.a] && MM.d.nodes[r.b]); MM.multi = null; MM.sel = null; mmSave(); mmDraw();
+}
+/* pictures and handwriting inside an idea */
+let mmImgIn = null;
+function mmPickImage(id) {
+  if (!S.assets) return toast(T("mmNoAssets"), { kind: "err" });
+  if (!mmImgIn) { mmImgIn = document.createElement("input"); mmImgIn.type = "file"; mmImgIn.accept = "image/*"; mmImgIn.className = "vhide"; document.body.append(mmImgIn); }
+  mmImgIn.onchange = async () => { const f = mmImgIn.files && mmImgIn.files[0]; mmImgIn.value = ""; if (!f) return; try { const blob = await mmShrink(f, 900); await mmSetImg(id, blob); } catch (e) { toast(String(e && e.message || e), { kind: "err" }); } };
+  mmImgIn.value = ""; mmImgIn.click();
+}
+async function mmShrink(file, max) {
+  const url = URL.createObjectURL(file);
+  try {
+    const im = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight)); if (k >= 1 && file.size < 600e3) return file;
+    const c = document.createElement("canvas"); c.width = Math.round(im.naturalWidth * k); c.height = Math.round(im.naturalHeight * k);
+    c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+    return await new Promise((res) => c.toBlob(res, file.type === "image/png" ? "image/png" : "image/jpeg", 0.86));
+  } finally { URL.revokeObjectURL(url); }
+}
+async function mmSetImg(id, blob) {
+  const up = await S.assets.upload(blob); if (!MM || !MM.d.nodes[id]) return;
+  mmPush(); MM.d.nodes[id].img = up.id; mmSave(); mmDraw();
+}
+async function mmDrawIn(id) {
+  if (!S.assets) return toast(T("mmNoAssets"), { kind: "err" });
+  const cols = ["#1d1d1f", "#d64545", "#1f8a4c", "#4f7fe0", "#d97757"]; let col = cols[0], used = false, cv = null;
+  const ok = await dialog({ title: "✍️ " + T("mmDrawTitle"), wide: true, body: `<canvas class="drawpad" width="1200" height="700"></canvas><div class="drawtools">${cols.map((c, i) => `<button type="button" class="swatch" data-pc="${c}" style="background:${c}" aria-pressed="${i === 0}"></button>`).join("")}<button type="button" class="btn" data-pclr="1">${esc(T("mmDrawClear"))}</button></div>`,
+    actions: [{ label: T("cancel"), value: false }, { label: T("save"), kind: "primary", value: true }], onOpen: (el) => {
+      cv = el.querySelector("canvas"); const g = cv.getContext("2d"); g.lineCap = "round"; g.lineJoin = "round";
+      let on = false, last = null;
+      const pt = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * cv.width / r.width, (e.clientY - r.top) * cv.height / r.height]; };
+      cv.addEventListener("pointerdown", (e) => { e.preventDefault(); on = true; used = true; try { cv.setPointerCapture(e.pointerId); } catch {} last = pt(e); g.strokeStyle = col; g.lineWidth = e.pointerType === "pen" ? 3 + 6 * (e.pressure || 0.5) : 5; g.beginPath(); g.moveTo(...last); g.lineTo(last[0] + 0.1, last[1]); g.stroke(); });
+      cv.addEventListener("pointermove", (e) => { if (!on) return; const p = pt(e); if (e.pointerType === "pen") g.lineWidth = 3 + 6 * (e.pressure || 0.5); g.beginPath(); g.moveTo(...last); g.lineTo(...p); g.stroke(); last = p; });
+      const end = () => { on = false; }; cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end);
+      el.addEventListener("click", (e) => { const b = e.target.closest("[data-pc]"); if (b) { col = b.dataset.pc; el.querySelectorAll("[data-pc]").forEach((q) => q.setAttribute("aria-pressed", String(q === b))); } if (e.target.closest("[data-pclr]")) { g.clearRect(0, 0, cv.width, cv.height); used = false; } });
+    } });
+  if (!ok || !used || !cv) return;
+  // trim the empty margins
+  const g = cv.getContext("2d"), px = g.getImageData(0, 0, cv.width, cv.height).data; let x0 = cv.width, y0 = cv.height, x1 = 0, y1 = 0;
+  for (let y = 0; y < cv.height; y += 2) for (let x = 0; x < cv.width; x += 2) if (px[(y * cv.width + x) * 4 + 3] > 10) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  if (x1 <= x0 || y1 <= y0) return;
+  const pad = 14, w = Math.min(cv.width, x1 - x0 + pad * 2), h = Math.min(cv.height, y1 - y0 + pad * 2), out = document.createElement("canvas"); out.width = w; out.height = h;
+  out.getContext("2d").drawImage(cv, Math.max(0, x0 - pad), Math.max(0, y0 - pad), w, h, 0, 0, w, h);
+  const blob = await new Promise((res) => out.toBlob(res, "image/png")); if (blob) await mmSetImg(id, blob);
+}
+/* step-by-step presentation: the whole map, then each main branch */
+function mmPresStart() {
+  const d = MM.d, kids = mmKids(d, d.root); MM.multi = null; MM.sel = null; MM.rel = null;
+  MM.pres = { steps: [null, ...kids.map((k) => k.id)], i: 0 }; mmPresGo(0);
+}
+function mmPresGo(i) {
+  const p = MM.pres; if (!p) return; p.i = Math.max(0, Math.min(p.steps.length - 1, i));
+  const id = p.steps[p.i]; MM.focus = id; if (id && MM.d.nodes[id]?.collapsed) delete MM.d.nodes[id].collapsed;
+  mmDraw(); if (id) mmFitIds([id, ...mmDesc(MM.d, id)]); else mmFit();
+}
+function mmPresEnd() { if (!MM) return; MM.pres = null; MM.focus = null; mmDraw(); mmFit(); }
+/* ready-made templates */
+function mmTemplate(k) {
+  const fa = (S.meta.settings.lang || "fa") === "fa", t = (a, b) => (fa ? a : b);
+  const d = mmNewData(""); d.nodes = {}; d.rels = []; d.frames = []; d.layout = "map";
+  let o = 0; const N = (text, parent, extra) => { const id = mmId(); d.nodes[id] = { id, parent, o: o++, text, x: 0, y: 0, color: parent ? "#5b6b7f" : "#25334a", shape: parent ? "round" : "pill", sym: [], note: "", links: [], ...(extra || {}) }; if (!parent) d.root = id; return id; };
+  const R = (a, b, kind, w) => d.rels.push({ id: mmId(), a, b, label: "", kind, dashed: false, w: w || 2, lag: "0", why: "", by: "me", links: [], note: "", cm: [] });
+  let title = "";
+  if (k === "decision") {
+    title = t("تصمیم: سهم …", "Decision: stock …"); const r = N(title, null);
+    const goal = N(t("خرید؟", "Buy?"), r, { kind: "goal", color: "#25334a", out: { t: 30, hi: t("خرید", "Buy"), mid: t("صبر", "Wait"), lo: t("فروش", "Sell") } });
+    const cats = [
+      [t("اقتصاد کلان", "Macro economy"), "#4f7fe0", [[t("نرخ بهره", "Interest rates"), "-", 3], [t("تورم", "Inflation"), "-", 1]]],
+      [t("صنعت و رقبا", "Industry and rivals"), "#2f8f9d", [[t("رشد صنعت", "Industry growth"), "+", 2]]],
+      [t("خود شرکت", "The company"), "#1f8a4c", [[t("رشد سود", "Earnings growth"), "+", 3], [t("بدهی", "Debt"), "-", 1]]],
+      [t("ارزش‌گذاری", "Valuation"), "#e0a43a", [[t("گرانی سهم (P/E)", "Expensiveness (P/E)"), "-", 2]]],
+      [t("روند قیمت", "Price trend"), "#7b61d6", [[t("روند ۵۰ روزه", "50-day trend"), "+", 1]]],
+      [t("روان‌شناسی بازار", "Market mood"), "#c2508a", [[t("احساس بازار", "Sentiment"), "+", 1]]],
+      [t("سیاست و قانون", "Politics and rules"), "#8a6d55", [[t("ریسک قانون‌گذاری", "Regulatory risk"), "-", 1]]],
+      [t("رویدادهای نادر", "Rare events"), "#d64545", [[t("شوک غیرمنتظره", "Unexpected shock"), "-", 1]]],
+    ];
+    for (const [name, color, fs] of cats) { const c = N(name, r, { color }); for (const [fname, sign, w] of fs) { const f = N(fname, c, { color, kind: "factor" }); R(f, goal, sign, w); } }
+    d.mode = "net"; d.nodes[r].note = t("به هر عامل با ◇ مقدار بدهید، فلش‌ها را بررسی کنید و ▶ را بزنید. دسته‌های خالی یعنی جایی که فکر نکرده‌اید.", "Give each factor a value with ◇, check the arrows and press ▶. Empty categories show where you have not looked.");
+  } else if (k === "swot") {
+    title = t("تحلیل SWOT", "SWOT analysis"); const r = N(title, null);
+    for (const [name, color] of [[t("نقاط قوت", "Strengths"), "#1f8a4c"], [t("نقاط ضعف", "Weaknesses"), "#d64545"], [t("فرصت‌ها", "Opportunities"), "#4f7fe0"], [t("تهدیدها", "Threats"), "#e0a43a"]]) { const c = N(name, r, { color }); N("…", c, { color }); N("…", c, { color }); }
+  } else if (k === "causal") {
+    title = t("مسئله", "Problem"); const r = N(title, null, { kind: "goal" });
+    const c1 = N(t("علت ۱", "Cause 1"), r, { kind: "factor", color: "#d97757" }), c2 = N(t("علت ۲", "Cause 2"), r, { kind: "factor", color: "#d97757" }), c3 = N(t("علت ۳", "Cause 3"), r, { kind: "factor", color: "#d97757" });
+    const e1 = N(t("اثر ۱", "Effect 1"), r, { kind: "event", color: "#4f7fe0" }), e2 = N(t("اثر ۲", "Effect 2"), r, { kind: "event", color: "#4f7fe0" });
+    R(c1, r, "+", 2); R(c2, r, "+", 2); R(c3, r, "+", 1); R(r, e1, "+", 2); R(r, e2, "+", 2); R(e1, c1, "+", 1); d.mode = "net";
+    d.nodes[r].note = t("علت‌ها و اثرها را بنویسید و جهت فلش‌ها (＋/−) را درست کنید. فلش «اثر ۱ ← علت ۱» یک حلقهٔ تقویت‌کننده می‌سازد؛ در 📊 ← حلقه‌ها ببینید.", "Fill in causes and effects and set each arrow's sign. The arrow from Effect 1 back to Cause 1 makes a reinforcing loop — see 📊 → Loops.");
+  } else if (k === "pros") {
+    title = t("تصمیم: …", "Decision: …"); const r = N(title, null);
+    for (const opt of [t("گزینهٔ الف", "Option A"), t("گزینهٔ ب", "Option B")]) { const c = N(opt, r, { color: "#4f7fe0" }); const p = N(t("مزایا", "Pros"), c, { color: "#1f8a4c" }); N("…", p, { color: "#1f8a4c" }); const m = N(t("معایب", "Cons"), c, { color: "#d64545" }); N("…", m, { color: "#d64545" }); }
+  } else if (k === "project") {
+    title = t("پروژه", "Project"); const r = N(title, null);
+    for (const [ph, color] of [[t("برنامه‌ریزی", "Planning"), "#4f7fe0"], [t("اجرا", "Doing"), "#e0a43a"], [t("بررسی", "Review"), "#1f8a4c"]]) { const c = N(ph, r, { color }); for (let i = 1; i <= 3; i++) N(t("کار " + i, "Task " + i), c, { color, task: true }); }
+  }
+  const n = mmNewNoteFrom(mmNorm(d), title.replace(/[:：]\s*…$/, "")); openNote(n.id);
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -8211,7 +8417,7 @@ function mmBind() {
     if (pts.size > 2) return;
     const nodeEl = e.target.closest(".mmn"), relEl = e.target.closest("[data-rel]"), badge = e.target.closest("[data-badge]");
     const rh = e.target.closest("[data-rh]");
-    g = { id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
+    g = { fr: e.target.closest("[data-fr]")?.dataset.fr || null, id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
   });
   st.addEventListener("pointermove", (e) => {
     if (!pts.has(e.pointerId)) return;
@@ -8235,7 +8441,7 @@ function mmBind() {
       g.moved = true;
       if (g.id && MM.ro) g.id = null;
       if (g.id && g.id === MM.d.root && MM.d.layout !== "free") g.id = null; // the centre moves the whole board in automatic layouts
-      if (g.id) { mmPush(); const ids = [g.id, ...mmDesc(MM.d, g.id)]; g.start = ids.map((i) => [i, MM.d.nodes[i].x, MM.d.nodes[i].y]); MM.sel = g.id; MM.rel = null; }
+      if (g.id) { mmPush(); const ids = MM.multi && MM.multi.has(g.id) ? [...new Set([...MM.multi].flatMap((k) => [k, ...mmDesc(MM.d, k)]))] : [g.id, ...mmDesc(MM.d, g.id)]; g.start = ids.map((i) => [i, MM.d.nodes[i].x, MM.d.nodes[i].y]); MM.sel = g.id; MM.rel = null; }
     }
     if (g.id && g.start) {
       const z = MM.view.z; MM.dragging = true;
@@ -8251,6 +8457,7 @@ function mmBind() {
     if (pin) { if (pts.size < 2) { pin = null; mmSetView(MM.view.x, MM.view.y, MM.view.z); } g = null; return; }
     if (!g) return;
     const G = g; g = null;
+    if (G.fr && !G.moved && !MM.ro) return mmFrameMenu(G.fr);
     if (G.rh && G.moved) {
       const r = MM.d.rels.find((q) => q.id === G.rel), drop = MM.drop; MM.rhDrag = null; MM.drop = null;
       if (r && drop && MM.d.nodes[drop] && drop !== (G.rh === "a" ? r.b : r.a) && drop !== r[G.rh]) { mmPush(); r[G.rh] = drop; MM.rel = r.id; mmSave(); }
@@ -8259,7 +8466,7 @@ function mmBind() {
     if (G.moved) {
       if (G.id && G.start) {
         const d = MM.d, x = d.nodes[G.id], drop = MM.drop; MM.drop = null; MM.dragging = false;
-        if (drop && drop !== x.parent && d.nodes[drop]) { x.parent = drop; delete x.o; delete x.side; if (d.nodes[drop].collapsed) delete d.nodes[drop].collapsed; }
+        if (drop && !MM.multi && drop !== x.parent && d.nodes[drop]) { x.parent = drop; delete x.o; delete x.side; if (d.nodes[drop].collapsed) delete d.nodes[drop].collapsed; }
         else if (d.layout !== "free" && x.parent) {
           // automatic layout: the drop position decides the order among siblings (and the side of the centre)
           const p = d.nodes[x.parent], sib = mmKids(d, p.id), vertical = d.layout === "down" ? false : true;
@@ -8276,6 +8483,7 @@ function mmBind() {
     if (G.badge === "check" && G.id) { if (MM.ro) return; const x = MM.d.nodes[G.id]; mmPush(); x.done = !x.done; if (!x.done) delete x.done; mmSave(); return mmDraw(); }
     if (G.badge && G.id) { MM.sel = MM.ro ? null : G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
     if (G.id) {
+      if (MM.multi && !MM.ro) { if (MM.multi.has(G.id)) MM.multi.delete(G.id); else MM.multi.add(G.id); if (!MM.multi.size) MM.multi = null; return mmDraw(); }
       if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false, w: 2, lag: "0", why: "", by: "me" }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
       if (MM.ro) { if (!MM.roWarned) { MM.roWarned = true; toast("👁 " + T("mmRoWarn")); } return; }
       const now = Date.now(), lt = MM.lt || {}, again = lt.id === G.id && now - lt.t < 380;
@@ -8311,6 +8519,9 @@ document.addEventListener("click", (e) => {
   if (a === "scen") return netScenarios();
   if (a === "simx") { netStop(); return mmDraw(); }
   if (a === "ana") return netAnalysis();
+  if (a === "presN" && MM.pres) return mmPresGo(MM.pres.i + 1);
+  if (a === "presP" && MM.pres) return mmPresGo(MM.pres.i - 1);
+  if (a === "presX") return mmPresEnd();
   if (a === "unhl") { MM.hl = null; return mmDraw(); }
   if (a === "liveoff") { MM.live = false; MM.play = {}; netStop(); return mmDraw(); }
   if (a === "livereset") { MM.play = {}; return netLive(); }
@@ -8334,6 +8545,12 @@ document.addEventListener("click", (e) => {
   if (a === "symbols") return mmSymPop(b);
   if (a === "details") return mmDetails();
   if (a === "netnode") return mmNetNode();
+  if (a === "more" && x) return mmMoreMenu(x);
+  if (a === "mdone") { MM.multi = null; return mmDraw(); }
+  if (a === "mcolor" && MM.multi) return mmMultiColor(b);
+  if (a === "mkind" && MM.multi) return mmMultiKind();
+  if (a === "mframe" && MM.multi) { mmPush(); const ids = [...MM.multi]; MM.d.frames = MM.d.frames || []; MM.d.frames.push({ id: mmId(), ids, br: false, label: "", color: MM_COLORS[MM.d.frames.length % MM_COLORS.length] }); MM.multi = null; mmSave(); mmDraw(); return mmFrameMenu(MM.d.frames.at(-1).id, true); }
+  if (a === "mdel" && MM.multi) return mmMultiDelete();
   if (a === "relate" && x) { MM.connect = x.id; MM.sel = null; mmHint("↗ " + T("mmRelateHint")); return mmDraw(); }
   if (a === "fold" && x) { mmPush(); x.collapsed = !x.collapsed; if (!x.collapsed) delete x.collapsed; mmSave(); return mmDraw(); }
   if (a === "del" && x) return mmDelete(x.id);
@@ -8355,6 +8572,8 @@ document.addEventListener("keydown", (e) => {
   const k = e.key, mod = e.ctrlKey || e.metaKey;
   if (mod && k.toLowerCase() === "z") { e.preventDefault(); return mmUndo(e.shiftKey); }
   if (mod && k.toLowerCase() === "y") { e.preventDefault(); return mmUndo(true); }
+  if (MM.pres && (k === "ArrowRight" || k === "ArrowLeft" || k === "Escape")) { e.preventDefault(); return k === "Escape" ? mmPresEnd() : mmPresGo(MM.pres.i + ((k === "ArrowRight") !== (document.documentElement.dir === "rtl") ? 1 : -1)); }
+  if (MM.multi && k === "Escape") { MM.multi = null; return mmDraw(); }
   if (!MM.sel || MM.ro) return;
   if (k === "Tab") { e.preventDefault(); return mmAdd("child"); }
   if (k === "Enter") { e.preventDefault(); return mmAdd(MM.d.nodes[MM.sel].parent ? "sibling" : "child"); }
@@ -8482,9 +8701,10 @@ async function mmExport(kind) {
 async function mmIOPanel(anchor) {
   const ex = ["png", "pdf", "svg", "opml", "mm", "md", "txt", "page"], icon = { png: "🖼", pdf: "📕", svg: "✒️", opml: "🗂", mm: "🧠", md: "Ⓜ️", txt: "📝", page: "📄" };
   const el = popover(anchor, `<h4>⇅ ${esc(T("mmIO"))}</h4><span class="pl">${esc(T("mmExport"))}</span><div class="ilist">${ex.map((k) => `<button type="button" class="irow" data-ex="${k}"><span>${icon[k]}</span><span>${esc(T("ex_" + k))}</span></button>`).join("")}</div>
-    <span class="pl">${esc(T("mmImport"))}</span><button type="button" class="btn" data-imp="1" style="width:100%">📂 ${esc(T("mmImport"))}</button><p class="msg">${esc(T("mmImportHint"))}</p>`, "mmpop");
+    <span class="pl">${esc(T("mmImport"))}</span><button type="button" class="btn" data-imp="1" style="width:100%">📂 ${esc(T("mmImport"))}</button><p class="msg">${esc(T("mmImportHint"))}</p>
+    <span class="pl">📐 ${esc(T("mmTpl"))}</span><div class="tplgrid">${["decision", "swot", "causal", "pros", "project"].map((k) => `<button type="button" data-tpl="${k}">${esc(T("tpl_" + k))}</button>`).join("")}</div>`, "mmpop");
   if (!el) return;
-  el.addEventListener("click", (e) => { const b = e.target.closest("[data-ex]"); if (b) { closePop(); return mmExport(b.dataset.ex); } if (e.target.closest("[data-imp]")) { closePop(); mmPickImport(); } });
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-ex]"); if (b) { closePop(); return mmExport(b.dataset.ex); } if (e.target.closest("[data-imp]")) { closePop(); mmPickImport(); } const tp = e.target.closest("[data-tpl]"); if (tp) { e.stopPropagation(); closePop(); const k = tp.dataset.tpl; setTimeout(() => mmTemplate(k), 0); } });
 }
 let mapIn = null;
 function mmPickImport() {
