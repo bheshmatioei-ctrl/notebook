@@ -1064,6 +1064,12 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .skyhome .skd .pn{position:absolute;top:6px;inset-inline-start:8px;font-size:14px;z-index:1}
 .skyhome .skdock .skhint{padding:0 6px}
 @media (prefers-reduced-motion:reduce){.skyhome .sst i{transition:none}}
+
+/* bars a little darker than the page; a navy night that matches the sky */
+:root{--bar:#ece5d7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1426;--panel:#171d34;--panel2:#1f2642;--line:#2a3152;--bar:#090c1a;--hover:rgba(255,255,255,.06);--sel:#27304f;--accent-soft:#3a2a35}}
+:root[data-theme="dark"]{--bg:#0f1426;--panel:#171d34;--panel2:#1f2642;--line:#2a3152;--bar:#090c1a;--hover:rgba(255,255,255,.06);--sel:#27304f;--accent-soft:#3a2a35}
+header.top,aside.side,.bar-main{background:var(--bar)}
 </style>
 
 <div class="app" id="app">
@@ -10031,6 +10037,13 @@ let skyToastEl = null;
 function skyToast(msg, actions) { try { skyToastEl?.remove(); } catch {} skyToastEl = toast(msg, { actions: actions || [] }); return skyToastEl; }
 const skyUi = () => ({ view: "sky", theme: "night", dock: "pin", ...lsGet("babak-sa-skyui", {}) });
 const skyUiSet = (p) => lsSet("babak-sa-skyui", { ...skyUi(), ...p });
+/** Night and day are one switch for the whole app (bars, side panel, pages), not only for the start page. */
+function skyNight() { const t = S.meta.settings.theme; return t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches); }
+function skyThemeOnce() {
+  if (lsGet("babak-sa-skysync", 0)) return; lsSet("babak-sa-skysync", 1);
+  const night = skyUi().theme !== "day"; if (night === skyNight()) return;
+  S.meta.settings.theme = night ? "dark" : "light"; saveMeta(0); applyLangTheme();
+}
 function skyOn() { return S.meta.settings.homeStyle !== "classic"; }
 function skyLive() { return Array.from(S.notes.values()).filter((n) => !n.trashed); }
 const skyTop = (n) => (n.folder ? n.folder.split(SEP)[0] : "");
@@ -10230,6 +10243,7 @@ function renderSky() {
   const maps = live.filter((n) => n.mm).length;
   const sky = skyLayout(live), chips = Object.entries(sky.f).sort((a, b) => a[1] - b[1]).map(([p]) => p);
   const qb = (k, act, icon, label) => `<button type="button" class="qa" ${act ? `data-act="${act}"` : ""} data-skyk="${k}"><span class="qi">${icon}</span><span>${esc(label)}</span></button>`;
+  skyThemeOnce(); ui.theme = skyNight() ? "night" : "day";
   main.innerHTML = `<div class="scroll lib skyhome ${ui.theme === "day" ? "day" : "night"}" id="scroll"><div class="skin">
     <div class="skh">
       <div class="skt"><h1>✦ ${esc(T("skyName"))}</h1><small>${esc(T("skyStats", { n: num(live.length), m: num(maps), f: num(tops.length) }))}</small></div>
@@ -10337,7 +10351,7 @@ function skyWire(root) {
     const b = e.target.closest("[data-sky]"); if (!b) return;
     const a = b.dataset.sky; e.stopPropagation();
     if (a === "view") { skyUiSet({ view: b.dataset.v }); return renderLibrary(); }
-    if (a === "theme") { skyUiSet({ theme: skyUi().theme === "day" ? "night" : "day" }); return renderLibrary(); }
+    if (a === "theme") { const night = !skyNight(); S.meta.settings.theme = night ? "dark" : "light"; skyUiSet({ theme: night ? "night" : "day" }); saveMeta(0); applyLangTheme(); renderSide(); return renderLibrary(); }
     if (a === "classic") { S.meta.settings.homeStyle = "classic"; saveMeta(0); renderLibrary(); return toast(T("skyClassicMsg")); }
     if (a === "focus") { skyFocus = b.dataset.p || ""; return renderLibrary(); }
     if (a === "dock") { skyUiSet({ dock: b.dataset.v }); return renderLibrary(); }
