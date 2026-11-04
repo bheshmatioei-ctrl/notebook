@@ -872,6 +872,12 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mminsp .muted{font-size:12.5px;opacity:.65}
 .mmbl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid var(--bc);color:var(--bc);border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis;z-index:2}
 .mmbl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent);transform:translate(-50%,-170%)}
+.aibr textarea{width:100%;font:inherit;font-size:13.5px;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);color:var(--ink);box-sizing:border-box}
+.aibr .row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.aibr a.btn{text-decoration:none;color:var(--ink)}
+.aibr .prev{font-size:13px;opacity:.75;white-space:pre-wrap;max-height:120px;overflow:auto;border:1px dashed var(--line);border-radius:8px;padding:6px 8px;margin-top:6px}
+.aibr .sum{padding:8px 10px;border-radius:10px;background:var(--hover);margin:8px 0;font-size:14px}
+.aibr .ans{white-space:pre-wrap;font-size:14px;line-height:1.7;max-height:34vh;overflow:auto;border:1px solid var(--line);border-radius:10px;padding:8px 10px}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7439,6 +7445,21 @@ Object.assign(I18N.de, { brTitle: "Zweig", brLabel: "Beschriftung am Zweig", brC
 Object.assign(I18N.en, { brTitle: "Branch", brLabel: "Label on the branch", brColor: "Branch colour", brW: "Thickness", brDash: "Line style", brArrow: "Arrow head", brCm: "Notes and discussion", brSrc: "Sources and explanation", brDetach: "✂ Detach from parent",
   brAuto: "Idea colour", w_thin: "Thin", w_norm: "Normal", w_thick: "Thick", w_xthick: "Very thick", brHint: "Branch selected: change colour, thickness, dashes, label and notes from the bar or the 🎛 panel." });
 const BR_W = [0.6, 1, 1.6, 2.4], BR_WK = ["w_thin", "w_norm", "w_thick", "w_xthick"];
+Object.assign(I18N.fa, { brFound: "در جواب: {n} ایده و {r} فلش.", ex_bmap: "فایل کامل دفترچه (.bmap) — همه‌چیز", ex_csv: "جدول ایده‌ها و فلش‌ها (CSV)", ex_xmind: "XMind", ex_smmx: "SimpleMind (آزمایشی)", ioBridge: "🤖 پل هوش مصنوعی",
+  brAsk: "📋 پرسیدن از هوش مصنوعی", brPaste: "📥 چسباندن جواب", brQ: "سؤال یا درخواست شما", brQPh: "مثلاً: چه عامل‌هایی جا افتاده؟ شدت فلش‌ها منطقی است؟ شبکه را کامل کن.", brPrompt: "متن آماده برای هوش مصنوعی",
+  brCopy: "📋 کپی متن", brCopied: "کپی شد. در ChatGPT یا Claude بچسبانید، بعد جواب را با «📥 چسباندن جواب» برگردانید.", brSendApi: "✨ فرستادن مستقیم با کلید خودم", brOpen: "باز کردن", brHow: "راه رایگان: متن را کپی کنید، در ChatGPT یا Claude بچسبانید، و جواب کامل را اینجا برگردانید. اگر کلید API دارید، می‌توانید مستقیم هم بفرستید.",
+  brPasteH: "کل جواب هوش مصنوعی را اینجا بچسبانید (همراه با بخش JSON).", brNoJson: "در این متن بخش JSON پیدا نشد. از هوش مصنوعی بخواهید جواب را با همان قالب بدهد.", brSum: "{a} ایدهٔ تازه، {c} ایدهٔ به‌روزشده، {r} فلش.", brApply: "اعمال روی نقشه",
+  brKeepAns: "پاسخ متنی را به یادداشت ایدهٔ مرکزی اضافه کن", brDone: "✅ اعمال شد: {s}", brAnswer: "پاسخ", brThinking: "در حال پرسیدن…", bmapBad: "این فایل .bmap معتبر نیست.", csvBad: "در این جدول ستون‌های قابل‌فهم پیدا نشد (مثلاً text یا from/to)." });
+Object.assign(I18N.de, { brFound: "In der Antwort: {n} Ideen und {r} Pfeile.", ex_bmap: "Vollständige Datei (.bmap)", ex_csv: "Tabelle Ideen und Pfeile (CSV)", ex_xmind: "XMind", ex_smmx: "SimpleMind (experimentell)", ioBridge: "🤖 KI-Brücke",
+  brAsk: "📋 KI fragen", brPaste: "📥 Antwort einfügen", brQ: "Ihre Frage", brQPh: "z. B.: Welche Faktoren fehlen? Sind die Stärken plausibel?", brPrompt: "Fertiger Text für die KI",
+  brCopy: "📋 Text kopieren", brCopied: "Kopiert. In ChatGPT oder Claude einfügen, dann die Antwort mit „📥 Antwort einfügen“ zurückholen.", brSendApi: "✨ Direkt mit eigenem Schlüssel senden", brOpen: "Öffnen", brHow: "Kostenlos: Text kopieren, in ChatGPT oder Claude einfügen, Antwort hier einfügen. Mit API-Schlüssel auch direkt.",
+  brPasteH: "Die ganze KI-Antwort hier einfügen (mit JSON-Teil).", brNoJson: "Kein JSON-Teil gefunden. Bitten Sie die KI um das vorgegebene Format.", brSum: "{a} neue Ideen, {c} geänderte Ideen, {r} Pfeile.", brApply: "Auf die Karte anwenden",
+  brKeepAns: "Textantwort zur Notiz der Hauptidee hinzufügen", brDone: "✅ Angewendet: {s}", brAnswer: "Antwort", brThinking: "Frage läuft…", bmapBad: "Keine gültige .bmap-Datei.", csvBad: "Keine verständlichen Spalten gefunden (z. B. text oder from/to)." });
+Object.assign(I18N.en, { brFound: "In the answer: {n} ideas and {r} arrows.", ex_bmap: "Complete notebook file (.bmap)", ex_csv: "Table of ideas and arrows (CSV)", ex_xmind: "XMind", ex_smmx: "SimpleMind (experimental)", ioBridge: "🤖 AI bridge",
+  brAsk: "📋 Ask an AI", brPaste: "📥 Paste the answer", brQ: "Your question", brQPh: "e.g. Which factors are missing? Are the strengths sensible? Complete the network.", brPrompt: "Ready text for the AI",
+  brCopy: "📋 Copy text", brCopied: "Copied. Paste it into ChatGPT or Claude, then bring the answer back with “📥 Paste the answer”.", brSendApi: "✨ Send directly with my key", brOpen: "Open", brHow: "Free way: copy the text, paste it into ChatGPT or Claude, and paste the full answer back here. With an API key you can also send it directly.",
+  brPasteH: "Paste the whole AI answer here (including the JSON part).", brNoJson: "No JSON part found. Ask the AI to answer in the given format.", brSum: "{a} new ideas, {c} updated ideas, {r} arrows.", brApply: "Apply to the map",
+  brKeepAns: "Add the text answer to the central idea's note", brDone: "✅ Applied: {s}", brAnswer: "Answer", brThinking: "Asking…", bmapBad: "Not a valid .bmap file.", csvBad: "No usable columns found (e.g. text or from/to)." });
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -8703,6 +8724,210 @@ function mmBrColor(anchor, x) {
   const el = popover(anchor, `<h4>${esc(T("brColor"))}</h4><div class="colors mmcols"><button type="button" class="swatch" data-c="" title="${esc(T("brAuto"))}" style="background:${x.color};outline:2px dashed var(--line)"></button>${MM_COLORS.map((c) => `<button type="button" class="swatch" data-c="${c}" style="background:${c}"></button>`).join("")}</div>`, "mmpop"); if (!el) return;
   el.addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (!b || !MM || !MM.d.nodes[x.id]) return; mmPush(); x.ln = x.ln || {}; if (b.dataset.c) x.ln.c = b.dataset.c; else delete x.ln.c; mmSave(); mmDraw(); closePop(); });
 }
+/* ---------------- connections: complete file, tables, XMind / SimpleMind out, AI bridge ---------------- */
+const xe = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;" })[c]);
+const dataUrlToBlob = async (u) => (await fetch(u)).blob();
+function mmAssetIds(d) { const ids = new Set(); for (const x of Object.values(d.nodes)) { if (x.img) ids.add(x.img); for (const q of x.sym || []) if (typeof q === "string" && q.startsWith("img:")) ids.add(q.slice(4)); } return [...ids]; }
+/** One file that keeps everything: ideas, arrows, values, scenarios, frames, styles and pictures. */
+async function mmToBmap(n, d) {
+  const assets = {};
+  for (const id of mmAssetIds(d)) { try { const r = await localAssets.get(id); if (r && r.blob) assets[id] = await blobToDataUrl(r.blob); } catch {} }
+  return JSON.stringify({ format: "babak-map", v: 1, title: n.title || "", exportedAt: new Date().toISOString(), mm: d, assets });
+}
+async function bmapToMap(text) {
+  let o; try { o = JSON.parse(text); } catch { throw new Error(T("bmapBad")); }
+  if (!o || o.format !== "babak-map" || !o.mm) throw new Error(T("bmapBad"));
+  const d = mmNorm(JSON.parse(JSON.stringify(o.mm))); if (!d) throw new Error(T("bmapBad"));
+  const map = new Map();
+  if (S.assets) for (const [id, u] of Object.entries(o.assets || {})) { try { if (typeof u === "string" && u.startsWith("data:")) map.set(id, (await S.assets.upload(await dataUrlToBlob(u))).id); } catch {} }
+  for (const x of Object.values(d.nodes)) {
+    if (x.img) { if (map.has(x.img)) x.img = map.get(x.img); else delete x.img; }
+    x.sym = (x.sym || []).map((q) => (q.startsWith("img:") ? (map.has(q.slice(4)) ? "img:" + map.get(q.slice(4)) : null) : q)).filter(Boolean);
+  }
+  return { d, title: String(o.title || "").slice(0, 200) };
+}
+/* tables: one row per idea, one row per arrow — for Google Sheets or Excel */
+const csvCell = (v) => { const t = String(v ?? ""); return /[",\n\r]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t; };
+const csvOf = (rows) => "﻿" + rows.map((r) => r.map(csvCell).join(",")).join("\r\n");
+function mmCsvTables(d) {
+  const nodes = [["id", "text", "parent", "kind", "value", "real", "unit", "note", "color"]];
+  for (const x of Object.values(d.nodes)) nodes.push([x.id, x.text, x.parent || "", x.kind || "", x.val ?? "", x.real?.v ?? "", x.real?.u ?? "", x.note || "", x.color]);
+  const arrows = [["from_id", "from", "to_id", "to", "sign", "strength", "delay", "confidence", "label", "why"]];
+  for (const r of d.rels) arrows.push([r.a, d.nodes[r.a]?.text || "", r.b, d.nodes[r.b]?.text || "", r.kind || "", r.w || 2, r.lag || "0", r.conf ?? "", r.label || "", r.why || ""]);
+  return { nodes: csvOf(nodes), arrows: csvOf(arrows) };
+}
+async function mmToCsvZip(d) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), z = new JSZip(), t = mmCsvTables(d);
+  z.file("ideas.csv", t.nodes); z.file("arrows.csv", t.arrows);
+  return z.generateAsync({ type: "blob" });
+}
+function csvParse(text) {
+  text = text.replace(/^﻿/, ""); const sep = (text.split(/\r?\n/)[0].match(/;/g) || []).length > (text.split(/\r?\n/)[0].match(/,/g) || []).length ? ";" : text.split(/\r?\n/)[0].includes("\t") ? "\t" : ",";
+  const rows = []; let row = [], cell = "", q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; continue; }
+    if (ch === '"') q = true; else if (ch === sep) { row.push(cell); cell = ""; } else if (ch === "\n" || ch === "\r") { if (ch === "\r" && text[i + 1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; } else cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter((r) => r.some((c) => String(c).trim()));
+}
+/** A table (or a zip with ideas.csv + arrows.csv) -> a thinking network. */
+async function csvToMap(file) {
+  let ideas = null, arrows = null;
+  if (extOf(file.name) === "zip") {
+    const JSZip = await loadLib("JSZip", CDN.jszip), z = await JSZip.loadAsync(await file.arrayBuffer());
+    for (const f of Object.values(z.files)) { if (f.dir) continue; const nm = f.name.toLowerCase(); if (!nm.endsWith(".csv")) continue; const rows = csvParse(await f.async("string")); const h = rows[0].map((c) => c.trim().toLowerCase()); if (h.includes("from") || h.includes("from_id")) arrows = rows; else ideas = rows; }
+  } else { const rows = csvParse(await file.text()); const h = (rows[0] || []).map((c) => c.trim().toLowerCase()); if (h.includes("from") || h.includes("from_id") || h.includes("از")) arrows = rows; else ideas = rows; }
+  if (!ideas && !arrows) throw new Error(T("csvBad"));
+  const title = file.name.replace(/(-table)?\.[^.]+$/, ""), d = mmNewData(title); d.nodes = {}; d.rels = []; d.layout = "map";
+  const rootId = mmId(); d.root = rootId; d.nodes[rootId] = { id: rootId, parent: null, text: title, x: 0, y: 0, color: "#25334a", shape: "pill", sym: [], note: "", links: [] };
+  const byKey = new Map(), col = (h, ...names) => names.map((n) => h.indexOf(n)).find((i) => i >= 0) ?? -1;
+  const mk = (key, text, extra) => { const id = mmId(); d.nodes[id] = { id, parent: rootId, text: String(text || key).slice(0, 2000), x: 0, y: 0, color: "#5b6b7f", shape: "round", sym: [], note: "", links: [], ...(extra || {}) }; byKey.set(String(key), id); byKey.set("t:" + String(text || key).trim().toLowerCase(), id); return id; };
+  if (ideas) {
+    const h = ideas[0].map((c) => c.trim().toLowerCase()), iId = col(h, "id"), iT = col(h, "text", "idea", "name", "ایده", "متن", "نام"), iP = col(h, "parent", "والد"), iK = col(h, "kind", "type", "نوع"), iV = col(h, "value", "مقدار"), iR = col(h, "real"), iU = col(h, "unit"), iN = col(h, "note", "یادداشت"), iC = col(h, "color");
+    if (iT < 0) throw new Error(T("csvBad"));
+    const parents = [];
+    for (const r of ideas.slice(1)) {
+      const key = iId >= 0 && r[iId] ? r[iId] : r[iT]; if (!String(r[iT] || "").trim()) continue;
+      if (iP >= 0 && !String(r[iP] || "").trim() && ideas.length > 1 && Object.keys(d.nodes).length === 1 && iId >= 0) { d.nodes[rootId].text = r[iT]; byKey.set(String(key), rootId); byKey.set("t:" + r[iT].trim().toLowerCase(), rootId); continue; }
+      const v = iV >= 0 && String(r[iV]).trim() !== "" && isFinite(r[iV]) ? Math.max(-100, Math.min(100, Math.round(+r[iV]))) : undefined;
+      const id = mk(key, r[iT], { ...(iK >= 0 && NET_KINDS.includes(String(r[iK]).trim()) ? { kind: String(r[iK]).trim() } : {}), ...(v !== undefined ? { val: v } : {}), ...(iR >= 0 && String(r[iR]).trim() ? { real: { v: String(r[iR]).trim(), u: iU >= 0 ? String(r[iU] || "") : "", ts: "" } } : {}), note: iN >= 0 ? String(r[iN] || "") : "", ...(iC >= 0 && /^#[0-9a-f]{6}$/i.test(r[iC] || "") ? { color: r[iC] } : {}) });
+      if (iP >= 0 && String(r[iP] || "").trim()) parents.push([id, String(r[iP]).trim()]);
+    }
+    for (const [id, pk] of parents) { const p = byKey.get(pk) || byKey.get("t:" + pk.toLowerCase()); if (p && p !== id) d.nodes[id].parent = p; }
+  }
+  if (arrows) {
+    const h = arrows[0].map((c) => c.trim().toLowerCase()), fI = col(h, "from_id"), fT = col(h, "from", "از"), tI = col(h, "to_id"), tT = col(h, "to", "به"), sg = col(h, "sign", "جهت"), st = col(h, "strength", "شدت"), lg = col(h, "delay", "lag"), cf = col(h, "confidence", "اطمینان"), lb = col(h, "label", "برچسب"), wy = col(h, "why", "reason", "دلیل");
+    const find = (idv, tv) => (idv && byKey.get(String(idv))) || (tv && byKey.get("t:" + String(tv).trim().toLowerCase())) || (tv || idv ? mk(tv || idv, tv || idv, { kind: "factor" }) : null);
+    for (const r of arrows.slice(1)) {
+      const a = find(fI >= 0 ? r[fI] : "", fT >= 0 ? r[fT] : ""), b = find(tI >= 0 ? r[tI] : "", tT >= 0 ? r[tT] : ""); if (!a || !b || a === b) continue;
+      const sv = String(sg >= 0 ? r[sg] : "").trim(), kind = /^(\+|plus|pos|مثبت)/i.test(sv) ? "+" : /^(-|−|minus|neg|منفی)/i.test(sv) ? "-" : "";
+      d.rels.push({ id: mmId(), a, b, kind, w: [1, 2, 3].includes(+r[st]) ? +r[st] : 2, lag: ["0", "w", "m"].includes(String(r[lg])) ? String(r[lg]) : "0", ...(cf >= 0 && String(r[cf]).trim() !== "" && isFinite(r[cf]) ? { conf: +r[cf] } : {}), label: lb >= 0 ? String(r[lb] || "") : "", why: wy >= 0 ? String(r[wy] || "") : "", dashed: false, by: "data" });
+    }
+    if (d.rels.length) d.mode = "net";
+  }
+  return mmNorm(d);
+}
+/* XMind and SimpleMind, so a map can travel to those apps too */
+async function mmToXmind(d, title) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), z = new JSZip();
+  const topic = (x) => { const kids = mmKids(d, x.id); return { id: x.id, class: "topic", title: x.text, ...(x.note ? { notes: { plain: { content: x.note } } } : {}), ...(x.links?.find((l) => l.t === "url") ? { href: x.links.find((l) => l.t === "url").v } : {}),
+    ...(x.task ? { markers: [{ markerId: x.done ? "task-done" : "task-start" }] } : {}), ...(kids.length ? { children: { attached: kids.map(topic) } } : {}) }; };
+  const root = topic(d.nodes[d.root]), free = Object.values(d.nodes).filter((x) => !x.parent && x.id !== d.root);
+  if (free.length) root.children = { ...(root.children || {}), detached: free.map(topic) };
+  z.file("content.json", JSON.stringify([{ id: "sheet-" + d.root, class: "sheet", title: title || d.nodes[d.root].text, rootTopic: root, relationships: d.rels.map((r) => ({ id: r.id, end1Id: r.a, end2Id: r.b, ...(r.label ? { title: r.label } : {}) })) }]));
+  z.file("metadata.json", JSON.stringify({ creator: { name: "Babak Notebook" } }));
+  z.file("manifest.json", JSON.stringify({ "file-entries": { "content.json": {}, "metadata.json": {} } }));
+  return z.generateAsync({ type: "blob", mimeType: "application/vnd.xmind.workbook" });
+}
+async function mmToSmmx(d, title) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), z = new JSZip(), num2 = new Map(); let k = 0;
+  const order = [d.root, ...Object.keys(d.nodes).filter((i) => i !== d.root)]; for (const i of order) num2.set(i, k++);
+  const nl = (t) => xe(String(t || "").replace(/\n/g, "\\N"));
+  const topics = order.map((i) => { const x = d.nodes[i], url = x.links?.find((l) => l.t === "url"); return `<topic id="${num2.get(i)}" parent="${x.parent && num2.has(x.parent) ? num2.get(x.parent) : -1}" x="${Math.round(x.x)}" y="${Math.round(x.y)}" text="${nl(x.text)}">${x.note ? `<note>${nl(x.note)}</note>` : ""}${url ? `<link urllink="${xe(url.v)}"/>` : ""}</topic>`; }).join("");
+  const rels = d.rels.filter((r) => num2.has(r.a) && num2.has(r.b)).map((r) => `<relation source="${num2.get(r.a)}" target="${num2.get(r.b)}"${r.label ? ` text="${nl(r.label)}"` : ""}/>`).join("");
+  z.file("document/mindmap.xml", `<?xml version="1.0" encoding="utf-8"?><!DOCTYPE simplemind-mindmaps><simplemind-mindmaps generator="Babak Notebook" doc-version="3" doc-version-min="3"><mindmap><meta><title text="${nl(title)}"/></meta><topics>${topics}</topics><relations>${rels}</relations></mindmap></simplemind-mindmaps>`);
+  return z.generateAsync({ type: "blob" });
+}
+/* the AI bridge: works for free by copy and paste, or directly with your own key */
+function mmBridgeData(d) {
+  return { ideas: Object.values(d.nodes).map((x) => ({ id: x.id, text: x.text, ...(x.parent ? { parent: x.parent } : { central: true }), ...(x.kind ? { kind: x.kind } : {}), ...(x.val !== undefined ? { value: x.val } : {}), ...(x.real ? { real: x.real.v + (x.real.u ? " " + x.real.u : "") } : {}), ...(x.note ? { note: x.note.slice(0, 600) } : {}) })),
+    arrows: d.rels.map((r) => ({ from: r.a, to: r.b, ...(r.kind ? { sign: r.kind } : {}), strength: r.w || 2, ...(r.lag && r.lag !== "0" ? { delay: r.lag === "w" ? "weeks" : "months" } : {}), ...(r.conf !== undefined ? { confidence: r.conf } : {}), ...(r.why ? { why: r.why } : {}), ...(r.label ? { label: r.label } : {}) })) };
+}
+function mmBridgePrompt(d, q) {
+  const fa = (S.meta.settings.lang || "fa") === "fa";
+  return `You are helping me think with my "thinking network": a mind map where ideas have a type and a value from -100 to +100, and arrows say how one idea pushes another (+ raises it, - lowers it; strength 1 weak, 2 medium, 3 strong).
+${fa ? "Answer in Persian (Farsi)." : ""}
+
+MY NETWORK (JSON):
+${JSON.stringify(mmBridgeData(d))}
+
+MY QUESTION:
+${q || "Look at the network critically: which important factors are missing, which arrows or strengths look wrong, and what does the network suggest?"}
+
+HOW TO REPLY:
+1. First, answer in plain language, short and clear.
+2. Then give ONE code block marked \`\`\`json with only what you add or change, in exactly this form:
+{"ideas":[{"id":"existing id, or a new id like new1","text":"…","parent":"id of its parent (existing or new)","kind":"factor|asset|event|goal","value":0,"note":"…"}],
+ "arrows":[{"from":"id","to":"id","sign":"+ or -","strength":2,"delay":"0|w|m","confidence":70,"why":"one short sentence"}]}
+Use the existing ids for ideas that already exist. Leave out fields you do not want to change. Be honest about uncertainty in "confidence".`;
+}
+async function mmBridgeAsk() {
+  if (!MM) return; const d = MM.d;
+  const v = await dialog({ title: T("ioBridge"), wide: true,
+    body: `<div class="aibr"><p class="msg">${esc(T("brHow"))}</p><label class="msg">${esc(T("brQ"))}</label><textarea id="brQ" rows="3" dir="auto" placeholder="${esc(T("brQPh"))}"></textarea>
+      <div class="row"><button type="button" class="btn primary" data-b="copy">${esc(T("brCopy"))}</button><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener">${esc(T("brOpen"))} ChatGPT</a><a class="btn" href="https://claude.ai/new" target="_blank" rel="noopener">${esc(T("brOpen"))} Claude</a>${aiReady() ? `<button type="button" class="btn" data-b="api">${esc(T("brSendApi"))}</button>` : ""}<button type="button" class="btn" data-b="paste">${esc(T("brPaste"))}</button></div>
+      <details><summary class="msg">${esc(T("brPrompt"))}</summary><div class="prev" id="brPrev"></div></details></div>`,
+    actions: [{ label: T("close"), value: null }],
+    onOpen: (el, close) => {
+      const q = el.querySelector("#brQ"), pv = el.querySelector("#brPrev"), upd = () => { pv.textContent = mmBridgePrompt(d, q.value.trim()); }; upd(); q.addEventListener("input", upd);
+      el.addEventListener("click", async (e) => {
+        const b = e.target.closest("[data-b]"); if (!b) return;
+        const text = mmBridgePrompt(d, q.value.trim());
+        if (b.dataset.b === "copy") { try { await navigator.clipboard.writeText(text); toast("📋 " + T("brCopied")); } catch { const ta = document.createElement("textarea"); ta.value = text; document.body.append(ta); ta.select(); try { document.execCommand("copy"); toast("📋 " + T("brCopied")); } catch {} ta.remove(); } }
+        if (b.dataset.b === "api") close({ api: text });
+        if (b.dataset.b === "paste") close({ paste: true });
+      });
+    } });
+  if (v && v.paste) return mmBridgePaste();
+  if (v && v.api) {
+    const { t } = sayToast("✨ " + T("brThinking"));
+    try { const out = await aiChat({ system: "You are a careful analyst. Follow the reply format exactly.", messages: [{ role: "user", content: v.api }], max: 4000 }); t.remove(); return mmBridgePaste(out); }
+    catch (e) { t.remove(); toast(String(e && e.message || e), { kind: "err" }); }
+  }
+}
+function mmBridgeParse(text) {
+  const m = text.match(/```(?:json)?\s*([\s\S]*?)```/i); let raw = m ? m[1] : null;
+  if (!raw) { const i = text.indexOf("{"), j = text.lastIndexOf("}"); if (i >= 0 && j > i) raw = text.slice(i, j + 1); }
+  if (!raw) return null; let o; try { o = JSON.parse(raw); } catch { return null; }
+  if (!o || typeof o !== "object") return null;
+  const answer = (m ? text.replace(m[0], "") : text.slice(0, text.indexOf("{"))).trim();
+  return { ideas: Array.isArray(o.ideas) ? o.ideas : [], arrows: Array.isArray(o.arrows) ? o.arrows : [], answer };
+}
+function mmBridgeApply(p, keepAnswer) {
+  const d = MM.d; mmPush();
+  const idMap = new Map(), byText = new Map(Object.values(d.nodes).map((x) => [x.text.trim().toLowerCase(), x.id]));
+  const res = (k) => (k == null ? null : d.nodes[k] ? k : idMap.get(String(k)) || byText.get(String(k).trim().toLowerCase()) || null);
+  let added = 0, changed = 0, arrows = 0; const pend = [];
+  for (const q of p.ideas) {
+    if (!q || typeof q !== "object") continue;
+    let id = res(q.id);
+    if (!id) { id = mmId(); idMap.set(String(q.id ?? id), id); d.nodes[id] = { id, parent: d.root, text: String(q.text || "…").slice(0, 2000), x: 0, y: 0, color: "#5b6b7f", shape: "round", sym: [], note: "", links: [] }; byText.set(d.nodes[id].text.trim().toLowerCase(), id); added++; pend.push([id, q.parent]); }
+    else { changed++; if (q.text) d.nodes[id].text = String(q.text).slice(0, 2000); if (q.parent !== undefined && q.parent !== null) pend.push([id, q.parent]); }
+    const x = d.nodes[id];
+    if (NET_KINDS.includes(q.kind)) x.kind = q.kind;
+    if (q.value !== undefined && q.value !== null && isFinite(q.value)) x.val = Math.max(-100, Math.min(100, Math.round(+q.value)));
+    if (q.note) x.note = (x.note ? x.note + "\n\n" : "") + String(q.note).slice(0, 4000);
+  }
+  for (const [id, pk] of pend) { const p2 = res(pk); if (p2 && p2 !== id && !mmDesc(d, id).includes(p2)) { const x = d.nodes[id]; if (x.parent !== p2) { x.parent = p2; delete x.o; delete x.side; const par = d.nodes[p2]; x.color = par.id === d.root ? MM_COLORS[mmKids(d, d.root).length % MM_COLORS.length] : par.color; } } }
+  for (const r of p.arrows) {
+    if (!r || typeof r !== "object") continue; const a = res(r.from), b = res(r.to); if (!a || !b || a === b) continue;
+    const kind = r.sign === "+" ? "+" : r.sign === "-" || r.sign === "−" ? "-" : "";
+    let q = d.rels.find((z) => z.a === a && z.b === b); if (!q) { q = { id: mmId(), a, b, label: "", kind: "", dashed: false, w: 2, lag: "0", why: "", by: "ai", links: [], note: "", cm: [] }; d.rels.push(q); }
+    q.kind = kind || q.kind; if ([1, 2, 3].includes(+r.strength)) q.w = +r.strength; if (["0", "w", "m"].includes(String(r.delay))) q.lag = String(r.delay);
+    if (r.confidence !== undefined && isFinite(r.confidence)) q.conf = Math.max(0, Math.min(100, Math.round(+r.confidence))); if (r.why) q.why = String(r.why).slice(0, 2000); if (r.label) q.label = String(r.label).slice(0, 200); q.by = "ai"; arrows++;
+  }
+  if (keepAnswer && p.answer) { const root = d.nodes[d.root]; root.note = (root.note ? root.note + "\n\n" : "") + "— " + T("brAnswer") + " (" + new Date().toLocaleDateString(document.documentElement.lang || undefined) + ") —\n" + p.answer.slice(0, 12000); }
+  if (arrows) d.mode = "net";
+  MM.d = mmNorm(d) || d; mmSave(); mmDraw(); requestAnimationFrame(mmFit);
+  return T("brSum", { a: num(added), c: num(changed), r: num(arrows) });
+}
+async function mmBridgePaste(prefill) {
+  if (!MM) return; const cur = { text: prefill || "", keep: true };
+  const v = await dialog({ title: T("brPaste"), wide: true,
+    body: `<div class="aibr"><p class="msg">${esc(T("brPasteH"))}</p><textarea id="brA" rows="7" dir="auto"></textarea><div id="brS"></div>
+      <label class="msg" style="display:flex;gap:6px;align-items:center;margin-top:8px"><input type="checkbox" id="brK" checked> ${esc(T("brKeepAns"))}</label></div>`,
+    actions: [{ label: T("cancel"), value: null }, { label: T("brApply"), kind: "primary", value: "go" }],
+    onOpen: (el) => {
+      const ta = el.querySelector("#brA"), sm = el.querySelector("#brS"), kp = el.querySelector("#brK");
+      const upd = () => { cur.text = ta.value; const p = mmBridgeParse(ta.value); sm.innerHTML = !ta.value.trim() ? "" : p ? `<div class="sum">${esc(T("brFound", { n: num(p.ideas.length), r: num(p.arrows.length) }))}</div>${p.answer ? `<div class="ans" dir="auto">${esc(p.answer.slice(0, 3000))}</div>` : ""}` : `<p class="netnote warn">${esc(T("brNoJson"))}</p>`; };
+      ta.value = cur.text; ta.addEventListener("input", upd); kp.addEventListener("change", () => { cur.keep = kp.checked; }); upd();
+    } });
+  if (v !== "go" || !MM) return;
+  const p = mmBridgeParse(cur.text); if (!p) return toast(T("brNoJson"), { kind: "err" });
+  toast(T("brDone", { s: mmBridgeApply(p, cur.keep) }));
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -8950,7 +9175,7 @@ document.addEventListener("fullscreenchange", () => setTimeout(() => { if (MM &&
 Object.assign(I18N.fa, { mmIO: "ورودی و خروجی", mmExport: "خروجی گرفتن", mmImport: "وارد کردن نقشه", mmImportHint: "SimpleMind (.smmx)، XMind (.xmind)، FreeMind (.mm)، OPML، Markdown یا متن درختی — یک نقشهٔ تازه ساخته می‌شود.", ex_png: "عکس PNG", ex_pdf: "PDF", ex_svg: "SVG (برداری)", ex_opml: "OPML (بیشتر برنامه‌های نقشهٔ ذهنی)", ex_mm: "FreeMind (.mm) — برای SimpleMind، XMind و…", ex_md: "Markdown", ex_txt: "متن درختی", ex_page: "صفحهٔ دفترچه (فهرست)", mmToMap: "تبدیل به نقشهٔ ذهنی", mmMadePage: "صفحهٔ دفترچه از نقشه ساخته شد.", mmMadeMap: "نقشهٔ ذهنی ساخته شد ({n} ایده).", mmBadFile: "این فایل نقشه خوانده نشد: {f}", mmExporting: "در حال ساختن خروجی…" });
 Object.assign(I18N.de, { mmIO: "Import & Export", mmExport: "Exportieren", mmImport: "Karte importieren", mmImportHint: "SimpleMind (.smmx), XMind (.xmind), FreeMind (.mm), OPML, Markdown oder eingerückter Text — es entsteht eine neue Karte.", ex_png: "Bild PNG", ex_pdf: "PDF", ex_svg: "SVG (Vektor)", ex_opml: "OPML (die meisten Mindmap-Apps)", ex_mm: "FreeMind (.mm) — für SimpleMind, XMind …", ex_md: "Markdown", ex_txt: "Eingerückter Text", ex_page: "Notizbuchseite (Liste)", mmToMap: "In Mindmap umwandeln", mmMadePage: "Notizbuchseite aus der Karte erstellt.", mmMadeMap: "Mindmap erstellt ({n} Ideen).", mmBadFile: "Diese Kartendatei konnte nicht gelesen werden: {f}", mmExporting: "Export wird erstellt…" });
 Object.assign(I18N.en, { mmIO: "Import & export", mmExport: "Export", mmImport: "Import a map", mmImportHint: "SimpleMind (.smmx), XMind (.xmind), FreeMind (.mm), OPML, Markdown or indented text — a new map is created.", ex_png: "Picture PNG", ex_pdf: "PDF", ex_svg: "SVG (vector)", ex_opml: "OPML (most mind-map apps)", ex_mm: "FreeMind (.mm) — for SimpleMind, XMind …", ex_md: "Markdown", ex_txt: "Indented text", ex_page: "Notebook page (list)", mmToMap: "Turn into mind map", mmMadePage: "Notebook page made from the map.", mmMadeMap: "Mind map created ({n} ideas).", mmBadFile: "This map file could not be read: {f}", mmExporting: "Making the export…" });
-const MAP_EXTS = ["smmx", "xmind", "mm", "opml"];
+const MAP_EXTS = ["smmx", "xmind", "mm", "opml", "bmap"];
 /** The map as a tree, branches in their order; free ideas follow the centre. */
 function mmTree(d) {
   const mk = (x) => ({ x, kids: mmKids(d, x.id).map(mk) });
@@ -9046,6 +9271,10 @@ async function mmExport(kind) {
   const n = MM.n, d = MM.d, base = (n.title || mmLabel(d.nodes[d.root]) || "mindmap").replace(/[\\/:*?"<>|]+/g, "-").slice(0, 80);
   const { t } = sayToast(T("mmExporting"));
   try {
+    if (kind === "bmap") return saveFile(base + ".bmap", new Blob([await mmToBmap(n, d)], { type: "application/json" }));
+    if (kind === "csv") return saveFile(base + "-table.zip", await mmToCsvZip(d));
+    if (kind === "xmind") return saveFile(base + ".xmind", await mmToXmind(d, base));
+    if (kind === "smmx") return saveFile(base + ".smmx", await mmToSmmx(d, base));
     if (kind === "png") return saveFile(base + ".png", await canvasBlob(await mmToCanvas(), "image/png"));
     if (kind === "pdf") { const c = await mmToCanvas(), wPt = Math.min(1600, c.width / 2); return saveFile(base + ".pdf", await jpegPdf([c], wPt, null, base)); }
     if (kind === "svg") return saveFile(base + ".svg", new Blob([(await mmToSvg()).svg], { type: "image/svg+xml" }));
@@ -9061,16 +9290,18 @@ async function mmExport(kind) {
   finally { t.remove(); }
 }
 async function mmIOPanel(anchor) {
-  const ex = ["png", "pdf", "svg", "opml", "mm", "md", "txt", "page"], icon = { png: "🖼", pdf: "📕", svg: "✒️", opml: "🗂", mm: "🧠", md: "Ⓜ️", txt: "📝", page: "📄" };
+  const ex = ["bmap", "csv", "png", "pdf", "svg", "xmind", "smmx", "opml", "mm", "md", "txt", "page"], icon = { bmap: "💾", csv: "📊", png: "🖼", pdf: "📕", svg: "✒️", xmind: "🧩", smmx: "💡", opml: "🗂", mm: "🧠", md: "Ⓜ️", txt: "📝", page: "📄" };
   const el = popover(anchor, `<h4>⇅ ${esc(T("mmIO"))}</h4><span class="pl">${esc(T("mmExport"))}</span><div class="ilist">${ex.map((k) => `<button type="button" class="irow" data-ex="${k}"><span>${icon[k]}</span><span>${esc(T("ex_" + k))}</span></button>`).join("")}</div>
     <span class="pl">${esc(T("mmImport"))}</span><button type="button" class="btn" data-imp="1" style="width:100%">📂 ${esc(T("mmImport"))}</button><p class="msg">${esc(T("mmImportHint"))}</p>
+    <span class="pl">${esc(T("ioBridge"))}</span><div class="tplgrid"><button type="button" data-brg="ask">${esc(T("brAsk"))}</button><button type="button" data-brg="paste">${esc(T("brPaste"))}</button></div>
     <span class="pl">📐 ${esc(T("mmTpl"))}</span><div class="tplgrid">${["decision", "swot", "causal", "pros", "project"].map((k) => `<button type="button" data-tpl="${k}">${esc(T("tpl_" + k))}</button>`).join("")}</div>`, "mmpop");
   if (!el) return;
-  el.addEventListener("click", (e) => { const b = e.target.closest("[data-ex]"); if (b) { closePop(); return mmExport(b.dataset.ex); } if (e.target.closest("[data-imp]")) { closePop(); mmPickImport(); } const tp = e.target.closest("[data-tpl]"); if (tp) { e.stopPropagation(); closePop(); const k = tp.dataset.tpl; setTimeout(() => mmTemplate(k), 0); } });
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-ex]"); if (b) { closePop(); return mmExport(b.dataset.ex); } if (e.target.closest("[data-imp]")) { closePop(); mmPickImport(); } const bg = e.target.closest("[data-brg]"); if (bg) { e.stopPropagation(); closePop(); const k = bg.dataset.brg; setTimeout(() => (k === "ask" ? mmBridgeAsk() : mmBridgePaste()), 0); return; }
+    const tp = e.target.closest("[data-tpl]"); if (tp) { e.stopPropagation(); closePop(); const k = tp.dataset.tpl; setTimeout(() => mmTemplate(k), 0); } });
 }
 let mapIn = null;
 function mmPickImport() {
-  if (!mapIn) { mapIn = document.createElement("input"); mapIn.type = "file"; mapIn.multiple = true; mapIn.className = "vhide"; mapIn.accept = ".smmx,.xmind,.mm,.opml,.md,.markdown,.txt"; document.body.append(mapIn);
+  if (!mapIn) { mapIn = document.createElement("input"); mapIn.type = "file"; mapIn.multiple = true; mapIn.className = "vhide"; mapIn.accept = ".bmap,.smmx,.xmind,.mm,.opml,.csv,.zip,.md,.markdown,.txt"; document.body.append(mapIn);
     mapIn.addEventListener("change", async () => { const fs = Array.from(mapIn.files || []); mapIn.value = ""; let last = null; for (const f of fs) last = (await mapFromFile(f)) || last; if (last) openNote(last.id); }); }
   mapIn.value = ""; mapIn.click();
 }
@@ -9172,6 +9403,8 @@ async function mapFromFile(file) {
   const ext = extOf(file.name);
   try {
     let r;
+    if (ext === "bmap") { const q = await bmapToMap(await file.text()); return mmNewNoteFrom(q.d, q.title || file.name.replace(/\.[^.]+$/, "")); }
+    if (ext === "csv" || ext === "zip") { const d = await csvToMap(file); return mmNewNoteFrom(d, file.name.replace(/(-table)?\.[^.]+$/, "")); }
     if (ext === "smmx") r = await smmxToTree(file);
     else if (ext === "xmind") r = await xmindToTree(file);
     else if (ext === "mm") r = freemindToTree(await file.text());
