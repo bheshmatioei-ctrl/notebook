@@ -7610,7 +7610,7 @@ function mmDraw() {
     for (const el of box.querySelectorAll(".mmn")) { const x = d.nodes[el.dataset.mmn]; el.style.left = x.x + "px"; el.style.top = x.y + "px"; }
   }
   const L = d.layout, rtl = mmIsRtl(d);
-  let svg = "", frl = "", bvHandle = null; const hnd = [], blb = []; MM.frBox = {}; MM.brMid = null;
+  let svg = "", frl = "", bvHandle = null; const hnd = [], blb = [], hit = []; MM.frBox = {}; MM.brMid = null;
   for (const f of d.frames || []) {
     const mem = (f.br ? [f.ids[0], ...mmDesc(d, f.ids[0])] : f.ids).filter((k) => d.nodes[k] && !hid.has(k) && MM.size[k]); if (!mem.length) continue;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -7646,7 +7646,7 @@ function mmDraw() {
       let mx = (p.x + x.x) / 2, my = (p.y + x.y) / 2, ang = null;
       if (path.includes(" C") && nums.length === 8) { mx = (nums[0] + 3 * nums[2] + 3 * nums[4] + nums[6]) / 8; my = (nums[1] + 3 * nums[3] + 3 * nums[5] + nums[7]) / 8; ang = Math.atan2(nums[7] - nums[5], nums[6] - nums[4]); }
       else if (path.includes(" L") && nums.length === 4) { ang = Math.atan2(nums[3] - nums[1], nums[2] - nums[0]); }
-      svg += `<path d="${path}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="22" pointer-events="stroke" data-br="${x.id}"/>`;
+      svg += `<path d="${path}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="22" pointer-events="stroke" data-br="${x.id}"/>`; hit.push({ t: "br", id: x.id, pts: mmSamplePath(path) });
       if (bon) svg += `<path d="${path}" fill="none" stroke="${bc}" stroke-opacity=".25" stroke-width="${bw + 9}" stroke-linecap="round"/>`;
       svg += `<path d="${path}" fill="none" stroke="${bc}" stroke-width="${bw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}" ${dash}/>`;
       if (ln.ar && ang !== null) { const ex = nums[nums.length - 2], ey = nums[nums.length - 1], ah = 7 + bw * 1.6; svg += `<path d="M${ex} ${ey} L${ex - ah * Math.cos(ang - 0.45)} ${ey - ah * Math.sin(ang - 0.45)} L${ex - ah * Math.cos(ang + 0.45)} ${ey - ah * Math.sin(ang + 0.45)} Z" fill="${bc}" opacity="${op}"/>`; }
@@ -7662,6 +7662,7 @@ function mmDraw() {
     const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, len = Math.hypot(b.x - a.x, b.y - a.y) || 1, nx = -(b.y - a.y) / len, ny = (b.x - a.x) / len, bend = Math.min(90, len * 0.18);
     const cx = r.cv ? mx + r.cv.x : mx + nx * bend, cy = r.cv ? my + r.cv.y : my + ny * bend, [x0, y0] = edge(a, sa, cx, cy), [x1, y1] = edge(b, sb, cx, cy);
     const col = r.kind === "+" ? "#1f8a4c" : r.kind === "-" ? "#d64545" : "#7b8597", ang = Math.atan2(y1 - cy, x1 - cx), on = MM.rel === r.id, op = MM.hl ? (MM.hl.rels.has(r.id) ? 1 : 0.08) : dim(r.a) && dim(r.b) ? 0.15 : r.conf !== undefined ? 0.35 + 0.65 * r.conf / 100 : 1;
+    hit.push({ t: "rel", id: r.id, pts: mmSamplePath(`M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}`) });
     const rw = ([1.4, 2.4, 4][(r.w || 2) - 1]) + (net ? 0.8 : 0) + (on ? 1.2 : 0), ah = 8 + rw * 1.5;
     svg += `<g data-rel="${r.id}" class="mmrel ${sim && Math.abs(sim.res.flowAt(sim.i, r.id)) > 0.03 ? "flow" : ""}" opacity="${op}"><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="26" pointer-events="stroke"/><path d="M${x0} ${y0} Q${cx} ${cy} ${x1} ${y1}" fill="none" stroke="${col}" stroke-width="${rw}" ${r.dashed ? 'stroke-dasharray="7 6"' : ""}/>
       <path d="M${x1} ${y1} L${x1 - ah * Math.cos(ang - 0.45)} ${y1 - ah * Math.sin(ang - 0.45)} L${x1 - ah * Math.cos(ang + 0.45)} ${y1 - ah * Math.sin(ang + 0.45)} Z" fill="${col}"/>
@@ -7669,7 +7670,7 @@ function mmDraw() {
     const lab = box.querySelector(`.mmrl[data-rel="${r.id}"]`);
     if (lab) { const t = 0.5, qx = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1, qy = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y1; lab.style.left = qx + "px"; lab.style.top = qy + "px"; lab.style.borderColor = col; lab.style.color = col; }
   }
-  MM.bvH = bvHandle;
+  MM.bvH = bvHandle; MM.hit = hit;
   if (bvHandle) hnd.push(`<div class="mmh" data-bvh="${bvHandle.id}" style="left:${bvHandle.x}px;top:${bvHandle.y}px;--hc:${bvHandle.color}"></div>`);
   $("#mmSvg").innerHTML = svg;
   if (blb.length) box.insertAdjacentHTML("beforeend", blb.join(""));
@@ -8492,6 +8493,20 @@ function mmTemplate(k) {
   const n = mmNewNoteFrom(mmNorm(d), title.replace(/[:：]\s*…$/, "")); openNote(n.id);
 }
 /* ---------------- shaping by hand: lock, inline editing, long press, properties panel ---------------- */
+function mmSamplePath(d) {
+  const pts = []; let cx = 0, cy = 0; const re = /([MCQLVH])([^MCQLVH]*)/g; let m;
+  while ((m = re.exec(d))) {
+    const n = m[2].trim().split(/[\s,]+/).filter(Boolean).map(Number);
+    if (m[1] === "M") { cx = n[0]; cy = n[1]; pts.push([cx, cy]); }
+    else if (m[1] === "L") { cx = n[0]; cy = n[1]; pts.push([cx, cy]); }
+    else if (m[1] === "V") { cy = n[0]; pts.push([cx, cy]); }
+    else if (m[1] === "H") { cx = n[0]; pts.push([cx, cy]); }
+    else if (m[1] === "C") { const [x1, y1, x2, y2, x3, y3] = n; for (let k = 1; k <= 14; k++) { const t = k / 14, u = 1 - t; pts.push([u * u * u * cx + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3, u * u * u * cy + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3]); } cx = x3; cy = y3; }
+    else if (m[1] === "Q") { const [x1, y1, x2, y2] = n; for (let k = 1; k <= 12; k++) { const t = k / 12, u = 1 - t; pts.push([u * u * cx + 2 * u * t * x1 + t * t * x2, u * u * cy + 2 * u * t * y1 + t * t * y2]); } cx = x2; cy = y2; }
+  }
+  return pts.filter((p) => isFinite(p[0]) && isFinite(p[1]));
+}
+function mmSegDist(px, py, a, b) { const dx = b[0] - a[0], dy = b[1] - a[1], l = dx * dx + dy * dy; let t = l ? ((px - a[0]) * dx + (py - a[1]) * dy) / l : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(px - a[0] - t * dx, py - a[1] - t * dy); }
 function mmLockToggle() {
   const d = MM.d; mmPush();
   if (d.layout === "free") d.layout = d.prevLayout && d.prevLayout !== "free" ? d.prevLayout : "map"; else { d.prevLayout = d.layout; d.layout = "free"; }
@@ -8712,8 +8727,14 @@ function mmBind() {
     if (pts.size > 2) return;
     const nodeEl = e.target.closest(".mmn"), relEl = e.target.closest("[data-rel]"), badge = e.target.closest("[data-badge]");
     const rh = e.target.closest("[data-rh]");
+    let hitBr = null, hitRel = null;
+    if (!nodeEl && !relEl && !rh && !e.target.closest("[data-br],[data-rsz],[data-bvh],[data-rbend],[data-frsz],[data-fr],.mmh")) { // a tap near a line picks it, even when the line is thin
+      const [wx, wy] = toWorld(e.clientX, e.clientY); let best = (e.pointerType === "mouse" ? 9 : 18) / MM.view.z, h0 = null;
+      for (const h of MM.hit || []) for (let i = 1; i < h.pts.length; i++) { const dd = mmSegDist(wx, wy, h.pts[i - 1], h.pts[i]); if (dd < best) { best = dd; h0 = h; } }
+      if (h0) { if (h0.t === "br") hitBr = h0.id; else hitRel = h0.id; }
+    }
     const hnd = { rsz: e.target.closest("[data-rsz]")?.dataset.rsz || null, bvh: e.target.closest("[data-bvh]")?.dataset.bvh || null, rb: !!e.target.closest("[data-rbend]"), frsz: e.target.closest("[data-frsz]")?.dataset.frsz || null };
-    g = { ...hnd, br: !nodeEl && !relEl ? e.target.closest("[data-br]")?.dataset.br || null : null, onBrLabel: !!e.target.closest("[data-brl]"), onLabel: !!e.target.closest(".mmrl"), fr: e.target.closest("[data-fr]")?.dataset.fr || null, id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
+    g = { ...hnd, br: !nodeEl && !relEl ? e.target.closest("[data-br]")?.dataset.br || hitBr : null, onBrLabel: !!e.target.closest("[data-brl]"), onLabel: !!e.target.closest(".mmrl"), fr: e.target.closest("[data-fr]")?.dataset.fr || null, id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || hitRel, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
     if (pts.size === 1 && !hnd.rsz && !hnd.bvh && !hnd.rb && !hnd.frsz && !rh) { const G0 = g; G0.lt = setTimeout(() => { if (g !== G0 || G0.moved || pts.size !== 1 || MM.edit) return; G0.long = true; mmLongPress(G0, toWorld(G0.x0, G0.y0)); }, 560); }
   });
   st.addEventListener("pointermove", (e) => {
