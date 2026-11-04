@@ -1070,6 +1070,32 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1426;--panel:#171d34;--panel2:#1f2642;--line:#2a3152;--bar:#090c1a;--hover:rgba(255,255,255,.06);--sel:#27304f;--accent-soft:#3a2a35}}
 :root[data-theme="dark"]{--bg:#0f1426;--panel:#171d34;--panel2:#1f2642;--line:#2a3152;--bar:#090c1a;--hover:rgba(255,255,255,.06);--sel:#27304f;--accent-soft:#3a2a35}
 header.top,aside.side,.bar-main{background:var(--bar)}
+
+/* night: soften the bright tiles and page previews */
+:root[data-theme="dark"] .tile{color:var(--ink)}
+:root[data-theme="dark"] .tile .ti{background:rgba(255,255,255,.08)}
+:root[data-theme="dark"] .t-all{background:#3a2b2e}
+:root[data-theme="dark"] .t-star{background:#383221}
+:root[data-theme="dark"] .t-unf{background:#1f3142}
+:root[data-theme="dark"] .t-trash{background:#272b38}
+:root[data-theme="dark"] .t-tpl{background:linear-gradient(120deg,#1f2c45,#30263c)}
+:root[data-theme="dark"] .t-star .ti .ic{fill:#c9a23a;color:#e0b84a}
+:root[data-theme="dark"] .card .pv,:root[data-theme="dark"] .mmpv{filter:brightness(.64) saturate(.8)}
+:root[data-theme="dark"] .card .pv .tag{box-shadow:none}
+:root[data-theme="dark"] .bookc{filter:brightness(.8)}
+@media (prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .tile{color:var(--ink)}
+:root:not([data-theme="light"]) .tile .ti{background:rgba(255,255,255,.08)}
+:root:not([data-theme="light"]) .t-all{background:#3a2b2e}
+:root:not([data-theme="light"]) .t-star{background:#383221}
+:root:not([data-theme="light"]) .t-unf{background:#1f3142}
+:root:not([data-theme="light"]) .t-trash{background:#272b38}
+:root:not([data-theme="light"]) .t-tpl{background:linear-gradient(120deg,#1f2c45,#30263c)}
+:root:not([data-theme="light"]) .t-star .ti .ic{fill:#c9a23a;color:#e0b84a}
+:root:not([data-theme="light"]) .card .pv,:root:not([data-theme="light"]) .mmpv{filter:brightness(.64) saturate(.8)}
+:root:not([data-theme="light"]) .card .pv .tag{box-shadow:none}
+:root:not([data-theme="light"]) .bookc{filter:brightness(.8)}
+}
 </style>
 
 <div class="app" id="app">
