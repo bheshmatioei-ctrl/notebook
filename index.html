@@ -940,6 +940,7 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
   background:radial-gradient(1100px 700px at 70% 22%,#fbf8f1 0%,#f4efe6 70%)}
 .skyhome .skin{max-width:1240px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right)) 90px max(16px,env(safe-area-inset-left))}
 .skyhome .btn{background:var(--sk-card);border-color:var(--sk-line);color:var(--sk-ink);min-height:36px;font-size:14px}
+.skyhome .btn.cfwarn{border-color:#e0a640;color:#e0a640}
 .skyhome .btn.sm{min-height:36px;padding:4px 12px;font-size:14px}
 .skyhome .skh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .skyhome .skt h1{margin:0;font-size:20px;font-weight:800;line-height:1.3}
@@ -5951,11 +5952,13 @@ async function accountSyncPanel() {
   }
   if (!c.server) {
     const how = await dialog({ title: "☁️ " + T("syncTitle"), body: `<div class="mailbtns">
+      <button type="button" class="acctcard" data-m="cfile"><span class="ai">☁️</span><span><b>${esc(T("cfTitle"))}</b><small>${esc(T("cfChoose"))}</small></span><span class="go">›</span></button>
       <button type="button" class="acctcard" data-m="gdrive"><span class="ai">G</span><span><b>${esc(T("gdsTitle"))}</b><small>${esc(T("gdsChoose"))}</small></span><span class="go">›</span></button>
       <button type="button" class="acctcard alt" data-m="mail"><span class="ai">📧</span><span><b>${esc(T("mailTitle"))}</b><small>${esc(T("mailChoose"))}</small></span><span class="go">›</span></button>
       <button type="button" class="acctcard alt" data-m="server"><span class="ai">🖥</span><span><b>${esc(T("syncServerWay"))}</b><small>${esc(T("syncServerWaySub"))}</small></span><span class="go">›</span></button></div>`,
       actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
     if (how === "gdrive") return gdsConnect();
+    if (how === "cfile") return cloudFilePanel();
     if (how === "mail") return mailSyncPanel();
     if (how !== "server") return;
   }
@@ -6275,6 +6278,7 @@ async function mergeSyncZip(zip, data) {
     saveMeta(0);
   } finally { t.remove(); }
   lsSet(MAIL_KEY, { ...mailCfg(), lastReceived: new Date().toISOString() });
+  if (Date.now() - (cfCfg().wantGet || 0) < 900e3) cfSet({ lastReceived: new Date().toISOString(), wantGet: 0 });
   renderSide(); renderMain();
   toast("📧 " + T("mailMerged").replace("{a}", num(added)).replace("{u}", num(updated)).replace("{s}", num(skipped)));
 }
@@ -7630,6 +7634,9 @@ Object.assign(I18N.en, { brFound: "In the answer: {n} ideas and {r} arrows.", ex
 Object.assign(I18N.fa, {"skyName": "آسمان ایده‌ها", "skyMe": "بابک", "skyCmdPh": "جست‌وجو، ساختن یا فرمان…  (مثلاً ‎+جدول قیمت‌ها)", "skyNewNote": "یادداشت", "skyNewMap": "نقشه", "skyNewTable": "جدول", "skyNewTask": "کار", "skyNewVoice": "صدا", "skyNewFile": "فایل", "skyInto": "ساختن در:", "skyRoot": "بدون پوشه", "skyAll": "همه", "skyViewSky": "آسمان", "skyViewList": "فهرست", "skyDay": "تم روز", "skyNight": "تم شب", "skyClassic": "نمای کلاسیک", "skyClassicMsg": "نمای کلاسیک فعال شد. برای برگشتن، دکمهٔ «✦ آسمان» بالای صفحه.", "skyStats": "{n} مورد · {m} نقشه · {f} پوشه", "skyToday": "امروز", "skyLeft": "{n} مانده", "skyTaskPh": "＋ کار تازه برای امروز… (بنویس و Enter)", "skyNoTasks": "برای امروز کاری نمانده ✓", "skyTaskAdded": "⏰ برای امروز ثبت شد", "skyDoneMsg": "انجام شد", "skyLate": "عقب‌افتاده", "skyThink": "شبکهٔ فکری", "skyRethink": "▶ دوباره فکر کن", "skyThinkNone": "هنوز «فکر کن» اجرا نشده. یک نقشه را باز کنید، 🧠 را روشن کنید و ▶ بزنید؛ نتیجه همین‌جا می‌ماند.", "skyStale": "قدیمی است؛ دوباره اجرا کنید", "skyUpdated": "شبکه دوباره فکر کرد ✓", "skyAgoNow": "همین الان", "skyAgoH": "{n} ساعت پیش", "skyAgoD": "{n} روز پیش", "skyPinned": "سنجاق‌شده", "skyRecent": "اخیر", "skyNoPinned": "هنوز چیزی سنجاق نشده؛ روی هر کارت انگشت نگه دارید و ⭐ بزنید.", "skyMadeIn": "ساخته شد در «{f}»", "skyChange": "تغییر", "skyMovedTo": "منتقل شد به «{f}»", "skyMore": "{n} مورد دیگر — نمای کلاسیک", "skyEmpty": "آسمان هنوز خالی است؛ با دکمه‌های بالا اولین ستاره را بسازید.", "skyTyNote": "یادداشت", "skyTyMap": "نقشه", "skyTyFile": "فایل", "skyTyPage": "صفحهٔ دفتر", "skyCmdThink": "فکر کن (آخرین نقشه)", "skyMk_note": "＋ یادداشت تازه «{t}»", "skyMk_map": "＋ نقشهٔ تازه «{t}»", "skyMk_table": "＋ جدول تازه «{t}»", "skyMk_task": "＋ کار امروز «{t}»", "skySec_make": "ساختن", "skySec_open": "باز کردن", "skySec_cmd": "فرمان"});
 Object.assign(I18N.de, {"skyName": "Ideenhimmel", "skyMe": "Ich", "skyCmdPh": "Suchen, erstellen oder Befehl… (z. B. +Tabelle Preise)", "skyNewNote": "Notiz", "skyNewMap": "Karte", "skyNewTable": "Tabelle", "skyNewTask": "Aufgabe", "skyNewVoice": "Audio", "skyNewFile": "Datei", "skyInto": "Erstellen in:", "skyRoot": "Ohne Ordner", "skyAll": "Alle", "skyViewSky": "Himmel", "skyViewList": "Liste", "skyDay": "Tag-Design", "skyNight": "Nacht-Design", "skyClassic": "Klassische Ansicht", "skyClassicMsg": "Klassische Ansicht aktiv. Zurück mit „✦ Himmel“ oben.", "skyStats": "{n} Einträge · {m} Karten · {f} Ordner", "skyToday": "Heute", "skyLeft": "{n} offen", "skyTaskPh": "＋ Neue Aufgabe für heute… (Enter)", "skyNoTasks": "Für heute ist nichts offen ✓", "skyTaskAdded": "⏰ Für heute eingetragen", "skyDoneMsg": "Erledigt", "skyLate": "Überfällig", "skyThink": "Denknetz", "skyRethink": "▶ Neu denken", "skyThinkNone": "„Denken“ wurde noch nicht ausgeführt. Karte öffnen, 🧠 einschalten und ▶ tippen; das Ergebnis bleibt hier.", "skyStale": "Veraltet – neu ausführen", "skyUpdated": "Netz neu berechnet ✓", "skyAgoNow": "gerade eben", "skyAgoH": "vor {n} Std.", "skyAgoD": "vor {n} Tagen", "skyPinned": "Angeheftet", "skyRecent": "Zuletzt", "skyNoPinned": "Noch nichts angeheftet – Karte lange drücken und ⭐ wählen.", "skyMadeIn": "Erstellt in „{f}“", "skyChange": "Ändern", "skyMovedTo": "Verschoben nach „{f}“", "skyMore": "{n} weitere – klassische Ansicht", "skyEmpty": "Der Himmel ist noch leer – oben den ersten Stern erstellen.", "skyTyNote": "Notiz", "skyTyMap": "Karte", "skyTyFile": "Datei", "skyTyPage": "Heftseite", "skyCmdThink": "Denken (letzte Karte)", "skyMk_note": "＋ Neue Notiz „{t}“", "skyMk_map": "＋ Neue Karte „{t}“", "skyMk_table": "＋ Neue Tabelle „{t}“", "skyMk_task": "＋ Aufgabe heute „{t}“", "skySec_make": "Erstellen", "skySec_open": "Öffnen", "skySec_cmd": "Befehl"});
 Object.assign(I18N.en, {"skyName": "Idea sky", "skyMe": "Me", "skyCmdPh": "Search, create or command… (e.g. +table prices)", "skyNewNote": "Note", "skyNewMap": "Map", "skyNewTable": "Table", "skyNewTask": "Task", "skyNewVoice": "Voice", "skyNewFile": "File", "skyInto": "Create in:", "skyRoot": "No folder", "skyAll": "All", "skyViewSky": "Sky", "skyViewList": "List", "skyDay": "Day theme", "skyNight": "Night theme", "skyClassic": "Classic view", "skyClassicMsg": "Classic view is on. Use “✦ Sky” at the top to go back.", "skyStats": "{n} items · {m} maps · {f} folders", "skyToday": "Today", "skyLeft": "{n} left", "skyTaskPh": "＋ New task for today… (Enter)", "skyNoTasks": "Nothing left for today ✓", "skyTaskAdded": "⏰ Added for today", "skyDoneMsg": "Done", "skyLate": "Late", "skyThink": "Thinking network", "skyRethink": "▶ Think again", "skyThinkNone": "“Think” hasn't run yet. Open a map, turn on 🧠 and tap ▶; the result stays here.", "skyStale": "Old – run again", "skyUpdated": "Network re-thought ✓", "skyAgoNow": "just now", "skyAgoH": "{n} h ago", "skyAgoD": "{n} days ago", "skyPinned": "Pinned", "skyRecent": "Recent", "skyNoPinned": "Nothing pinned yet – long-press a card and tap ⭐.", "skyMadeIn": "Created in “{f}”", "skyChange": "Change", "skyMovedTo": "Moved to “{f}”", "skyMore": "{n} more – classic view", "skyEmpty": "The sky is still empty – create the first star with the buttons above.", "skyTyNote": "Note", "skyTyMap": "Map", "skyTyFile": "File", "skyTyPage": "Notebook page", "skyCmdThink": "Think (last map)", "skyMk_note": "＋ New note “{t}”", "skyMk_map": "＋ New map “{t}”", "skyMk_table": "＋ New table “{t}”", "skyMk_task": "＋ Task today “{t}”", "skySec_make": "Create", "skySec_open": "Open", "skySec_cmd": "Command"});
+Object.assign(I18N.fa, {"cfTitle": "هر کلود (فایل همگام‌سازی)", "cfChoose": "iCloud، OneDrive، Dropbox، Google Drive، Nextcloud — هر جایی که در Files یا پوشه‌ها هست", "cfShort": "کلود", "cfHow": "کل دفترچه در یک فایل به نام babak-sync.babak.zip می‌رود. آن را در یک پوشهٔ کلود بگذارید و روی دستگاه دیگر همان فایل را بگیرید؛ فقط صفحه‌های تازه‌تر جایگزین می‌شوند و چیزی دوتا نمی‌شود.", "cfSend": "بفرست به کلود", "cfGet": "بگیر از کلود", "cfLast": "آخرین بار:", "cfDirty": "تغییر فرستاده‌نشده", "cfReady": "فایل آماده است", "cfReadyText": "{n} صفحه · {mb}. حالا آن را در پوشهٔ کلودتان ذخیره کنید.", "cfSaveToFiles": "ذخیره در Files / کلود", "cfSaveToFilesSub": "در پنجرهٔ بعد «Save to Files» و بعد پوشهٔ iCloud، OneDrive، Dropbox یا Nextcloud", "cfDownload": "دانلود فایل", "cfDownloadSub": "بعد فایل را به پوشهٔ کلودتان ببرید", "cfReplaceHint": "همیشه همان پوشه را انتخاب کنید؛ اگر پرسید جایگزین شود، «Replace / جایگزین» را بزنید.", "cfSentMsg": "فایل همگام‌سازی ذخیره شد", "cfLink": "وصل کردن به یک پوشهٔ کلود (خودکار)", "cfLinkSub": "مثلاً پوشهٔ OneDrive یا Nextcloud روی همین کامپیوتر؛ از آن به بعد خودش می‌فرستد و می‌گیرد", "cfLinked": "وصل شد به پوشهٔ «{f}»", "cfLinkedTo": "وصل به پوشهٔ «{f}»", "cfAutoOn": "خودکار: هر چند دقیقه و هنگام بستن — برای قطع بزنید", "cfUnlinked": "اتصال به پوشه برداشته شد", "cfResume": "همگام‌سازی با پوشهٔ «{f}» منتظر اجازهٔ شماست", "cfResumeBtn": "ادامه", "cfFail": "همگام‌سازی کلود نشد:", "cfPrivacy": "فایل فقط در کلود خودتان است؛ هیچ سرور دیگری آن را نمی‌بیند. صفحه‌های قفل‌شده داخل آن نمی‌روند."});
+Object.assign(I18N.de, {"cfTitle": "Jede Cloud (Sync-Datei)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – alles, was in „Dateien“ oder als Ordner erscheint", "cfShort": "Cloud", "cfHow": "Das ganze Notizbuch kommt in eine Datei babak-sync.babak.zip. Lege sie in einen Cloud-Ordner und hole sie auf dem anderen Gerät; nur neuere Seiten ersetzen ältere, nichts wird doppelt.", "cfSend": "In die Cloud senden", "cfGet": "Aus der Cloud holen", "cfLast": "Zuletzt:", "cfDirty": "nicht gesendet", "cfReady": "Datei ist bereit", "cfReadyText": "{n} Seiten · {mb}. Jetzt im Cloud-Ordner speichern.", "cfSaveToFiles": "In Dateien / Cloud sichern", "cfSaveToFilesSub": "Im nächsten Fenster „In Dateien sichern“ und den iCloud-, OneDrive-, Dropbox- oder Nextcloud-Ordner wählen", "cfDownload": "Datei herunterladen", "cfDownloadSub": "Danach in den Cloud-Ordner verschieben", "cfReplaceHint": "Immer denselben Ordner wählen; bei der Frage „Ersetzen“ bestätigen.", "cfSentMsg": "Sync-Datei gespeichert", "cfLink": "Mit einem Cloud-Ordner verbinden (automatisch)", "cfLinkSub": "z. B. OneDrive- oder Nextcloud-Ordner auf diesem Computer; danach senden und holen von selbst", "cfLinked": "Verbunden mit „{f}“", "cfLinkedTo": "Verbunden mit „{f}“", "cfAutoOn": "Automatisch: alle paar Minuten und beim Schließen – tippen zum Trennen", "cfUnlinked": "Ordner getrennt", "cfResume": "Sync mit „{f}“ wartet auf deine Erlaubnis", "cfResumeBtn": "Weiter", "cfFail": "Cloud-Sync fehlgeschlagen:", "cfPrivacy": "Die Datei liegt nur in deiner eigenen Cloud; kein anderer Server sieht sie. Gesperrte Seiten kommen nicht hinein."});
+Object.assign(I18N.en, {"cfTitle": "Any cloud (sync file)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – anything that shows up in Files or as a folder", "cfShort": "Cloud", "cfHow": "The whole notebook goes into one file, babak-sync.babak.zip. Put it in a cloud folder and pick it on the other device; only newer pages replace older ones, nothing is doubled.", "cfSend": "Send to cloud", "cfGet": "Get from cloud", "cfLast": "Last:", "cfDirty": "not sent", "cfReady": "File is ready", "cfReadyText": "{n} pages · {mb}. Now save it in your cloud folder.", "cfSaveToFiles": "Save to Files / cloud", "cfSaveToFilesSub": "In the next window tap “Save to Files” and choose the iCloud, OneDrive, Dropbox or Nextcloud folder", "cfDownload": "Download file", "cfDownloadSub": "Then move it to your cloud folder", "cfReplaceHint": "Always choose the same folder; if asked, tap “Replace”.", "cfSentMsg": "Sync file saved", "cfLink": "Link a cloud folder (automatic)", "cfLinkSub": "e.g. your OneDrive or Nextcloud folder on this computer; from then on it sends and gets by itself", "cfLinked": "Linked to “{f}”", "cfLinkedTo": "Linked to “{f}”", "cfAutoOn": "Automatic: every few minutes and when closing – tap to unlink", "cfUnlinked": "Folder unlinked", "cfResume": "Sync with “{f}” is waiting for your permission", "cfResumeBtn": "Continue", "cfFail": "Cloud sync failed:", "cfPrivacy": "The file stays in your own cloud; no other server sees it. Locked pages are not included."});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10276,6 +10283,7 @@ function renderSky() {
       <div class="skcmd"><span class="qi">⌕</span><input id="skyCmd" autocomplete="off" dir="auto" placeholder="${esc(T("skyCmdPh"))}" enterkeyhint="go" aria-label="${esc(T("skyCmdPh"))}"><kbd>⌘K</kbd><div class="skdrop" id="skyDrop" hidden></div></div>
       <div class="sktools"><div class="seg"><button type="button" data-sky="view" data-v="sky" aria-pressed="${ui.view !== "list"}">✦ ${esc(T("skyViewSky"))}</button><button type="button" data-sky="view" data-v="list" aria-pressed="${ui.view === "list"}">☰ ${esc(T("skyViewList"))}</button></div>
         <button type="button" class="btn icon" data-sky="theme" title="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}" aria-label="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}">${ui.theme === "day" ? "☾" : "☀︎"}</button>
+        <button type="button" class="btn ${cfDirty() ? "cfwarn" : ""}" data-sky="cloud" title="${esc(T("cfTitle"))}">☁️ ${esc(cfCfg().lastSent ? (cfDirty() ? T("cfDirty") : skyAgo(cfCfg().lastSent)) : T("cfShort"))}</button>
         <button type="button" class="btn" data-sky="classic">${esc(T("skyClassic"))}</button></div>
     </div>
     <div class="quickrow skq">${qb("note", "newNote", ic("newpage"), T("skyNewNote"))}${qb("map", "newMap", SKY_MAPIC, T("skyNewMap"))}${qb("table", "", ic("table"), T("skyNewTable"))}${qb("task", "", ic("alarm"), T("skyNewTask"))}${mic ? qb("voice", "", ic("mic"), T("skyNewVoice")) : ""}${can ? qb("file", "", ic("clip"), T("skyNewFile")) : ""}
@@ -10297,6 +10305,8 @@ function skyCmdItems(q) {
   const cmds = [
     { k: "think", label: "▶ " + T("skyCmdThink"), run: () => skyRethink(), when: () => !!lsGet("babak-sa-think", null) },
     { k: "remind", label: "⏰ " + T("newReminder"), run: () => reminderForm({}) },
+    { k: "cloud send", label: "📤 " + T("cfSend"), run: () => cfSend() },
+    { k: "cloud get", label: "📥 " + T("cfGet"), run: () => cfGet() },
     { k: "reminders", label: "🔔 " + T("reminders"), run: () => remindersPanel() },
     { k: "starred", label: "⭐ " + T("starred"), run: () => skyGo("__starred") },
     { k: "templates", label: "🗂 " + T("templates"), run: () => skyGo("__templates") },
@@ -10385,6 +10395,7 @@ function skyWire(root) {
     if (a === "cdone") return skyCheckDone(b.dataset.id, b.dataset.i);
     if (a === "redit") return reminderForm(S.meta.reminders.find((x) => x.id === b.dataset.id) || {});
     if (a === "rethink") return skyRethink();
+    if (a === "cloud") return cloudFilePanel();
     if (a === "nnode") return skyOpenNode(b.dataset.n);
   }, true);
   const inp = root.querySelector("#skyCmd");
@@ -10443,6 +10454,131 @@ document.addEventListener("keydown", (e) => {
     setTimeout(() => $("#skyCmd")?.focus(), 30);
   }
 });
+
+/* ---------------- any cloud, the simplest way: one sync file in a cloud folder ----------------
+   The whole notebook goes into one file, "babak-sync.babak.zip". Put it in any cloud folder (iCloud Drive, OneDrive,
+   Dropbox, Google Drive, Nextcloud…) through the system's "Save to Files"; on the other device pick that file and only
+   newer pages replace older ones. Where the browser can hold a folder (Chrome / Edge on Windows and Mac), the notebook
+   keeps the file in that folder up to date by itself. */
+const CF_KEY = "babak-sa-cloudfile", CF_NAME = "babak-sync.babak.zip";
+const cfCfg = () => lsGet(CF_KEY, null) || {};
+const cfSet = (p) => lsSet(CF_KEY, { ...cfCfg(), ...p });
+const cfCanFolder = () => typeof window.showDirectoryPicker === "function";
+let cfBusy = false, cfTimer = 0;
+function cfIdb() { return new Promise((res, rej) => { const r = indexedDB.open("babak-cloudfile", 1); r.onupgradeneeded = () => r.result.createObjectStore("h"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+async function cfHandle(v) {
+  const db = await cfIdb();
+  return new Promise((res, rej) => {
+    const tx = db.transaction("h", v === undefined ? "readonly" : "readwrite"), st = tx.objectStore("h");
+    const q = v === undefined ? st.get("dir") : v === null ? st.delete("dir") : st.put(v, "dir");
+    q.onsuccess = () => res(v === undefined ? q.result || null : true); q.onerror = () => rej(q.error);
+  });
+}
+function cfLatest() { let m = ""; for (const n of S.notes.values()) if (!sealedLocked(n) && String(n.updatedAt) > m) m = String(n.updatedAt); return m; }
+function cfDirty() { const c = cfCfg(); return !!c.lastSent && cfLatest() > String(c.sentUpTo || ""); }
+async function cfBuild(say) {
+  captureActive(); flushAll();
+  const notes = Array.from(S.notes.values()).filter((n) => !sealedLocked(n)); // trashed pages go too, so a delete reaches the other device
+  const upTo = cfLatest();
+  return { blob: await buildBackupZip(notes, false, say, true), upTo, count: notes.length };
+}
+const cfWhen = (iso) => (iso ? skyAgo(iso) : "—");
+
+/** Send: build the file, then one more tap opens the system's share sheet (it needs a fresh tap after the work). */
+async function cfSend() {
+  if (cfBusy) return;
+  const c = cfCfg();
+  if (c.linked && cfCanFolder()) return cfFolderSync(true);
+  cfBusy = true; const { t, say } = sayToast(T("exporting"));
+  let r; try { r = await cfBuild(say); } catch (e) { t.remove(); cfBusy = false; return toast(T("exportFailed") + (e?.message || ""), { kind: "err" }); }
+  t.remove(); cfBusy = false;
+  const file = new File([r.blob], CF_NAME, { type: "application/zip" }), mb = (r.blob.size / 1048576).toFixed(1);
+  const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+  const done = () => { cfSet({ lastSent: new Date().toISOString(), sentUpTo: r.upTo }); renderList(); };
+  await dialog({ title: "☁️ " + T("cfReady"), body: `<p class="msg">${esc(T("cfReadyText", { n: num(r.count), mb: fmtSize(r.blob.size) }))}</p>
+    <div class="mailbtns"><button type="button" class="acctcard" data-cf="share"><span class="ai">📤</span><span><b>${esc(canShare ? T("cfSaveToFiles") : T("cfDownload"))}</b><small>${esc(canShare ? T("cfSaveToFilesSub") : T("cfDownloadSub"))}</small></span></button></div>
+    <p class="msg" style="font-size:13px">💡 ${esc(T("cfReplaceHint"))}</p>`,
+    actions: [{ label: T("close"), value: null }],
+    onOpen: (el, close) => el.querySelector("[data-cf=share]").addEventListener("click", () => {
+      if (canShare) navigator.share({ files: [file], title: CF_NAME }).then(() => { done(); close(true); toast("☁️ " + T("cfSentMsg")); }).catch((e) => { if (!e || e.name !== "AbortError") { saveFile(CF_NAME, r.blob); done(); close(true); } });
+      else { saveFile(CF_NAME, r.blob); done(); close(true); toast("☁️ " + T("cfSentMsg")); }
+    }) });
+}
+/** Get: pick the sync file from any cloud folder; newer pages win, nothing is doubled. */
+function cfGet() {
+  const c = cfCfg();
+  if (c.linked && cfCanFolder()) return cfFolderSync(true);
+  cfSet({ wantGet: Date.now() }); mailSyncPick();
+}
+async function cfMergeBlob(blob) {
+  const JSZip = await loadLib("JSZip", CDN.jszip), zip = await JSZip.loadAsync(blob), f = zip.file("backup.json");
+  if (!f) throw new Error(T("importBad"));
+  const data = JSON.parse(await f.async("string"));
+  if (!data || !data.sync) throw new Error(T("importBad"));
+  await mergeSyncZip(zip, data);
+}
+
+/* ---- folder mode (Chrome / Edge on a computer): the file in the cloud folder stays up to date by itself ---- */
+async function cfLink() {
+  let dir; try { dir = await window.showDirectoryPicker({ id: "babak-cloud", mode: "readwrite" }); } catch (e) { return; }
+  await cfHandle(dir); cfSet({ linked: true, folder: dir.name, lastSent: cfCfg().lastSent || "" });
+  toast("☁️ " + T("cfLinked", { f: dir.name }));
+  await cfFolderSync(true);
+}
+async function cfUnlink() { try { await cfHandle(null); } catch {} cfSet({ linked: false, folder: "" }); toast(T("cfUnlinked")); renderList(); }
+/** Read the cloud copy if it is newer, then write ours if we have changes. ask=true: allowed to show the browser's permission question. */
+async function cfFolderSync(ask) {
+  if (cfBusy || !cfCanFolder() || !cfCfg().linked) return;
+  let dir; try { dir = await cfHandle(); } catch {} if (!dir) return;
+  let perm = await dir.queryPermission({ mode: "readwrite" });
+  if (perm !== "granted" && ask) perm = await dir.requestPermission({ mode: "readwrite" });
+  if (perm !== "granted") { if (!document.querySelector("[data-cfresume]")) toast("☁️ " + T("cfResume", { f: dir.name }), { sticky: true, actions: [{ label: T("cfResumeBtn"), run: () => cfFolderSync(true) }] })?.setAttribute("data-cfresume", ""); return; }
+  document.querySelectorAll("[data-cfresume]").forEach((x) => x.remove());
+  cfBusy = true;
+  try {
+    let fh = null; try { fh = await dir.getFileHandle(CF_NAME); } catch {}
+    if (fh) {
+      const f = await fh.getFile(), c = cfCfg();
+      if (f.lastModified > (c.readMod || 0) && f.lastModified > (c.wroteMod || 0)) { await cfMergeBlob(f); cfSet({ readMod: f.lastModified, lastReceived: new Date().toISOString() }); }
+    }
+    const c = cfCfg();
+    if (!fh || cfLatest() > String(c.sentUpTo || "")) {
+      const r = await cfBuild(null);
+      const h = fh || await dir.getFileHandle(CF_NAME, { create: true }), w = await h.createWritable();
+      await w.write(r.blob); await w.close();
+      const mod = (await h.getFile()).lastModified;
+      cfSet({ lastSent: new Date().toISOString(), sentUpTo: r.upTo, wroteMod: mod, readMod: mod });
+    }
+  } catch (e) { toast("☁️ " + T("cfFail") + " " + (e?.message || ""), { kind: "err" }); }
+  finally { cfBusy = false; }
+  if (S.screen === "library") renderList();
+}
+function cfStartAuto() {
+  if (!cfCanFolder() || !cfCfg().linked) return;
+  clearInterval(cfTimer); cfTimer = setInterval(() => cfFolderSync(false), 3 * 60e3);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden" && cfDirty()) cfFolderSync(false); else if (document.visibilityState === "visible") cfFolderSync(false); });
+  setTimeout(() => cfFolderSync(false), 2500);
+}
+
+/** One panel for all of it. */
+async function cloudFilePanel() {
+  const c = cfCfg(), folder = cfCanFolder();
+  const v = await dialog({ title: "☁️ " + T("cfTitle"), body: `<p class="msg">${esc(T("cfHow"))}</p>
+    <div class="mailbtns">
+      <button type="button" class="acctcard" data-m="send"><span class="ai">📤</span><span><b>${esc(T("cfSend"))}</b><small>${esc(T("cfLast"))} ${esc(cfWhen(c.lastSent))}${cfDirty() ? " · " + esc(T("cfDirty")) : ""}</small></span></button>
+      <button type="button" class="acctcard" data-m="get"><span class="ai">📥</span><span><b>${esc(T("cfGet"))}</b><small>${esc(T("cfLast"))} ${esc(cfWhen(c.lastReceived))}</small></span></button>
+      ${folder ? (c.linked ? `<button type="button" class="acctcard alt" data-m="unlink"><span class="ai">📁</span><span><b>${esc(T("cfLinkedTo", { f: c.folder || "—" }))}</b><small>${esc(T("cfAutoOn"))}</small></span><span class="go">✕</span></button>`
+        : `<button type="button" class="acctcard alt" data-m="link"><span class="ai">📁</span><span><b>${esc(T("cfLink"))}</b><small>${esc(T("cfLinkSub"))}</small></span><span class="go">›</span></button>`) : ""}
+    </div>
+    <p class="msg" style="font-size:13px">🔒 ${esc(T("cfPrivacy"))}</p>`,
+    actions: [{ label: T("close"), value: null }],
+    onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (v === "send") return cfSend();
+  if (v === "get") return cfGet();
+  if (v === "link") return cfLink();
+  if (v === "unlink") return cfUnlink();
+}
+(function cfBoot() { if (S.loaded) cfStartAuto(); else setTimeout(cfBoot, 1000); })();
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
