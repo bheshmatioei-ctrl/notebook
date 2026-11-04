@@ -933,6 +933,136 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .aim .btn{display:block;margin-top:6px;min-height:28px;font-size:12px;padding:2px 10px}
 .aiq{display:flex;gap:8px;align-items:flex-end}.aiq textarea{flex:1;border:1px solid var(--line);border-radius:10px;padding:8px;background:var(--bg);color:var(--ink);font:inherit;resize:vertical}
 .airel{display:flex!important;gap:6px;align-items:center;flex-wrap:wrap;padding:6px 0;border-bottom:1px solid var(--line)}.airel .kp{color:#1f8a4c}.airel .kn{color:#d64545}.airel small{color:var(--muted)}
+/* ---- sky home ---- */
+.skyhome{--sk-ink:#eef0fa;--sk-mut:#b3bad9;--sk-card:rgba(255,255,255,.075);--sk-line:rgba(255,255,255,.16);--sk-hl:rgba(130,150,255,.28);--sk-acc:#ff8a65;--sk-p:#6ad1a0;--sk-n:#ff8a8a;
+  background:radial-gradient(1100px 700px at 70% 22%,#1d2a52 0%,#0d1226 55%,#070a16 100%);color:var(--sk-ink);container-type:inline-size}
+.skyhome.day{--sk-ink:#22283a;--sk-mut:#5b6377;--sk-card:#ffffff;--sk-line:#e1dacb;--sk-hl:#f3dccf;--sk-p:#2f8f62;--sk-n:#c4453b;
+  background:radial-gradient(1100px 700px at 70% 22%,#fbf8f1 0%,#f4efe6 70%)}
+.skyhome .skin{max-width:1240px;margin:0 auto;padding:16px max(16px,env(safe-area-inset-right)) 90px max(16px,env(safe-area-inset-left))}
+.skyhome .btn{background:var(--sk-card);border-color:var(--sk-line);color:var(--sk-ink);min-height:44px}
+.skyhome .btn.sm{min-height:36px;padding:4px 12px;font-size:14px}
+.skyhome .skh{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.skyhome .skt h1{margin:0;font-size:24px;font-weight:800;line-height:1.3}
+.skyhome .skt small{display:block;color:var(--sk-mut);font-size:14px}
+.skyhome .skcmd{flex:1 1 320px;min-width:240px;position:relative;display:flex;align-items:center;gap:8px;height:48px;border-radius:24px;padding:0 16px;background:var(--sk-card);border:1px solid var(--sk-line)}
+.skyhome .skcmd:focus-within{border-color:#8fa0ff;box-shadow:0 0 0 4px rgba(120,140,255,.18)}
+.skyhome .skcmd input{flex:1;min-width:0;height:100%;border:0;background:none;outline:none;font-size:16px;color:var(--sk-ink)}
+.skyhome .skcmd input::placeholder{color:var(--sk-mut)}
+.skyhome .skcmd kbd{font-family:inherit;font-size:12px;color:var(--sk-mut);border:1px solid var(--sk-line);border-radius:6px;padding:0 6px}
+@media (pointer:coarse){.skyhome .skcmd kbd{display:none}}
+.skyhome .qi{font-size:18px;line-height:1}
+.skyhome .skdrop{position:absolute;top:54px;inset-inline:0;z-index:30;border-radius:16px;padding:6px;background:#161c3a;border:1px solid rgba(140,160,255,.4);box-shadow:0 18px 40px rgba(0,0,0,.45);max-height:60vh;overflow:auto;color:#eef0fa}
+.skyhome.day .skdrop{background:#fff;border-color:var(--sk-line);color:var(--sk-ink);box-shadow:0 18px 40px rgba(59,47,31,.18)}
+.skyhome .skdrop .sec{font-size:14px;color:var(--sk-mut);padding:6px 10px 2px}
+.skyhome .skdrop .r{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:6px 10px;border:0;border-radius:12px;background:none;text-align:start;font-size:15px;color:inherit}
+.skyhome .skdrop .r span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skdrop .r small{color:var(--sk-mut);font-size:14px;max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skdrop .r.on,.skyhome .skdrop .r:hover{background:var(--sk-hl)}
+.skyhome .skdrop kbd{font-family:inherit;font-size:13px;color:var(--sk-mut)}
+.skyhome .sktools{display:flex;align-items:center;gap:8px}
+.skyhome .seg{display:flex;border:1px solid var(--sk-line);border-radius:12px;overflow:hidden;background:var(--sk-card)}
+.skyhome .seg button{white-space:nowrap;border:0;background:none;min-height:44px;padding:0 14px;font-size:14px;color:var(--sk-mut)}
+.skyhome .seg button[aria-pressed="true"]{background:var(--sk-hl);color:var(--sk-ink);font-weight:700}
+.skyhome .skq{margin:14px 0 6px;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;align-items:center;scrollbar-width:none}
+.skyhome .skq .qa{flex:none;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--sk-line);background:var(--sk-card);color:var(--sk-ink);font-size:15px}
+.skyhome .skq .qa:first-child{background:linear-gradient(135deg,#ff8a65,#e45d9a);border:0;color:#fff;font-weight:700}
+.skyhome .sktarget{flex:none;color:var(--sk-mut);font-size:14px;padding-inline-start:4px}
+.skyhome .sktarget b{color:var(--sk-ink)}
+.skyhome .skchips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
+.skyhome .chip{flex:none;display:flex;align-items:center;gap:7px;min-height:44px;padding:0 14px;border-radius:22px;border:1px solid var(--sk-line);background:var(--sk-card);color:var(--sk-ink);font-size:14px}
+.skyhome .chip i{width:10px;height:10px;border-radius:50%}
+.skyhome .chip[aria-pressed="true"]{background:var(--sk-ink);color:#14193a;font-weight:700;border-color:transparent}
+.skyhome.day .chip[aria-pressed="true"]{color:#fff}
+.skyhome .skgrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;grid-template-areas:"sky today" "sky think" "dock dock";gap:14px}
+.skyhome .skwrap{grid-area:sky;min-height:470px;position:relative;border-radius:22px;border:1px solid var(--sk-line);background:rgba(255,255,255,.02);overflow:hidden}
+.skyhome.day .skwrap{background:rgba(255,255,255,.55)}
+.skyhome .sktoday{grid-area:today}.skyhome .skthink{grid-area:think}.skyhome .skdock{grid-area:dock}
+@container (max-width:860px){.skyhome .skgrid{grid-template-columns:minmax(0,1fr) 320px}}
+@container (max-width:760px){
+  .skyhome .skgrid{grid-template-columns:1fr 1fr;grid-template-areas:"today think" "dock dock" "sky sky"}
+  .skyhome .skwrap{min-height:330px}
+}
+@container (max-width:540px){
+  .skyhome .skgrid{grid-template-columns:1fr;grid-template-areas:"today" "think" "dock" "sky"}
+  .skyhome .skt h1{font-size:21px}
+  .skyhome .sktools{width:100%}.skyhome .sktools .seg{flex:1}.skyhome .seg button{flex:1}
+}
+/* stars */
+.skyhome .skyc{position:absolute;inset:0;touch-action:pan-y}
+.skyhome .skyc:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.8;background-image:radial-gradient(1px 1px at 12% 18%,#fff9 50%,transparent),radial-gradient(1px 1px at 31% 72%,#fff7 50%,transparent),radial-gradient(1.5px 1.5px at 82% 14%,#fffb 50%,transparent),radial-gradient(1px 1px at 62% 86%,#fff6 50%,transparent),radial-gradient(1px 1px at 91% 61%,#fff8 50%,transparent),radial-gradient(1px 1px at 46% 38%,#fff5 50%,transparent)}
+.skyhome.day .skyc:before{display:none}
+.skyhome .skl{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.skyhome .skl line{stroke:#8fa0ff;stroke-opacity:.38;stroke-width:1.4;vector-effect:non-scaling-stroke}
+.skyhome .skl line.t{stroke-opacity:.24;stroke-width:1.1}
+.skyhome.day .skl line{stroke:#9b8f78;stroke-opacity:.45}
+.skyhome .sst{position:absolute;width:52px;height:52px;margin:-26px 0 0 -26px;border:0;background:none;padding:0;display:grid;place-items:center;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;color:var(--sk-ink);z-index:2}
+.skyhome .sst i{width:14px;height:14px;border-radius:50%;background:var(--c,#b8c4ff);box-shadow:0 0 14px var(--c,#b8c4ff);transition:transform .15s}
+.skyhome .sst b{position:absolute;top:44px;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:14px;font-weight:500;color:var(--sk-mut);pointer-events:none;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.skyhome.day .sst b{text-shadow:0 0 3px #fff,0 0 6px #fff}
+.skyhome .sst.sf i{width:24px;height:24px;box-shadow:0 0 22px var(--c)}
+.skyhome .sst.sf b{font-weight:700;color:var(--sk-ink);top:46px}
+.skyhome .sst.sc i{width:40px;height:40px;background:#ffd27a;box-shadow:0 0 40px rgba(255,210,122,.7)}
+.skyhome .sst.sc b{top:54px;font-size:16px;font-weight:800;color:var(--sk-ink)}
+.skyhome .sst.pin i{outline:2px solid #ffd84d;outline-offset:3px}
+.skyhome .sst.up b{top:auto;bottom:44px}
+.skyhome .sst.dim{opacity:.32}
+.skyhome .sst:focus-visible i,.skyhome .sst:hover i{transform:scale(1.25)}
+.skyhome .sst.drop i{outline:3px dashed #ffd84d;outline-offset:8px;transform:scale(1.3)}
+.skyhome .sst.drag{z-index:5;opacity:.9}.skyhome .sst.drag i{transform:scale(1.5)}
+.skyhome .skempty,.skyhome .skhint{color:var(--sk-mut);font-size:14px;line-height:1.7}
+.skyhome .skempty{position:absolute;inset-inline:10%;bottom:16px;text-align:center}
+/* list view */
+.skyhome .sklist{position:absolute;inset:0;overflow:auto;padding:8px}
+.skyhome .skr{display:flex;align-items:center;gap:10px;min-height:48px;padding:6px 10px;border-radius:12px;cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.skyhome .skr:hover{background:var(--sk-hl)}
+.skyhome .skr b{flex:1;min-width:0;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skr small{color:var(--sk-mut);font-size:14px;white-space:nowrap}
+.skyhome .skr em{font-style:normal}
+.skyhome .sklist .skempty{position:static;padding:30px 0}
+/* widgets */
+.skyhome .skw{border-radius:20px;padding:14px 16px;background:var(--sk-card);border:1px solid var(--sk-line);min-width:0}
+.skyhome .skw h3{margin:0 0 6px;font-size:15px;color:var(--sk-mut);font-weight:600;display:flex;align-items:center;gap:8px;min-height:36px}
+.skyhome .skw h3 .cnt{margin-inline-start:auto;font-size:14px;color:var(--sk-ink);background:var(--sk-hl);padding:2px 10px;border-radius:12px}
+.skyhome .skw h3 .nm{color:var(--sk-ink);cursor:pointer;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skrow{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--sk-line);min-height:46px}
+.skyhome .skrow:last-child{border:0}
+.skyhome .ck{width:44px;height:44px;flex:none;border:0;background:none;display:grid;place-items:center;padding:0}
+.skyhome .ck span{width:22px;height:22px;border-radius:7px;border:2px solid #8f9be0}
+.skyhome .ck:hover span{background:var(--sk-hl)}
+.skyhome .skrow .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;font-size:15px}
+.skyhome .tag{flex:none;font-size:14px;padding:1px 9px;border-radius:99px;background:var(--sk-hl);color:var(--sk-ink);max-width:40%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .tag.late{background:rgba(255,120,120,.25);color:var(--sk-n)}
+.skyhome .skadd{width:100%;margin-top:6px;min-height:44px;border-radius:12px;border:1px dashed var(--sk-line);background:none;padding:0 12px;font-size:15px;color:var(--sk-ink);box-sizing:border-box}
+.skyhome .skadd::placeholder{color:var(--sk-mut)}
+.skyhome .nrow{display:flex;align-items:center;gap:10px;width:100%;min-height:46px;border:0;border-bottom:1px solid var(--sk-line);background:none;color:var(--sk-ink);padding:0 2px;font-size:15px;text-align:start}
+.skyhome .nrow:last-child{border:0}
+.skyhome .nrow .tx{flex:0 1 44%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .nrow .bar{flex:1;height:8px;border-radius:4px;background:var(--sk-line);position:relative;overflow:hidden}
+.skyhome .nrow .bar i{position:absolute;inset-block:0;inset-inline-start:0;border-radius:4px;background:var(--sk-p)}
+.skyhome .nrow .bar i.ng{background:var(--sk-n)}
+.skyhome .nrow b{min-width:44px;text-align:end;font-size:15px}
+.skyhome .nrow b.p{color:var(--sk-p)}.skyhome .nrow b.ng{color:var(--sk-n)}
+.skyhome .skage{font-size:14px;color:var(--sk-mut);margin-top:6px}
+.skyhome .skthink.stale .skrows{opacity:.55}
+.skyhome .skthink.stale .skage{color:#e0a640}
+/* card row */
+.skyhome .sktabs{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+.skyhome .sktabs button{min-height:44px;padding:0 14px;border-radius:20px;border:0;background:none;color:var(--sk-mut);font-size:14px}
+.skyhome .sktabs button[aria-selected="true"]{background:var(--sk-hl);color:var(--sk-ink);font-weight:700}
+.skyhome .skcards{display:grid;grid-auto-flow:column;grid-auto-columns:158px;gap:12px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}
+.skyhome .skd{position:relative;border-radius:18px;background:var(--sk-card);border:1px solid var(--sk-line);overflow:hidden;cursor:pointer;scroll-snap-align:start;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.skyhome .skd:hover{border-color:#8fa0ff}
+.skyhome .skd .th{height:92px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(circle at 50% 40%,rgba(120,140,255,.16),transparent 70%)}
+.skyhome .skd .th img{width:100%;height:100%;object-fit:cover}
+.skyhome .skd .th.tx{place-items:start;padding:30px 12px 8px;font-size:12.5px;line-height:1.55;color:var(--sk-mut);text-align:start}
+.skyhome .skd .th.lock{font-size:26px}
+.skyhome .skd .fext{padding:10px 12px;border-radius:8px;background:rgba(255,120,120,.22);color:var(--sk-n);font-weight:800}
+.skyhome .skd b{display:block;padding:8px 12px 0;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skd small{display:block;padding:0 12px 10px;color:var(--sk-mut);font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skyhome .skd .ty{position:absolute;top:8px;inset-inline-end:8px;font-size:13px;padding:1px 8px;border-radius:8px;background:rgba(0,0,0,.35);color:#fff;z-index:1}
+.skyhome .skd .pn{position:absolute;top:6px;inset-inline-start:8px;font-size:14px;z-index:1}
+.skyhome .skdock .skhint{padding:0 6px}
+@media (prefers-reduced-motion:reduce){.skyhome .sst i{transition:none}}
 </style>
 
 <div class="app" id="app">
@@ -1844,6 +1974,7 @@ function viewTitle() {
 function renderLibrary() {
   const main = $("#main"), st = S.meta.settings;
   if (ro) { ro.disconnect(); ro = null; }
+  if (S.view === "__all" && !S.query.trim() && skyOn()) return renderSky();
   if (!S.query.trim()) {
     if (S.view === "__templates") return renderTemplates();
     if (S.view === "__photos") return renderMedia("image");
@@ -1867,6 +1998,7 @@ function renderLibrary() {
       ${isBook ? `<button class="btn" data-act="editCover">🎨 ${esc(T("nbCoverBtn"))}</button>` : ""}
       ${isBook && folderRecOf(S.view)?.vault ? (bookPages(S.view).some((n) => n.locked && S.unlocked.has(n.id)) ? `<button class="btn" data-act="vaultLockBook">${ic("lock")} ${esc(T("vaultLockAll"))}</button>` : `<button class="btn primary" data-act="vaultOpenBook">${ic("unlock")} ${esc(T("vaultOpenBook"))}</button>`) : ""}
       ${inFolder ? `<button class="btn icon" data-fmenu="${esc(S.view)}" title="${esc(T("more"))}">${ic("more")}</button>` : ""}
+      ${home ? `<button class="btn" data-act="skyOn">✦ ${esc(T("skyName"))}</button>` : ""}
       <button class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
       <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⇅</button>
       ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : ""}
@@ -6311,6 +6443,7 @@ function doAct(act, el) {
   if (act === "readMode") return toggleReadMode();
   if (act === "focusMode") return toggleFocus();
   if (act === "home") return goHome();
+  if (act === "skyOn") { S.meta.settings.homeStyle = "sky"; saveMeta(0); return renderLibrary(); }
   if (act === "storeFiles") return pickStoreFiles();
   if (act === "newMap") return newMap();
   if (act === "pageToMap") { const pn = S.notes.get(S.activeId); return pn && pageToMap(pn); }
@@ -7207,11 +7340,12 @@ function filesSection(list) {
   }).join("")}</div>`;
 }
 let fileStoreIn = null;
-function pickStoreFiles() {
+function pickStoreFiles(folder) {
   if (!S.assets) return toast(T("pdfNeedsCloud"), { kind: "err" });
+  fileStoreFolder = typeof folder === "string" ? folder : null;
   if (!fileStoreIn) {
     fileStoreIn = document.createElement("input"); fileStoreIn.type = "file"; fileStoreIn.multiple = true; fileStoreIn.className = "vhide";
-    fileStoreIn.addEventListener("change", () => { const f = Array.from(fileStoreIn.files || []); fileStoreIn.value = ""; if (f.length) storeFiles(f); });
+    fileStoreIn.addEventListener("change", () => { const f = Array.from(fileStoreIn.files || []); fileStoreIn.value = ""; if (f.length) storeFiles(f, fileStoreFolder); });
     document.body.append(fileStoreIn);
   }
   fileStoreIn.value = ""; fileStoreIn.click();
@@ -7460,6 +7594,9 @@ Object.assign(I18N.en, { brFound: "In the answer: {n} ideas and {r} arrows.", ex
   brCopy: "📋 Copy text", brCopied: "Copied. Paste it into ChatGPT or Claude, then bring the answer back with “📥 Paste the answer”.", brSendApi: "✨ Send directly with my key", brOpen: "Open", brHow: "Free way: copy the text, paste it into ChatGPT or Claude, and paste the full answer back here. With an API key you can also send it directly.",
   brPasteH: "Paste the whole AI answer here (including the JSON part).", brNoJson: "No JSON part found. Ask the AI to answer in the given format.", brSum: "{a} new ideas, {c} updated ideas, {r} arrows.", brApply: "Apply to the map",
   brKeepAns: "Add the text answer to the central idea's note", brDone: "✅ Applied: {s}", brAnswer: "Answer", brThinking: "Asking…", bmapBad: "Not a valid .bmap file.", csvBad: "No usable columns found (e.g. text or from/to)." });
+Object.assign(I18N.fa, {"skyName": "آسمان ایده‌ها", "skyMe": "بابک", "skyCmdPh": "جست‌وجو، ساختن یا فرمان…  (مثلاً ‎+جدول قیمت‌ها)", "skyNewNote": "یادداشت", "skyNewMap": "نقشه", "skyNewTable": "جدول", "skyNewTask": "کار", "skyNewVoice": "صدا", "skyNewFile": "فایل", "skyInto": "ساختن در:", "skyRoot": "بدون پوشه", "skyAll": "همه", "skyViewSky": "آسمان", "skyViewList": "فهرست", "skyDay": "تم روز", "skyNight": "تم شب", "skyClassic": "نمای کلاسیک", "skyClassicMsg": "نمای کلاسیک فعال شد. برای برگشتن، دکمهٔ «✦ آسمان» بالای صفحه.", "skyStats": "{n} مورد · {m} نقشه · {f} پوشه", "skyToday": "امروز", "skyLeft": "{n} مانده", "skyTaskPh": "＋ کار تازه برای امروز… (بنویس و Enter)", "skyNoTasks": "برای امروز کاری نمانده ✓", "skyTaskAdded": "⏰ برای امروز ثبت شد", "skyDoneMsg": "انجام شد", "skyLate": "عقب‌افتاده", "skyThink": "شبکهٔ فکری", "skyRethink": "▶ دوباره فکر کن", "skyThinkNone": "هنوز «فکر کن» اجرا نشده. یک نقشه را باز کنید، 🧠 را روشن کنید و ▶ بزنید؛ نتیجه همین‌جا می‌ماند.", "skyStale": "قدیمی است؛ دوباره اجرا کنید", "skyUpdated": "شبکه دوباره فکر کرد ✓", "skyAgoNow": "همین الان", "skyAgoH": "{n} ساعت پیش", "skyAgoD": "{n} روز پیش", "skyPinned": "سنجاق‌شده", "skyRecent": "اخیر", "skyNoPinned": "هنوز چیزی سنجاق نشده؛ روی هر کارت انگشت نگه دارید و ⭐ بزنید.", "skyMadeIn": "ساخته شد در «{f}»", "skyChange": "تغییر", "skyMovedTo": "منتقل شد به «{f}»", "skyMore": "{n} مورد دیگر — نمای کلاسیک", "skyEmpty": "آسمان هنوز خالی است؛ با دکمه‌های بالا اولین ستاره را بسازید.", "skyTyNote": "یادداشت", "skyTyMap": "نقشه", "skyTyFile": "فایل", "skyTyPage": "صفحهٔ دفتر", "skyCmdThink": "فکر کن (آخرین نقشه)", "skyMk_note": "＋ یادداشت تازه «{t}»", "skyMk_map": "＋ نقشهٔ تازه «{t}»", "skyMk_table": "＋ جدول تازه «{t}»", "skyMk_task": "＋ کار امروز «{t}»", "skySec_make": "ساختن", "skySec_open": "باز کردن", "skySec_cmd": "فرمان"});
+Object.assign(I18N.de, {"skyName": "Ideenhimmel", "skyMe": "Ich", "skyCmdPh": "Suchen, erstellen oder Befehl… (z. B. +Tabelle Preise)", "skyNewNote": "Notiz", "skyNewMap": "Karte", "skyNewTable": "Tabelle", "skyNewTask": "Aufgabe", "skyNewVoice": "Audio", "skyNewFile": "Datei", "skyInto": "Erstellen in:", "skyRoot": "Ohne Ordner", "skyAll": "Alle", "skyViewSky": "Himmel", "skyViewList": "Liste", "skyDay": "Tag-Design", "skyNight": "Nacht-Design", "skyClassic": "Klassische Ansicht", "skyClassicMsg": "Klassische Ansicht aktiv. Zurück mit „✦ Himmel“ oben.", "skyStats": "{n} Einträge · {m} Karten · {f} Ordner", "skyToday": "Heute", "skyLeft": "{n} offen", "skyTaskPh": "＋ Neue Aufgabe für heute… (Enter)", "skyNoTasks": "Für heute ist nichts offen ✓", "skyTaskAdded": "⏰ Für heute eingetragen", "skyDoneMsg": "Erledigt", "skyLate": "Überfällig", "skyThink": "Denknetz", "skyRethink": "▶ Neu denken", "skyThinkNone": "„Denken“ wurde noch nicht ausgeführt. Karte öffnen, 🧠 einschalten und ▶ tippen; das Ergebnis bleibt hier.", "skyStale": "Veraltet – neu ausführen", "skyUpdated": "Netz neu berechnet ✓", "skyAgoNow": "gerade eben", "skyAgoH": "vor {n} Std.", "skyAgoD": "vor {n} Tagen", "skyPinned": "Angeheftet", "skyRecent": "Zuletzt", "skyNoPinned": "Noch nichts angeheftet – Karte lange drücken und ⭐ wählen.", "skyMadeIn": "Erstellt in „{f}“", "skyChange": "Ändern", "skyMovedTo": "Verschoben nach „{f}“", "skyMore": "{n} weitere – klassische Ansicht", "skyEmpty": "Der Himmel ist noch leer – oben den ersten Stern erstellen.", "skyTyNote": "Notiz", "skyTyMap": "Karte", "skyTyFile": "Datei", "skyTyPage": "Heftseite", "skyCmdThink": "Denken (letzte Karte)", "skyMk_note": "＋ Neue Notiz „{t}“", "skyMk_map": "＋ Neue Karte „{t}“", "skyMk_table": "＋ Neue Tabelle „{t}“", "skyMk_task": "＋ Aufgabe heute „{t}“", "skySec_make": "Erstellen", "skySec_open": "Öffnen", "skySec_cmd": "Befehl"});
+Object.assign(I18N.en, {"skyName": "Idea sky", "skyMe": "Me", "skyCmdPh": "Search, create or command… (e.g. +table prices)", "skyNewNote": "Note", "skyNewMap": "Map", "skyNewTable": "Table", "skyNewTask": "Task", "skyNewVoice": "Voice", "skyNewFile": "File", "skyInto": "Create in:", "skyRoot": "No folder", "skyAll": "All", "skyViewSky": "Sky", "skyViewList": "List", "skyDay": "Day theme", "skyNight": "Night theme", "skyClassic": "Classic view", "skyClassicMsg": "Classic view is on. Use “✦ Sky” at the top to go back.", "skyStats": "{n} items · {m} maps · {f} folders", "skyToday": "Today", "skyLeft": "{n} left", "skyTaskPh": "＋ New task for today… (Enter)", "skyNoTasks": "Nothing left for today ✓", "skyTaskAdded": "⏰ Added for today", "skyDoneMsg": "Done", "skyLate": "Late", "skyThink": "Thinking network", "skyRethink": "▶ Think again", "skyThinkNone": "“Think” hasn't run yet. Open a map, turn on 🧠 and tap ▶; the result stays here.", "skyStale": "Old – run again", "skyUpdated": "Network re-thought ✓", "skyAgoNow": "just now", "skyAgoH": "{n} h ago", "skyAgoD": "{n} days ago", "skyPinned": "Pinned", "skyRecent": "Recent", "skyNoPinned": "Nothing pinned yet – long-press a card and tap ⭐.", "skyMadeIn": "Created in “{f}”", "skyChange": "Change", "skyMovedTo": "Moved to “{f}”", "skyMore": "{n} more – classic view", "skyEmpty": "The sky is still empty – create the first star with the buttons above.", "skyTyNote": "Note", "skyTyMap": "Map", "skyTyFile": "File", "skyTyPage": "Notebook page", "skyCmdThink": "Think (last map)", "skyMk_note": "＋ New note “{t}”", "skyMk_map": "＋ New map “{t}”", "skyMk_table": "＋ New table “{t}”", "skyMk_task": "＋ Task today “{t}”", "skySec_make": "Create", "skySec_open": "Open", "skySec_cmd": "Command"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -7518,10 +7655,11 @@ function mmHidden(d) { const h = new Set(); for (const x of Object.values(d.node
 function mmSave() { if (MM.live) requestAnimationFrame(() => { if (MM && MM.live && $("#mmStage")) netLive(); }); const n = MM.n; n.mm = MM.d; touch(n); if (MM.d.nodes[MM.d.root]) n.title = n.title || MM.d.nodes[MM.d.root].text; saveNote(n.id, 700); }
 function mmPush() { if (MM.sim) netStop(); MM.undo.push(JSON.stringify(MM.d)); if (MM.undo.length > 60) MM.undo.shift(); MM.redo = []; }
 function mmUndo(redo) { if (MM.sim) netStop(); const from = redo ? MM.redo : MM.undo, to = redo ? MM.undo : MM.redo; if (!from.length) return; to.push(JSON.stringify(MM.d)); MM.d = mmNorm(JSON.parse(from.pop())); MM.sel = MM.d.nodes[MM.sel] ? MM.sel : null; mmSave(); mmDraw(); }
-function newMap() {
+function newMap(opt) {
   if (S.readOnly) return;
-  const folder = S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
-  const n = normNote({ id: uid(), title: T("mmNew"), html: "", folder, mm: mmNewData(T("mmRoot")), pageStyle: "blank", createdAt: now, updatedAt: now });
+  opt = opt && typeof opt === "object" && !(opt instanceof Event) ? opt : {};
+  const folder = opt.folder != null ? opt.folder : S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString(), tt = String(opt.title || "").trim();
+  const n = normNote({ id: uid(), title: tt || T("mmNew"), html: "", folder, mm: mmNewData(tt || T("mmRoot")), pageStyle: "blank", createdAt: now, updatedAt: now });
   S.notes.set(n.id, n); saveNote(n.id, 0); openNote(n.id);
   setTimeout(() => { if (MM) { MM.sel = MM.d.root; mmDraw(); mmStartEdit(MM.d.root, true); } }, 80);
 }
@@ -8122,6 +8260,7 @@ function netThink(scId) {
   const sc = scId ? (d.scen || []).find((q) => q.id === scId) : null, ov = sc ? sc.ov : {};
   const res = netRun(d, ov);
   if (!res.fixed.size) return toast(T("netNoInput"), { kind: "err" });
+  try { skyRememberThink(MM.n, d, res, sc); } catch {}
   if (MM.sim) clearInterval(MM.sim.timer);
   MM.sim = { res, i: 0, name: sc ? sc.name || T("netScen") : T("netBase"), ov: sc ? ov : null, scId: sc ? sc.id : null, timer: 0 };
   if (d.mode !== "net") { d.mode = "net"; $("#mmStage").classList.add("net"); $('[data-mm="net"]')?.setAttribute("aria-pressed", "true"); }
@@ -9881,7 +10020,389 @@ if ("launchQueue" in window) {
   try { launchQueue.setConsumer(async (lp) => { if (!lp || !lp.files || !lp.files.length) return; const files = []; for (const h of lp.files) { try { files.push(await h.getFile()); } catch {} } takeShared(files); }); } catch {}
 }
 if ("caches" in window) readShareInbox();
-window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob }; // for automatic tests
+/* ---------------- sky home: an operational start page ----------------
+   Rules (so beauty never costs speed): every star keeps a fixed place, the card row and the command box are the fast
+   paths, every gesture has a button, nothing below 14px, touch targets at least 44px, at most 40 stars, no blur effects. */
+const SKY_FS = 8, SKY_NS = 4, SKY_US = 6, SKY_MAX = 40;
+let skyFocus = "", skyDrag = null, skyNoClick = 0, skyCmdI = 0, skyCmdList = [], skyChkCache = new Map(), fileStoreFolder = null;
+let skyToastEl = null;
+function skyToast(msg, actions) { try { skyToastEl?.remove(); } catch {} skyToastEl = toast(msg, { actions: actions || [] }); return skyToastEl; }
+const skyUi = () => ({ view: "sky", theme: "night", dock: "pin", ...lsGet("babak-sa-skyui", {}) });
+const skyUiSet = (p) => lsSet("babak-sa-skyui", { ...skyUi(), ...p });
+function skyOn() { return S.meta.settings.homeStyle !== "classic"; }
+function skyLive() { return Array.from(S.notes.values()).filter((n) => !n.trashed); }
+const skyTop = (n) => (n.folder ? n.folder.split(SEP)[0] : "");
+function skyRecent(n, op) { return Math.max(op[n.id] || 0, Date.parse(n.updatedAt) || 0); }
+function skyKind(n) { return isStored(n) ? "file" : n.mm ? "map" : n.folder && folderKind(n.folder) === "book" ? "page" : "note"; }
+function skyGlyph(n) { const k = skyKind(n); return k === "map" ? "🧠" : k === "file" ? "📎" : k === "page" ? "📖" : "📝"; }
+
+/** Fixed places: a star keeps its slot until it is deleted or moved; only very old, unpinned stars give their place to new ones. */
+function skyLayout(live) {
+  const st = S.meta.settings; let ch = false;
+  if (!st.sky || typeof st.sky !== "object") { st.sky = { f: {}, n: {} }; ch = true; }
+  const sky = st.sky; sky.f = sky.f || {}; sky.n = sky.n || {};
+  const op = openedMap(), tops = folderPaths().filter((f) => !f.path.includes(SEP)), have = new Set(tops.map((f) => f.path));
+  const cnt = (p) => live.filter((n) => inPath(n.folder, p)).length;
+  for (const p of Object.keys(sky.f)) if (!have.has(p)) { delete sky.f[p]; ch = true; }
+  const usedF = new Set(Object.values(sky.f));
+  for (const f of tops.filter((f) => sky.f[f.path] === undefined).sort((a, b) => cnt(b.path) - cnt(a.path))) {
+    let s = 0; while (usedF.has(s)) s++; if (s >= SKY_FS) break;
+    sky.f[f.path] = s; usedF.add(s); ch = true;
+  }
+  for (const [id, v] of Object.entries(sky.n)) {
+    const n = S.notes.get(id);
+    if (!n || n.trashed || !v || skyTop(n) !== v.p || (v.p && sky.f[v.p] === undefined) || (v.p && folderKind(v.p) === "book")) { delete sky.n[id]; ch = true; }
+  }
+  let total = Object.keys(sky.f).length + Object.keys(sky.n).length + 1;
+  const old = Date.now() - 30 * 864e5, fresh = Date.now() - 3 * 864e5;
+  for (const p of ["", ...Object.keys(sky.f)]) {
+    if (p && folderKind(p) === "book") continue; // a notebook is one star; its pages live inside it
+    const max = p ? SKY_NS : SKY_US;
+    const cands = live.filter((n) => skyTop(n) === p && sky.n[n.id] === undefined && !(n.folder && folderKind(n.folder) === "book"))
+      .sort((a, b) => (b.pinned - a.pinned) || skyRecent(b, op) - skyRecent(a, op));
+    for (const n of cands) {
+      const held = Object.entries(sky.n).filter(([, v]) => v.p === p), used = new Set(held.map(([, v]) => v.s));
+      let s = 0; while (used.has(s)) s++;
+      if (s < max) { if (total >= SKY_MAX) break; sky.n[n.id] = { p, s }; total++; ch = true; continue; }
+      if (!(n.pinned || skyRecent(n, op) > fresh)) break;
+      const victim = held.map(([id, v]) => ({ id, v, m: S.notes.get(id) })).filter((x) => x.m && !x.m.pinned && skyRecent(x.m, op) < old).sort((a, b) => skyRecent(a.m, op) - skyRecent(b.m, op))[0];
+      if (!victim) break;
+      delete sky.n[victim.id]; sky.n[n.id] = { p, s: victim.v.s }; ch = true;
+    }
+  }
+  if (ch) saveMeta(1500);
+  return sky;
+}
+function skyPos(kind, s, p, sky) {
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  if (kind === "f") { const a = (-90 + s * 45) * Math.PI / 180; return [50 + 33 * Math.cos(a), 48 + 32 * Math.sin(a)]; }
+  if (!p) { const a = (-67.5 + s * 60) * Math.PI / 180; return [50 + 16 * Math.cos(a), 50 + 19 * Math.sin(a)]; }
+  // children sit on a short arc beside their folder (along the tangent), a little outward; slots 0,1 in the middle, 2,3 outside
+  const fs = sky.f[p], fa = (-90 + fs * 45) * Math.PI / 180, [fx, fy] = skyPos("f", fs, "", sky), off = [-0.5, 0.5, -1.5, 1.5][s] || 0;
+  const tx = -Math.sin(fa), ty = Math.cos(fa), ox = Math.cos(fa), oy = Math.sin(fa);
+  return [clamp(fx + tx * off * 21 + ox * (8 + Math.abs(off) * 2), 8, 92), clamp(fy + ty * off * 16 + oy * (13 + Math.abs(off) * 2), 7, 88)];
+}
+/** Labels of side-by-side children alternate above and below the dot so they never sit on each other. */
+function skyLabelUp(p, s, sky) { if (!p) return false; const fa = (-90 + sky.f[p] * 45) * Math.PI / 180; return false; } // kept for later: names always under the dot, children spaced wide enough not to touch
+/** How many children per folder fit: a narrow sky shows fewer (their places stay fixed). */
+function skyFit() {
+  const m = $("#main"), w = (m ? m.clientWidth : 800) - 32, sw = w > 860 ? w - 374 : w > 760 ? w - 334 : w;
+  return { kids: sw >= 620 ? 4 : sw >= 430 ? 3 : 2, free: sw >= 620 ? 6 : 4 };
+}
+const skyShort = (t, k = 18) => (t.length > k ? t.slice(0, k - 1) + "…" : t);
+
+function skyStarsHtml(live) {
+  const sky = skyLayout(live), fold = folderPaths(), lines = [], fit = skyFit();
+  let h = `<button type="button" class="sst sc" data-view="__unfiled" style="left:50%;top:50%" title="${esc(T("unfiled"))}"><i></i><b>${esc(T("skyMe"))}</b></button>`;
+  for (const [p, s] of Object.entries(sky.f)) {
+    const [x, y] = skyPos("f", s, "", sky), f = fold.find((q) => q.path === p) || { color: "#9aa4b8" }, book = folderKind(p) === "book";
+    lines.push(`<line x1="50" y1="50" x2="${x}" y2="${y}"/>`);
+    h += `<button type="button" class="sst sf ${skyFocus && skyFocus !== p ? "dim" : ""}" data-view="${esc(p)}" data-skyf="${esc(p)}" style="left:${x}%;top:${y}%;--c:${esc(f.color)}"><i></i><b>${book ? "📗 " : ""}${esc(skyShort(p, 16))}</b></button>`;
+  }
+  for (const [id, v] of Object.entries(sky.n)) {
+    const n = S.notes.get(id); if (!n || v.s >= (v.p ? fit.kids : fit.free)) continue;
+    const [x, y] = skyPos("n", v.s, v.p, sky), [px, py] = v.p ? skyPos("f", sky.f[v.p], "", sky) : [50, 50];
+    lines.push(`<line class="t" x1="${px}" y1="${py}" x2="${x}" y2="${y}"/>`);
+    h += `<button type="button" class="sst sn ${skyFocus && skyFocus !== v.p ? "dim" : ""} ${n.pinned ? "pin" : ""} ${skyLabelUp(v.p, v.s, sky) ? "up" : ""}" data-note="${esc(id)}" style="left:${x}%;top:${y}%;--c:${esc(n.color)}" title="${esc(titleOf(n))}"><i></i><b>${esc(skyShort(titleOf(n), 10))}</b></button>`;
+  }
+  return `<svg class="skl" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines.join("")}</svg>${h}`
+    + (live.length ? "" : `<div class="skempty">${esc(T("skyEmpty"))}</div>`);
+}
+function skyListHtml(live) {
+  const op = openedMap(), arr = live.filter((n) => !skyFocus || inPath(n.folder, skyFocus)).sort((a, b) => (b.pinned - a.pinned) || skyRecent(b, op) - skyRecent(a, op));
+  const shown = arr.slice(0, 150);
+  return `<div class="sklist">${shown.map((n) => `<div class="skr" data-note="${esc(n.id)}"><span class="g">${skyGlyph(n)}</span><b dir="auto">${esc(titleOf(n))}</b><small>${n.folder ? "📁 " + esc(leaf(n.folder)) + " · " : ""}${esc(fmtDate(n.updatedAt, false))}</small>${n.pinned ? "<em>⭐</em>" : ""}</div>`).join("")}
+    ${arr.length > shown.length ? `<button type="button" class="btn" data-sky="classic">${esc(T("skyMore", { n: num(arr.length - shown.length) }))}</button>` : ""}
+    ${arr.length ? "" : `<div class="skempty">${esc(T("skyEmpty"))}</div>`}</div>`;
+}
+
+/* ---- today: reminders due today (or late) and open checklist items of recent pages ---- */
+function skyChecks(n) {
+  const w = W(n), key = n.id + "|" + n.updatedAt;
+  if (skyChkCache.has(key)) return skyChkCache.get(key);
+  let out = [];
+  if (String(w.html || "").includes('data-list="check"')) {
+    const t = document.createElement("template"); t.innerHTML = w.html;
+    t.content.querySelectorAll('ul[data-list="check"] > li').forEach((li, i) => { if (!li.hasAttribute("data-checked")) { const tx = li.textContent.trim(); if (tx) out.push({ i, t: tx }); } });
+  }
+  skyChkCache.set(key, out); return out;
+}
+function skyTodayItems(live) {
+  const end = new Date(); end.setHours(23, 59, 59, 999); const start = new Date(); start.setHours(0, 0, 0, 0);
+  const rem = S.meta.reminders.filter((r) => !r.done && new Date(r.at) <= end).sort((a, b) => (a.at < b.at ? -1 : 1))
+    .map((r) => ({ k: "r", id: r.id, t: remTitle(r), note: r.noteId && S.notes.get(r.noteId) && !S.notes.get(r.noteId).trashed ? r.noteId : "", late: new Date(r.at) < start, at: r.at }));
+  const chk = [], since = Date.now() - 21 * 864e5;
+  for (const n of live.slice().sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))) {
+    if (chk.length >= 5 || Date.parse(n.updatedAt) < since) break;
+    if (sealedLocked(n) || n.mm || isStored(n)) continue;
+    for (const c of skyChecks(n)) { if (chk.length >= 5) break; chk.push({ k: "c", id: n.id, i: c.i, t: c.t, tag: titleOf(n) }); }
+  }
+  return [...rem, ...chk];
+}
+function skyTime(iso) { const d = new Date(iso); return num(String(d.getHours()).padStart(2, "0")) + ":" + num(String(d.getMinutes()).padStart(2, "0")); }
+function skyTodayHtml(live) {
+  const items = skyTodayItems(live);
+  return `<section class="skw sktoday"><h3>☀︎ ${esc(T("skyToday"))}${items.length ? `<span class="cnt">${esc(T("skyLeft", { n: num(items.length) }))}</span>` : ""}</h3>
+    <div class="skrows">${items.slice(0, 7).map((x) => `<div class="skrow"><button type="button" class="ck" data-sky="${x.k === "r" ? "rdone" : "cdone"}" data-id="${esc(x.id)}" data-i="${x.i ?? ""}" aria-label="${esc(T("skyDoneMsg"))}"><span></span></button>
+      <span class="tx" dir="auto" ${x.k === "c" || x.note ? `data-note="${esc(x.k === "c" ? x.id : x.note)}"` : `data-sky="redit" data-id="${esc(x.id)}"`}>${esc(x.t)}</span>
+      <span class="tag ${x.late ? "late" : ""}">${esc(x.k === "r" ? (x.late ? T("skyLate") : skyTime(x.at)) : skyShort(x.tag, 14))}</span></div>`).join("")}
+    ${items.length ? "" : `<div class="skhint">${esc(T("skyNoTasks"))}</div>`}</div>
+    <input class="skadd" id="skyTask" maxlength="140" dir="auto" placeholder="${esc(T("skyTaskPh"))}" enterkeyhint="done"></section>`;
+}
+function skyAddTask(title) {
+  const d = new Date(); if (d.getHours() < 17) d.setHours(18, 0, 0, 0); else d.setTime(Date.now() + 3600e3);
+  const r = { id: uid("r"), noteId: null, done: false, ackAt: null, createdAt: new Date().toISOString(), title, at: d.toISOString(), repeat: "none" };
+  S.meta.reminders.push(r); saveMeta(0); renderReminderBadge(); renderLibrary();
+  skyToast(T("skyTaskAdded"),  [{ label: T("undoAction"), run: () => { S.meta.reminders = S.meta.reminders.filter((x) => x.id !== r.id); saveMeta(0); renderReminderBadge(); renderList(); } }]);
+}
+function skyRemDone(id) {
+  const r = S.meta.reminders.find((x) => x.id === id); if (!r) return;
+  const before = { ...r }; reminderAction(id, "done"); renderLibrary();
+  skyToast("✓ " + T("skyDoneMsg"),  [{ label: T("undoAction"), run: () => { const x = S.meta.reminders.find((q) => q.id === id); if (x) Object.assign(x, before); else S.meta.reminders.push(before); saveMeta(0); renderReminderBadge(); renderList(); } }]);
+}
+function skyCheckDone(id, i) {
+  const n = S.notes.get(id); if (!n || sealedLocked(n) || S.readOnly) return;
+  const w = W(n), old = w.html, t = document.createElement("template"); t.innerHTML = old;
+  const li = t.content.querySelectorAll('ul[data-list="check"] > li')[+i]; if (!li) return;
+  li.setAttribute("data-checked", ""); w.html = t.innerHTML; touch(n); saveNote(n.id, 0); renderLibrary();
+  skyToast("✓ " + T("skyDoneMsg"),  [{ label: T("undoAction"), run: () => { w.html = old; touch(n); saveNote(n.id, 0); renderList(); } }]);
+}
+
+/* ---- thinking network: the last ▶ result stays on the start page ---- */
+function skyRememberThink(n, d, res, sc) {
+  if (!n || !d || !res) return;
+  const xs = [...res.nodes].filter((id) => !res.fixed.has(id) && d.nodes[id]);
+  const rank = (id) => { const x = d.nodes[id]; return (x.out || x.kind === "goal" ? 2 : x.kind === "asset" ? 1 : 0) * 10 + Math.abs(res.final[id] || 0); };
+  const ins = [...res.fixed].filter((id) => d.nodes[id]).sort((a, b) => Math.abs(res.final[b] || 0) - Math.abs(res.final[a] || 0));
+  const rows = [...xs.sort((a, b) => rank(b) - rank(a)).slice(0, 3), ...ins].slice(0, 4).map((id) => ({ id, t: String(d.nodes[id].text || "…").slice(0, 60), v: Math.round((res.final[id] || 0) * 100), inp: res.fixed.has(id) }));
+  lsSet("babak-sa-think", { id: n.id, at: new Date().toISOString(), sc: sc ? sc.id : null, scName: sc ? sc.name || "" : "", rows });
+}
+function skyAgo(iso) {
+  const h = (Date.now() - Date.parse(iso)) / 3600e3;
+  return h < 1 ? T("skyAgoNow") : h < 24 ? T("skyAgoH", { n: num(Math.floor(h)) }) : T("skyAgoD", { n: num(Math.floor(h / 24)) });
+}
+function skyThinkHtml() {
+  const L = lsGet("babak-sa-think", null), n = L && S.notes.get(L.id);
+  if (!L || !n || n.trashed || !n.mm) return `<section class="skw skthink"><h3>🧠 ${esc(T("skyThink"))}</h3><div class="skhint">${esc(T("skyThinkNone"))}</div></section>`;
+  const stale = Date.now() - Date.parse(L.at) > 3 * 864e5;
+  return `<section class="skw skthink ${stale ? "stale" : ""}"><h3>🧠 <span class="nm" data-note="${esc(n.id)}" dir="auto">${esc(skyShort(titleOf(n), 26))}</span><button type="button" class="btn sm" data-sky="rethink">${esc(T("skyRethink"))}</button></h3>
+    <div class="skrows">${L.rows.map((r) => `<button type="button" class="nrow" data-sky="nnode" data-n="${esc(r.id)}"><span class="tx" dir="auto">${r.inp ? "◆ " : ""}${esc(r.t)}</span><span class="bar"><i class="${r.v < 0 ? "ng" : ""}" style="width:${Math.min(100, Math.abs(r.v))}%"></i></span><b class="${r.v > 0 ? "p" : r.v < 0 ? "ng" : ""}">${esc(netSigned(r.v))}</b></button>`).join("")}</div>
+    <div class="skage">${esc(skyAgo(L.at))}${L.scName ? " · 🧪 " + esc(L.scName) : ""}${stale ? " — " + esc(T("skyStale")) : ""}</div></section>`;
+}
+function skyRethink() {
+  const L = lsGet("babak-sa-think", null), n = L && S.notes.get(L.id); if (!n || !n.mm || sealedLocked(n)) return;
+  const d = mmNorm(n.mm); if (!d || !netEdges(d).length) return toast(T("netNoEdges"), { kind: "err" });
+  const sc = L.sc ? (d.scen || []).find((q) => q.id === L.sc) : null, res = netRun(d, sc ? sc.ov : {});
+  if (!res.fixed.size) return toast(T("netNoInput"), { kind: "err" });
+  skyRememberThink(n, d, res, sc); renderLibrary(); toast(T("skyUpdated"));
+}
+function skyOpenNode(nid) {
+  const L = lsGet("babak-sa-think", null); if (!L) return;
+  openNote(L.id);
+  setTimeout(() => { if (MM && MM.n.id === L.id && MM.d.nodes[nid]) { MM.sel = nid; mmDraw(); mmCenter(nid); } }, 250);
+}
+
+/* ---- the card row: pinned and recent ---- */
+function skyThumb(n) {
+  if (sealedLocked(n)) return `<div class="th lock">🔒</div>`;
+  if (n.mm) return `<div class="th"><svg viewBox="0 0 120 70" width="100" height="58"><g fill="none" stroke-width="2.6" stroke-linecap="round"><path d="M60 35 C80 35 84 14 104 14" stroke="#7fb8ff"/><path d="M60 35 C80 35 84 56 104 56" stroke="#ff9fc4"/><path d="M60 35 C40 35 36 14 16 14" stroke="#9be3b9"/><path d="M60 35 C40 35 36 56 16 56" stroke="#ffcf8a"/></g><rect x="43" y="26" width="34" height="18" rx="9" fill="${esc(n.color)}"/></svg></div>`;
+  if (isStored(n)) return `<div class="th"><span class="fext">${esc((n.file.name.split(".").pop() || "").slice(0, 4).toUpperCase())}</span></div>`;
+  if (n.thumb) return `<div class="th"><img src="${esc(n.thumb)}" alt="" loading="lazy"></div>`;
+  return `<div class="th tx" dir="auto">${esc(textOf(n).slice(0, 120))}</div>`;
+}
+function skyDockHtml(live) {
+  const ui = skyUi(), op = openedMap(), pins = live.filter((n) => n.pinned).sort((a, b) => skyRecent(b, op) - skyRecent(a, op));
+  const tab = ui.dock === "recent" || !pins.length ? "recent" : "pin";
+  const arr = (tab === "pin" ? pins : live.filter((n) => !(n.folder && folderKind(n.folder) === "book" && !n.pinned) || op[n.id]).sort((a, b) => skyRecent(b, op) - skyRecent(a, op))).slice(0, 14);
+  const ty = { note: T("skyTyNote"), map: T("skyTyMap"), file: T("skyTyFile"), page: T("skyTyPage") };
+  return `<section class="skdock"><div class="sktabs" role="tablist"><button type="button" role="tab" data-sky="dock" data-v="pin" aria-selected="${tab === "pin"}">⭐ ${esc(T("skyPinned"))}</button><button type="button" role="tab" data-sky="dock" data-v="recent" aria-selected="${tab === "recent"}">🕘 ${esc(T("skyRecent"))}</button>${!pins.length ? `<span class="skhint">${esc(T("skyNoPinned"))}</span>` : ""}</div>
+    <div class="skcards">${arr.map((n) => `<div class="skd" data-note="${esc(n.id)}"><span class="ty">${esc(ty[skyKind(n)])}</span>${n.pinned ? `<span class="pn">⭐</span>` : ""}${skyThumb(n)}<b dir="auto">${esc(titleOf(n))}</b><small>${n.folder ? esc(leaf(n.folder)) + " · " : ""}${esc(fmtDate(n.updatedAt, false))}</small></div>`).join("")}
+    ${arr.length ? "" : `<div class="skhint">${esc(T("skyEmpty"))}</div>`}</div></section>`;
+}
+
+/* ---- the page ---- */
+function renderSky() {
+  const main = $("#main"), ui = skyUi(), live = skyLive(), tops = folderPaths().filter((f) => !f.path.includes(SEP));
+  if (skyFocus && !tops.some((f) => f.path === skyFocus)) skyFocus = "";
+  const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
+  const maps = live.filter((n) => n.mm).length;
+  const sky = skyLayout(live), chips = Object.entries(sky.f).sort((a, b) => a[1] - b[1]).map(([p]) => p);
+  const qb = (k, act, icon, label) => `<button type="button" class="qa" ${act ? `data-act="${act}"` : ""} data-skyk="${k}"><span class="qi">${icon}</span><span>${esc(label)}</span></button>`;
+  main.innerHTML = `<div class="scroll lib skyhome ${ui.theme === "day" ? "day" : "night"}" id="scroll"><div class="skin">
+    <div class="skh">
+      <div class="skt"><h1>✦ ${esc(T("skyName"))}</h1><small>${esc(T("skyStats", { n: num(live.length), m: num(maps), f: num(tops.length) }))}</small></div>
+      <div class="skcmd"><span class="qi">⌕</span><input id="skyCmd" autocomplete="off" dir="auto" placeholder="${esc(T("skyCmdPh"))}" enterkeyhint="go" aria-label="${esc(T("skyCmdPh"))}"><kbd>⌘K</kbd><div class="skdrop" id="skyDrop" hidden></div></div>
+      <div class="sktools"><div class="seg"><button type="button" data-sky="view" data-v="sky" aria-pressed="${ui.view !== "list"}">✦ ${esc(T("skyViewSky"))}</button><button type="button" data-sky="view" data-v="list" aria-pressed="${ui.view === "list"}">☰ ${esc(T("skyViewList"))}</button></div>
+        <button type="button" class="btn icon" data-sky="theme" title="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}" aria-label="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}">${ui.theme === "day" ? "☾" : "☀︎"}</button>
+        <button type="button" class="btn" data-sky="classic">${esc(T("skyClassic"))}</button></div>
+    </div>
+    <div class="quickrow skq">${qb("note", "newNote", "📝", T("skyNewNote"))}${qb("map", "newMap", "🧠", T("skyNewMap"))}${qb("table", "", "▦", T("skyNewTable"))}${qb("task", "", "⏰", T("skyNewTask"))}${mic ? qb("voice", "", "🎙", T("skyNewVoice")) : ""}${can ? qb("file", "", "📎", T("skyNewFile")) : ""}
+      <span class="sktarget">${esc(T("skyInto"))} <b>${esc(skyFocus ? leaf(skyFocus) : T("skyRoot"))}</b></span></div>
+    <div class="skchips"><button type="button" class="chip" data-sky="focus" data-p="" aria-pressed="${!skyFocus}">${esc(T("skyAll"))}</button>${chips.map((p) => `<button type="button" class="chip" data-sky="focus" data-p="${esc(p)}" aria-pressed="${skyFocus === p}"><i style="background:${esc((tops.find((f) => f.path === p) || {}).color || "#9aa4b8")}"></i>${esc(skyShort(p, 18))}</button>`).join("")}</div>
+    <div class="skgrid">
+      <div class="skwrap">${ui.view === "list" ? skyListHtml(live) : `<div class="skyc" id="skyc">${skyStarsHtml(live)}</div>`}</div>
+      ${skyTodayHtml(live)}
+      ${skyThinkHtml()}
+      ${skyDockHtml(live)}
+    </div></div></div>`;
+  skyWire(main.querySelector(".skyhome"));
+}
+
+/* ---- the command box: search + create + commands in one place ---- */
+function skyCmdItems(q) {
+  q = q.trim(); const out = [], live = skyLive(), lq = q.toLowerCase(), op = openedMap(), f = skyFocus ? leaf(skyFocus) : T("skyRoot");
+  const mk = (kind, t) => ({ sec: "make", label: T("skyMk_" + kind, { t: t || "…" }) + (kind !== "task" ? " — " + f : ""), run: () => skyCreate(kind, t) });
+  const cmds = [
+    { k: "think", label: "▶ " + T("skyCmdThink"), run: () => skyRethink(), when: () => !!lsGet("babak-sa-think", null) },
+    { k: "remind", label: "⏰ " + T("newReminder"), run: () => reminderForm({}) },
+    { k: "reminders", label: "🔔 " + T("reminders"), run: () => remindersPanel() },
+    { k: "starred", label: "⭐ " + T("starred"), run: () => skyGo("__starred") },
+    { k: "templates", label: "🗂 " + T("templates"), run: () => skyGo("__templates") },
+    { k: "trash", label: "🗑 " + T("trash"), run: () => skyGo("__trash") },
+    { k: "settings", label: "⚙ " + T("settings"), run: () => settingsPanel() },
+    { k: "folder", label: "📁 " + T("newFolder"), run: () => newFolder("") },
+    { k: "notebook", label: "📗 " + T("newNotebook"), run: () => coverDialog(null, "") },
+  ].filter((c) => !c.when || c.when());
+  const openRow = (n) => ({ sec: "open", label: skyGlyph(n) + " " + titleOf(n), sub: n.folder ? leaf(n.folder) : "", run: () => openNote(n.id) });
+  if (q.startsWith("+")) { const t = q.slice(1).trim(); return ["note", "map", "table", "task"].map((k) => mk(k, t)); }
+  if (q.startsWith("/")) { const c = q.slice(1).trim().toLowerCase(); return cmds.filter((x) => !c || x.label.toLowerCase().includes(c) || x.k.includes(c)).map((x) => ({ sec: "cmd", label: x.label, run: x.run })); }
+  if (!q) {
+    live.slice().sort((a, b) => skyRecent(b, op) - skyRecent(a, op)).slice(0, 5).forEach((n) => out.push(openRow(n)));
+    cmds.slice(0, 3).forEach((x) => out.push({ sec: "cmd", label: x.label, run: x.run }));
+    return out;
+  }
+  const fol = folderPaths().filter((x) => x.path.toLowerCase().includes(lq)).slice(0, 3);
+  const byTitle = live.filter((n) => titleOf(n).toLowerCase().includes(lq)).sort((a, b) => skyRecent(b, op) - skyRecent(a, op)).slice(0, 6);
+  const byText = live.filter((n) => !byTitle.includes(n) && !sealedLocked(n) && textOf(n).toLowerCase().includes(lq)).sort((a, b) => skyRecent(b, op) - skyRecent(a, op)).slice(0, 3);
+  const exact = byTitle.some((n) => titleOf(n).trim().toLowerCase() === lq);
+  if (!exact && !byTitle.length && !fol.length) out.push(mk("note", q));
+  byTitle.forEach((n) => out.push(openRow(n)));
+  fol.forEach((x) => out.push({ sec: "open", label: "📁 " + x.path, run: () => skyGo(x.path) }));
+  byText.forEach((n) => out.push({ ...openRow(n), sub: "…" + snippet(n).slice(0, 40) }));
+  cmds.filter((x) => x.label.toLowerCase().includes(lq)).forEach((x) => out.push({ sec: "cmd", label: x.label, run: x.run }));
+  if (!exact) { if (byTitle.length || fol.length) out.push(mk("note", q)); out.push(mk("map", q), mk("task", q)); }
+  return out;
+}
+function skyCmdDraw() {
+  const inp = $("#skyCmd"), box = $("#skyDrop"); if (!inp || !box) return;
+  skyCmdList = skyCmdItems(inp.value); skyCmdI = Math.min(skyCmdI, Math.max(0, skyCmdList.length - 1));
+  if (!skyCmdList.length) { box.hidden = true; return; }
+  let last = "";
+  box.innerHTML = skyCmdList.map((x, i) => { const sec = x.sec !== last ? `<div class="sec">${esc(T("skySec_" + x.sec))}</div>` : ""; last = x.sec; return `${sec}<button type="button" class="r ${i === skyCmdI ? "on" : ""}" data-ci="${i}"><span dir="auto">${esc(x.label)}</span>${x.sub ? `<small dir="auto">${esc(x.sub)}</small>` : ""}${i === skyCmdI ? "<kbd>⏎</kbd>" : ""}</button>`; }).join("");
+  box.hidden = false;
+}
+function skyCmdRun(i) {
+  const x = skyCmdList[i]; if (!x) return;
+  const inp = $("#skyCmd"); if (inp) { inp.value = ""; inp.blur(); }
+  $("#skyDrop")?.setAttribute("hidden", "");
+  x.run();
+}
+function skyGo(view) { captureActive(); S.view = view; S.query = ""; const s = $("#search"); if (s) s.value = ""; lsSet("babak-sa-view", S.view); S.screen = "library"; renderTree(); renderMain(); }
+
+/* ---- creating: one tap, into the folder in focus, then say where it went (with a way to change it) ---- */
+function skyCreate(kind, title) {
+  if (S.readOnly) return;
+  const folder = skyFocus;
+  if (kind === "task") return title ? skyAddTask(title) : reminderForm({});
+  if (kind === "file") return pickStoreFiles(folder);
+  if (kind === "map") newMap({ folder, title });
+  else newNote({ folder });
+  const n = S.notes.get(S.activeId); if (!n) return;
+  if (title && kind !== "map") { W(n).title = title; touch(n); saveNote(n.id, 0); const ti = $("#titleIn"); if (ti) ti.value = title; renderSide(); }
+  if (kind === "table") setTimeout(() => doAct("tableHere", $("[data-act=insertMenu]")), 150);
+  if (kind === "voice") setTimeout(() => toggleRecording(), 300);
+  skyToast(T("skyMadeIn", { f: folder ? leaf(folder) : T("skyRoot") }),  [{ label: T("skyChange"), run: () => skyMoveDialog(n.id) }]);
+}
+async function skyMoveDialog(id) {
+  const n = S.notes.get(id); if (!n) return;
+  const r = await formBox(T("fileMove"), `<div class="field"><select name="p"><option value="">${esc(T("skyRoot"))}</option>${folderPaths().map((f) => `<option ${f.path === n.folder ? "selected" : ""}>${esc(f.path)}</option>`).join("")}</select></div>`, (f) => ({ p: f.p.value }), T("save"));
+  if (r) skyMoveNote(n, r.p);
+}
+function skyMoveNote(n, folder) {
+  if (!n || n.folder === folder || n.seal) return;
+  const old = n.folder; n.folder = folder; touch(n); saveNote(n.id, 0); renderSide(); renderMain();
+  skyToast(T("skyMovedTo", { f: folder ? leaf(folder) : T("skyRoot") }),  [{ label: T("undoAction"), run: () => { n.folder = old; touch(n); saveNote(n.id, 0); renderSide(); renderMain(); } }]);
+}
+
+/* ---- wiring: buttons, command keys, dragging a star onto a folder star ---- */
+function skyWire(root) {
+  if (!root) return;
+  root.addEventListener("click", (e) => {
+    if (Date.now() - skyNoClick < 400) { e.stopPropagation(); e.preventDefault(); return; }
+    const q = e.target.closest("[data-skyk]");
+    if (q) { e.stopPropagation(); e.preventDefault(); return skyCreate(q.dataset.skyk, ""); }
+    const c = e.target.closest("[data-ci]"); if (c) { e.stopPropagation(); return skyCmdRun(+c.dataset.ci); }
+    const b = e.target.closest("[data-sky]"); if (!b) return;
+    const a = b.dataset.sky; e.stopPropagation();
+    if (a === "view") { skyUiSet({ view: b.dataset.v }); return renderLibrary(); }
+    if (a === "theme") { skyUiSet({ theme: skyUi().theme === "day" ? "night" : "day" }); return renderLibrary(); }
+    if (a === "classic") { S.meta.settings.homeStyle = "classic"; saveMeta(0); renderLibrary(); return toast(T("skyClassicMsg")); }
+    if (a === "focus") { skyFocus = b.dataset.p || ""; return renderLibrary(); }
+    if (a === "dock") { skyUiSet({ dock: b.dataset.v }); return renderLibrary(); }
+    if (a === "rdone") return skyRemDone(b.dataset.id);
+    if (a === "cdone") return skyCheckDone(b.dataset.id, b.dataset.i);
+    if (a === "redit") return reminderForm(S.meta.reminders.find((x) => x.id === b.dataset.id) || {});
+    if (a === "rethink") return skyRethink();
+    if (a === "nnode") return skyOpenNode(b.dataset.n);
+  }, true);
+  const inp = root.querySelector("#skyCmd");
+  if (inp) {
+    inp.addEventListener("focus", () => { skyCmdI = 0; skyCmdDraw(); });
+    inp.addEventListener("input", () => { skyCmdI = 0; skyCmdDraw(); });
+    inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp) $("#skyDrop")?.setAttribute("hidden", ""); }, 180));
+    inp.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); skyCmdI = Math.max(0, Math.min(skyCmdList.length - 1, skyCmdI + (e.key === "ArrowDown" ? 1 : -1))); skyCmdDraw(); }
+      else if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); skyCmdRun(skyCmdI); }
+      else if (e.key === "Escape") { inp.value = ""; inp.blur(); }
+    });
+    root.querySelector("#skyDrop").addEventListener("pointerdown", (e) => e.preventDefault()); // keep the box focused while a row is tapped
+  }
+  const task = root.querySelector("#skyTask");
+  task?.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.isComposing && task.value.trim()) { e.preventDefault(); skyAddTask(task.value.trim()); } });
+  const sc = root.querySelector("#skyc"); if (sc) skyDragWire(sc);
+}
+function skyDragWire(sc) {
+  sc.addEventListener("pointerdown", (e) => {
+    const st = e.target.closest(".sn"); if (!st || e.button > 0 || S.readOnly) return;
+    skyDrag = { st, id: st.dataset.note, x: e.clientX, y: e.clientY, on: false, pid: e.pointerId, l: st.style.left, t: st.style.top };
+  });
+  sc.addEventListener("pointermove", (e) => {
+    const d = skyDrag; if (!d || e.pointerId !== d.pid) return;
+    if (!d.on) {
+      if (Math.hypot(e.clientX - d.x, e.clientY - d.y) < 9) return;
+      if (lpFired || $(".overlay")) { skyDrag = null; return; } // the long-press menu won
+      d.on = true; d.st.classList.add("drag"); sc.classList.add("dragging"); try { d.st.setPointerCapture(e.pointerId); } catch {}
+    }
+    e.preventDefault();
+    const r = sc.getBoundingClientRect();
+    d.st.style.left = ((e.clientX - r.left) / r.width * 100) + "%"; d.st.style.top = ((e.clientY - r.top) / r.height * 100) + "%";
+    const tg = skyDropAt(e.clientX, e.clientY, d.st);
+    sc.querySelectorAll(".drop").forEach((x) => x !== tg && x.classList.remove("drop")); tg?.classList.add("drop");
+  });
+  const end = (e) => {
+    const d = skyDrag; skyDrag = null; if (!d || !d.on) return;
+    skyNoClick = Date.now();
+    const tg = e.type === "pointerup" ? skyDropAt(e.clientX, e.clientY, d.st) : null;
+    d.st.classList.remove("drag"); sc.classList.remove("dragging"); d.st.style.left = d.l; d.st.style.top = d.t;
+    sc.querySelectorAll(".drop").forEach((x) => x.classList.remove("drop"));
+    if (tg) skyMoveNote(S.notes.get(d.id), tg.classList.contains("sc") ? "" : tg.dataset.skyf);
+  };
+  sc.addEventListener("pointerup", end); sc.addEventListener("pointercancel", end);
+}
+function skyDropAt(x, y, self) {
+  self.style.visibility = "hidden"; const el = document.elementFromPoint(x, y); self.style.visibility = "";
+  return el && el.closest ? el.closest(".sf, .sc") : null;
+}
+document.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === "k" || e.key === "K") && S.loaded && !$(".overlay")) {
+    e.preventDefault();
+    if (!skyOn()) { S.meta.settings.homeStyle = "sky"; saveMeta(0); }
+    if (!$("#skyCmd")) goHome();
+    setTimeout(() => $("#skyCmd")?.focus(), 30);
+  }
+});
+
+window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
