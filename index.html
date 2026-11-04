@@ -870,6 +870,8 @@ body.tresize-row,body.tresize-row *{cursor:row-resize!important}
 .mminsp input[type=range]{width:100%;accent-color:var(--accent)}
 .mminsp textarea,.mminsp input[type=text]{width:100%;font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);box-sizing:border-box}
 .mminsp .muted{font-size:12.5px;opacity:.65}
+.mmbl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid var(--bc);color:var(--bc);border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis;z-index:2}
+.mmbl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent);transform:translate(-50%,-170%)}
 .mmrl{position:absolute;transform:translate(-50%,-50%);width:max-content;background:var(--bg);border:1.5px solid;border-radius:8px;padding:1px 8px;font-size:12.5px;cursor:pointer;white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
 .mmrl.sel{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mmtb{position:absolute;z-index:8;display:flex;gap:2px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
@@ -7430,6 +7432,13 @@ Object.assign(I18N.en, { lockFree: "Free: drag any idea anywhere", lockAuto: "Au
   inspFs: "Text size", inspBold: "Bold", inspItalic: "Italic", inspBorder: "Border", inspBw: "Border width", inspW: "Width", inspAuto: "Auto", inspStraight: "Straighten", inspMore: "More", inspPaint: "🖌 Copy style",
   inspMap: "Whole map", inspLabel: "Label", inspWhy: "Reason", inspFit: "Auto frame size", paintHint: "🖌 Tap ideas to give them this look. Tap empty space to finish.", lpNew: "＋ New idea here", lpPaste: "📥 Paste branch",
   shape_round: "Round", shape_pill: "Pill", shape_rect: "Square", shape_oval: "Oval", shape_line: "Underline", bs_solid: "Solid", bs_dashed: "Dashed", bs_dotted: "Dotted", bs_none: "None", inspNone: "None", inspHint: "Tap anything to see its properties here." });
+Object.assign(I18N.fa, { brTitle: "شاخه", brLabel: "برچسب روی شاخه", brColor: "رنگ شاخه", brW: "ضخامت", brDash: "نوع خط", brArrow: "سر پیکان", brCm: "یادداشت‌ها و گفتگو", brSrc: "منبع‌ها و توضیح", brDetach: "✂ جدا کردن از والد",
+  brAuto: "رنگ ایده", w_thin: "باریک", w_norm: "معمولی", w_thick: "ضخیم", w_xthick: "خیلی ضخیم", brHint: "شاخه انتخاب شد: رنگ، ضخامت، خط‌چین، برچسب و یادداشت را از نوار یا پنل 🎛 عوض کنید." });
+Object.assign(I18N.de, { brTitle: "Zweig", brLabel: "Beschriftung am Zweig", brColor: "Zweigfarbe", brW: "Stärke", brDash: "Linienart", brArrow: "Pfeilspitze", brCm: "Notizen und Diskussion", brSrc: "Quellen und Erklärung", brDetach: "✂ Vom Elternteil lösen",
+  brAuto: "Ideenfarbe", w_thin: "Dünn", w_norm: "Normal", w_thick: "Dick", w_xthick: "Sehr dick", brHint: "Zweig gewählt: Farbe, Stärke, Strichart, Beschriftung und Notizen über die Leiste oder 🎛 ändern." });
+Object.assign(I18N.en, { brTitle: "Branch", brLabel: "Label on the branch", brColor: "Branch colour", brW: "Thickness", brDash: "Line style", brArrow: "Arrow head", brCm: "Notes and discussion", brSrc: "Sources and explanation", brDetach: "✂ Detach from parent",
+  brAuto: "Idea colour", w_thin: "Thin", w_norm: "Normal", w_thick: "Thick", w_xthick: "Very thick", brHint: "Branch selected: change colour, thickness, dashes, label and notes from the bar or the 🎛 panel." });
+const BR_W = [0.6, 1, 1.6, 2.4], BR_WK = ["w_thin", "w_norm", "w_thick", "w_xthick"];
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -7455,6 +7464,12 @@ function mmNorm(m) {
       ...(isFinite(x.o) && x.o !== null && x.o !== "" ? { o: +x.o } : {}), ...(x.side === 1 || x.side === -1 ? { side: x.side } : {}), ...(Object.keys(cst).length ? { st: cst } : {}),
       ...(NET_KINDS.includes(x.kind) ? { kind: x.kind } : {}), ...(x.val !== undefined && x.val !== null && x.val !== "" && isFinite(x.val) ? { val: Math.max(-100, Math.min(100, Math.round(+x.val))) } : {}),
       ...(typeof x.img === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x.img) ? { img: x.img } : {}),
+      ...(() => { const l = x.ln && typeof x.ln === "object" ? x.ln : null; if (!l) return {}; const o = {};
+        if (hex(l.c)) o.c = l.c; if (BR_W.includes(+l.w) && +l.w !== 1) o.w = +l.w; if (["dashed", "dotted"].includes(l.ds)) o.ds = l.ds; if (l.ar) o.ar = 1;
+        if (String(l.lb || "").trim()) o.lb = String(l.lb).slice(0, 120); if (String(l.note || "").trim()) o.note = String(l.note).slice(0, 20000);
+        if (Array.isArray(l.links) && l.links.length) o.links = l.links.filter((q) => q && typeof q.v === "string").slice(0, 50).map((q) => ({ t: ["url", "page", "file"].includes(q.t) ? q.t : "url", v: q.v.slice(0, 2000), label: String(q.label || "").slice(0, 200) }));
+        if (Array.isArray(l.cm) && l.cm.length) o.cm = l.cm.filter((c) => c && String(c.t || "").trim()).slice(-200).map((c) => ({ t: String(c.t).slice(0, 4000), at: typeof c.at === "string" ? c.at.slice(0, 30) : "" }));
+        return Object.keys(o).length ? { ln: o } : {}; })(),
       ...(x.bv && isFinite(x.bv.x) && isFinite(x.bv.y) && (+x.bv.x || +x.bv.y) ? { bv: { x: Math.max(-5000, Math.min(5000, Math.round(+x.bv.x))), y: Math.max(-5000, Math.min(5000, Math.round(+x.bv.y))) } } : {}),
       ...(x.out && typeof x.out === "object" && (x.out.hi || x.out.mid || x.out.lo) ? { out: { t: Math.max(1, Math.min(99, Math.round(+x.out.t) || 30)), hi: String(x.out.hi || "").slice(0, 40), mid: String(x.out.mid || "").slice(0, 40), lo: String(x.out.lo || "").slice(0, 40) } } : {}),
       ...(x.real && typeof x.real === "object" && String(x.real.v ?? "").trim() ? { real: { v: String(x.real.v).trim().slice(0, 40), u: String(x.real.u || "").slice(0, 20), ts: typeof x.real.ts === "string" ? x.real.ts.slice(0, 30) : "" } } : {}) };
@@ -7595,7 +7610,7 @@ function mmDraw() {
     for (const el of box.querySelectorAll(".mmn")) { const x = d.nodes[el.dataset.mmn]; el.style.left = x.x + "px"; el.style.top = x.y + "px"; }
   }
   const L = d.layout, rtl = mmIsRtl(d);
-  let svg = "", frl = "", bvHandle = null; const hnd = []; MM.frBox = {};
+  let svg = "", frl = "", bvHandle = null; const hnd = [], blb = []; MM.frBox = {}; MM.brMid = null;
   for (const f of d.frames || []) {
     const mem = (f.br ? [f.ids[0], ...mmDesc(d, f.ids[0])] : f.ids).filter((k) => d.nodes[k] && !hid.has(k) && MM.size[k]); if (!mem.length) continue;
     let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
@@ -7623,10 +7638,21 @@ function mmDraw() {
       const n = path.slice(1).replace(" C", " ").split(" ").map(Number);
       if (n.length === 8 && n.every(isFinite)) {
         if (x.bv) { n[2] += x.bv.x; n[3] += x.bv.y; n[4] += x.bv.x; n[5] += x.bv.y; path = `M${n[0]} ${n[1]} C${n[2]} ${n[3]} ${n[4]} ${n[5]} ${n[6]} ${n[7]}`; }
-        if (MM.sel === x.id && !MM.ro && !MM.multi) { const bx = (n[0] + 3 * n[2] + 3 * n[4] + n[6]) / 8, by = (n[1] + 3 * n[3] + 3 * n[5] + n[7]) / 8; bvHandle = { id: x.id, x: bx, y: by, color: x.color, base: [bx - 0.75 * (x.bv?.x || 0), by - 0.75 * (x.bv?.y || 0)] }; }
+        if ((MM.sel === x.id || MM.br === x.id) && !MM.ro && !MM.multi) { const bx = (n[0] + 3 * n[2] + 3 * n[4] + n[6]) / 8, by = (n[1] + 3 * n[3] + 3 * n[5] + n[7]) / 8; bvHandle = { id: x.id, x: bx, y: by, color: x.color, base: [bx - 0.75 * (x.bv?.x || 0), by - 0.75 * (x.bv?.y || 0)] }; }
       }
     }
-    svg += `<path d="${path}" fill="none" stroke="${x.color}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}"/>`;
+    { const ln = x.ln || {}, bc = ln.c || x.color, bw = sw * (ln.w || 1), bon = MM.br === x.id, dash = ln.ds === "dashed" ? `stroke-dasharray="${bw * 3} ${bw * 2.2}"` : ln.ds === "dotted" ? `stroke-dasharray="0.1 ${bw * 2.4}"` : "";
+      const nums = path.slice(1).replace(/[CVHL]/g, " ").trim().split(/\s+/).map(Number);
+      let mx = (p.x + x.x) / 2, my = (p.y + x.y) / 2, ang = null;
+      if (path.includes(" C") && nums.length === 8) { mx = (nums[0] + 3 * nums[2] + 3 * nums[4] + nums[6]) / 8; my = (nums[1] + 3 * nums[3] + 3 * nums[5] + nums[7]) / 8; ang = Math.atan2(nums[7] - nums[5], nums[6] - nums[4]); }
+      else if (path.includes(" L") && nums.length === 4) { ang = Math.atan2(nums[3] - nums[1], nums[2] - nums[0]); }
+      svg += `<path d="${path}" fill="none" stroke="#000" stroke-opacity="0" stroke-width="22" pointer-events="stroke" data-br="${x.id}"/>`;
+      if (bon) svg += `<path d="${path}" fill="none" stroke="${bc}" stroke-opacity=".25" stroke-width="${bw + 9}" stroke-linecap="round"/>`;
+      svg += `<path d="${path}" fill="none" stroke="${bc}" stroke-width="${bw}" stroke-linecap="round" stroke-linejoin="round" opacity="${op}" ${dash}/>`;
+      if (ln.ar && ang !== null) { const ex = nums[nums.length - 2], ey = nums[nums.length - 1], ah = 7 + bw * 1.6; svg += `<path d="M${ex} ${ey} L${ex - ah * Math.cos(ang - 0.45)} ${ey - ah * Math.sin(ang - 0.45)} L${ex - ah * Math.cos(ang + 0.45)} ${ey - ah * Math.sin(ang + 0.45)} Z" fill="${bc}" opacity="${op}"/>`; }
+      if (bon) MM.brMid = { x: mx, y: my };
+      if (ln.lb || ln.cm?.length || ln.links?.length || ln.note) blb.push(`<div class="mmbl ${bon ? "sel" : ""}" data-br="${x.id}" data-brl="1" dir="auto" style="left:${mx}px;top:${my}px;--bc:${bc}">${esc(ln.lb || "")}${ln.cm?.length ? " 💬" + num(ln.cm.length) : ln.note ? " 💬" : ""}${ln.links?.length ? " 🔗" : ""}</div>`);
+    }
   }
   const edge = (c, s, tx, ty) => { const dx = tx - c.x, dy = ty - c.y, w = s.w / 2 + 6, h = s.h / 2 + 6, k = Math.min(w / Math.max(1e-6, Math.abs(dx)), h / Math.max(1e-6, Math.abs(dy))); return [c.x + dx * k, c.y + dy * k]; };
   for (const r of d.rels) {
@@ -7646,6 +7672,7 @@ function mmDraw() {
   MM.bvH = bvHandle;
   if (bvHandle) hnd.push(`<div class="mmh" data-bvh="${bvHandle.id}" style="left:${bvHandle.x}px;top:${bvHandle.y}px;--hc:${bvHandle.color}"></div>`);
   $("#mmSvg").innerHTML = svg;
+  if (blb.length) box.insertAdjacentHTML("beforeend", blb.join(""));
   if (hnd.length) box.insertAdjacentHTML("beforeend", hnd.join(""));
   const lb = $("#mmLockBtn"); if (lb) { lb.textContent = d.layout === "free" ? "🔓" : "🔒"; lb.title = T(d.layout === "free" ? "lockFree" : "lockAuto"); }
   mmInspSync();
@@ -7664,6 +7691,12 @@ function mmPlaceTb() {
   const tb = $("#mmTb"); if (!tb || !MM) return;
   const v = MM.view, st = $("#mmStage");
   if (MM.ro) { tb.classList.add("hide"); return; }
+  if (MM.br && MM.d.nodes[MM.br] && MM.brMid && !MM.multi) {
+    const x = MM.d.nodes[MM.br], ln = x.ln || {}, b = (a, label, inner, on) => `<button type="button" data-mm="${a}" title="${esc(label)}" aria-label="${esc(label)}" ${on ? 'aria-pressed="true"' : ""}>${inner}</button>`;
+    tb.innerHTML = b("brlb", T("brLabel"), "✎") + b("brcol", T("brColor"), `<i style="background:${ln.c || x.color}"></i>`) + b("brw", T("brW") + ": " + T(BR_WK[BR_W.indexOf(ln.w || 1)]), ["╌", "─", "━", "▬"][BR_W.indexOf(ln.w || 1)]) + b("brds", T("brDash"), ln.ds === "dashed" ? "┄" : ln.ds === "dotted" ? "┈" : "─", !!ln.ds) + b("brar", T("brArrow"), "➝", !!ln.ar) + b("brcm", T("brCm"), "💬") + b("brsrc", T("brSrc"), "🔗") + (x.bv ? b("brst", T("inspStraight"), "〰") : "") + b("brdet", T("brDetach"), "✂");
+    tb.classList.remove("hide"); const sx = MM.brMid.x * v.z + v.x, sy = MM.brMid.y * v.z + v.y;
+    tb.style.left = Math.max(6, Math.min(st.clientWidth - tb.offsetWidth - 6, sx - tb.offsetWidth / 2)) + "px"; tb.style.top = (sy - tb.offsetHeight - 60 > 6 ? sy - tb.offsetHeight - 60 : sy + 34) + "px"; return;
+  }
   if (MM.frSel && !MM.multi) {
     const lab = $(`#mmNodes .mmfr[data-fr="${MM.frSel}"]`);
     if (lab) {
@@ -7928,10 +7961,11 @@ function mmOpenLink(l) {
   if (isStored(n)) return openFile(n.id);
   openNote(n.id);
 }
-async function mmDetails(focus, rel) {
+async function mmDetails(focus, rel, brn) {
+  if (brn) { brn.ln = brn.ln || {}; rel = brn.ln; }
   const x = rel || MM.d.nodes[MM.sel]; if (!x) return;
   const links = (x.links || []).map((l) => ({ ...l }));
-  const title = rel ? `${MM.d.nodes[rel.a]?.text || "…"} → ${MM.d.nodes[rel.b]?.text || "…"}` : x.text || T("mmIdea");
+  const title = brn ? `${MM.d.nodes[brn.parent]?.text || "…"} → ${brn.text || "…"}` : rel ? `${MM.d.nodes[rel.a]?.text || "…"} → ${MM.d.nodes[rel.b]?.text || "…"}` : x.text || T("mmIdea");
   const conns = rel ? [] : MM.d.rels.filter((q) => q.a === x.id || q.b === x.id);
   const connHtml = rel ? "" : `<div class="field"><label>${esc(T("mmConns"))}</label><div class="mmconns">${conns.length ? conns.map((q) => { const out = q.a === x.id, o = MM.d.nodes[out ? q.b : q.a];
     return `<button type="button" data-gorel="${esc(q.id)}" dir="auto">${out ? "→" : "←"} <span class="${q.kind === "+" ? "p" : q.kind === "-" ? "ng" : ""}">${q.kind === "+" ? "⊕" : q.kind === "-" ? "⊖" : "○"}</span> ${esc(o?.text || "…")}${q.label ? ` <small>(${esc(q.label)})</small>` : ""}</button>`; }).join("") : `<p class="msg">${esc(T("mmNoConns"))}</p>`}</div></div>`;
@@ -7959,7 +7993,7 @@ async function mmDetails(focus, rel) {
       });
       if (focus === "note") setTimeout(() => f.note.focus(), 60);
     });
-  if (!r || !MM || (rel ? !MM.d.rels.includes(rel) : !MM.d.nodes[x.id])) return;
+  if (!r || !MM || (brn ? !MM.d.nodes[brn.id] : rel ? !MM.d.rels.includes(rel) : !MM.d.nodes[x.id])) return;
   mmPush(); x.links = links; x.note = r.note.trim(); mmSave(); mmDraw();
 }
 function mmLinksMenu(id) {
@@ -8154,11 +8188,12 @@ async function netCompare() {
     body: `<table class="netcmp"><thead><tr><th>${esc(T("netIdea"))}</th><th dir="auto">${esc(nm(r.a))}</th><th dir="auto">${esc(nm(r.b))}</th><th>${esc(T("netDiff"))}</th></tr></thead><tbody>${ids.map((i) => `<tr><td dir="auto">${d.nodes[i].kind ? NET_KIC[d.nodes[i].kind] + " " : ""}${esc(netLbl(d.nodes[i]))}</td>${cell(A.final[i] || 0)}${cell(B.final[i] || 0)}${cell((B.final[i] || 0) - (A.final[i] || 0))}</tr>`).join("")}</tbody></table>` });
 }
 /** Dated notes and discussion on one arrow. */
-async function mmRelComments(r) {
+async function mmRelComments(r, brn) {
+  if (brn) { brn.ln = brn.ln || {}; r = brn.ln; }
   const d = MM.d, list = (r.cm || []).map((c) => ({ ...c }));
   const fmt = (at) => { try { return at ? new Date(at).toLocaleString(document.documentElement.lang || undefined, { dateStyle: "medium", timeStyle: "short" }) : ""; } catch { return ""; } };
   const rows = () => list.length ? list.map((c, i) => `<div class="cmrow"><small>${esc(fmt(c.at))}</small><p dir="auto">${esc(c.t)}</p><button type="button" data-cdel="${i}" aria-label="${esc(T("delete"))}">✕</button></div>`).join("") : `<p class="msg">${esc(T("relCmNone"))}</p>`;
-  const v = await formBox("💬 " + `${d.nodes[r.a]?.text || "…"} → ${d.nodes[r.b]?.text || "…"}`, `<div class="cmlist" id="cmList">${rows()}</div>
+  const v = await formBox("💬 " + (brn ? `${d.nodes[brn.parent]?.text || "…"} → ${brn.text || "…"}` : `${d.nodes[r.a]?.text || "…"} → ${d.nodes[r.b]?.text || "…"}`), `<div class="cmlist" id="cmList">${rows()}</div>
     <div class="field"><textarea name="c" rows="3" dir="auto" placeholder="${esc(T("relCmPh"))}"></textarea></div><button type="button" class="btn" data-cadd="1">${esc(T("relCmAdd"))}</button>`,
     (f) => { const t = f.c.value.trim(); if (t) list.push({ t, at: new Date().toISOString() }); return { list }; }, T("save"), (el) => {
       const f = el.querySelector("form"), box = el.querySelector("#cmList"), redraw = () => { box.innerHTML = rows(); box.scrollTop = box.scrollHeight; };
@@ -8168,7 +8203,7 @@ async function mmRelComments(r) {
       });
       box.scrollTop = box.scrollHeight; setTimeout(() => f.c.focus(), 60);
     });
-  if (!v || !MM || !MM.d.rels.includes(r)) return;
+  if (!v || !MM || (brn ? !MM.d.nodes[brn.id] : !MM.d.rels.includes(r))) return;
   mmPush(); r.cm = v.list.slice(-200); mmSave(); mmDraw();
 }
 /* ---------------- analysis: live mode, loops, time chart, sensitivity, key factors, filters ---------------- */
@@ -8492,6 +8527,7 @@ async function mmLongPress(G, w) {
   const d = MM.d;
   if (G.fr) return MM.ro ? null : mmFrameMenu(G.fr);
   if (G.id && d.nodes[G.id]) { MM.sel = G.id; MM.rel = null; mmDraw(); return MM.ro ? null : mmMoreMenu(d.nodes[G.id]); }
+  if (G.br && d.nodes[G.br]) { MM.br = G.br; MM.sel = null; mmDraw(); return MM.ro ? null : mmRelComments(null, d.nodes[G.br]); }
   if (G.rel) { const r = d.rels.find((q) => q.id === G.rel); if (r) { MM.rel = r.id; MM.sel = null; mmDraw(); return MM.ro ? null : mmNetRel(r); } }
   if (MM.ro) return;
   const items = [["new", T("lpNew")]]; if (MM_CLIP) items.push(["paste", T("lpPaste")]);
@@ -8504,7 +8540,7 @@ async function mmLongPress(G, w) {
   if (v === "fit") return mmFit();
 }
 /* properties panel: one place for everything about what is chosen */
-function mmInspKey() { return MM.sel && MM.d.nodes[MM.sel] ? "n:" + MM.sel : MM.rel && MM.d.rels.some((q) => q.id === MM.rel) ? "r:" + MM.rel : MM.frSel ? "f:" + MM.frSel : "m"; }
+function mmInspKey() { return MM.br && MM.d.nodes[MM.br] ? "b:" + MM.br : MM.sel && MM.d.nodes[MM.sel] ? "n:" + MM.sel : MM.rel && MM.d.rels.some((q) => q.id === MM.rel) ? "r:" + MM.rel : MM.frSel ? "f:" + MM.frSel : "m"; }
 function mmInspSync(force) {
   const el = $("#mmInsp"); if (!el) return;
   el.classList.toggle("hide", !MM.insp); if (!MM.insp) { MM.inspKey = null; return; }
@@ -8534,6 +8570,15 @@ function mmInspHtml(key) {
       <div class="ir"><label>${esc(T("inspMore"))}</label><div class="row"><button type="button" class="ch" data-ip="net">${x.kind ? NET_KIC[x.kind] : "◇"} ${esc(T("netNode"))}</button><button type="button" class="ch" data-ip="sym">★ ${esc(T("mmSymbols"))}</button>
         <button type="button" class="ch" data-ip="img">🖼</button><button type="button" class="ch" data-ip="draw">✍️</button><button type="button" class="ch" data-ip="note">📝</button></div></div></div>`;
   }
+  if (key.startsWith("b:")) {
+    const x = d.nodes[key.slice(2)], ln = x.ln || {};
+    return H("〰 " + `${netLbl(d.nodes[x.parent])} → ${netLbl(x)}`) + `<div class="ir"><label>${esc(T("brLabel"))}</label><input type="text" data-ip="blb" dir="auto" maxlength="120" value="${esc(ln.lb || "")}"></div>
+      <div class="ir"><label>${esc(T("brColor"))}</label><div class="row"><button type="button" class="ch" data-ip="bcol" data-v="" aria-pressed="${!ln.c}">${esc(T("brAuto"))}</button></div>${sw("bcol", MM_COLORS, ln.c)}</div>
+      <div class="ir"><label>${esc(T("brW"))}</label>${ch("bw2", BR_W.map((w, i) => [w, esc(T(BR_WK[i]))]), ln.w || 1)}</div>
+      <div class="ir"><label>${esc(T("brDash"))}</label>${ch("bds", [["", "─ " + esc(T("bs_solid"))], ["dashed", "┄ " + esc(T("bs_dashed"))], ["dotted", "┈ " + esc(T("bs_dotted"))]], ln.ds || "")}</div>
+      <div class="ir">${ch("bar", [["1", "➝ " + esc(T("brArrow"))]], ln.ar ? "1" : "")}</div>
+      <div class="ir"><div class="row">${x.bv ? `<button type="button" class="ch" data-ip="bvreset">〰 ${esc(T("inspStraight"))}</button>` : ""}<button type="button" class="ch" data-ip="bcm">💬 ${esc(T("brCm"))}</button><button type="button" class="ch" data-ip="bsrc">🔗</button><button type="button" class="ch" data-ip="bdet">${esc(T("brDetach"))}</button></div></div></div>`;
+  }
   if (key.startsWith("r:")) {
     const r = d.rels.find((q) => q.id === key.slice(2));
     return H(`${netLbl(d.nodes[r.a])} → ${netLbl(d.nodes[r.b])}`) + `<div class="ir"><label>${esc(T("inspLabel"))}</label><input type="text" data-ip="rlabel" dir="auto" maxlength="200" value="${esc(r.label)}"></div>
@@ -8562,6 +8607,21 @@ function mmInspDo(e, fin) {
   const typing = c.tagName === "TEXTAREA" || (c.tagName === "INPUT" && c.type !== "range"), slider = c.type === "range", click = c.tagName === "BUTTON";
   if (e.type === "change" && click) return; // buttons answer to click only
   if (e.type === "input" && click) return;
+  const bn = key.startsWith("b:") ? d.nodes[key.slice(2)] : null;
+  if (bn) {
+    if (click && ip === "bcm") return mmRelComments(null, bn);
+    if (click && ip === "bsrc") return mmDetails(null, null, bn);
+    if (c.type === "text") { if (e.type === "input") { const k = key + ":" + ip; if (MM.inspPush !== k) { mmPush(); MM.inspPush = k; } bn.ln = bn.ln || {}; bn.ln.lb = c.value.slice(0, 120); if (!bn.ln.lb) delete bn.ln.lb; mmSave(); mmDraw(); } else MM.inspPush = null; return; }
+    if (!click) return;
+    mmPush(); bn.ln = bn.ln || {};
+    if (ip === "bcol") { if (v) bn.ln.c = v; else delete bn.ln.c; }
+    if (ip === "bw2") { if (+v === 1) delete bn.ln.w; else bn.ln.w = +v; }
+    if (ip === "bds") { if (v) bn.ln.ds = v; else delete bn.ln.ds; }
+    if (ip === "bar") { if (bn.ln.ar) delete bn.ln.ar; else bn.ln.ar = 1; }
+    if (ip === "bvreset") delete bn.bv;
+    if (ip === "bdet") { bn.parent = null; delete bn.o; delete bn.side; MM.br = null; MM.sel = bn.id; }
+    mmSave(); mmDraw(); return mmInspSync(true);
+  }
   const push = () => { const k = key + ":" + ip; if (MM.inspPush !== k) { mmPush(); MM.inspPush = k; } };
   const done = (rerender) => { mmSave(); mmDraw(); if (rerender) mmInspSync(true); if (fin && (typing || slider)) MM.inspPush = null; };
   // actions that open other tools
@@ -8618,6 +8678,16 @@ function mmInspDo(e, fin) {
   if (ip === "layout" && MM_LAYOUTS.includes(v)) { d.layout = v; if (v !== "free") requestAnimationFrame(mmFit); }
   done(true);
 }
+/* the branch between an idea and its parent, edited like any other thing */
+function mmBrInline(x) {
+  const el = $(`#mmNodes .mmbl[data-br="${x.id}"]`), m = MM.brMid, st = $("#mmStage").getBoundingClientRect(), v = MM.view;
+  const rect = el ? el.getBoundingClientRect() : m ? { left: st.left + m.x * v.z + v.x - 70, top: st.top + m.y * v.z + v.y - 16, width: 140, height: 32 } : null; if (!rect) return;
+  mmInline(rect, x.ln?.lb || "", (val) => { mmPush(); x.ln = x.ln || {}; if (val) x.ln.lb = val.slice(0, 120); else delete x.ln.lb; mmSave(); mmDraw(); });
+}
+function mmBrColor(anchor, x) {
+  const el = popover(anchor, `<h4>${esc(T("brColor"))}</h4><div class="colors mmcols"><button type="button" class="swatch" data-c="" title="${esc(T("brAuto"))}" style="background:${x.color};outline:2px dashed var(--line)"></button>${MM_COLORS.map((c) => `<button type="button" class="swatch" data-c="${c}" style="background:${c}"></button>`).join("")}</div>`, "mmpop"); if (!el) return;
+  el.addEventListener("click", (e) => { const b = e.target.closest("[data-c]"); if (!b || !MM || !MM.d.nodes[x.id]) return; mmPush(); x.ln = x.ln || {}; if (b.dataset.c) x.ln.c = b.dataset.c; else delete x.ln.c; mmSave(); mmDraw(); closePop(); });
+}
 async function mmRelLabel(r) {
   const v = await formBox(T("mmRelLabel"), `<div class="field"><input name="t" maxlength="200" dir="auto" value="${esc(r.label)}"></div>`, (f) => ({ t: f.t.value.trim() }), T("save"));
   if (v) { mmPush(); r.label = v.t; mmSave(); mmDraw(); }
@@ -8643,7 +8713,7 @@ function mmBind() {
     const nodeEl = e.target.closest(".mmn"), relEl = e.target.closest("[data-rel]"), badge = e.target.closest("[data-badge]");
     const rh = e.target.closest("[data-rh]");
     const hnd = { rsz: e.target.closest("[data-rsz]")?.dataset.rsz || null, bvh: e.target.closest("[data-bvh]")?.dataset.bvh || null, rb: !!e.target.closest("[data-rbend]"), frsz: e.target.closest("[data-frsz]")?.dataset.frsz || null };
-    g = { ...hnd, onLabel: !!e.target.closest(".mmrl"), fr: e.target.closest("[data-fr]")?.dataset.fr || null, id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
+    g = { ...hnd, br: !nodeEl && !relEl ? e.target.closest("[data-br]")?.dataset.br || null : null, onBrLabel: !!e.target.closest("[data-brl]"), onLabel: !!e.target.closest(".mmrl"), fr: e.target.closest("[data-fr]")?.dataset.fr || null, id: rh ? null : nodeEl?.dataset.mmn || null, rel: relEl?.dataset.rel || null, rh: rh && !MM.ro ? rh.dataset.rh : null, badge: badge?.dataset.badge || null, x0: e.clientX, y0: e.clientY, v0: { ...MM.view }, moved: false, start: null };
     if (pts.size === 1 && !hnd.rsz && !hnd.bvh && !hnd.rb && !hnd.frsz && !rh) { const G0 = g; G0.lt = setTimeout(() => { if (g !== G0 || G0.moved || pts.size !== 1 || MM.edit) return; G0.long = true; mmLongPress(G0, toWorld(G0.x0, G0.y0)); }, 560); }
   });
   st.addEventListener("pointermove", (e) => {
@@ -8696,7 +8766,7 @@ function mmBind() {
     const G = g; g = null; clearTimeout(G.lt);
     if (G.long) return;
     if (G.rsz || G.bvh || G.frsz || (G.rb && G.moved)) { if (G.moved) mmSave(); return mmDraw(); }
-    if (G.fr && !G.moved && !MM.ro) { if (MM.frSel === G.fr) return mmFrameInline(G.fr); MM.frSel = G.fr; MM.sel = null; MM.rel = null; return mmDraw(); }
+    if (G.fr && !G.moved && !MM.ro) { if (MM.frSel === G.fr) return mmFrameInline(G.fr); MM.br = null; MM.frSel = G.fr; MM.sel = null; MM.rel = null; return mmDraw(); }
     if (G.rh && G.moved) {
       const r = MM.d.rels.find((q) => q.id === G.rel), drop = MM.drop; MM.rhDrag = null; MM.drop = null;
       if (r && drop && MM.d.nodes[drop] && drop !== (G.rh === "a" ? r.b : r.a) && drop !== r[G.rh]) { mmPush(); r[G.rh] = drop; MM.rel = r.id; mmSave(); }
@@ -8723,7 +8793,7 @@ function mmBind() {
     if (G.badge && G.id) { MM.sel = MM.ro ? null : G.id; mmDraw(); if (G.badge === "links") return mmLinksMenu(G.id); if (G.badge === "note") return mmDetails("note"); if (G.badge === "fold") { mmPush(); delete MM.d.nodes[G.id].collapsed; mmSave(); return mmDraw(); } }
     if (G.id) {
       if (MM.painter && !MM.ro) { const x = MM.d.nodes[G.id], p = MM.painter; if (x) { mmPush(); x.color = p.color; x.shape = p.shape; if (p.st) x.st = { ...p.st }; else delete x.st; mmSave(); } return mmDraw(); }
-      MM.frSel = null;
+      MM.frSel = null; MM.br = null;
       if (MM.multi && !MM.ro) { if (MM.multi.has(G.id)) MM.multi.delete(G.id); else MM.multi.add(G.id); if (!MM.multi.size) MM.multi = null; return mmDraw(); }
       if (MM.connect && MM.connect !== G.id) { mmPush(); const r = { id: mmId(), a: MM.connect, b: G.id, label: "", kind: "", dashed: false, w: 2, lag: "0", why: "", by: "me" }; MM.d.rels.push(r); MM.connect = null; mmHint(""); MM.sel = null; MM.rel = r.id; mmSave(); return mmDraw(); }
       if (MM.ro) { if (!MM.roWarned) { MM.roWarned = true; toast("👁 " + T("mmRoWarn")); } return; }
@@ -8732,13 +8802,17 @@ function mmBind() {
       if (again || (MM.sel === G.id && now - (G.selAt || 0) > 0 && e.pointerType !== "mouse")) { MM.sel = G.id; mmDraw(); return mmStartEdit(G.id); }
       MM.sel = G.id; MM.rel = null; MM.connect = null; mmHint(""); return mmDraw();
     }
+    if (G.br && !G.id && MM.d.nodes[G.br]) {
+      if (MM.br === G.br && G.onBrLabel && !MM.ro) return mmBrInline(MM.d.nodes[G.br]);
+      MM.br = G.br; MM.sel = null; MM.rel = null; MM.frSel = null; if (!MM.ro && !MM.brHinted) { MM.brHinted = true; toast("〰 " + T("brHint")); } return mmDraw();
+    }
     if (G.rel && MM.rel === G.rel && G.onLabel && !MM.ro) { const r = MM.d.rels.find((q) => q.id === G.rel); if (r) return mmRelInline(r); }
-    if (G.rel) { MM.rel = G.rel; MM.sel = null; MM.frSel = null; if (!MM.ro && !MM.rhHinted) { MM.rhHinted = true; toast("↗ " + T("relDragHint")); } return mmDraw(); }
+    if (G.rel) { MM.rel = G.rel; MM.sel = null; MM.frSel = null; MM.br = null; if (!MM.ro && !MM.rhHinted) { MM.rhHinted = true; toast("↗ " + T("relDragHint")); } return mmDraw(); }
     if (MM.painter) { MM.painter = null; mmHint(""); }
     { const now = Date.now(), le = MM.lte; // double tap on empty space: a new idea right there
       if (!MM.ro && !MM.connect && le && now - le.t < 400 && Math.hypot(e.clientX - le.x, e.clientY - le.y) < 30) { MM.lte = null; MM.frSel = null; return mmAdd("free", toWorld(e.clientX, e.clientY)); }
       MM.lte = { t: now, x: e.clientX, y: e.clientY }; }
-    MM.sel = null; MM.rel = null; MM.frSel = null; if (MM.connect) { MM.connect = null; mmHint(""); } mmDraw();
+    MM.sel = null; MM.rel = null; MM.frSel = null; MM.br = null; if (MM.connect) { MM.connect = null; mmHint(""); } mmDraw();
   };
   st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
   st.addEventListener("dblclick", (e) => { const n = e.target.closest(".mmn"); if (n && !MM.edit && !MM.ro) { MM.sel = n.dataset.mmn; mmDraw(); mmStartEdit(n.dataset.mmn); } });
@@ -8786,6 +8860,21 @@ document.addEventListener("click", (e) => {
   if (a === "aitb") return aiMenu(b);
   if (a === "free") { MM.sel = null; return mmAdd("free"); }
   if (a === "lockl") { mmLockToggle(); return; }
+  if (a.startsWith("br") && MM.br && MM.d.nodes[MM.br]) {
+    const x = MM.d.nodes[MM.br];
+    if (a === "brlb") return mmBrInline(x);
+    if (a === "brcol") return mmBrColor(b, x);
+    if (a === "brcm") return mmRelComments(null, x);
+    if (a === "brsrc") return mmDetails(null, null, x);
+    mmPush(); x.ln = x.ln || {};
+    if (a === "brw") { const k = BR_W.indexOf(x.ln.w || 1); x.ln.w = BR_W[(k + 1) % BR_W.length]; if (x.ln.w === 1) delete x.ln.w; }
+    if (a === "brds") x.ln.ds = !x.ln.ds ? "dashed" : x.ln.ds === "dashed" ? "dotted" : undefined;
+    if (a === "brar") x.ln.ar = x.ln.ar ? undefined : 1;
+    if (a === "brst") delete x.bv;
+    if (a === "brdet") { x.parent = null; delete x.o; delete x.side; MM.br = null; MM.sel = x.id; }
+    for (const k of Object.keys(x.ln)) if (x.ln[k] === undefined) delete x.ln[k];
+    mmSave(); return mmDraw();
+  }
   if (a === "frren" && MM.frSel) return mmFrameInline(MM.frSel);
   if (a === "frcol" && MM.frSel) return mmFrameColor(b);
   if (a === "frfit" && MM.frSel) { const f = MM.d.frames.find((q) => q.id === MM.frSel); if (f) { mmPush(); delete f.ex; mmSave(); mmDraw(); } return; }
