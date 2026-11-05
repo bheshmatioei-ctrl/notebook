@@ -1097,6 +1097,45 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 :root:not([data-theme="light"]) .card .pv .tag{box-shadow:none}
 :root:not([data-theme="light"]) .bookc{filter:brightness(.8)}
 }
+/* ---- endless canvas ---- */
+.cvstage{position:relative;overflow:hidden;touch-action:none;outline:none;background:var(--cvbg);--cvbg:#fbfaf6;--cvgrid:rgba(0,0,0,.05);--cvgrid2:rgba(0,0,0,.1);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.cvstage.plan{--cvbg:#f6f8fc;--cvgrid:rgba(79,127,224,.12);--cvgrid2:rgba(79,127,224,.3)}
+.cvsvg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cvstage[data-tool="pen"] .cvsvg,.cvstage[data-tool="wall"] .cvsvg,.cvstage[data-tool="dim"] .cvsvg,.cvstage[data-tool="rect"] .cvsvg,.cvstage[data-tool="ellipse"] .cvsvg,.cvstage[data-tool="arrow"] .cvsvg{cursor:crosshair}
+.cvstage[data-tool="erase"] .cvsvg{cursor:cell}
+.cvrail{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:2px;padding:5px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.08);max-height:calc(100% - 20px);overflow-y:auto;z-index:5;scrollbar-width:none}
+.cvrail button{width:50px;min-height:46px;border:0;background:none;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:var(--ink);font-size:18px;padding:2px 0}
+.cvrail button small{font-size:10px;color:var(--muted);line-height:1.15;max-width:48px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cvrail button:hover{background:var(--hover)}
+.cvrail button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.cvrail button[aria-pressed="true"] small{color:var(--bg)}
+.cvstyle{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;align-items:center;padding:6px 10px;border-radius:22px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.08);z-index:5}
+.cvstyle .sw{width:28px;height:28px;border-radius:50%;border:2px solid var(--panel);padding:0}
+.cvstyle .sw[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:1px}
+.cvstyle .sep{width:1px;height:20px;background:var(--line)}
+.cvstyle .wd{width:34px;height:30px;border:0;background:none;border-radius:8px;display:grid;place-items:center;padding:0}
+.cvstyle .wd i{display:block;width:20px;background:var(--ink);border-radius:4px}
+.cvstyle .wd[aria-pressed="true"]{background:var(--hover);outline:1px solid var(--line)}
+.cvtb{position:absolute;z-index:6;display:flex;flex-wrap:wrap;max-width:min(560px,calc(100% - 90px));gap:2px;padding:4px;border-radius:14px;background:#22252e;color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.cvtb button{min-width:36px;height:36px;border:0;background:none;color:#fff;border-radius:9px;font-size:14px;padding:0 6px}
+.cvtb button:hover{background:rgba(255,255,255,.12)}
+.cvtb .sw{min-width:22px;width:22px;height:22px;border-radius:50%;margin:7px 2px;border:2px solid rgba(255,255,255,.55);padding:0}
+.cvhint{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:14px;background:var(--panel);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.08);font-size:14px;color:var(--ink);max-width:calc(100% - 150px);flex-wrap:wrap;justify-content:center}
+.cvhint input{width:84px;height:36px;border:1px solid var(--line);border-radius:8px;padding:0 8px;font-size:16px;background:var(--bg);color:var(--ink);text-align:center}
+.cvhint button{height:36px;min-width:36px;border:1px solid var(--line);background:var(--bg);border-radius:8px;color:var(--ink);font-size:14px;padding:0 8px}
+.cvhint button.ok{background:var(--accent);color:#fff;border-color:transparent}
+.cvzoom{position:absolute;bottom:12px;inset-inline-end:12px;display:flex;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;z-index:5;overflow:hidden}
+.cvzoom button{width:38px;height:36px;border:0;background:none;color:var(--ink);font-size:18px}
+.cvzoom span{min-width:52px;text-align:center;font-size:13px;color:var(--muted)}
+.cvedit{position:absolute;z-index:8;border:2px solid #4f7fe0;border-radius:8px;background:rgba(255,255,255,.97);color:#1d1d1f;font-family:inherit;padding:6px;resize:none;text-align:center;line-height:1.35;outline:none;box-shadow:0 6px 16px rgba(0,0,0,.15);user-select:text;-webkit-user-select:text}
+.cvlen{cursor:pointer}
+.cvpv{display:grid;place-items:center;height:100%;overflow:hidden;font-size:34px;padding:8px;background:#fbfaf6}
+.cvpv svg{width:100%;height:100%}
+@media (max-width:600px){.cvrail button{width:44px;min-height:42px;font-size:16px}.cvrail button small{display:none}.cvhint{max-width:calc(100% - 70px);top:auto;bottom:60px}}
+:root[data-theme="dark"] .cvstage{--cvbg:#d6d2c8;--cvgrid:rgba(0,0,0,.06);--cvgrid2:rgba(0,0,0,.12)}
+:root[data-theme="dark"] .cvstage.plan{--cvbg:#cfd4de}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cvstage{--cvbg:#d6d2c8;--cvgrid:rgba(0,0,0,.06);--cvgrid2:rgba(0,0,0,.12)}:root:not([data-theme="light"]) .cvstage.plan{--cvbg:#cfd4de}}
+.skyhome .skd .th.cvth{background:#fbfaf6;padding:6px}.skyhome .skd .th.cvth svg{width:100%;height:100%}
 </style>
 
 <div class="app" id="app">
@@ -1777,6 +1816,7 @@ function W(n) { return n.locked ? S.unlocked.get(n.id) : n; } // working copy (t
 function titleOf(n) { if (sealedLocked(n)) return "🔒 " + T("lockedTitle"); const t = W(n).title; return t || T("untitled"); }
 function textOf(n) {
   if (sealedLocked(n)) return "";
+  if (n.cv) return cvText(n.cv);
   if (n.mm && n.mm.nodes) return Object.values(n.mm.nodes).map((x) => x.text + " " + (x.note || "") + " " + (x.links || []).map((l) => l.label || "").join(" ")).join(" · ");
   const w = W(n);
   if (w._textFor !== w.html) { w._text = htmlToText(w.html || ""); w._textFor = w.html; }
@@ -1795,6 +1835,7 @@ function normNote(d) {
     ...(d.readMode ? { readMode: true } : {}), ...(d.continuous ? { continuous: true } : {}), ...(/^#[0-9a-f]{6}$/i.test(d.paperColor || "") ? { paperColor: d.paperColor } : {}),
     ...(d.file && typeof d.file === "object" && /^[A-Za-z0-9_-]{8,64}$/.test(d.file.id || "") ? { file: { id: d.file.id, name: String(d.file.name || "file").slice(0, 240), type: String(d.file.type || "").slice(0, 120), size: Number(d.file.size) || 0 } } : {}),
     ...(d.mm && mmNorm(d.mm) ? { mm: mmNorm(d.mm) } : {}),
+    ...(d.cv && cvNorm(d.cv) ? { cv: cvNorm(d.cv) } : {}),
     ...(Array.isArray(d.sealed) && d.sealed.length ? { sealed: d.sealed.filter((x) => typeof x === "string" && /^[A-Za-z0-9_-]{8,64}$/.test(x)) } : {}),
     seal: normSeal(d.seal), ...(typeof d.order === "number" && isFinite(d.order) ? { order: d.order } : {}),
   };
@@ -1851,7 +1892,7 @@ function compactStrokes(strokes) {
 }
 function sizeCheck(obj) { if (S.mode === "cloud" && JSON.stringify(obj).length > DOC_LIMIT) throw { code: "too_big", message: T("tooBig") }; }
 async function noteDoc(n) {
-  const base = { ...(n.mm ? { mm: n.mm } : {}), ...(n.file ? { file: n.file } : {}), ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
+  const base = { ...(n.mm ? { mm: n.mm } : {}), ...(n.cv ? { cv: n.cv } : {}), ...(n.file ? { file: n.file } : {}), ...(n.readMode ? { readMode: true } : {}), ...(n.continuous ? { continuous: true } : {}), ...(n.paperColor ? { paperColor: n.paperColor } : {}), folder: n.folder, color: n.color, pageStyle: n.pageStyle, pinned: n.pinned, trashed: n.trashed, pages: n.pages, aspect: n.aspect, bgs: n.bgs || [], createdAt: n.createdAt, updatedAt: n.updatedAt, ...(n.seal ? { seal: n.seal } : {}), ...(typeof n.order === "number" ? { order: n.order } : {}) };
   if (n.locked) {
     const u = S.unlocked.get(n.id);
     if (u) n.vault = await sealWithKey(toPlain(u), u.vk);
@@ -2037,8 +2078,8 @@ function renderLibrary() {
       <button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}">⇅</button>
       ${trash ? (arr.length ? `<button class="btn danger" data-act="emptyTrash">🗑 ${esc(T("emptyTrash"))}</button>` : "") : ""}
     </div>
-    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>`
-      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>` : ""}`;
+    ${isBook ? `<div class="quickrow"><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("newPageBtn"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="newCanvas"><b class="qe">🎨</b><span>${esc(T("cvNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>`
+      : (isFold || home) ? `<div class="quickrow"><button class="qa" data-act="newFolderHere">${ic("folder")}<span>${esc(T("newFolder"))}</span></button><button class="qa" data-act="plusNotebook">${ic("templates")}<span>${esc(T("newNotebook"))}</span></button><button class="qa" data-act="newNote">${ic("newpage")}<span>${esc(T("quickNote"))}</span></button><button class="qa" data-act="newMap"><b class="qe">🧠</b><span>${esc(T("mmNew"))}</span></button><button class="qa" data-act="newCanvas"><b class="qe">🎨</b><span>${esc(T("cvNew"))}</span></button><button class="qa" data-act="storeFiles">${ic("clip")}<span>${esc(T("storeFiles"))}</span></button><button class="qa" data-act="importPdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button></div>` : ""}`;
   const cnt = (p) => live.filter((n) => inPath(n.folder, p)).length;
   if (subF.length) {
     h += `<div class="sech">${esc(T("foldersSec"))}</div><div class="fgrid">${subF.map((f) => `<div class="fold" data-view="${esc(f.path)}"><span class="fico" style="color:${esc(f.color)}">${ic("folder")}</span><span class="fn"><b>${esc(leaf(f.path))}</b><small>${esc(T("itemsN", { n: num(folderPaths().filter((x) => parentOf(x.path) === f.path).length + live.filter((n) => n.folder === f.path).length) }))}</small></span><button class="more" data-fmenu="${esc(f.path)}" aria-label="${esc(T("more"))}">⋯</button></div>`).join("")}</div>`;
@@ -2065,7 +2106,7 @@ function renderLibrary() {
         const g = groupLabel(n[field]);
         if (g !== lastGroup) { h += `<div class="grouph">${esc(g)}</div>`; lastGroup = g; }
       }
-      const pv = n.mm ? `<div class="mmpv"><span>🧠</span><b dir="auto">${esc(n.mm.nodes?.[n.mm.root]?.text || "")}</b><small>${esc(T("mmIdeas", { n: num(Object.keys(n.mm.nodes || {}).length) }))}</small></div>` : sealedLocked(n) ? `<div class="lockpv">🔒</div>`
+      const pv = n.cv ? `<div class="cvpv">${cvThumb(n) || "<span>🎨</span>"}</div>` : n.mm ? `<div class="mmpv"><span>🧠</span><b dir="auto">${esc(n.mm.nodes?.[n.mm.root]?.text || "")}</b><small>${esc(T("mmIdeas", { n: num(Object.keys(n.mm.nodes || {}).length) }))}</small></div>` : sealedLocked(n) ? `<div class="lockpv">🔒</div>`
         : n.thumb ? `<img src="${esc(n.thumb)}" alt="" loading="lazy">${textOf(n) ? `<div class="tx over" dir="auto">${esc(textOf(n).slice(0, 300))}</div>` : ""}`
         : `<div class="tx" dir="auto">${esc(textOf(n).slice(0, 400))}</div>`;
       const folder = n.folder && S.view !== n.folder ? `📁 ${esc(leaf(n.folder))} · ` : "";
@@ -2949,7 +2990,7 @@ async function plusMenu() {
   const folder = S.view && !S.view.startsWith("__") ? S.view : "", box = containerOf(S.view);
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [
-    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["aimap", "✨", T("aiMakeMap")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
+    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["canvas", "🎨", T("cvNew")], ["plan", "📐", T("cvNewPlan")], ["aimap", "✨", T("aiMakeMap")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
     ["templates", "🗂", T("templates")], ["folder", "📁", T("newFolder")],
     ...(can ? [["photo", "📷", T("photoNote")], ["scan", "📄", T("scanDoc")]] : []),
     ...(mic ? [["audio", "🎙", T("audioNote")]] : []),
@@ -2958,6 +2999,8 @@ async function plusMenu() {
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.querySelector(".plusgrid").addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
   if (a === "quick") return newNote();
   if (a === "mindmap") return newMap();
+  if (a === "canvas") return newCanvas();
+  if (a === "plan") return newCanvas({ plan: true });
   if (a === "aimap") return aiMakeMap();
   if (a === "notebook") return coverDialog(null, box);
   if (a === "templates") { S.view = "__templates"; S.screen = "library"; renderTree(); return renderMain(); }
@@ -3267,6 +3310,7 @@ function renderMain() {
   if (S.hist.id !== n.id) S.hist = { id: n.id, undo: [], redo: [] };
   if (sealedLocked(n)) return renderLockScreen(n);
   if (n.mm) return renderMap(n);
+  if (n.cv) return renderCanvas(n);
   const w = W(n), ro_ = n.trashed || S.readOnly || isFrozen(n) || readMode(n);
   const t = S.tool;
   const rtl = document.documentElement.dir === "rtl", tb = (m, icon, label) => `<button class="btn icon tool" data-mode="${m}" aria-pressed="${t.mode === m}" title="${esc(label)}">${ic(icon)}${["pen", "highlighter", "tape", "laser"].includes(m) ? `<i class="tcb"></i>` : ""}</button>`;
@@ -4579,7 +4623,7 @@ async function emptyTrash() {
   for (const n of list) await deleteForever(n, false);
 }
 async function lockNote(n) {
-  if (n.mm) return toast(T("mmNoLock"), { kind: "err" });
+  if (n.mm || n.cv) return toast(T("mmNoLock"), { kind: "err" });
   if (n.seal) return toast(T("sealNoLocked"), { kind: "err" });
   const r = await formBox(T("lockNote"), `<p class="msg">${esc(T("lockInfo"))}</p>
     <div class="field"><label>${esc(T("password"))}</label><input type="password" name="p1" autocomplete="new-password"></div>
@@ -4607,7 +4651,7 @@ function noteMenu(n) {
   const items = [];
   if (!n.trashed) {
     if (!sealedLocked(n) && !S.readOnly) items.push(["renamePage", "✏️ " + T("renamePage")]);
-    if (!n.mm && !sealedLocked(n) && !S.readOnly) items.push(["pageToMap", "🧠 " + T("mmToMap")]);
+    if (!n.mm && !n.cv && !sealedLocked(n) && !S.readOnly) items.push(["pageToMap", "🧠 " + T("mmToMap")]);
     items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "unpin" : "pin")]);
     if (!S.readOnly && !isFrozen(n)) items.push(["readMode", "📖 " + T(readMode(n) ? "readOff" : "readTitle")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
@@ -5816,6 +5860,7 @@ function assetsOfDoc(d) {
   for (const a of d?.attachments || []) if (a && a.id) ids.add(a.id);
   for (const x of d?.sealed || []) ids.add(x);
   if (d?.file && d.file.id) ids.add(d.file.id);
+  if (d?.cv && Array.isArray(d.cv.items)) for (const x of d.cv.items) if (x && x.t === "img" && x.a) ids.add(x.a);
   if (d?.mm && d.mm.nodes) for (const x of Object.values(d.mm.nodes)) { if (x && x.img) ids.add(x.img); for (const q of (x && x.sym) || []) if (typeof q === "string" && q.startsWith("img:")) ids.add(q.slice(4)); }
   return [...ids];
 }
@@ -6483,6 +6528,7 @@ function doAct(act, el) {
   if (act === "skyOn") { S.meta.settings.homeStyle = "sky"; saveMeta(0); return renderLibrary(); }
   if (act === "storeFiles") return pickStoreFiles();
   if (act === "newMap") return newMap();
+  if (act === "newCanvas") return newCanvas();
   if (act === "pageToMap") { const pn = S.notes.get(S.activeId); return pn && pageToMap(pn); }
   if (act === "toolMore") return toolMoreMenu(el);
   if (act === "ctxMore") return ctxMoreMenu(el, "pen");
@@ -7243,7 +7289,7 @@ async function sealBeforeLock(ids) {
   }
 }
 async function lockWith(n, vk) {
-  if (n.mm) return;
+  if (n.mm || n.cv) return;
   captureActive();
   queuePurge(n.id);
   const u = { vk, title: n.title, html: n.html, attachments: n.attachments, strokes: S.ink.get(n.id) || [] };
@@ -7258,7 +7304,7 @@ async function lockWith(n, vk) {
 
 /* ---- whole notebook ---- */
 const folderRecOf = (path) => S.meta.folders.find((f) => f.path === path);
-function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && !n.file && !n.mm && n.folder === path); }
+function bookPages(path) { return Array.from(S.notes.values()).filter((n) => !n.trashed && !n.file && !n.mm && !n.cv && n.folder === path); }
 function bookKey(path) { for (const n of bookPages(path)) { const u = n.locked && S.unlocked.get(n.id); if (u && u.vk) return u.vk; } return null; }
 async function askBookKey(path) {
   const locked = bookPages(path).filter((n) => n.locked);
@@ -7637,6 +7683,9 @@ Object.assign(I18N.en, {"skyName": "Idea sky", "skyMe": "Me", "skyCmdPh": "Searc
 Object.assign(I18N.fa, {"cfTitle": "هر کلود (فایل همگام‌سازی)", "cfChoose": "iCloud، OneDrive، Dropbox، Google Drive، Nextcloud — هر جایی که در Files یا پوشه‌ها هست", "cfShort": "کلود", "cfHow": "کل دفترچه در یک فایل به نام babak-sync.babak.zip می‌رود. آن را در یک پوشهٔ کلود بگذارید و روی دستگاه دیگر همان فایل را بگیرید؛ فقط صفحه‌های تازه‌تر جایگزین می‌شوند و چیزی دوتا نمی‌شود.", "cfSend": "بفرست به کلود", "cfGet": "بگیر از کلود", "cfLast": "آخرین بار:", "cfDirty": "تغییر فرستاده‌نشده", "cfReady": "فایل آماده است", "cfReadyText": "{n} صفحه · {mb}. حالا آن را در پوشهٔ کلودتان ذخیره کنید.", "cfSaveToFiles": "ذخیره در Files / کلود", "cfSaveToFilesSub": "در پنجرهٔ بعد «Save to Files» و بعد پوشهٔ iCloud، OneDrive، Dropbox یا Nextcloud", "cfDownload": "دانلود فایل", "cfDownloadSub": "بعد فایل را به پوشهٔ کلودتان ببرید", "cfReplaceHint": "همیشه همان پوشه را انتخاب کنید؛ اگر پرسید جایگزین شود، «Replace / جایگزین» را بزنید.", "cfSentMsg": "فایل همگام‌سازی ذخیره شد", "cfLink": "وصل کردن به یک پوشهٔ کلود (خودکار)", "cfLinkSub": "مثلاً پوشهٔ OneDrive یا Nextcloud روی همین کامپیوتر؛ از آن به بعد خودش می‌فرستد و می‌گیرد", "cfLinked": "وصل شد به پوشهٔ «{f}»", "cfLinkedTo": "وصل به پوشهٔ «{f}»", "cfAutoOn": "خودکار: هر چند دقیقه و هنگام بستن — برای قطع بزنید", "cfUnlinked": "اتصال به پوشه برداشته شد", "cfResume": "همگام‌سازی با پوشهٔ «{f}» منتظر اجازهٔ شماست", "cfResumeBtn": "ادامه", "cfFail": "همگام‌سازی کلود نشد:", "cfPrivacy": "فایل فقط در کلود خودتان است؛ هیچ سرور دیگری آن را نمی‌بیند. صفحه‌های قفل‌شده داخل آن نمی‌روند."});
 Object.assign(I18N.de, {"cfTitle": "Jede Cloud (Sync-Datei)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – alles, was in „Dateien“ oder als Ordner erscheint", "cfShort": "Cloud", "cfHow": "Das ganze Notizbuch kommt in eine Datei babak-sync.babak.zip. Lege sie in einen Cloud-Ordner und hole sie auf dem anderen Gerät; nur neuere Seiten ersetzen ältere, nichts wird doppelt.", "cfSend": "In die Cloud senden", "cfGet": "Aus der Cloud holen", "cfLast": "Zuletzt:", "cfDirty": "nicht gesendet", "cfReady": "Datei ist bereit", "cfReadyText": "{n} Seiten · {mb}. Jetzt im Cloud-Ordner speichern.", "cfSaveToFiles": "In Dateien / Cloud sichern", "cfSaveToFilesSub": "Im nächsten Fenster „In Dateien sichern“ und den iCloud-, OneDrive-, Dropbox- oder Nextcloud-Ordner wählen", "cfDownload": "Datei herunterladen", "cfDownloadSub": "Danach in den Cloud-Ordner verschieben", "cfReplaceHint": "Immer denselben Ordner wählen; bei der Frage „Ersetzen“ bestätigen.", "cfSentMsg": "Sync-Datei gespeichert", "cfLink": "Mit einem Cloud-Ordner verbinden (automatisch)", "cfLinkSub": "z. B. OneDrive- oder Nextcloud-Ordner auf diesem Computer; danach senden und holen von selbst", "cfLinked": "Verbunden mit „{f}“", "cfLinkedTo": "Verbunden mit „{f}“", "cfAutoOn": "Automatisch: alle paar Minuten und beim Schließen – tippen zum Trennen", "cfUnlinked": "Ordner getrennt", "cfResume": "Sync mit „{f}“ wartet auf deine Erlaubnis", "cfResumeBtn": "Weiter", "cfFail": "Cloud-Sync fehlgeschlagen:", "cfPrivacy": "Die Datei liegt nur in deiner eigenen Cloud; kein anderer Server sieht sie. Gesperrte Seiten kommen nicht hinein."});
 Object.assign(I18N.en, {"cfTitle": "Any cloud (sync file)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – anything that shows up in Files or as a folder", "cfShort": "Cloud", "cfHow": "The whole notebook goes into one file, babak-sync.babak.zip. Put it in a cloud folder and pick it on the other device; only newer pages replace older ones, nothing is doubled.", "cfSend": "Send to cloud", "cfGet": "Get from cloud", "cfLast": "Last:", "cfDirty": "not sent", "cfReady": "File is ready", "cfReadyText": "{n} pages · {mb}. Now save it in your cloud folder.", "cfSaveToFiles": "Save to Files / cloud", "cfSaveToFilesSub": "In the next window tap “Save to Files” and choose the iCloud, OneDrive, Dropbox or Nextcloud folder", "cfDownload": "Download file", "cfDownloadSub": "Then move it to your cloud folder", "cfReplaceHint": "Always choose the same folder; if asked, tap “Replace”.", "cfSentMsg": "Sync file saved", "cfLink": "Link a cloud folder (automatic)", "cfLinkSub": "e.g. your OneDrive or Nextcloud folder on this computer; from then on it sends and gets by itself", "cfLinked": "Linked to “{f}”", "cfLinkedTo": "Linked to “{f}”", "cfAutoOn": "Automatic: every few minutes and when closing – tap to unlink", "cfUnlinked": "Folder unlinked", "cfResume": "Sync with “{f}” is waiting for your permission", "cfResumeBtn": "Continue", "cfFail": "Cloud sync failed:", "cfPrivacy": "The file stays in your own cloud; no other server sees it. Locked pages are not included."});
+Object.assign(I18N.fa, {"cvNew": "بوم بی‌نهایت", "cvNewPlan": "نقشهٔ ساختمان", "skyNewCanvas": "بوم", "skyTyCanvas": "بوم", "skyMk_canvas": "＋ بوم تازه «{t}»", "skyMk_plan": "＋ نقشهٔ ساختمان «{t}»", "cvPlan": "نقشهٔ ساختمان", "cvGrid": "شبکه", "cvExport": "خروجی", "cvReadOnly": "فقط خواندنی", "cvPlanHint": "حالت نقشهٔ ساختمان: هر خانهٔ بزرگ شبکه ۱ متر است. از نوار کنار «دیوار» یا «اتاق» را بزنید.", "cvTSel": "انتخاب", "cvTPen": "قلم", "cvTErase": "پاک‌کن", "cvTText": "متن", "cvTNote": "یادداشت", "cvTIdea": "ایده", "cvTLink": "اتصال", "cvTRect": "مستطیل", "cvTEllipse": "بیضی", "cvTArrow": "فلش", "cvTImg": "عکس", "cvTWall": "دیوار", "cvTRoom": "اتاق", "cvTDoor": "در", "cvTWin": "پنجره", "cvTFurn": "مبلمان", "cvTDim": "اندازه", "cvHintWall": "گوشه به گوشه بزنید، یا طول را به متر بنویسید و Enter. روی نقطهٔ اول بزنید تا اتاق بسته شود.", "cvHintRoom": "جای اتاق را بزنید؛ عرض و طولش را به متر می‌نویسید.", "cvHintLink": "روی ایدهٔ اول بزنید", "cvHintLink2": "حالا روی ایدهٔ دوم بزنید", "cvHintDim": "از یک نقطه تا نقطهٔ دیگر بکشید تا فاصله نشان داده شود.", "cvHintPlace": "جایش را روی نقشه بزنید. بعد می‌توانید بچرخانید و اندازه‌اش را دقیق کنید.", "cvHintErase": "روی هر چیزی بکشید تا پاک شود.", "cvEdit": "ویرایش متن", "cvChild": "ایدهٔ تازه کنارش", "cvFill": "پُر / خالی", "cvRotate": "چرخش ۹۰°", "cvSize": "اندازه", "cvLens": "طول ضلع‌ها", "cvRoomName": "نام اتاق", "cvRoomPh": "مثلاً: آشپزخانه", "cvBigger": "بزرگ‌تر", "cvSmaller": "کوچک‌تر", "cvFront": "بیاور جلو", "cvBack": "ببر عقب", "cvWidth": "عرض", "cvDepth": "طول / عمق", "cvSide": "ضلع", "cvLensHint": "طول واقعی هر ضلع را به متر بنویسید؛ جهت دیوارها همان می‌ماند.", "cvNotClosed": "ضلع آخر {a} متر شد (شما {b} نوشتید) — اندازه‌ها با هم جور نیستند.", "cvRoomHint": "اندازهٔ اتاق را با متر بگیرید و اینجا بنویسید؛ بعد در و پنجره و مبلمان را داخلش بگذارید.", "cvMake": "بساز", "cvIdeaNew": "ایدهٔ تازه", "cvWallLenLbl": "طول:", "cvClose": "بستن اتاق", "cvDone": "پایان", "cvEmpty": "بوم هنوز خالی است", "cvPngSub": "تصویر برای فرستادن و دیدن", "cvSvgSub": "طرح برداری؛ در هر اندازه تیز می‌ماند", "cvPrint": "چاپ / PDF", "cvPrintSub": "در پنجرهٔ چاپ «ذخیره به PDF» را بزنید", "cvPngFail": "ساختن PNG نشد؛ فایل SVG ذخیره شد.", "cvF_bed": "تخت دونفره", "cvF_bed1": "تخت یک‌نفره", "cvF_sofa": "مبل", "cvF_table": "میز غذا", "cvF_desk": "میز کار", "cvF_chair": "صندلی", "cvF_wardrobe": "کمد", "cvF_kitchen": "کابینت آشپزخانه", "cvF_fridge": "یخچال", "cvF_wc": "توالت", "cvF_shower": "دوش", "cvF_bath": "وان", "cvF_sink": "روشویی", "cvF_washer": "ماشین لباسشویی"});
+Object.assign(I18N.de, {"cvNew": "Endlose Leinwand", "cvNewPlan": "Grundriss", "skyNewCanvas": "Leinwand", "skyTyCanvas": "Leinwand", "skyMk_canvas": "＋ Neue Leinwand „{t}“", "skyMk_plan": "＋ Grundriss „{t}“", "cvPlan": "Grundriss", "cvGrid": "Raster", "cvExport": "Export", "cvReadOnly": "Nur lesen", "cvPlanHint": "Grundriss-Modus: ein großes Rasterfeld ist 1 m. Links „Wand“ oder „Raum“ wählen.", "cvTSel": "Auswahl", "cvTPen": "Stift", "cvTErase": "Radierer", "cvTText": "Text", "cvTNote": "Notiz", "cvTIdea": "Idee", "cvTLink": "Verbinden", "cvTRect": "Rechteck", "cvTEllipse": "Ellipse", "cvTArrow": "Pfeil", "cvTImg": "Bild", "cvTWall": "Wand", "cvTRoom": "Raum", "cvTDoor": "Tür", "cvTWin": "Fenster", "cvTFurn": "Möbel", "cvTDim": "Maß", "cvHintWall": "Ecke für Ecke tippen oder Länge in Metern eingeben und Enter. Auf den ersten Punkt tippen schließt den Raum.", "cvHintRoom": "Tippe, wo der Raum hin soll; dann Breite und Länge in Metern.", "cvHintLink": "Erste Idee antippen", "cvHintLink2": "Jetzt die zweite Idee antippen", "cvHintDim": "Von einem Punkt zum anderen ziehen, um den Abstand zu zeigen.", "cvHintPlace": "Stelle auf dem Plan antippen; danach drehen und genau bemaßen.", "cvHintErase": "Über Dinge streichen, um sie zu löschen.", "cvEdit": "Text bearbeiten", "cvChild": "Neue Idee daneben", "cvFill": "Füllen / leer", "cvRotate": "90° drehen", "cvSize": "Größe", "cvLens": "Seitenlängen", "cvRoomName": "Raumname", "cvRoomPh": "z. B. Küche", "cvBigger": "Größer", "cvSmaller": "Kleiner", "cvFront": "Nach vorn", "cvBack": "Nach hinten", "cvWidth": "Breite", "cvDepth": "Länge / Tiefe", "cvSide": "Seite", "cvLensHint": "Echte Länge jeder Seite in Metern; die Richtungen bleiben.", "cvNotClosed": "Letzte Seite ist {a} m (du hast {b} eingegeben) – die Maße passen nicht zusammen.", "cvRoomHint": "Miss den Raum aus und trage die Maße ein; danach Türen, Fenster und Möbel hineinsetzen.", "cvMake": "Erstellen", "cvIdeaNew": "Neue Idee", "cvWallLenLbl": "Länge:", "cvClose": "Raum schließen", "cvDone": "Fertig", "cvEmpty": "Die Leinwand ist noch leer", "cvPngSub": "Bild zum Teilen", "cvSvgSub": "Vektor; bleibt in jeder Größe scharf", "cvPrint": "Drucken / PDF", "cvPrintSub": "Im Druckfenster „Als PDF sichern“", "cvPngFail": "PNG ging nicht; SVG gespeichert.", "cvF_bed": "Doppelbett", "cvF_bed1": "Einzelbett", "cvF_sofa": "Sofa", "cvF_table": "Esstisch", "cvF_desk": "Schreibtisch", "cvF_chair": "Stuhl", "cvF_wardrobe": "Schrank", "cvF_kitchen": "Küchenzeile", "cvF_fridge": "Kühlschrank", "cvF_wc": "WC", "cvF_shower": "Dusche", "cvF_bath": "Badewanne", "cvF_sink": "Waschbecken", "cvF_washer": "Waschmaschine"});
+Object.assign(I18N.en, {"cvNew": "Endless canvas", "cvNewPlan": "Floor plan", "skyNewCanvas": "Canvas", "skyTyCanvas": "Canvas", "skyMk_canvas": "＋ New canvas “{t}”", "skyMk_plan": "＋ Floor plan “{t}”", "cvPlan": "Floor plan", "cvGrid": "Grid", "cvExport": "Export", "cvReadOnly": "Read only", "cvPlanHint": "Floor-plan mode: one big grid square is 1 m. Pick “Wall” or “Room” on the side.", "cvTSel": "Select", "cvTPen": "Pen", "cvTErase": "Eraser", "cvTText": "Text", "cvTNote": "Sticky", "cvTIdea": "Idea", "cvTLink": "Connect", "cvTRect": "Rectangle", "cvTEllipse": "Ellipse", "cvTArrow": "Arrow", "cvTImg": "Picture", "cvTWall": "Wall", "cvTRoom": "Room", "cvTDoor": "Door", "cvTWin": "Window", "cvTFurn": "Furniture", "cvTDim": "Measure", "cvHintWall": "Tap corner by corner, or type the length in metres and press Enter. Tap the first point to close the room.", "cvHintRoom": "Tap where the room goes; then type its width and length in metres.", "cvHintLink": "Tap the first idea", "cvHintLink2": "Now tap the second idea", "cvHintDim": "Drag from one point to another to show the distance.", "cvHintPlace": "Tap its place on the plan; then rotate it and set exact sizes.", "cvHintErase": "Swipe over things to erase them.", "cvEdit": "Edit text", "cvChild": "New idea next to it", "cvFill": "Fill / empty", "cvRotate": "Rotate 90°", "cvSize": "Size", "cvLens": "Side lengths", "cvRoomName": "Room name", "cvRoomPh": "e.g. Kitchen", "cvBigger": "Bigger", "cvSmaller": "Smaller", "cvFront": "Bring forward", "cvBack": "Send back", "cvWidth": "Width", "cvDepth": "Length / depth", "cvSide": "Side", "cvLensHint": "Type the true length of every side in metres; wall directions stay.", "cvNotClosed": "The last side came out {a} m (you typed {b}) – the sizes don't fit together.", "cvRoomHint": "Measure the room and type its size here; then put doors, windows and furniture in it.", "cvMake": "Create", "cvIdeaNew": "New idea", "cvWallLenLbl": "Length:", "cvClose": "Close room", "cvDone": "Done", "cvEmpty": "The canvas is still empty", "cvPngSub": "Picture to share and view", "cvSvgSub": "Vector drawing; sharp at any size", "cvPrint": "Print / PDF", "cvPrintSub": "In the print window choose “Save as PDF”", "cvPngFail": "PNG didn't work; saved SVG instead.", "cvF_bed": "Double bed", "cvF_bed1": "Single bed", "cvF_sofa": "Sofa", "cvF_table": "Dining table", "cvF_desk": "Desk", "cvF_chair": "Chair", "cvF_wardrobe": "Wardrobe", "cvF_kitchen": "Kitchen counter", "cvF_fridge": "Fridge", "cvF_wc": "Toilet", "cvF_shower": "Shower", "cvF_bath": "Bathtub", "cvF_sink": "Sink", "cvF_washer": "Washing machine"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -9602,7 +9651,7 @@ function mmNewNoteFrom(d, title) {
 }
 /** A notebook page (headings, lists, lines) -> a mind map next to it. */
 function pageToMap(n) {
-  if (!n || n.mm || isStored(n) || sealedLocked(n)) return;
+  if (!n || n.mm || n.cv || isStored(n) || sealedLocked(n)) return;
   captureActive();
   const doc = new DOMParser().parseFromString(`<div>${W(n).html || ""}</div>`, "text/html"), lines = [];
   const walk = (el, depth) => {
@@ -9825,7 +9874,7 @@ async function aiAsk() {
 }
 /** A whole new map from a topic, a pasted text, a file or a notebook page. */
 async function aiMakeMap(preset) {
-  const pages = Array.from(S.notes.values()).filter((n) => !n.trashed && !n.mm && !isStored(n) && !sealedLocked(n) && textOf(n).trim());
+  const pages = Array.from(S.notes.values()).filter((n) => !n.trashed && !n.mm && !n.cv && !isStored(n) && !sealedLocked(n) && textOf(n).trim());
   const files = Array.from(S.notes.values()).filter((n) => !n.trashed && isStored(n) && ["PDF", "DOC", "TXT"].includes(fileKind(n.file)[0]));
   let pickedFile = null;
   const r = await formBox("✨ " + T("aiMakeMap"), `<p class="msg">${esc(T("aiMakeHint"))}</p>
@@ -10064,6 +10113,7 @@ if ("caches" in window) readShareInbox();
    Rules (so beauty never costs speed): every star keeps a fixed place, the card row and the command box are the fast
    paths, every gesture has a button, nothing below 14px, touch targets at least 44px, at most 40 stars, no blur effects. */
 const SKY_MAPIC = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="8.5" y="10" width="7" height="4" rx="2"/><path d="M15.5 12c2 0 2-5 5-5M15.5 12c2 0 2 5 5 5M8.5 12c-2 0-2-5-5-5M8.5 12c-2 0-2 5-5 5"/></svg>';
+const SKY_CVIC = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3" stroke-dasharray="3 2.4"/><path d="M7 15c2-4 4 1 6-3s3 0 4-2"/></svg>';
 const SKY_FS = 8, SKY_NS = 4, SKY_US = 6, SKY_MAX = 40;
 let skyFocus = "", skyDrag = null, skyNoClick = 0, skyCmdI = 0, skyCmdList = [], skyChkCache = new Map(), fileStoreFolder = null;
 let skyToastEl = null;
@@ -10081,8 +10131,8 @@ function skyOn() { return S.meta.settings.homeStyle !== "classic"; }
 function skyLive() { return Array.from(S.notes.values()).filter((n) => !n.trashed); }
 const skyTop = (n) => (n.folder ? n.folder.split(SEP)[0] : "");
 function skyRecent(n, op) { return Math.max(op[n.id] || 0, Date.parse(n.updatedAt) || 0); }
-function skyKind(n) { return isStored(n) ? "file" : n.mm ? "map" : n.folder && folderKind(n.folder) === "book" ? "page" : "note"; }
-function skyGlyph(n) { const k = skyKind(n); return k === "map" ? "🧠" : k === "file" ? "📎" : k === "page" ? "📖" : "📝"; }
+function skyKind(n) { return isStored(n) ? "file" : n.mm ? "map" : n.cv ? "canvas" : n.folder && folderKind(n.folder) === "book" ? "page" : "note"; }
+function skyGlyph(n) { const k = skyKind(n); return k === "map" ? "🧠" : k === "canvas" ? "🎨" : k === "file" ? "📎" : k === "page" ? "📖" : "📝"; }
 
 /** Fixed places: a star keeps its slot until it is deleted or moved; only very old, unpinned stars give their place to new ones. */
 function skyLayout(live) {
@@ -10182,7 +10232,7 @@ function skyTodayItems(live) {
   const chk = [], since = Date.now() - 21 * 864e5;
   for (const n of live.slice().sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1))) {
     if (chk.length >= 5 || Date.parse(n.updatedAt) < since) break;
-    if (sealedLocked(n) || n.mm || isStored(n)) continue;
+    if (sealedLocked(n) || n.mm || n.cv || isStored(n)) continue;
     for (const c of skyChecks(n)) { if (chk.length >= 5) break; chk.push({ k: "c", id: n.id, i: c.i, t: c.t, tag: titleOf(n) }); }
   }
   return [...rem, ...chk];
@@ -10253,6 +10303,7 @@ function skyOpenNode(nid) {
 /* ---- the card row: pinned and recent ---- */
 function skyThumb(n) {
   if (sealedLocked(n)) return `<div class="th lock">🔒</div>`;
+  if (n.cv) return `<div class="th cvth">${cvThumb(n) || "🎨"}</div>`;
   if (n.mm) return `<div class="th"><svg viewBox="0 0 120 70" width="100" height="58"><g fill="none" stroke-width="2.6" stroke-linecap="round"><path d="M60 35 C80 35 84 14 104 14" stroke="#7fb8ff"/><path d="M60 35 C80 35 84 56 104 56" stroke="#ff9fc4"/><path d="M60 35 C40 35 36 14 16 14" stroke="#9be3b9"/><path d="M60 35 C40 35 36 56 16 56" stroke="#ffcf8a"/></g><rect x="43" y="26" width="34" height="18" rx="9" fill="${esc(n.color)}"/></svg></div>`;
   if (isStored(n)) return `<div class="th"><span class="fext">${esc((n.file.name.split(".").pop() || "").slice(0, 4).toUpperCase())}</span></div>`;
   if (n.thumb) return `<div class="th"><img src="${esc(n.thumb)}" alt="" loading="lazy"></div>`;
@@ -10262,7 +10313,7 @@ function skyDockHtml(live) {
   const ui = skyUi(), op = openedMap(), pins = live.filter((n) => n.pinned).sort((a, b) => skyRecent(b, op) - skyRecent(a, op));
   const tab = ui.dock === "recent" || !pins.length ? "recent" : "pin";
   const arr = (tab === "pin" ? pins : live.filter((n) => !(n.folder && folderKind(n.folder) === "book" && !n.pinned) || op[n.id]).sort((a, b) => skyRecent(b, op) - skyRecent(a, op))).slice(0, 14);
-  const ty = { note: T("skyTyNote"), map: T("skyTyMap"), file: T("skyTyFile"), page: T("skyTyPage") };
+  const ty = { note: T("skyTyNote"), map: T("skyTyMap"), canvas: T("skyTyCanvas"), file: T("skyTyFile"), page: T("skyTyPage") };
   return `<section class="skdock"><div class="sktabs" role="tablist"><button type="button" role="tab" data-sky="dock" data-v="pin" aria-selected="${tab === "pin"}">⭐ ${esc(T("skyPinned"))}</button><button type="button" role="tab" data-sky="dock" data-v="recent" aria-selected="${tab === "recent"}">🕘 ${esc(T("skyRecent"))}</button>${!pins.length ? `<span class="skhint">${esc(T("skyNoPinned"))}</span>` : ""}</div>
     <div class="skcards">${arr.map((n) => `<div class="skd" data-note="${esc(n.id)}"><span class="ty">${esc(ty[skyKind(n)])}</span>${n.pinned ? `<span class="pn">⭐</span>` : ""}${skyThumb(n)}<b dir="auto">${esc(titleOf(n))}</b><small>${n.folder ? esc(leaf(n.folder)) + " · " : ""}${esc(fmtDate(n.updatedAt, false))}</small></div>`).join("")}
     ${arr.length ? "" : `<div class="skhint">${esc(T("skyEmpty"))}</div>`}</div></section>`;
@@ -10286,7 +10337,7 @@ function renderSky() {
         <button type="button" class="btn ${cfDirty() ? "cfwarn" : ""}" data-sky="cloud" title="${esc(T("cfTitle"))}">☁️ ${esc(cfCfg().lastSent ? (cfDirty() ? T("cfDirty") : skyAgo(cfCfg().lastSent)) : T("cfShort"))}</button>
         <button type="button" class="btn" data-sky="classic">${esc(T("skyClassic"))}</button></div>
     </div>
-    <div class="quickrow skq">${qb("note", "newNote", ic("newpage"), T("skyNewNote"))}${qb("map", "newMap", SKY_MAPIC, T("skyNewMap"))}${qb("table", "", ic("table"), T("skyNewTable"))}${qb("task", "", ic("alarm"), T("skyNewTask"))}${mic ? qb("voice", "", ic("mic"), T("skyNewVoice")) : ""}${can ? qb("file", "", ic("clip"), T("skyNewFile")) : ""}
+    <div class="quickrow skq">${qb("note", "newNote", ic("newpage"), T("skyNewNote"))}${qb("map", "newMap", SKY_MAPIC, T("skyNewMap"))}${qb("canvas", "", SKY_CVIC, T("skyNewCanvas"))}${qb("table", "", ic("table"), T("skyNewTable"))}${qb("task", "", ic("alarm"), T("skyNewTask"))}${mic ? qb("voice", "", ic("mic"), T("skyNewVoice")) : ""}${can ? qb("file", "", ic("clip"), T("skyNewFile")) : ""}
       <span class="sktarget">${esc(T("skyInto"))} <b>${esc(skyFocus ? leaf(skyFocus) : T("skyRoot"))}</b></span></div>
     <div class="skchips"><button type="button" class="chip" data-sky="focus" data-p="" aria-pressed="${!skyFocus}">${esc(T("skyAll"))}</button>${chips.map((p) => `<button type="button" class="chip" data-sky="focus" data-p="${esc(p)}" aria-pressed="${skyFocus === p}"><i style="background:${esc((tops.find((f) => f.path === p) || {}).color || "#9aa4b8")}"></i>${esc(skyShort(p, 18))}</button>`).join("")}</div>
     <div class="skgrid">
@@ -10316,7 +10367,7 @@ function skyCmdItems(q) {
     { k: "notebook", label: "📗 " + T("newNotebook"), run: () => coverDialog(null, "") },
   ].filter((c) => !c.when || c.when());
   const openRow = (n) => ({ sec: "open", label: skyGlyph(n) + " " + titleOf(n), sub: n.folder ? leaf(n.folder) : "", run: () => openNote(n.id) });
-  if (q.startsWith("+")) { const t = q.slice(1).trim(); return ["note", "map", "table", "task"].map((k) => mk(k, t)); }
+  if (q.startsWith("+")) { const t = q.slice(1).trim(); return ["note", "map", "canvas", "plan", "table", "task"].map((k) => mk(k, t)); }
   if (q.startsWith("/")) { const c = q.slice(1).trim().toLowerCase(); return cmds.filter((x) => !c || x.label.toLowerCase().includes(c) || x.k.includes(c)).map((x) => ({ sec: "cmd", label: x.label, run: x.run })); }
   if (!q) {
     live.slice().sort((a, b) => skyRecent(b, op) - skyRecent(a, op)).slice(0, 5).forEach((n) => out.push(openRow(n)));
@@ -10358,9 +10409,10 @@ function skyCreate(kind, title) {
   if (kind === "task") return title ? skyAddTask(title) : reminderForm({});
   if (kind === "file") return pickStoreFiles(folder);
   if (kind === "map") newMap({ folder, title });
+  else if (kind === "canvas" || kind === "plan") newCanvas({ folder, title, plan: kind === "plan" });
   else newNote({ folder });
   const n = S.notes.get(S.activeId); if (!n) return;
-  if (title && kind !== "map") { W(n).title = title; touch(n); saveNote(n.id, 0); const ti = $("#titleIn"); if (ti) ti.value = title; renderSide(); }
+  if (title && kind !== "map" && kind !== "canvas" && kind !== "plan") { W(n).title = title; touch(n); saveNote(n.id, 0); const ti = $("#titleIn"); if (ti) ti.value = title; renderSide(); }
   if (kind === "table") setTimeout(() => doAct("tableHere", $("[data-act=insertMenu]")), 150);
   if (kind === "voice") setTimeout(() => toggleRecording(), 300);
   skyToast(T("skyMadeIn", { f: folder ? leaf(folder) : T("skyRoot") }),  [{ label: T("skyChange"), run: () => skyMoveDialog(n.id) }]);
@@ -10580,7 +10632,635 @@ async function cloudFilePanel() {
 }
 (function cfBoot() { if (S.loaded) cfStartAuto(); else setTimeout(cfBoot, 1000); })();
 
-window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
+/* ================= endless canvas: free board + floor plans in real metres =================
+   One page without edges: pen, text, sticky notes, shapes, arrows, pictures, ideas joined like a mind map,
+   and a plan mode where walls, rooms, doors, windows and furniture are drawn at true size (100 units = 1 m). */
+const CV_U = 100; // world units per metre
+const CV_COLS = ["#1d1d1f", "#d64545", "#e08a2c", "#1f8a4c", "#4f7fe0", "#7b61d6"];
+const CV_NOTE = ["#ffe58f", "#ffc9de", "#c6f0d4", "#cfe3ff", "#e6dcff"];
+const CV_FURN = { bed: [1.6, 2.0], bed1: [0.9, 2.0], sofa: [2.0, 0.9], table: [1.6, 0.9], desk: [1.4, 0.7], chair: [0.5, 0.5], wardrobe: [1.2, 0.6], kitchen: [2.4, 0.6], fridge: [0.6, 0.65], wc: [0.4, 0.65], shower: [0.9, 0.9], bath: [1.7, 0.75], sink: [0.6, 0.45], washer: [0.6, 0.6] };
+let CV = null; // the open canvas: { n, d, tool, sel, color, width, undo, redo, wall, ptr, ... }
+const cvR = (v, k = 1) => Math.round(v * k) / k;
+const cvNum = (v, d = 0) => (typeof v === "number" && isFinite(v) ? v : d);
+const cvCol = (c, d) => (typeof c === "string" && /^#[0-9a-f]{3,8}$/i.test(c) ? c : d);
+const cvStr = (s, k = 4000) => String(s == null ? "" : s).slice(0, k);
+function cvNew() { return { v: 1, items: [], view: null, grid: true, plan: false }; }
+function cvNorm(d) {
+  if (!d || typeof d !== "object" || !Array.isArray(d.items)) return null;
+  const T_OK = new Set(["pen", "text", "note", "idea", "rect", "ellipse", "line", "arrow", "img", "link", "wall", "door", "window", "furn", "dim"]);
+  const items = [];
+  for (const x of d.items.slice(0, 20000)) {
+    if (!x || !T_OK.has(x.t) || typeof x.id !== "string") continue;
+    const o = { id: x.id.slice(0, 40), t: x.t };
+    for (const k of ["x", "y", "w", "h", "x1", "y1", "x2", "y2", "fs", "sw", "rot", "th"]) if (typeof x[k] === "number" && isFinite(x[k])) o[k] = x[k];
+    if (x.c) o.c = cvCol(x.c, "#1d1d1f");
+    if (x.f) o.f = x.f === "none" ? "none" : cvCol(x.f, "none");
+    if (x.s != null) o.s = cvStr(x.s);
+    if (x.k) o.k = cvStr(x.k, 20);
+    if (x.a && /^[A-Za-z0-9_-]{8,64}$/.test(x.a)) o.a = x.a;
+    if (x.from) o.from = cvStr(x.from, 40); if (x.to) o.to = cvStr(x.to, 40);
+    if (x.closed) o.closed = true;
+    if (Array.isArray(x.pts)) o.pts = x.pts.filter((p) => Array.isArray(p) && isFinite(p[0]) && isFinite(p[1])).slice(0, 20000).map((p) => [+p[0], +p[1]]);
+    items.push(o);
+  }
+  const v = d.view && isFinite(d.view.x) && isFinite(d.view.y) && isFinite(d.view.z) ? { x: d.view.x, y: d.view.y, z: d.view.z } : null;
+  return { v: 1, items, view: v, grid: d.grid !== false, plan: !!d.plan };
+}
+function cvText(d) { return (d.items || []).filter((x) => x.s).map((x) => x.s).join(" · "); }
+function cvById(id) { return CV && CV.d.items.find((x) => x.id === id); }
+function cvLen(a, b) { return Math.hypot(b[0] - a[0], b[1] - a[1]); }
+const cvM = (units) => num((units / CV_U).toFixed(2)) + " m";
+
+/* ---- measuring text (SVG has no wrapping) ---- */
+let cvMeasureCtx = null;
+function cvWrap(text, maxW, fs) {
+  if (!cvMeasureCtx) cvMeasureCtx = document.createElement("canvas").getContext("2d");
+  cvMeasureCtx.font = `${fs}px Vazirmatn, system-ui, sans-serif`;
+  const out = [];
+  for (const para of String(text || "").split("\n")) {
+    const words = para.split(/\s+/); let line = "";
+    for (const w of words) { const t = line ? line + " " + w : w; if (cvMeasureCtx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }
+    out.push(line);
+  }
+  return out;
+}
+function cvTextW(lines, fs) { if (!cvMeasureCtx) cvWrap("", 1, fs); cvMeasureCtx.font = `${fs}px Vazirmatn, system-ui, sans-serif`; return Math.max(20, ...lines.map((l) => cvMeasureCtx.measureText(l).width)); }
+
+/* ---- geometry ---- */
+function cvBox(x) {
+  switch (x.t) {
+    case "pen": case "wall": { const p = x.pts || [[0, 0]]; let a = Infinity, b = Infinity, c = -Infinity, e = -Infinity; for (const q of p) { a = Math.min(a, q[0]); b = Math.min(b, q[1]); c = Math.max(c, q[0]); e = Math.max(e, q[1]); } const m = x.t === "wall" ? (x.th || 15) / 2 : (x.sw || 3) / 2; return { x: a - m, y: b - m, w: c - a + 2 * m, h: e - b + 2 * m }; }
+    case "line": case "arrow": case "dim": return { x: Math.min(x.x1, x.x2), y: Math.min(x.y1, x.y2), w: Math.abs(x.x2 - x.x1), h: Math.abs(x.y2 - x.y1) };
+    case "text": case "idea": { const fs = x.fs || (x.t === "idea" ? 18 : 22), lines = cvWrap(x.s || " ", x.t === "idea" ? 240 : 2000, fs), w = cvTextW(lines, fs) + (x.t === "idea" ? 32 : 4), h = lines.length * fs * 1.35 + (x.t === "idea" ? 22 : 4); return { x: x.x - w / 2, y: x.y - h / 2, w, h }; }
+    case "door": case "window": case "furn": { const w = x.w || 90, h = x.t === "door" ? x.w || 90 : x.t === "window" ? 15 : x.h || 60, r = ((x.rot || 0) % 180 + 180) % 180, sw = r === 90 ? h : w, sh = r === 90 ? w : h; return { x: x.x - sw / 2, y: x.y - sh / 2, w: sw, h: sh }; }
+    case "link": { const a = cvById(x.from), b = cvById(x.to); if (!a || !b) return { x: 0, y: 0, w: 0, h: 0 }; const p = cvCenter(a), q = cvCenter(b); return { x: Math.min(p[0], q[0]), y: Math.min(p[1], q[1]), w: Math.abs(q[0] - p[0]), h: Math.abs(q[1] - p[1]) }; }
+    default: return { x: x.x || 0, y: x.y || 0, w: x.w || 0, h: x.h || 0 };
+  }
+}
+function cvCenter(x) { const b = cvBox(x); return [b.x + b.w / 2, b.y + b.h / 2]; }
+function cvSegD(p, a, b) { const dx = b[0] - a[0], dy = b[1] - a[1], L = dx * dx + dy * dy; let t = L ? ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / L : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(p[0] - a[0] - t * dx, p[1] - a[1] - t * dy); }
+function cvEdge(x, toward) { // where a connector leaves a box
+  const b = cvBox(x), c = [b.x + b.w / 2, b.y + b.h / 2], dx = toward[0] - c[0], dy = toward[1] - c[1];
+  if (!dx && !dy) return c;
+  const k = Math.min(Math.abs((b.w / 2 + 6) / (dx || 1e-9)), Math.abs((b.h / 2 + 6) / (dy || 1e-9)));
+  return [c[0] + dx * Math.min(1, k), c[1] + dy * Math.min(1, k)];
+}
+function cvHit(p, tol) {
+  const items = CV.d.items;
+  for (let i = items.length - 1; i >= 0; i--) {
+    const x = items[i];
+    if (x.t === "pen") { const pts = x.pts || []; for (let k = 1; k < pts.length; k++) if (cvSegD(p, pts[k - 1], pts[k]) < tol + (x.sw || 3) / 2) return x; if (pts.length === 1 && cvLen(p, pts[0]) < tol + 4) return x; continue; }
+    if (x.t === "wall") { const pts = x.pts || [], seg = x.closed ? [...pts, pts[0]] : pts; for (let k = 1; k < seg.length; k++) if (cvSegD(p, seg[k - 1], seg[k]) < tol + (x.th || 15) / 2) return x; continue; }
+    if (x.t === "line" || x.t === "arrow" || x.t === "dim") { if (cvSegD(p, [x.x1, x.y1], [x.x2, x.y2]) < tol + 4) return x; continue; }
+    if (x.t === "link") { const a = cvById(x.from), b = cvById(x.to); if (a && b && cvSegD(p, cvCenter(a), cvCenter(b)) < tol + 3) return x; continue; }
+    const b = cvBox(x);
+    if (p[0] >= b.x - tol && p[0] <= b.x + b.w + tol && p[1] >= b.y - tol && p[1] <= b.y + b.h + tol) return x;
+  }
+  // rooms: a tap inside a closed set of walls picks the room
+  for (let i = items.length - 1; i >= 0; i--) { const x = items[i]; if (x.t === "wall" && x.closed && cvInPoly(p, x.pts)) return x; }
+  return null;
+}
+function cvInPoly(p, pts) { let c = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const a = pts[i], b = pts[j]; if ((a[1] > p[1]) !== (b[1] > p[1]) && p[0] < ((b[0] - a[0]) * (p[1] - a[1])) / (b[1] - a[1] || 1e-9) + a[0]) c = !c; } return c; }
+function cvArea(pts) { let s = 0; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) s += (pts[j][0] + pts[i][0]) * (pts[j][1] - pts[i][1]); return Math.abs(s / 2); }
+function cvCentroid(pts) { let x = 0, y = 0; for (const p of pts) { x += p[0]; y += p[1]; } return [x / pts.length, y / pts.length]; }
+
+/* ---- drawing to SVG ---- */
+function cvPenPath(pts) {
+  if (!pts.length) return "";
+  if (pts.length < 3) return `M${cvR(pts[0][0], 10)} ${cvR(pts[0][1], 10)}` + pts.slice(1).map((p) => `L${cvR(p[0], 10)} ${cvR(p[1], 10)}`).join("") + (pts.length === 1 ? "l0.01 0" : "");
+  let d = `M${cvR(pts[0][0], 10)} ${cvR(pts[0][1], 10)}`;
+  for (let i = 1; i < pts.length - 1; i++) { const m = [(pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2]; d += `Q${cvR(pts[i][0], 10)} ${cvR(pts[i][1], 10)} ${cvR(m[0], 10)} ${cvR(m[1], 10)}`; }
+  const l = pts[pts.length - 1]; return d + `L${cvR(l[0], 10)} ${cvR(l[1], 10)}`;
+}
+function cvTextSvg(lines, cx, cy, fs, fill, weight) {
+  const lh = fs * 1.35, y0 = cy - ((lines.length - 1) * lh) / 2;
+  return `<text x="${cx}" y="${y0}" font-size="${fs}" fill="${fill}" text-anchor="middle" dominant-baseline="middle" font-family="Vazirmatn, system-ui, sans-serif" ${weight ? `font-weight="${weight}"` : ""}>${lines.map((l, i) => `<tspan x="${cx}" y="${cvR(y0 + i * lh, 10)}" direction="${/[֐-ࣿ]/.test(l) ? "rtl" : "ltr"}" unicode-bidi="plaintext">${esc(l)}</tspan>`).join("")}</text>`;
+}
+function cvItemSvg(x, opt = {}) {
+  const c = x.c || "#1d1d1f", id = opt.thumb ? "" : ` data-cv="${esc(x.id)}"`;
+  switch (x.t) {
+    case "pen": return `<path${id} d="${cvPenPath(x.pts || [])}" fill="none" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    case "rect": return `<rect${id} x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" rx="8" fill="${x.f && x.f !== "none" ? x.f : "none"}" fill-opacity="${x.f && x.f !== "none" ? 0.35 : 0}" stroke="${c}" stroke-width="${x.sw || 3}"/>`;
+    case "ellipse": return `<ellipse${id} cx="${x.x + x.w / 2}" cy="${x.y + x.h / 2}" rx="${Math.abs(x.w / 2)}" ry="${Math.abs(x.h / 2)}" fill="${x.f && x.f !== "none" ? x.f : "none"}" fill-opacity="${x.f && x.f !== "none" ? 0.35 : 0}" stroke="${c}" stroke-width="${x.sw || 3}"/>`;
+    case "line": case "arrow": return `<line${id} x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" ${x.t === "arrow" ? `marker-end="url(#cvArr)" style="color:${c}"` : ""}/>`;
+    case "text": { const fs = x.fs || 22; return `<g${id}>${cvTextSvg(cvWrap(x.s || "", 2000, fs), x.x, x.y, fs, c)}</g>`; }
+    case "note": { const fs = x.fs || 18, lines = cvWrap(x.s || "", x.w - 24, fs); return `<g${id}><rect x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" rx="6" fill="${x.f && x.f !== "none" ? x.f : "#ffe58f"}" filter="url(#cvSh)"/>${cvTextSvg(lines, x.x + x.w / 2, x.y + x.h / 2, fs, "#2b2b2b")}</g>`; }
+    case "idea": { const fs = x.fs || 18, lines = cvWrap(x.s || "…", 240, fs), b = cvBox(x); return `<g${id}><rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" rx="${Math.min(22, b.h / 2)}" fill="${x.f && x.f !== "none" ? x.f : "#ffffff"}" stroke="${c}" stroke-width="2.5"/>${cvTextSvg(lines, x.x, x.y, fs, "#1d1d1f", 600)}</g>`; }
+    case "link": { const a = cvById(x.from) || (opt.items && opt.items.find((q) => q.id === x.from)), b = cvById(x.to) || (opt.items && opt.items.find((q) => q.id === x.to)); if (!a || !b) return ""; const p = cvEdge(a, cvCenter(b)), q = cvEdge(b, cvCenter(a)), mx = (p[0] + q[0]) / 2; return `<path${id} d="M${p[0]} ${p[1]} C${mx} ${p[1]} ${mx} ${q[1]} ${q[0]} ${q[1]}" fill="none" stroke="${c}" stroke-width="${x.sw || 2.5}" marker-end="url(#cvArr)" style="color:${c}"/>`; }
+    case "img": { const u = CV_IMG.get(x.a) || ""; return `<g${id}><rect x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" fill="#e9e6df"/>${u ? `<image href="${esc(u)}" x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" preserveAspectRatio="xMidYMid meet"/>` : ""}</g>`; }
+    case "wall": {
+      const pts = x.pts || [], th = x.th || 15, ring = x.closed ? [...pts, pts[0]] : pts;
+      let s = `<g${id}>`;
+      if (x.closed && pts.length > 2) s += `<polygon points="${pts.map((p) => p.join(",")).join(" ")}" fill="${x.f && x.f !== "none" ? x.f : "#e9e2d2"}" fill-opacity=".55"/>`;
+      s += `<polyline points="${ring.map((p) => p.join(",")).join(" ")}" fill="none" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="${th}" stroke-linejoin="miter" stroke-linecap="square"/>`;
+      if (!opt.thumb) for (let k = 1; k < ring.length; k++) {
+        const a = ring[k - 1], b = ring[k], L = cvLen(a, b); if (L < 20) continue;
+        const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, nx = -(b[1] - a[1]) / L, ny = (b[0] - a[0]) / L, off = th / 2 + 16;
+        let ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
+        s += `<text class="cvlen" data-seg="${k - 1}" x="${cvR(mx + nx * off, 10)}" y="${cvR(my + ny * off, 10)}" transform="rotate(${cvR(ang, 10)} ${cvR(mx + nx * off, 10)} ${cvR(my + ny * off, 10)})" font-size="15" fill="#5b6377" text-anchor="middle" dominant-baseline="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif">${esc(cvM(L))}</text>`;
+      }
+      if (x.closed && pts.length > 2) { const [cx, cy] = cvCentroid(pts); s += cvTextSvg([...(x.s ? [x.s] : []), num((cvArea(pts) / CV_U / CV_U).toFixed(1)) + " m²"], cx, cy, 18, "#3b3f4a", 600); }
+      return s + "</g>";
+    }
+    case "door": { const w = x.w || 90; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-9" width="${w}" height="18" fill="#fff"/><path d="M${-w / 2} 0 L${-w / 2} ${-w} M${-w / 2} ${-w} A${w} ${w} 0 0 1 ${w / 2} 0" fill="none" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/></g>`; }
+    case "window": { const w = x.w || 120; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-8" width="${w}" height="16" fill="#fff" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/><line x1="${-w / 2}" y1="0" x2="${w / 2}" y2="0" stroke="${c === "#1d1d1f" ? "#4f7fe0" : c}" stroke-width="2"/></g>`; }
+    case "furn": { const w = x.w || 100, h = x.h || 60; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="5" fill="${x.f && x.f !== "none" ? x.f : "#f3efe6"}" stroke="${c === "#1d1d1f" ? "#6b6f7c" : c}" stroke-width="2"/>${opt.thumb ? "" : cvTextSvg([T("cvF_" + (x.k || "table")), `${num((w / CV_U).toFixed(2))}×${num((h / CV_U).toFixed(2))}`], 0, 0, Math.max(10, Math.min(15, h / 4)), "#5b6377")}</g>`; }
+    case "dim": { const L = cvLen([x.x1, x.y1], [x.x2, x.y2]), mx = (x.x1 + x.x2) / 2, my = (x.y1 + x.y2) / 2; let ang = Math.atan2(x.y2 - x.y1, x.x2 - x.x1) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; return `<g${id} style="color:${c === "#1d1d1f" ? "#d97757" : c}"><line x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="currentColor" stroke-width="2" marker-start="url(#cvTick)" marker-end="url(#cvTick)"/><text x="${mx}" y="${my - 14}" transform="rotate(${cvR(ang, 10)} ${mx} ${my})" font-size="16" fill="currentColor" text-anchor="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif" font-weight="700">${esc(cvM(L))}</text></g>`; }
+  }
+  return "";
+}
+const CV_DEFS = `<defs><marker id="cvArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker><marker id="cvTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M5 0V10" stroke="currentColor" stroke-width="1.5"/></marker><filter id="cvSh" x="-10%" y="-10%" width="130%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-opacity=".18"/></filter></defs>`;
+/** A complete picture of a board (for cards, export and printing). */
+function cvSvgDoc(d, opt = {}) {
+  const items = d.items || []; if (!items.length) return "";
+  const saved = CV; if (!CV || CV.d !== d) CV = { d }; // links look up their ends
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const x of items) { const b = cvBox(x); x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); }
+  const pad = opt.pad ?? 30, body = items.map((x) => cvItemSvg(x, { thumb: opt.thumb, items })).join("");
+  CV = saved;
+  const w = x1 - x0 + pad * 2, h = y1 - y0 + pad * 2;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${cvR(x0 - pad)} ${cvR(y0 - pad)} ${cvR(w)} ${cvR(h)}" ${opt.size ? `width="${cvR(w * opt.size)}" height="${cvR(h * opt.size)}"` : ""} preserveAspectRatio="xMidYMid meet">${CV_DEFS}${opt.bg ? `<rect x="${x0 - pad}" y="${y0 - pad}" width="${w}" height="${h}" fill="${opt.bg}"/>` : ""}${body}</svg>`;
+}
+const CV_IMG = new Map();
+async function cvLoadImgs(d) {
+  let got = false;
+  for (const x of d.items) if (x.t === "img" && x.a && !CV_IMG.has(x.a)) { try { const u = await blobUrl(x.a); if (u) { CV_IMG.set(x.a, u); got = true; } } catch {} }
+  if (got && CV && CV.d === d) cvDraw();
+}
+
+/* ---- creating a board ---- */
+function newCanvas(opt) {
+  if (S.readOnly) return;
+  opt = opt && typeof opt === "object" && !(opt instanceof Event) ? opt : {};
+  const folder = opt.folder != null ? opt.folder : S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
+  const d = cvNew(); d.plan = !!opt.plan;
+  const n = normNote({ id: uid(), title: String(opt.title || "").trim() || T(opt.plan ? "cvNewPlan" : "cvNew"), html: "", folder, cv: d, pageStyle: "blank", createdAt: now, updatedAt: now });
+  S.notes.set(n.id, n); saveNote(n.id, 0); openNote(n.id);
+}
+
+/* ---- the board on screen ---- */
+function cvTools(plan) {
+  return plan
+    ? [["sel", "➤", "cvTSel"], ["wall", "🧱", "cvTWall"], ["room", "⬚", "cvTRoom"], ["door", "🚪", "cvTDoor"], ["window", "🪟", "cvTWin"], ["furn", "🛋", "cvTFurn"], ["dim", "📏", "cvTDim"], ["text", "T", "cvTText"], ["pen", "✏️", "cvTPen"], ["erase", "⌫", "cvTErase"]]
+    : [["sel", "➤", "cvTSel"], ["pen", "✏️", "cvTPen"], ["erase", "⌫", "cvTErase"], ["text", "T", "cvTText"], ["note", "🗒", "cvTNote"], ["idea", "💡", "cvTIdea"], ["link", "⇢", "cvTLink"], ["rect", "▭", "cvTRect"], ["ellipse", "◯", "cvTEllipse"], ["arrow", "↗", "cvTArrow"], ["img", "🖼", "cvTImg"]];
+}
+function renderCanvas(n) {
+  const rtl = document.documentElement.dir === "rtl", d = cvNorm(n.cv) || cvNew(), ro = n.trashed || S.readOnly;
+  CV = { n, d, tool: "sel", sel: null, color: CV_COLS[0], width: 3, undo: [], redo: [], wall: null, link: null, ptr: new Map(), ro, edit: null };
+  $("#main").innerHTML = `
+  <div class="bar" id="bar"><div class="bar-main mmbar">
+    <div class="bz bz-start">
+      <button class="btn icon ghost" data-act="library" title="${esc(T("back"))}">${ic("back", rtl ? "flip" : "")}</button>
+      <button class="btn icon ghost" data-act="home" title="${esc(T("homeBtn"))}">${ic("home")}</button>
+      <input id="titleIn" class="ttl" value="${esc(n.title)}" placeholder="${esc(T("cvNew"))}" maxlength="200" dir="auto">
+    </div>
+    <div class="bz bz-end">
+      <span class="sdot" id="status2"></span>
+      <button class="btn icon ghost" data-cvb="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-cvb="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
+      <button class="btn ghost" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
+      <button class="btn icon ghost" data-cvb="grid" aria-pressed="${d.grid}" title="${esc(T("cvGrid"))}">#</button>
+      <button class="btn icon ghost" data-cvb="fit" title="${esc(T("mmFit"))}">⤢</button>
+      <button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
+      <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
+    </div></div></div>
+  <div class="cvstage ${d.plan ? "plan" : ""}" id="cvStage" tabindex="-1">
+    <svg class="cvsvg" id="cvSvg">${CV_DEFS}<defs><pattern id="cvG1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--cvgrid)" stroke-width=".6"/></pattern><pattern id="cvG2" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#cvG1)"/><path d="M100 0H0V100" fill="none" stroke="var(--cvgrid2)" stroke-width="1.2"/></pattern></defs>
+      <g id="cvW"><rect id="cvGrid" fill="url(#cvG2)"/><g id="cvItems"></g><g id="cvLive"></g><g id="cvSelG"></g></g></svg>
+    <div class="cvrail" id="cvRail"></div>
+    <div class="cvstyle" id="cvStyle"></div>
+    <div class="cvtb hide" id="cvTb"></div>
+    <div class="cvhint hide" id="cvHint"></div>
+    <div class="cvzoom"><button type="button" data-cvb="zout">−</button><span id="cvZ">100%</span><button type="button" data-cvb="zin">＋</button></div>
+  </div>`;
+  renderStatus();
+  $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
+  cvSize(); cvRail(); cvBind(); cvDraw(); cvLoadImgs(d);
+  if (d.view) cvSetView(d.view.x, d.view.y, d.view.z, true); else requestAnimationFrame(() => (d.items.length ? cvFit() : cvSetView($("#cvStage").clientWidth / 2, $("#cvStage").clientHeight / 2, 1, true)));
+  if (ro) cvHint(T("cvReadOnly"));
+}
+function cvSize() { const st = $("#cvStage"); if (!st) return; const vh = (window.visualViewport && visualViewport.height) || innerHeight; st.style.height = Math.max(240, vh - st.getBoundingClientRect().top) + "px"; }
+function cvRail() {
+  const r = $("#cvRail"); if (!r || !CV) return;
+  r.innerHTML = cvTools(CV.d.plan).map(([k, i, l]) => `<button type="button" data-cvt="${k}" aria-pressed="${CV.tool === k}" title="${esc(T(l))}"><span>${i}</span><small>${esc(T(l))}</small></button>`).join("");
+  const s = $("#cvStyle");
+  const showStyle = ["pen", "text", "note", "idea", "rect", "ellipse", "arrow", "link"].includes(CV.tool);
+  s.classList.toggle("hide", !showStyle);
+  if (showStyle) s.innerHTML = (CV.tool === "note" ? CV_NOTE : CV_COLS).map((c) => `<button type="button" class="sw" data-cvc="${c}" style="background:${c}" aria-pressed="${CV.color === c}" aria-label="${c}"></button>`).join("")
+    + (["pen", "rect", "ellipse", "arrow"].includes(CV.tool) ? `<span class="sep"></span>${[2, 4, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${w}px"></i></button>`).join("")}` : "");
+}
+function cvHint(t) { const h = $("#cvHint"); if (!h) return; h.textContent = t || ""; h.classList.toggle("hide", !t); }
+function cvApplyView() { const v = CV.view, g = $("#cvW"); if (!g) return; g.setAttribute("transform", `translate(${v.x} ${v.y}) scale(${v.z})`); const st = $("#cvStage"), gr = $("#cvGrid"); const W = st.clientWidth, H = st.clientHeight, x0 = -v.x / v.z, y0 = -v.y / v.z; gr.setAttribute("x", Math.floor(x0 / 100) * 100 - 100); gr.setAttribute("y", Math.floor(y0 / 100) * 100 - 100); gr.setAttribute("width", W / v.z + 300); gr.setAttribute("height", H / v.z + 300); gr.style.display = CV.d.grid ? "" : "none"; $("#cvZ").textContent = num(Math.round(v.z * 100)) + "%"; cvPlaceTb(); }
+function cvSetView(x, y, z, quiet) {
+  CV.view = { x, y, z: Math.min(8, Math.max(0.03, z)) }; CV.d.view = CV.view; cvApplyView();
+  if (!quiet) { clearTimeout(cvSetView.t); cvSetView.t = setTimeout(() => { if (CV && CV.n) { CV.n.cv = CV.d; saveNote(CV.n.id, 1500); } }, 1200); }
+}
+function cvFit() {
+  const st = $("#cvStage"); if (!st || !CV) return; const items = CV.d.items;
+  if (!items.length) return cvSetView(st.clientWidth / 2, st.clientHeight / 2, 1);
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const x of items) { const b = cvBox(x); x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); }
+  const W = st.clientWidth, H = st.clientHeight, z = Math.min(2, Math.max(0.03, Math.min((W - 140) / Math.max(1, x1 - x0), (H - 100) / Math.max(1, y1 - y0))));
+  cvSetView(W / 2 - ((x0 + x1) / 2) * z, H / 2 - ((y0 + y1) / 2) * z, z);
+}
+function cvZoomAt(sx, sy, k) { const v = CV.view, z = Math.min(8, Math.max(0.03, v.z * k)); cvSetView(sx - (sx - v.x) * (z / v.z), sy - (sy - v.y) * (z / v.z), z); }
+function cvDraw() {
+  const g = $("#cvItems"); if (!g || !CV) return;
+  g.innerHTML = CV.d.items.map((x) => cvItemSvg(x)).join("");
+  cvDrawSel();
+}
+function cvDrawSel() {
+  const g = $("#cvSelG"); if (!g) return;
+  const x = CV.sel && cvById(CV.sel), z = CV.view ? CV.view.z : 1, r = 7 / z;
+  let s = "";
+  if (x) {
+    const b = cvBox(x);
+    s += `<rect x="${b.x - 6 / z}" y="${b.y - 6 / z}" width="${b.w + 12 / z}" height="${b.h + 12 / z}" fill="none" stroke="#4f7fe0" stroke-width="${1.5 / z}" stroke-dasharray="${5 / z} ${4 / z}"/>`;
+    if (x.t === "wall") (x.pts || []).forEach((p, i) => { s += `<circle data-cvh="v${i}" cx="${p[0]}" cy="${p[1]}" r="${r * 1.3}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/>`; });
+    else if (x.t === "line" || x.t === "arrow" || x.t === "dim") s += `<circle data-cvh="p1" cx="${x.x1}" cy="${x.y1}" r="${r}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/><circle data-cvh="p2" cx="${x.x2}" cy="${x.y2}" r="${r}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/>`;
+    else if (["rect", "ellipse", "note", "img"].includes(x.t)) s += `<rect data-cvh="se" x="${b.x + b.w - r}" y="${b.y + b.h - r}" width="${r * 2}" height="${r * 2}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/>`;
+  }
+  g.innerHTML = s; cvToolbar();
+}
+function cvSave() { const n = CV.n; n.cv = CV.d; touch(n); saveNote(n.id, 600); }
+function cvPush() { CV.undo.push(JSON.stringify(CV.d.items)); if (CV.undo.length > 80) CV.undo.shift(); CV.redo = []; }
+function cvUndo(back) {
+  const from = back ? CV.undo : CV.redo, to = back ? CV.redo : CV.undo; if (!from.length) return;
+  to.push(JSON.stringify(CV.d.items)); CV.d.items = JSON.parse(from.pop()); CV.sel = null; cvSave(); cvDraw();
+}
+function cvAdd(x, select = true) { cvPush(); x.id = x.id || uid(); CV.d.items.push(x); if (select) CV.sel = x.id; cvSave(); cvDraw(); return x; }
+function cvDel(id) { cvPush(); CV.d.items = CV.d.items.filter((x) => x.id !== id && x.from !== id && x.to !== id); if (CV.sel === id) CV.sel = null; cvSave(); cvDraw(); }
+
+/* ---- the little bar above a selected thing ---- */
+function cvToolbar() {
+  const tb = $("#cvTb"); if (!tb || !CV) return;
+  const x = CV.sel && cvById(CV.sel);
+  if (!x || CV.ro || CV.edit) { tb.classList.add("hide"); return; }
+  const btn = (k, l, t) => `<button type="button" data-cvs="${k}" title="${esc(t || l)}">${l}</button>`;
+  let h = "";
+  if (["text", "note", "idea"].includes(x.t)) h += btn("edit", "✎", T("cvEdit"));
+  if (x.t === "idea") h += btn("child", "＋💡", T("cvChild"));
+  if (["text", "idea", "pen", "rect", "ellipse", "arrow", "line", "link", "wall", "dim"].includes(x.t)) h += CV_COLS.slice(0, 5).map((c) => `<button type="button" class="sw" data-cvs="col" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("");
+  if (x.t === "note") h += CV_NOTE.map((c) => `<button type="button" class="sw" data-cvs="fill" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("");
+  if (["rect", "ellipse", "idea"].includes(x.t)) h += btn("fill", "◐", T("cvFill"));
+  if (["door", "window", "furn"].includes(x.t)) h += btn("rot", "⟳", T("cvRotate"));
+  if (["door", "window", "furn", "rect", "ellipse", "img"].includes(x.t)) h += btn("size", "📏", T("cvSize"));
+  if (x.t === "wall") h += btn("lens", "📏", T("cvLens")) + (x.closed ? btn("name", "🏷", T("cvRoomName")) : "");
+  if (["text", "idea", "note"].includes(x.t)) h += btn("big", "A+", T("cvBigger")) + btn("small", "A−", T("cvSmaller"));
+  h += btn("dup", "⧉", T("mmDup")) + btn("front", "⬆", T("cvFront")) + btn("back", "⬇", T("cvBack")) + btn("del", "🗑", T("delete"));
+  tb.innerHTML = h; tb.classList.remove("hide"); cvPlaceTb();
+}
+function cvPlaceTb() {
+  const tb = $("#cvTb"); if (!tb || tb.classList.contains("hide") || !CV || !CV.view) return;
+  const x = CV.sel && cvById(CV.sel); if (!x) return;
+  const b = cvBox(x), v = CV.view, st = $("#cvStage"), sx = v.x + (b.x + b.w / 2) * v.z, sy = v.y + b.y * v.z;
+  const W = st.clientWidth, w = tb.offsetWidth, top = sy - tb.offsetHeight - 16 > 8 ? sy - tb.offsetHeight - 16 : Math.min(st.clientHeight - tb.offsetHeight - 8, v.y + (b.y + b.h) * v.z + 16);
+  tb.style.left = Math.max(80, Math.min(W - w - 8, sx - w / 2)) + "px"; tb.style.top = Math.max(8, top) + "px";
+}
+async function cvSelAct(a, el) {
+  const x = CV.sel && cvById(CV.sel); if (!x) return;
+  if (a === "edit") return cvEditText(x);
+  if (a === "del") return cvDel(x.id);
+  if (a === "col") { cvPush(); x.c = el.dataset.c; cvSave(); return cvDraw(); }
+  if (a === "fill" && el.dataset.c) { cvPush(); x.f = el.dataset.c; cvSave(); return cvDraw(); }
+  if (a === "fill") { cvPush(); x.f = x.f && x.f !== "none" ? "none" : (x.t === "idea" ? "#fff4cc" : x.c || "#4f7fe0"); cvSave(); return cvDraw(); }
+  if (a === "rot") { cvPush(); x.rot = ((x.rot || 0) + 90) % 360; cvSave(); return cvDraw(); }
+  if (a === "big" || a === "small") { cvPush(); x.fs = Math.max(10, Math.min(120, Math.round((x.fs || (x.t === "text" ? 22 : 18)) * (a === "big" ? 1.25 : 0.8)))); cvSave(); return cvDraw(); }
+  if (a === "front" || a === "back") { cvPush(); const it = CV.d.items, i = it.indexOf(x); it.splice(i, 1); a === "front" ? it.push(x) : it.unshift(x); cvSave(); return cvDraw(); }
+  if (a === "dup") { const c = JSON.parse(JSON.stringify(x)); c.id = uid(); const off = 30; if (c.pts) c.pts = c.pts.map((p) => [p[0] + off, p[1] + off]); if (c.x != null) { c.x += off; c.y += off; } if (c.x1 != null) { c.x1 += off; c.x2 += off; c.y1 += off; c.y2 += off; } if (c.t === "link") return; return cvAdd(c); }
+  if (a === "child") { const b = cvBox(x), k = CV.d.items.filter((q) => q.t === "link" && q.from === x.id).length; const c = cvAdd({ t: "idea", x: b.x + b.w + 170, y: x.y + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * 80, s: T("cvIdeaNew"), c: x.c || "#4f7fe0" }); cvAdd({ t: "link", from: x.id, to: c.id, c: x.c || "#4f7fe0" }, false); CV.sel = c.id; cvDraw(); return cvEditText(c, true); }
+  if (a === "size") {
+    const isM = ["door", "window", "furn"].includes(x.t) || CV.d.plan, f = isM ? CV_U : 1, u = isM ? "m" : "px";
+    const r = await formBox("📏 " + T("cvSize"), `<div class="field"><label>${esc(T("cvWidth"))} (${u})</label><input name="w" inputmode="decimal" value="${cvR((x.w || 90) / f, 100)}"></div>${x.t === "door" || x.t === "window" ? "" : `<div class="field"><label>${esc(T("cvDepth"))} (${u})</label><input name="h" inputmode="decimal" value="${cvR((x.h || 60) / f, 100)}"></div>`}`, (fm) => ({ w: parseFloat(String(fm.w.value).replace(/[٫,]/, ".").replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c))), h: fm.h ? parseFloat(String(fm.h.value).replace(/[٫,]/, ".").replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c))) : null }), T("save"));
+    if (!r || !(r.w > 0)) return; cvPush(); x.w = r.w * f; if (r.h > 0) x.h = r.h * f; cvSave(); return cvDraw();
+  }
+  if (a === "name") { const r = await formBox("🏷 " + T("cvRoomName"), `<div class="field"><input name="s" dir="auto" maxlength="60" value="${esc(x.s || "")}" placeholder="${esc(T("cvRoomPh"))}"></div>`, (fm) => ({ s: fm.s.value.trim() }), T("save")); if (!r) return; cvPush(); x.s = r.s; cvSave(); return cvDraw(); }
+  if (a === "lens") return cvWallLens(x);
+}
+const cvParse = (v) => parseFloat(String(v || "").trim().replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c)).replace(/[٫,]/, "."));
+/** Type the true length of every side; directions stay, the shape follows. */
+async function cvWallLens(x) {
+  const pts = x.pts, ring = x.closed ? [...pts, pts[0]] : pts, segs = [];
+  for (let k = 1; k < ring.length; k++) segs.push(cvLen(ring[k - 1], ring[k]) / CV_U);
+  const r = await formBox("📏 " + T("cvLens"), `<p class="msg">${esc(T("cvLensHint"))}</p>${segs.map((L, i) => `<div class="field"><label>${esc(T("cvSide"))} ${num(i + 1)} (m)</label><input name="s${i}" inputmode="decimal" value="${cvR(L, 100)}"></div>`).join("")}`,
+    (fm) => segs.map((_, i) => cvParse(fm["s" + i].value)), T("save"));
+  if (!r) return;
+  cvPush();
+  const out = [pts[0].slice()];
+  const last = x.closed ? segs.length - 1 : segs.length; // a closed room: the last side closes itself
+  for (let k = 0; k < last; k++) {
+    const a = ring[k], b = ring[k + 1], L = cvLen(a, b) || 1, nl = (r[k] > 0 ? r[k] : segs[k]) * CV_U, p = out[out.length - 1];
+    out.push([cvR(p[0] + (b[0] - a[0]) / L * nl, 10), cvR(p[1] + (b[1] - a[1]) / L * nl, 10)]);
+  }
+  x.pts = x.closed ? out.slice(0, pts.length) : out; cvSave(); cvDraw();
+  if (x.closed) { const gap = cvLen(x.pts[x.pts.length - 1], x.pts[0]) / CV_U, want = r[segs.length - 1]; if (want > 0 && Math.abs(gap - want) > 0.02) toast(T("cvNotClosed", { a: num(gap.toFixed(2)), b: num(want.toFixed(2)) })); }
+}
+
+/* ---- typing text right on the board ---- */
+function cvEditText(x, fresh) {
+  if (CV.ro) return;
+  const st = $("#cvStage"), v = CV.view, b = cvBox(x), fs = (x.fs || (x.t === "text" ? 22 : 18)) * v.z;
+  CV.edit = x.id; cvToolbar();
+  const ta = document.createElement("textarea"); ta.className = "cvedit"; ta.dir = "auto"; ta.value = fresh ? "" : x.s || "";
+  const w = Math.max(160, (x.t === "note" ? x.w : Math.max(b.w, 220)) * v.z), h = Math.max(fs * 2.4, (x.t === "note" ? x.h : b.h) * v.z);
+  Object.assign(ta.style, { left: v.x + (b.x + b.w / 2) * v.z - w / 2 + "px", top: v.y + (b.y + b.h / 2) * v.z - h / 2 + "px", width: w + "px", height: h + "px", fontSize: Math.max(12, fs) + "px" });
+  st.append(ta); ta.focus(); if (!fresh) ta.select();
+  let done = false;
+  const fin = (keep) => {
+    if (done) return; done = true; const val = ta.value.trim(); ta.remove(); CV.edit = null;
+    if (!keep) { cvDraw(); return; }
+    if (!val && x.t !== "note") { if (fresh) { CV.d.items = CV.d.items.filter((q) => q.id !== x.id && q.from !== x.id && q.to !== x.id); CV.sel = null; cvSave(); return cvDraw(); } }
+    if (val !== (x.s || "")) { if (!fresh) cvPush(); x.s = val; cvSave(); }
+    cvDraw();
+  };
+  ta.addEventListener("blur", () => fin(true));
+  ta.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Escape") { e.preventDefault(); fin(!fresh); } else if (e.key === "Enter" && (e.metaKey || e.ctrlKey || (x.t !== "note" && !e.shiftKey)) && !e.isComposing) { e.preventDefault(); fin(true); } });
+}
+
+/* ---- pointers: draw, move, pan, pinch ---- */
+function cvWorld(e) { const r = $("#cvStage").getBoundingClientRect(), v = CV.view; return [(e.clientX - r.left - v.x) / v.z, (e.clientY - r.top - v.y) / v.z]; }
+function cvSnap(p) { if (!CV.d.plan) return p; const g = 5; return [Math.round(p[0] / g) * g, Math.round(p[1] / g) * g]; }
+function cvAngleSnap(a, p) { // walls: keep to 0/45/90… when close
+  const dx = p[0] - a[0], dy = p[1] - a[1], L = Math.hypot(dx, dy); if (!L) return p;
+  const ang = Math.atan2(dy, dx), step = Math.PI / 4, s = Math.round(ang / step) * step;
+  return Math.abs(ang - s) < 0.12 ? [cvR(a[0] + Math.cos(s) * L, 10), cvR(a[1] + Math.sin(s) * L, 10)] : p;
+}
+function cvBind() {
+  const st = $("#cvStage");
+  st.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-cvt]"); if (t) { cvSetTool(t.dataset.cvt); return; }
+    const c = e.target.closest("[data-cvc]"); if (c) { CV.color = c.dataset.cvc; return cvRail(); }
+    const w = e.target.closest("[data-cvw]"); if (w) { CV.width = +w.dataset.cvw; return cvRail(); }
+    const s = e.target.closest("[data-cvs]"); if (s) return cvSelAct(s.dataset.cvs, s);
+    const b = e.target.closest("[data-cvb]"); if (b) return cvBtn(b.dataset.cvb);
+    const wb = e.target.closest("[data-cvwall]"); if (wb) return cvWallBar(wb.dataset.cvwall);
+  });
+  $("#bar").addEventListener("click", (e) => { const b = e.target.closest("[data-cvb]"); if (b) cvBtn(b.dataset.cvb); });
+  st.addEventListener("wheel", (e) => {
+    if (!e.target.closest("#cvSvg")) return; e.preventDefault();
+    const r = st.getBoundingClientRect();
+    if (e.ctrlKey || e.metaKey) cvZoomAt(e.clientX - r.left, e.clientY - r.top, Math.exp(-e.deltaY * 0.01));
+    else cvSetView(CV.view.x - e.deltaX, CV.view.y - e.deltaY, CV.view.z);
+  }, { passive: false });
+  const svg = $("#cvSvg");
+  svg.addEventListener("pointerdown", cvDown);
+  svg.addEventListener("pointermove", cvMove);
+  svg.addEventListener("pointerup", cvUp); svg.addEventListener("pointercancel", cvUp);
+  svg.addEventListener("dblclick", (e) => { const x = cvHit(cvWorld(e), 6 / CV.view.z); if (x && ["text", "note", "idea"].includes(x.t)) { CV.sel = x.id; cvDrawSel(); cvEditText(x); } else if (CV.wall) cvWallEnd(); });
+  st.addEventListener("keydown", (e) => {
+    if (e.target.closest("input,textarea")) return;
+    if ((e.key === "Delete" || e.key === "Backspace") && CV.sel) { e.preventDefault(); cvDel(CV.sel); }
+    else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z") { e.preventDefault(); cvUndo(!e.shiftKey); }
+    else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y") { e.preventDefault(); cvUndo(false); }
+    else if (e.key === "Escape") { if (CV.wall) cvWallEnd(); else { CV.sel = null; CV.link = null; cvDrawSel(); cvHint(""); } }
+    else if (e.key === "Enter" && CV.wall) cvWallEnd();
+  });
+}
+window.addEventListener("resize", () => { if (CV && $("#cvStage")) { cvSize(); cvApplyView(); } });
+function cvSetTool(k) {
+  if (CV.wall) cvWallEnd();
+  if (k === "img") return cvPickImage();
+  CV.tool = k; CV.link = null; if (k !== "sel") { CV.sel = null; cvDrawSel(); }
+  if (k === "note") CV.color = CV_NOTE[0]; else if (!CV_COLS.includes(CV.color)) CV.color = CV_COLS[0];
+  cvRail(); $("#cvStage").dataset.tool = k;
+  cvHint({ wall: T("cvHintWall"), room: T("cvHintRoom"), link: T("cvHintLink"), dim: T("cvHintDim"), door: T("cvHintPlace"), window: T("cvHintPlace"), furn: T("cvHintPlace"), erase: T("cvHintErase") }[k] || "");
+}
+async function cvBtn(k) {
+  if (k === "undo") return cvUndo(true);
+  if (k === "redo") return cvUndo(false);
+  if (k === "fit") return cvFit();
+  if (k === "zin" || k === "zout") { const st = $("#cvStage"); return cvZoomAt(st.clientWidth / 2, st.clientHeight / 2, k === "zin" ? 1.25 : 0.8); }
+  if (k === "grid") { CV.d.grid = !CV.d.grid; cvSave(); cvApplyView(); return $$("[data-cvb=grid]").forEach((b) => b.setAttribute("aria-pressed", CV.d.grid)); }
+  if (k === "plan") { CV.d.plan = !CV.d.plan; if (CV.d.plan) CV.d.grid = true; cvSave(); $("#cvStage").classList.toggle("plan", CV.d.plan); $$("[data-cvb=plan]").forEach((b) => b.setAttribute("aria-pressed", CV.d.plan)); cvSetTool("sel"); cvApplyView(); if (CV.d.plan) cvHint(T("cvPlanHint")); return; }
+  if (k === "export") return cvExport();
+}
+function cvDown(e) {
+  if (!CV || CV.edit) return;
+  const st = $("#cvStage"); st.focus({ preventScroll: true });
+  if (e.pointerType === "pen") CV.penAt = Date.now();
+  else if (e.pointerType === "touch" && Date.now() - (CV.penAt || 0) < 900) return; // palm
+  CV.ptr.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  try { e.target.setPointerCapture?.(e.pointerId); } catch {}
+  if (CV.ptr.size === 2) { // pinch: forget the half-made stroke
+    if (CV.g && CV.g.kind === "draw") $("#cvLive").innerHTML = "";
+    const [a, b] = [...CV.ptr.values()]; CV.g = { kind: "pinch", d: Math.hypot(a.x - b.x, a.y - b.y), m: [(a.x + b.x) / 2, (a.y + b.y) / 2], v: { ...CV.view } }; return;
+  }
+  if (CV.ptr.size > 2) return;
+  const p = cvWorld(e), tol = (e.pointerType === "touch" ? 16 : 7) / CV.view.z, tool = CV.ro ? "sel" : CV.tool;
+  CV.g = { kind: "pan", sx: e.clientX, sy: e.clientY, v: { ...CV.view }, p0: p, moved: false };
+  if (tool === "sel") {
+    const h = e.target.closest && e.target.closest("[data-cvh]");
+    if (h && CV.sel && !CV.ro) { cvPush(); CV.g = { kind: "handle", h: h.dataset.cvh, p0: p, x0: JSON.parse(JSON.stringify(cvById(CV.sel))) }; return; }
+    const lenEl = e.target.closest && e.target.closest(".cvlen");
+    const hit = cvHit(p, tol);
+    if (hit) {
+      if (lenEl && CV.sel === hit.id && !CV.ro) { CV.g = { kind: "tap", act: () => cvWallLens(hit), sx: e.clientX, sy: e.clientY }; return; }
+      const again = CV.sel === hit.id; CV.sel = hit.id; cvDrawSel();
+      if (!CV.ro && hit.t !== "link") CV.g = { kind: "move", id: hit.id, p0: p, x0: JSON.parse(JSON.stringify(hit)), pushed: false, again };
+      return;
+    }
+    if (CV.sel) { CV.sel = null; cvDrawSel(); }
+    return;
+  }
+  if (tool === "pen") { CV.g = { kind: "draw", pts: [p] }; return; }
+  if (tool === "erase") { CV.g = { kind: "erase", pushed: false }; cvEraseAt(p, tol); return; }
+  if (["rect", "ellipse", "arrow", "dim"].includes(tool)) { CV.g = { kind: "shape", t: tool, a: cvSnap(p), b: cvSnap(p) }; return; }
+  if (tool === "wall") { CV.g = { kind: "walltap", p: cvSnap(p), sx: e.clientX, sy: e.clientY }; return; }
+  CV.g = { kind: "tap", p, sx: e.clientX, sy: e.clientY, tool };
+}
+function cvMove(e) {
+  if (!CV) return;
+  const rec = CV.ptr.get(e.pointerId); if (rec) { rec.x = e.clientX; rec.y = e.clientY; }
+  const g = CV.g; const p = CV.view ? cvWorld(e) : [0, 0];
+  if (CV.wall && (!g || g.kind === "walltap")) cvWallPreview(cvAngleSnap(CV.wall.pts[CV.wall.pts.length - 1], cvSnap(p)));
+  if (!g) return;
+  if ((g.kind === "tap" || g.kind === "walltap") && !g.act && Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) { CV.g = { kind: "pan", sx: g.sx, sy: g.sy, v: { ...CV.view }, moved: true }; return cvMove(e); }
+  if (g.kind === "pinch" && CV.ptr.size >= 2) {
+    const [a, b] = [...CV.ptr.values()], d = Math.hypot(a.x - b.x, a.y - b.y), m = [(a.x + b.x) / 2, (a.y + b.y) / 2], r = $("#cvStage").getBoundingClientRect();
+    const z = Math.min(8, Math.max(0.03, g.v.z * d / (g.d || 1))), cx = g.m[0] - r.left, cy = g.m[1] - r.top;
+    return cvSetView(cx - (cx - g.v.x) * (z / g.v.z) + (m[0] - g.m[0]), cy - (cy - g.v.y) * (z / g.v.z) + (m[1] - g.m[1]), z);
+  }
+  if (g.kind === "pan") { if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 4) g.moved = true; if (g.moved) cvSetView(g.v.x + e.clientX - g.sx, g.v.y + e.clientY - g.sy, g.v.z); return; }
+  if (g.kind === "draw") { const l = g.pts[g.pts.length - 1]; if (cvLen(l, p) * CV.view.z > 1.5) g.pts.push([cvR(p[0], 10), cvR(p[1], 10)]); $("#cvLive").innerHTML = `<path d="${cvPenPath(g.pts)}" fill="none" stroke="${CV.color}" stroke-width="${CV.width}" stroke-linecap="round" stroke-linejoin="round"/>`; return; }
+  if (g.kind === "erase") return cvEraseAt(p, (e.pointerType === "touch" ? 16 : 7) / CV.view.z);
+  if (g.kind === "shape") { g.b = cvSnap(p); const x = cvShapeOf(g); $("#cvLive").innerHTML = cvItemSvg(x, { thumb: false }).replace(/ data-cv="[^"]*"/, ""); return; }
+  if (g.kind === "move") {
+    const x = cvById(g.id); if (!x) return; let dx = p[0] - g.p0[0], dy = p[1] - g.p0[1];
+    if (!g.pushed) { if (Math.hypot(dx, dy) * CV.view.z < 4) return; cvPush(); g.pushed = true; }
+    if (CV.d.plan) { dx = Math.round(dx / 5) * 5; dy = Math.round(dy / 5) * 5; }
+    const o = g.x0;
+    if (o.pts) x.pts = o.pts.map((q) => [q[0] + dx, q[1] + dy]);
+    if (o.x != null) { x.x = o.x + dx; x.y = o.y + dy; }
+    if (o.x1 != null) { x.x1 = o.x1 + dx; x.y1 = o.y1 + dy; x.x2 = o.x2 + dx; x.y2 = o.y2 + dy; }
+    cvDraw(); return;
+  }
+  if (g.kind === "handle") {
+    const x = cvById(CV.sel); if (!x) return; const q = cvSnap(p), o = g.x0;
+    if (g.h[0] === "v") { const i = +g.h.slice(1), prev = x.pts[i - 1] || (x.closed ? x.pts[x.pts.length - 1] : null); x.pts[i] = prev ? cvAngleSnap(prev, q) : q; }
+    else if (g.h === "p1") { x.x1 = q[0]; x.y1 = q[1]; } else if (g.h === "p2") { x.x2 = q[0]; x.y2 = q[1]; }
+    else if (g.h === "se") { x.w = Math.max(20, q[0] - o.x); x.h = x.t === "img" ? x.w * (o.h / o.w) : Math.max(20, q[1] - o.y); }
+    cvDraw(); return;
+  }
+}
+function cvUp(e) {
+  if (!CV) return;
+  CV.ptr.delete(e.pointerId);
+  const g = CV.g; if (!g) return;
+  if (g.kind === "pinch") { if (CV.ptr.size === 0) CV.g = null; return; }
+  CV.g = null;
+  const p = CV.view ? cvWorld(e) : [0, 0];
+  if (g.kind === "pan") { if (!g.moved && CV.tool === "sel" && CV.sel) { CV.sel = null; cvDrawSel(); } return; }
+  if (g.kind === "draw") { $("#cvLive").innerHTML = ""; if (g.pts.length) cvAdd({ t: "pen", pts: g.pts, c: CV.color, sw: CV.width }, false); return; }
+  if (g.kind === "shape") { $("#cvLive").innerHTML = ""; const x = cvShapeOf(g); if (cvBox(x).w + cvBox(x).h > 12 || x.t === "dim" && cvLen([x.x1, x.y1], [x.x2, x.y2]) > 10) { cvAdd(x); } return; }
+  if (g.kind === "move") { if (g.pushed) cvSave(); else if (g.again) { const x = cvById(g.id); if (x && ["text", "note", "idea"].includes(x.t)) cvEditText(x); } cvDrawSel(); return; }
+  if (g.kind === "handle") { cvSave(); cvDraw(); return; }
+  if (g.kind === "erase") return;
+  if (g.kind === "walltap") return cvWallTap(cvAngleSnap(CV.wall ? CV.wall.pts[CV.wall.pts.length - 1] : g.p, g.p));
+  if (g.kind === "tap") { if (g.act) return g.act(); if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) return; return cvPlace(g.tool, g.p); }
+}
+function cvShapeOf(g) {
+  const [a, b] = [g.a, g.b];
+  if (g.t === "arrow" || g.t === "dim") return { t: g.t, x1: a[0], y1: a[1], x2: b[0], y2: b[1], c: g.t === "dim" ? "#1d1d1f" : CV.color, sw: CV.width };
+  return { t: g.t, x: Math.min(a[0], b[0]), y: Math.min(a[1], b[1]), w: Math.abs(b[0] - a[0]), h: Math.abs(b[1] - a[1]), c: CV.color, sw: CV.width };
+}
+function cvEraseAt(p, tol) {
+  const x = cvHit(p, tol); if (!x || (x.t === "wall" && x.closed && !(x.pts || []).some((q, i, a) => cvSegD(p, q, a[(i + 1) % a.length]) < tol + 10))) return;
+  if (!CV.g.pushed) { cvPush(); CV.g.pushed = true; }
+  CV.d.items = CV.d.items.filter((q) => q.id !== x.id && q.from !== x.id && q.to !== x.id); cvSave(); cvDraw();
+}
+async function cvPlace(tool, p) {
+  const sp = cvSnap(p);
+  if (tool === "text") { const x = cvAdd({ t: "text", x: p[0], y: p[1], s: "", c: CV.color, fs: 22 }); return cvEditText(x, true); }
+  if (tool === "note") { const x = cvAdd({ t: "note", x: p[0] - 90, y: p[1] - 70, w: 180, h: 140, s: "", f: CV_NOTE.includes(CV.color) ? CV.color : CV_NOTE[0] }); return cvEditText(x, true); }
+  if (tool === "idea") { const x = cvAdd({ t: "idea", x: p[0], y: p[1], s: "", c: CV.color === "#1d1d1f" ? "#4f7fe0" : CV.color }); return cvEditText(x, true); }
+  if (tool === "link") {
+    const x = cvHit(p, 14 / CV.view.z); if (!x || x.t === "link" || x.t === "pen") return cvHint(T("cvHintLink"));
+    if (!CV.link) { CV.link = x.id; CV.sel = x.id; cvDrawSel(); return cvHint(T("cvHintLink2")); }
+    if (CV.link !== x.id) cvAdd({ t: "link", from: CV.link, to: x.id, c: CV.color === "#1d1d1f" ? "#6b6f7c" : CV.color }, false);
+    CV.link = null; CV.sel = null; cvDrawSel(); return cvHint(T("cvHintLink"));
+  }
+  if (tool === "door") return cvAdd({ t: "door", x: sp[0], y: sp[1], w: 90, rot: 0 });
+  if (tool === "window") return cvAdd({ t: "window", x: sp[0], y: sp[1], w: 120, rot: 0 });
+  if (tool === "furn") return cvFurnPick(sp);
+  if (tool === "room") return cvRoomDialog(sp);
+}
+async function cvFurnPick(p) {
+  const keys = Object.keys(CV_FURN);
+  const k = await dialog({ title: "🛋 " + T("cvTFurn"), body: `<div class="plusgrid">${keys.map((k) => `<button type="button" class="plusbtn" data-m="${k}"><b>${esc(T("cvF_" + k))}</b><small>${num(CV_FURN[k][0])}×${num(CV_FURN[k][1])} m</small></button>`).join("")}</div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (!k) return;
+  cvAdd({ t: "furn", k, x: p[0], y: p[1], w: CV_FURN[k][0] * CV_U, h: CV_FURN[k][1] * CV_U, rot: 0 });
+}
+async function cvRoomDialog(p) {
+  const r = await formBox("⬚ " + T("cvTRoom"), `<p class="msg">${esc(T("cvRoomHint"))}</p>
+    <div class="field"><label>${esc(T("cvRoomName"))}</label><input name="s" dir="auto" maxlength="60" placeholder="${esc(T("cvRoomPh"))}"></div>
+    <div class="field"><label>${esc(T("cvWidth"))} (m)</label><input name="w" inputmode="decimal" placeholder="4.20"></div>
+    <div class="field"><label>${esc(T("cvDepth"))} (m)</label><input name="h" inputmode="decimal" placeholder="3.50"></div>`,
+    (fm) => ({ s: fm.s.value.trim(), w: cvParse(fm.w.value), h: cvParse(fm.h.value) }), T("cvMake"));
+  if (!r || !(r.w > 0) || !(r.h > 0)) return;
+  const W = r.w * CV_U, H = r.h * CV_U, x = p[0], y = p[1];
+  cvAdd({ t: "wall", closed: true, pts: [[x, y], [x + W, y], [x + W, y + H], [x, y + H]], th: 15, s: r.s });
+}
+
+/* ---- walls: tap corner by corner, or type the length ---- */
+function cvWallTap(p) {
+  if (!CV.wall) { CV.wall = { pts: [p] }; cvWallBar(); return cvWallPreview(p); }
+  const w = CV.wall, first = w.pts[0];
+  if (w.pts.length > 2 && cvLen(p, first) * CV.view.z < 18) { w.closed = true; return cvWallEnd(); }
+  const last = w.pts[w.pts.length - 1]; if (cvLen(p, last) < 2) return;
+  w.pts.push(p); cvWallPreview(p); cvWallBar();
+}
+function cvWallPreview(cur) {
+  const w = CV.wall; if (!w) return;
+  const pts = [...w.pts, cur], L = cvLen(w.pts[w.pts.length - 1], cur);
+  w.cur = cur;
+  $("#cvLive").innerHTML = `<polyline points="${pts.map((p) => p.join(",")).join(" ")}" fill="none" stroke="#3b3f4a" stroke-opacity=".7" stroke-width="15" stroke-linejoin="miter"/>${w.pts.map((p) => `<circle cx="${p[0]}" cy="${p[1]}" r="${5 / CV.view.z}" fill="#4f7fe0"/>`).join("")}<text x="${cur[0]}" y="${cur[1] - 22 / CV.view.z}" font-size="${16 / CV.view.z}" fill="#d97757" font-weight="700" text-anchor="middle" direction="ltr" font-family="Vazirmatn">${esc(cvM(L))}</text>`;
+  const inp = $("#cvWallLen"); if (inp && document.activeElement !== inp) inp.placeholder = (L / CV_U).toFixed(2);
+}
+function cvWallBar(act) {
+  const w = CV.wall;
+  if (act === "end") return cvWallEnd();
+  if (act === "close") { if (w && w.pts.length > 2) { w.closed = true; cvWallEnd(); } return; }
+  if (act === "undo") { if (w && w.pts.length > 1) { w.pts.pop(); cvWallPreview(w.pts[w.pts.length - 1]); } return cvWallBar(); }
+  if (act && act.startsWith("dir")) return cvWallTyped(act.slice(3));
+  const h = $("#cvHint"); if (!h || !w) return;
+  h.classList.remove("hide");
+  h.innerHTML = `<span>${esc(T("cvWallLenLbl"))}</span><input id="cvWallLen" inputmode="decimal" placeholder="0.00" aria-label="${esc(T("cvWallLenLbl"))}"><span>m</span>
+    <button type="button" data-cvwall="dirR" title="→">→</button><button type="button" data-cvwall="dirD" title="↓">↓</button><button type="button" data-cvwall="dirL" title="←">←</button><button type="button" data-cvwall="dirU" title="↑">↑</button>
+    <button type="button" data-cvwall="undo">↶</button>${w.pts.length > 2 ? `<button type="button" data-cvwall="close">⬚ ${esc(T("cvClose"))}</button>` : ""}<button type="button" class="ok" data-cvwall="end">✓ ${esc(T("cvDone"))}</button>`;
+  const inp = $("#cvWallLen");
+  inp.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); cvWallTyped(""); } });
+}
+/** A typed length goes the way the line points now (or the arrow you tap). */
+function cvWallTyped(dir) {
+  const w = CV.wall, inp = $("#cvWallLen"); if (!w || !inp) return;
+  const L = cvParse(inp.value) * CV_U; if (!(L > 0)) { inp.focus(); return; }
+  const a = w.pts[w.pts.length - 1];
+  let ang;
+  if (dir) ang = { R: 0, D: 90, L: 180, U: -90 }[dir] * Math.PI / 180;
+  else { const c = w.cur || [a[0] + 1, a[1]]; ang = Math.atan2(c[1] - a[1], c[0] - a[0]); if (!isFinite(ang) || (c[0] === a[0] && c[1] === a[1])) ang = 0; const step = Math.PI / 4, s = Math.round(ang / step) * step; if (Math.abs(ang - s) < 0.2) ang = s; }
+  const p = [cvR(a[0] + Math.cos(ang) * L, 10), cvR(a[1] + Math.sin(ang) * L, 10)];
+  w.pts.push(p); w.cur = p; inp.value = ""; cvWallPreview(p); cvWallBar(); $("#cvWallLen")?.focus();
+}
+function cvWallEnd() {
+  const w = CV.wall; CV.wall = null; $("#cvLive").innerHTML = ""; cvHint(CV.tool === "wall" ? T("cvHintWall") : "");
+  if (w && w.pts.length > 1) cvAdd({ t: "wall", pts: w.pts, closed: !!w.closed && w.pts.length > 2, th: 15 });
+}
+
+/* ---- pictures ---- */
+let cvImgIn = null;
+function cvPickImage() {
+  if (!S.assets) return toast(T("mmNoAssets"), { kind: "err" });
+  if (!cvImgIn) { cvImgIn = document.createElement("input"); cvImgIn.type = "file"; cvImgIn.accept = "image/*"; cvImgIn.className = "vhide"; document.body.append(cvImgIn); }
+  cvImgIn.onchange = async () => {
+    const f = cvImgIn.files && cvImgIn.files[0]; cvImgIn.value = ""; if (!f || !CV) return;
+    try {
+      const blob = await mmShrink(f, 1800), up = await S.assets.upload(blob), u = URL.createObjectURL(blob);
+      const im = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = u; });
+      CV_IMG.set(up.id, S.mode === "local" ? u : "/_blob/" + up.id);
+      const st = $("#cvStage"), v = CV.view, k = Math.min(1, 600 / Math.max(im.naturalWidth, im.naturalHeight)), w = im.naturalWidth * k, h = im.naturalHeight * k;
+      const cx = (st.clientWidth / 2 - v.x) / v.z, cy = (st.clientHeight / 2 - v.y) / v.z;
+      cvAdd({ t: "img", a: up.id, x: cx - w / 2, y: cy - h / 2, w, h }); CV.tool = "sel"; cvRail();
+    } catch (e) { toast(String((e && e.message) || e), { kind: "err" }); }
+  };
+  cvImgIn.click();
+}
+
+/* ---- export: picture, vector drawing, printing ---- */
+async function cvExport() {
+  if (!CV.d.items.length) return toast(T("cvEmpty"));
+  const a = await dialog({ title: "⇩ " + T("cvExport"), body: `<div class="mailbtns"><button type="button" class="acctcard" data-m="png"><span class="ai">🖼</span><span><b>PNG</b><small>${esc(T("cvPngSub"))}</small></span></button><button type="button" class="acctcard alt" data-m="svg"><span class="ai">✒️</span><span><b>SVG</b><small>${esc(T("cvSvgSub"))}</small></span></button><button type="button" class="acctcard alt" data-m="print"><span class="ai">🖨</span><span><b>${esc(T("cvPrint"))}</b><small>${esc(T("cvPrintSub"))}</small></span></button></div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (!a) return;
+  const name = safeName(CV.n.title || T("cvNew"));
+  // pictures inside the drawing must travel with it
+  const d = JSON.parse(JSON.stringify(CV.d)), inl = new Map();
+  for (const x of d.items) if (x.t === "img" && x.a && !inl.has(x.a)) { try { inl.set(x.a, await blobToDataUrl(await assetBlob(x.a))); } catch {} }
+  const keep = new Map(CV_IMG); for (const [k, v] of inl) CV_IMG.set(k, v);
+  const svg = cvSvgDoc(d, { bg: "#ffffff", pad: 40 });
+  CV_IMG.clear(); for (const [k, v] of keep) CV_IMG.set(k, v);
+  if (a === "svg") return saveFile(name + ".svg", new Blob([svg], { type: "image/svg+xml" }));
+  if (a === "print") { const w = window.open("", "_blank"); if (!w) return toast(T("downloadsOff"), { kind: "err" }); w.document.write(`<!doctype html><meta charset="utf-8"><title>${esc(name)}</title><style>@page{margin:10mm}html,body{margin:0}svg{width:100%;height:auto;max-height:100vh}</style>${svg}<script>setTimeout(()=>print(),400)<\/script>`); w.document.close(); return; }
+  try {
+    const vb = svg.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number), k = Math.min(4, 4000 / Math.max(vb[2], vb[3])) || 1;
+    const img = new Image(); img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    await img.decode();
+    const c = document.createElement("canvas"); c.width = Math.round(vb[2] * k); c.height = Math.round(vb[3] * k);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    const blob = await new Promise((res) => c.toBlob(res, "image/png"));
+    return saveFile(name + ".png", blob);
+  } catch (e) { toast(T("cvPngFail"), { kind: "err" }); return saveFile(name + ".svg", new Blob([svg], { type: "image/svg+xml" })); }
+}
+/** Small pictures of boards for cards (kept until the board changes). */
+const CV_THUMBS = new Map();
+function cvThumb(n) {
+  if (!n.cv || !(n.cv.items || []).length) return "";
+  const k = n.id + "|" + n.updatedAt, h = CV_THUMBS.get(n.id);
+  if (h && h.k === k) return h.s;
+  const s = cvSvgDoc(n.cv.items.length > 1500 ? { ...n.cv, items: n.cv.items.slice(-1500) } : n.cv, { thumb: true, pad: 10 });
+  CV_THUMBS.set(n.id, { k, s }); return s;
+}
+
+window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
