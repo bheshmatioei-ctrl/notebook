@@ -3013,7 +3013,7 @@ async function plusMenu() {
   const folder = S.view && !S.view.startsWith("__") ? S.view : "", box = containerOf(S.view);
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [
-    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["survey", "📋", T("svNew")], ["canvas", "🎨", T("cvNew")], ["plan", "📐", T("cvNewPlan")], ["aimap", "✨", T("aiMakeMap")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
+    ["quick", "🟨", T("quickNote")], ["mindmap", "🧠", T("mmNew")], ["survey", "📋", T("svNew")], ["canvas", "🎨", T("cvNew")], ["aimap", "✨", T("aiMakeMap")], ["notebook", "📗", T("newNotebook")], ["import", "📥", T("importPdf")],
     ["templates", "🗂", T("templates")], ["folder", "📁", T("newFolder")],
     ...(can ? [["photo", "📷", T("photoNote")], ["scan", "📄", T("scanDoc")]] : []),
     ...(mic ? [["audio", "🎙", T("audioNote")]] : []),
@@ -7710,9 +7710,9 @@ Object.assign(I18N.en, {"cfTitle": "Any cloud (sync file)", "cfChoose": "iCloud,
 Object.assign(I18N.fa, {"cvNew": "بوم بی‌نهایت", "cvNewPlan": "نقشهٔ ساختمان", "skyNewCanvas": "بوم", "skyTyCanvas": "بوم", "skyMk_canvas": "＋ بوم تازه «{t}»", "skyMk_plan": "＋ نقشهٔ ساختمان «{t}»", "cvPlan": "نقشهٔ ساختمان", "cvGrid": "شبکه", "cvExport": "خروجی", "cvReadOnly": "فقط خواندنی", "cvPlanHint": "حالت نقشهٔ ساختمان: هر خانهٔ بزرگ شبکه ۱ متر است. از نوار کنار «دیوار» یا «اتاق» را بزنید.", "cvTSel": "انتخاب", "cvTPen": "قلم", "cvTErase": "پاک‌کن", "cvTText": "متن", "cvTNote": "یادداشت", "cvTIdea": "ایده", "cvTLink": "اتصال", "cvTRect": "مستطیل", "cvTEllipse": "بیضی", "cvTArrow": "فلش", "cvTImg": "عکس", "cvTWall": "دیوار", "cvTRoom": "اتاق", "cvTDoor": "در", "cvTWin": "پنجره", "cvTFurn": "مبلمان", "cvTDim": "اندازه", "cvHintWall": "گوشه به گوشه بزنید، یا طول را به متر بنویسید و Enter. روی نقطهٔ اول بزنید تا اتاق بسته شود.", "cvHintRoom": "جای اتاق را بزنید؛ عرض و طولش را به متر می‌نویسید.", "cvHintLink": "روی ایدهٔ اول بزنید", "cvHintLink2": "حالا روی ایدهٔ دوم بزنید", "cvHintDim": "از یک نقطه تا نقطهٔ دیگر بکشید تا فاصله نشان داده شود.", "cvHintPlace": "جایش را روی نقشه بزنید. بعد می‌توانید بچرخانید و اندازه‌اش را دقیق کنید.", "cvHintErase": "روی هر چیزی بکشید تا پاک شود.", "cvEdit": "ویرایش متن", "cvChild": "ایدهٔ تازه کنارش", "cvFill": "پُر / خالی", "cvRotate": "چرخش ۹۰°", "cvSize": "اندازه", "cvLens": "طول ضلع‌ها", "cvRoomName": "نام اتاق", "cvRoomPh": "مثلاً: آشپزخانه", "cvBigger": "بزرگ‌تر", "cvSmaller": "کوچک‌تر", "cvFront": "بیاور جلو", "cvBack": "ببر عقب", "cvWidth": "عرض", "cvDepth": "طول / عمق", "cvSide": "ضلع", "cvLensHint": "طول واقعی هر ضلع را به متر بنویسید؛ جهت دیوارها همان می‌ماند.", "cvNotClosed": "ضلع آخر {a} متر شد (شما {b} نوشتید) — اندازه‌ها با هم جور نیستند.", "cvRoomHint": "اندازهٔ اتاق را با متر بگیرید و اینجا بنویسید؛ بعد در و پنجره و مبلمان را داخلش بگذارید.", "cvMake": "بساز", "cvIdeaNew": "ایدهٔ تازه", "cvWallLenLbl": "طول:", "cvClose": "بستن اتاق", "cvDone": "پایان", "cvEmpty": "بوم هنوز خالی است", "cvPngSub": "تصویر برای فرستادن و دیدن", "cvSvgSub": "طرح برداری؛ در هر اندازه تیز می‌ماند", "cvPrint": "چاپ / PDF", "cvPrintSub": "در پنجرهٔ چاپ «ذخیره به PDF» را بزنید", "cvPngFail": "ساختن PNG نشد؛ فایل SVG ذخیره شد.", "cvF_bed": "تخت دونفره", "cvF_bed1": "تخت یک‌نفره", "cvF_sofa": "مبل", "cvF_table": "میز غذا", "cvF_desk": "میز کار", "cvF_chair": "صندلی", "cvF_wardrobe": "کمد", "cvF_kitchen": "کابینت آشپزخانه", "cvF_fridge": "یخچال", "cvF_wc": "توالت", "cvF_shower": "دوش", "cvF_bath": "وان", "cvF_sink": "روشویی", "cvF_washer": "ماشین لباسشویی", "cvF_rtable": "میز گرد", "cvF_plant": "گلدان", "cvSmart": "هوشمند", "cvSmartT": "خط کج صاف می‌شود، گوشه‌ها به هم می‌چسبند، مستطیل و دایره شکل درست می‌گیرند", "cvSmartOnMsg": "کشیدن هوشمند روشن شد", "cvSmartOffMsg": "کشیدن هوشمند خاموش شد — دست‌خط آزاد", "cvWhat": "این چیست؟", "cvKeepShape": "فقط شکل", "cvChangeKind": "عوض کردن نوع", "cvTSym": "تأسیسات", "cvTPhoto": "عکس جا", "cvTNorth": "شمال", "cvNorthL": "ش", "cvCompass": "جهت از قطب‌نمای آیپد", "cvNoCompass": "قطب‌نما در دسترس نیست؛ فلش را با ↺ ↻ بچرخانید.", "cvCompassDone": "بالای نقشه رو به {d}° است؛ فلش شمال تنظیم شد.", "cvPinN": "عکس شمارهٔ {n}", "cvPinNote": "توضیح", "cvRetake": "عکس دوباره", "cvNoPhoto": "عکسی نیست", "cvPinOpen": "دیدن عکس", "cvItemNote": "یادداشت (مثلاً ارتفاع)", "cvItemNotePh": "مثلاً: ارتفاع ۳۰ سانت از کف", "cvCeil": "ارتفاع سقف", "optional": "دلخواه", "cvS_outlet": "پریز", "cvS_outlet2": "پریز دوتایی", "cvS_switch": "کلید برق", "cvS_light": "چراغ سقفی", "cvS_cold": "آب سرد", "cvS_hot": "آب گرم", "cvS_drain": "کف‌شور", "cvS_gas": "گاز", "cvS_heater": "شوفاژ / رادیاتور", "cvS_ac": "کولر", "cvS_column": "ستون", "cvS_meter": "کنتور", "cvS_fuse": "تابلو برق", "cvS_tv": "آنتن / تلویزیون", "cvS_net": "اینترنت", "cvS_vent": "هواکش"});
 Object.assign(I18N.de, {"cvNew": "Endlose Leinwand", "cvNewPlan": "Grundriss", "skyNewCanvas": "Leinwand", "skyTyCanvas": "Leinwand", "skyMk_canvas": "＋ Neue Leinwand „{t}“", "skyMk_plan": "＋ Grundriss „{t}“", "cvPlan": "Grundriss", "cvGrid": "Raster", "cvExport": "Export", "cvReadOnly": "Nur lesen", "cvPlanHint": "Grundriss-Modus: ein großes Rasterfeld ist 1 m. Links „Wand“ oder „Raum“ wählen.", "cvTSel": "Auswahl", "cvTPen": "Stift", "cvTErase": "Radierer", "cvTText": "Text", "cvTNote": "Notiz", "cvTIdea": "Idee", "cvTLink": "Verbinden", "cvTRect": "Rechteck", "cvTEllipse": "Ellipse", "cvTArrow": "Pfeil", "cvTImg": "Bild", "cvTWall": "Wand", "cvTRoom": "Raum", "cvTDoor": "Tür", "cvTWin": "Fenster", "cvTFurn": "Möbel", "cvTDim": "Maß", "cvHintWall": "Ecke für Ecke tippen oder Länge in Metern eingeben und Enter. Auf den ersten Punkt tippen schließt den Raum.", "cvHintRoom": "Tippe, wo der Raum hin soll; dann Breite und Länge in Metern.", "cvHintLink": "Erste Idee antippen", "cvHintLink2": "Jetzt die zweite Idee antippen", "cvHintDim": "Von einem Punkt zum anderen ziehen, um den Abstand zu zeigen.", "cvHintPlace": "Stelle auf dem Plan antippen; danach drehen und genau bemaßen.", "cvHintErase": "Über Dinge streichen, um sie zu löschen.", "cvEdit": "Text bearbeiten", "cvChild": "Neue Idee daneben", "cvFill": "Füllen / leer", "cvRotate": "90° drehen", "cvSize": "Größe", "cvLens": "Seitenlängen", "cvRoomName": "Raumname", "cvRoomPh": "z. B. Küche", "cvBigger": "Größer", "cvSmaller": "Kleiner", "cvFront": "Nach vorn", "cvBack": "Nach hinten", "cvWidth": "Breite", "cvDepth": "Länge / Tiefe", "cvSide": "Seite", "cvLensHint": "Echte Länge jeder Seite in Metern; die Richtungen bleiben.", "cvNotClosed": "Letzte Seite ist {a} m (du hast {b} eingegeben) – die Maße passen nicht zusammen.", "cvRoomHint": "Miss den Raum aus und trage die Maße ein; danach Türen, Fenster und Möbel hineinsetzen.", "cvMake": "Erstellen", "cvIdeaNew": "Neue Idee", "cvWallLenLbl": "Länge:", "cvClose": "Raum schließen", "cvDone": "Fertig", "cvEmpty": "Die Leinwand ist noch leer", "cvPngSub": "Bild zum Teilen", "cvSvgSub": "Vektor; bleibt in jeder Größe scharf", "cvPrint": "Drucken / PDF", "cvPrintSub": "Im Druckfenster „Als PDF sichern“", "cvPngFail": "PNG ging nicht; SVG gespeichert.", "cvF_bed": "Doppelbett", "cvF_bed1": "Einzelbett", "cvF_sofa": "Sofa", "cvF_table": "Esstisch", "cvF_desk": "Schreibtisch", "cvF_chair": "Stuhl", "cvF_wardrobe": "Schrank", "cvF_kitchen": "Küchenzeile", "cvF_fridge": "Kühlschrank", "cvF_wc": "WC", "cvF_shower": "Dusche", "cvF_bath": "Badewanne", "cvF_sink": "Waschbecken", "cvF_washer": "Waschmaschine", "cvF_rtable": "Runder Tisch", "cvF_plant": "Pflanze", "cvSmart": "Smart", "cvSmartT": "Krumme Striche werden gerade, Ecken rasten ein, Rechtecke und Kreise werden sauber", "cvSmartOnMsg": "Smartes Zeichnen an", "cvSmartOffMsg": "Smartes Zeichnen aus – freie Hand", "cvWhat": "Was ist das?", "cvKeepShape": "Nur Form", "cvChangeKind": "Art ändern", "cvTSym": "Installation", "cvTPhoto": "Foto-Punkt", "cvTNorth": "Norden", "cvNorthL": "N", "cvCompass": "Richtung vom iPad-Kompass", "cvNoCompass": "Kein Kompass verfügbar – Pfeil mit ↺ ↻ drehen.", "cvCompassDone": "Oben auf dem Plan zeigt nach {d}°; Nordpfeil gesetzt.", "cvPinN": "Foto Nr. {n}", "cvPinNote": "Beschreibung", "cvRetake": "Neues Foto", "cvNoPhoto": "Kein Foto", "cvPinOpen": "Foto ansehen", "cvItemNote": "Notiz (z. B. Höhe)", "cvItemNotePh": "z. B. 30 cm über Boden", "cvCeil": "Deckenhöhe", "optional": "optional", "cvS_outlet": "Steckdose", "cvS_outlet2": "Doppelsteckdose", "cvS_switch": "Schalter", "cvS_light": "Deckenlicht", "cvS_cold": "Kaltwasser", "cvS_hot": "Warmwasser", "cvS_drain": "Bodenablauf", "cvS_gas": "Gas", "cvS_heater": "Heizkörper", "cvS_ac": "Klimagerät", "cvS_column": "Stütze", "cvS_meter": "Zähler", "cvS_fuse": "Sicherungskasten", "cvS_tv": "Antenne / TV", "cvS_net": "Netzwerk", "cvS_vent": "Lüfter"});
 Object.assign(I18N.en, {"cvNew": "Endless canvas", "cvNewPlan": "Floor plan", "skyNewCanvas": "Canvas", "skyTyCanvas": "Canvas", "skyMk_canvas": "＋ New canvas “{t}”", "skyMk_plan": "＋ Floor plan “{t}”", "cvPlan": "Floor plan", "cvGrid": "Grid", "cvExport": "Export", "cvReadOnly": "Read only", "cvPlanHint": "Floor-plan mode: one big grid square is 1 m. Pick “Wall” or “Room” on the side.", "cvTSel": "Select", "cvTPen": "Pen", "cvTErase": "Eraser", "cvTText": "Text", "cvTNote": "Sticky", "cvTIdea": "Idea", "cvTLink": "Connect", "cvTRect": "Rectangle", "cvTEllipse": "Ellipse", "cvTArrow": "Arrow", "cvTImg": "Picture", "cvTWall": "Wall", "cvTRoom": "Room", "cvTDoor": "Door", "cvTWin": "Window", "cvTFurn": "Furniture", "cvTDim": "Measure", "cvHintWall": "Tap corner by corner, or type the length in metres and press Enter. Tap the first point to close the room.", "cvHintRoom": "Tap where the room goes; then type its width and length in metres.", "cvHintLink": "Tap the first idea", "cvHintLink2": "Now tap the second idea", "cvHintDim": "Drag from one point to another to show the distance.", "cvHintPlace": "Tap its place on the plan; then rotate it and set exact sizes.", "cvHintErase": "Swipe over things to erase them.", "cvEdit": "Edit text", "cvChild": "New idea next to it", "cvFill": "Fill / empty", "cvRotate": "Rotate 90°", "cvSize": "Size", "cvLens": "Side lengths", "cvRoomName": "Room name", "cvRoomPh": "e.g. Kitchen", "cvBigger": "Bigger", "cvSmaller": "Smaller", "cvFront": "Bring forward", "cvBack": "Send back", "cvWidth": "Width", "cvDepth": "Length / depth", "cvSide": "Side", "cvLensHint": "Type the true length of every side in metres; wall directions stay.", "cvNotClosed": "The last side came out {a} m (you typed {b}) – the sizes don't fit together.", "cvRoomHint": "Measure the room and type its size here; then put doors, windows and furniture in it.", "cvMake": "Create", "cvIdeaNew": "New idea", "cvWallLenLbl": "Length:", "cvClose": "Close room", "cvDone": "Done", "cvEmpty": "The canvas is still empty", "cvPngSub": "Picture to share and view", "cvSvgSub": "Vector drawing; sharp at any size", "cvPrint": "Print / PDF", "cvPrintSub": "In the print window choose “Save as PDF”", "cvPngFail": "PNG didn't work; saved SVG instead.", "cvF_bed": "Double bed", "cvF_bed1": "Single bed", "cvF_sofa": "Sofa", "cvF_table": "Dining table", "cvF_desk": "Desk", "cvF_chair": "Chair", "cvF_wardrobe": "Wardrobe", "cvF_kitchen": "Kitchen counter", "cvF_fridge": "Fridge", "cvF_wc": "Toilet", "cvF_shower": "Shower", "cvF_bath": "Bathtub", "cvF_sink": "Sink", "cvF_washer": "Washing machine", "cvF_rtable": "Round table", "cvF_plant": "Plant", "cvSmart": "Smart", "cvSmartT": "Wobbly strokes turn straight, corners snap together, boxes and circles come out clean", "cvSmartOnMsg": "Smart drawing on", "cvSmartOffMsg": "Smart drawing off – free hand", "cvWhat": "What is this?", "cvKeepShape": "Just a shape", "cvChangeKind": "Change type", "cvTSym": "Services", "cvTPhoto": "Photo spot", "cvTNorth": "North", "cvNorthL": "N", "cvCompass": "Direction from the iPad compass", "cvNoCompass": "No compass available – turn the arrow with ↺ ↻.", "cvCompassDone": "The top of the plan faces {d}°; north arrow set.", "cvPinN": "Photo {n}", "cvPinNote": "Description", "cvRetake": "New photo", "cvNoPhoto": "No photo", "cvPinOpen": "View photo", "cvItemNote": "Note (e.g. height)", "cvItemNotePh": "e.g. 30 cm above floor", "cvCeil": "Ceiling height", "optional": "optional", "cvS_outlet": "Socket", "cvS_outlet2": "Double socket", "cvS_switch": "Switch", "cvS_light": "Ceiling light", "cvS_cold": "Cold water", "cvS_hot": "Hot water", "cvS_drain": "Floor drain", "cvS_gas": "Gas", "cvS_heater": "Radiator", "cvS_ac": "Air conditioner", "cvS_column": "Column", "cvS_meter": "Meter", "cvS_fuse": "Fuse box", "cvS_tv": "Aerial / TV", "cvS_net": "Network", "cvS_vent": "Fan / vent"});
-Object.assign(I18N.fa, {"svNew": "برداشت تازه", "skyNewSurvey": "برداشت", "skyMk_survey": "＋ برداشت تازه «{t}»", "svPen": "قلم", "svSide": "ضلع", "svNext": "بعدی ›", "svClear": "پاک کن", "svDone": "تمام", "svSheet": "مشخصات", "svProj": "پروژه", "svAddr": "نشانی", "svAddrPh": "نشانی را بزنید…", "svDate": "تاریخ", "svPeople": "حاضران", "svGrid": "شبکه", "svCol": "ستون", "svRow": "ردیف", "svGridNew": "شبکهٔ اندازه‌دار", "svCols": "چند ستون؟", "svRows": "چند ردیف؟", "svGridHelp": "بعد اندازهٔ هر ستون و ردیف را به میلی‌متر بزنید؛ خط‌ها را هم می‌شود با انگشت کشید و کم و زیاد کرد.", "svExplode": "منفجر کن", "svAddCol": "＋ستون", "svRmCol": "−ستون", "svAddRow": "＋ردیف", "svRmRow": "−ردیف", "svHintPen": "قلم خط می‌کشد · انگشت صفحه را جابه‌جا و بزرگ می‌کند · روی هر خط بزنید تا اندازه‌اش را بنویسید", "svHintGrid": "روی صفحه بزنید تا شبکه ساخته شود · خط‌ها را با انگشت بکشید · روی عددها بزنید تا دقیق بنویسید", "svFingerTip": "در «برداشت» فقط قلم خط می‌کشد؛ انگشت صفحه را جابه‌جا می‌کند.", "svExploded": "شبکه به خط‌های جدا تبدیل شد؛ تکه‌های اضافه را با پاک‌کن بردارید."});
-Object.assign(I18N.de, {"svNew": "Neues Aufmaß", "skyNewSurvey": "Aufmaß", "skyMk_survey": "＋ Neues Aufmaß „{t}“", "svPen": "Stift", "svSide": "Seite", "svNext": "Weiter ›", "svClear": "Leeren", "svDone": "Fertig", "svSheet": "Angaben", "svProj": "Projekt", "svAddr": "Adresse", "svAddrPh": "Adresse antippen…", "svDate": "Datum", "svPeople": "Anwesend", "svGrid": "Raster", "svCol": "Spalte", "svRow": "Zeile", "svGridNew": "Maßraster", "svCols": "Wie viele Spalten?", "svRows": "Wie viele Zeilen?", "svGridHelp": "Dann jede Spalte und Zeile in Millimetern eingeben; Linien lassen sich auch mit dem Finger ziehen.", "svExplode": "Auflösen", "svAddCol": "＋Spalte", "svRmCol": "−Spalte", "svAddRow": "＋Zeile", "svRmRow": "−Zeile", "svHintPen": "Stift zeichnet · Finger verschiebt und zoomt · Linie antippen, um ihr Maß einzugeben", "svHintGrid": "Antippen, um ein Raster anzulegen · Linien mit dem Finger ziehen · Zahlen antippen, um genau einzugeben", "svFingerTip": "Im Aufmaß zeichnet nur der Stift; der Finger verschiebt die Seite.", "svExploded": "Raster in einzelne Linien zerlegt – Überflüssiges mit dem Radierer entfernen."});
-Object.assign(I18N.en, {"svNew": "New survey", "skyNewSurvey": "Survey", "skyMk_survey": "＋ New survey “{t}”", "svPen": "Pen", "svSide": "Side", "svNext": "Next ›", "svClear": "Clear", "svDone": "Done", "svSheet": "Details", "svProj": "Project", "svAddr": "Address", "svAddrPh": "Tap to add address…", "svDate": "Date", "svPeople": "Present", "svGrid": "Grid", "svCol": "Column", "svRow": "Row", "svGridNew": "Measured grid", "svCols": "How many columns?", "svRows": "How many rows?", "svGridHelp": "Then type each column and row in millimetres; you can also drag the lines with a finger.", "svExplode": "Explode", "svAddCol": "＋Col", "svRmCol": "−Col", "svAddRow": "＋Row", "svRmRow": "−Row", "svHintPen": "Pencil draws · finger moves and zooms · tap a line to type its length", "svHintGrid": "Tap to make a grid · drag lines with a finger · tap the numbers to type exact sizes", "svFingerTip": "In a survey only the pencil draws; a finger moves the page.", "svExploded": "The grid is now separate lines – erase the extra pieces."});
+Object.assign(I18N.fa, {"svNew": "برداشت تازه", "skyNewSurvey": "برداشت", "skyMk_survey": "＋ برداشت تازه «{t}»", "svPen": "قلم", "svSide": "ضلع", "svNext": "بعدی ›", "svClear": "پاک کن", "svDone": "تمام", "svSheet": "مشخصات", "svProj": "پروژه", "svAddr": "نشانی", "svAddrPh": "نشانی را بزنید…", "svDate": "تاریخ", "svPeople": "حاضران", "svDoor": "در", "svWin": "پنجره", "svThick": "ضخامت دیوار", "svOpW": "عرض", "svOpO": "فاصله از گوشه", "svFlip": "جهت باز شدن", "svWallOut": "ضخامت دیوار بیرونی", "svWallIn": "ضخامت دیوار داخلی", "svNeedWall": "در و پنجره را روی دیوار یک شبکه بزنید.", "svGrid": "شبکه", "svCol": "ستون", "svRow": "ردیف", "svGridNew": "شبکهٔ اندازه‌دار", "svCols": "چند ستون؟", "svRows": "چند ردیف؟", "svGridHelp": "اندازه‌ها فاصلهٔ داخلی بین دیوارهاست (میلی‌متر). بعد دیوارهای اضافه را با پاک‌کن بردارید و در و پنجره بگذارید. ضخامت ۰ یعنی فقط خط.", "svExplode": "منفجر کن", "svAddCol": "＋ستون", "svRmCol": "−ستون", "svAddRow": "＋ردیف", "svRmRow": "−ردیف", "svHintPen": "قلم خط می‌کشد؛ انگشت صفحه را جابه‌جا و بزرگ می‌کند؛ روی هر خط بزنید تا اندازه‌اش را بنویسید", "svHintGrid": "روی صفحه بزنید تا شبکه ساخته شود؛ دیوارها را با انگشت بکشید؛ روی عددهای اندازه بزنید تا دقیق بنویسید", "svFingerTip": "در «برداشت» فقط قلم خط می‌کشد؛ انگشت صفحه را جابه‌جا می‌کند.", "svExploded": "شبکه به خط‌های جدا تبدیل شد؛ تکه‌های اضافه را با پاک‌کن بردارید."});
+Object.assign(I18N.de, {"svNew": "Neues Aufmaß", "skyNewSurvey": "Aufmaß", "skyMk_survey": "＋ Neues Aufmaß „{t}“", "svPen": "Stift", "svSide": "Seite", "svNext": "Weiter ›", "svClear": "Leeren", "svDone": "Fertig", "svSheet": "Angaben", "svProj": "Projekt", "svAddr": "Adresse", "svAddrPh": "Adresse antippen…", "svDate": "Datum", "svPeople": "Anwesend", "svDoor": "Tür", "svWin": "Fenster", "svThick": "Wandstärke", "svOpW": "Breite", "svOpO": "Abstand von der Ecke", "svFlip": "Aufschlagrichtung", "svWallOut": "Außenwand", "svWallIn": "Innenwand", "svNeedWall": "Türen und Fenster auf eine Rasterwand tippen.", "svGrid": "Raster", "svCol": "Spalte", "svRow": "Zeile", "svGridNew": "Maßraster", "svCols": "Wie viele Spalten?", "svRows": "Wie viele Zeilen?", "svGridHelp": "Dann jede Spalte und Zeile in Millimetern eingeben; Linien lassen sich auch mit dem Finger ziehen.", "svExplode": "Auflösen", "svAddCol": "＋Spalte", "svRmCol": "−Spalte", "svAddRow": "＋Zeile", "svRmRow": "−Zeile", "svHintPen": "Stift zeichnet؛ Finger verschiebt und zoomt؛ Linie antippen, um ihr Maß einzugeben", "svHintGrid": "Antippen, um ein Raster anzulegen؛ Linien mit dem Finger ziehen؛ Zahlen antippen, um genau einzugeben", "svFingerTip": "Im Aufmaß zeichnet nur der Stift; der Finger verschiebt die Seite.", "svExploded": "Raster in einzelne Linien zerlegt – Überflüssiges mit dem Radierer entfernen."});
+Object.assign(I18N.en, {"svNew": "New survey", "skyNewSurvey": "Survey", "skyMk_survey": "＋ New survey “{t}”", "svPen": "Pen", "svSide": "Side", "svNext": "Next ›", "svClear": "Clear", "svDone": "Done", "svSheet": "Details", "svProj": "Project", "svAddr": "Address", "svAddrPh": "Tap to add address…", "svDate": "Date", "svPeople": "Present", "svDoor": "Door", "svWin": "Window", "svThick": "Wall thickness", "svOpW": "Width", "svOpO": "From corner", "svFlip": "Swing", "svWallOut": "Outer wall", "svWallIn": "Inner wall", "svNeedWall": "Tap doors and windows onto a grid wall.", "svGrid": "Grid", "svCol": "Column", "svRow": "Row", "svGridNew": "Measured grid", "svCols": "How many columns?", "svRows": "How many rows?", "svGridHelp": "Then type each column and row in millimetres; you can also drag the lines with a finger.", "svExplode": "Explode", "svAddCol": "＋Col", "svRmCol": "−Col", "svAddRow": "＋Row", "svRmRow": "−Row", "svHintPen": "Pencil draws؛ finger moves and zooms؛ tap a line to type its length", "svHintGrid": "Tap to make a grid؛ drag lines with a finger؛ tap the numbers to type exact sizes", "svFingerTip": "In a survey only the pencil draws; a finger moves the page.", "svExploded": "The grid is now separate lines – erase the extra pieces."});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10395,7 +10395,7 @@ function skyCmdItems(q) {
     { k: "notebook", label: "📗 " + T("newNotebook"), run: () => coverDialog(null, "") },
   ].filter((c) => !c.when || c.when());
   const openRow = (n) => ({ sec: "open", label: skyGlyph(n) + " " + titleOf(n), sub: n.folder ? leaf(n.folder) : "", run: () => openNote(n.id) });
-  if (q.startsWith("+")) { const t = q.slice(1).trim(); return ["note", "map", "survey", "canvas", "plan", "table", "task"].map((k) => mk(k, t)); }
+  if (q.startsWith("+")) { const t = q.slice(1).trim(); return ["note", "map", "survey", "canvas", "table", "task"].map((k) => mk(k, t)); }
   if (q.startsWith("/")) { const c = q.slice(1).trim().toLowerCase(); return cmds.filter((x) => !c || x.label.toLowerCase().includes(c) || x.k.includes(c)).map((x) => ({ sec: "cmd", label: x.label, run: x.run })); }
   if (!q) {
     live.slice().sort((a, b) => skyRecent(b, op) - skyRecent(a, op)).slice(0, 5).forEach((n) => out.push(openRow(n)));
@@ -10689,7 +10689,10 @@ function cvNorm(d) {
     if (x.from) o.from = cvStr(x.from, 40); if (x.to) o.to = cvStr(x.to, 40);
     if (x.closed) o.closed = true;
     if (x.dims && typeof x.dims === "object") { const dm = {}; for (const [k, v] of Object.entries(x.dims)) if (/^\d{1,5}$/.test(k) && typeof v === "number" && v > 0 && v < 1e7) dm[k] = Math.round(v); if (Object.keys(dm).length) o.dims = dm; }
-    if (x.t === "grid") { const ok = (a) => Array.isArray(a) ? a.filter((v) => typeof v === "number" && v > 0 && v < 1e6).slice(0, 20).map(Math.round) : []; o.cols = ok(x.cols); o.rows = ok(x.rows); if (!o.cols.length || !o.rows.length || o.x == null || o.y == null) continue; }
+    if (x.t === "grid") { const ok = (a, n) => Array.isArray(a) ? a.filter((v) => typeof v === "number" && v > 0 && v < 1e6).slice(0, n || 20).map(Math.round) : []; o.cols = ok(x.cols); o.rows = ok(x.rows); if (!o.cols.length || !o.rows.length || o.x == null || o.y == null) continue;
+      if (x.walls) { o.walls = true; o.tv = ok(x.tv, 21); o.th = ok(x.th, 21); if (o.tv.length !== o.cols.length + 1 || o.th.length !== o.rows.length + 1) { const t = (n) => Array.from({ length: n + 1 }, (_, i) => (i === 0 || i === n ? 300 : 150)); o.tv = t(o.cols.length); o.th = t(o.rows.length); }
+        o.off = Array.isArray(x.off) ? x.off.filter((k) => typeof k === "string" && /^[vh]:\d{1,2}:\d{1,2}$/.test(k)).slice(0, 2000) : [];
+        o.ops = Array.isArray(x.ops) ? x.ops.filter((q) => q && typeof q.s === "string" && /^[vh]:\d{1,2}:\d{1,2}$/.test(q.s) && q.w > 0 && q.o >= 0).slice(0, 500).map((q) => ({ s: q.s, o: Math.round(q.o), w: Math.round(q.w), k: q.k === "w" ? "w" : "d", f: (q.f | 0) & 3 })) : []; } }
     if (Array.isArray(x.pts)) o.pts = x.pts.filter((p) => Array.isArray(p) && isFinite(p[0]) && isFinite(p[1])).slice(0, 20000).map((p) => [+p[0], +p[1]]);
     items.push(o);
   }
@@ -10813,8 +10816,8 @@ function cvSvgDoc(d, opt = {}) {
   const saved = CV; if (!CV || CV.d !== d) CV = { d }; // links look up their ends
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const x of items) { const b = cvBox(x); x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); }
-  const big = Math.max(x1 - x0, y1 - y0, 1), lz = Math.min(1, 1000 / big), hasLab = items.some((x) => x.dims || x.t === "grid");
-  const pad = Math.max(opt.pad ?? 30, hasLab ? 50 / lz : 0), body = items.map((x) => cvItemSvg(x, { thumb: opt.thumb, items, doc: true, lz })).join("");
+  const big = Math.max(x1 - x0, y1 - y0, 1), lz = Math.min(1, 1000 / big), hasLab = items.some((x) => x.dims || x.t === "grid"), hasWg = items.some((x) => x.t === "grid" && x.walls);
+  const pad = Math.max(opt.pad ?? 30, hasWg ? 125 / lz : hasLab ? 50 / lz : 0), body = items.map((x) => cvItemSvg(x, { thumb: opt.thumb, items, doc: true, lz })).join("");
   CV = saved;
   const ts = Math.max(30, big / 40);
   if (opt.title) y0 -= ts * 2.3;
@@ -10842,7 +10845,7 @@ function newCanvas(opt) {
 
 /* ---- the board on screen ---- */
 function cvTools(plan) {
-  if (cvSv()) return [["svpen", "✏️", "svPen"], ["grid", "▦", "svGrid"], ["erase", "⌫", "cvTErase"], ["text", "T", "cvTText"], ["photo", "📷", "cvTPhoto"]];
+  if (cvSv()) return [["svpen", "✏️", "svPen"], ["grid", "▦", "svGrid"], ["svdoor", "🚪", "svDoor"], ["svwin", "🪟", "svWin"], ["erase", "⌫", "cvTErase"], ["text", "T", "cvTText"], ["photo", "📷", "cvTPhoto"]];
   return plan
     ? [["sel", "➤", "cvTSel"], ["wall", "🧱", "cvTWall"], ["room", "⬚", "cvTRoom"], ["door", "🚪", "cvTDoor"], ["window", "🪟", "cvTWin"], ["sym", "🔌", "cvTSym"], ["furn", "🛋", "cvTFurn"], ["dim", "📏", "cvTDim"], ["photo", "📷", "cvTPhoto"], ["north", "🧭", "cvTNorth"], ["text", "T", "cvTText"], ["pen", "✏️", "cvTPen"], ["erase", "⌫", "cvTErase"]]
     : [["sel", "➤", "cvTSel"], ["pen", "✏️", "cvTPen"], ["erase", "⌫", "cvTErase"], ["text", "T", "cvTText"], ["note", "🗒", "cvTNote"], ["idea", "💡", "cvTIdea"], ["link", "⇢", "cvTLink"], ["rect", "▭", "cvTRect"], ["ellipse", "◯", "cvTEllipse"], ["arrow", "↗", "cvTArrow"], ["img", "🖼", "cvTImg"]];
@@ -10860,7 +10863,7 @@ function renderCanvas(n) {
     <div class="bz bz-end">
       <span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-cvb="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-cvb="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
-      ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
+      ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey || !d.plan ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
       <button class="btn icon ghost" data-cvb="grid" aria-pressed="${d.grid}" title="${esc(T("cvGrid"))}">#</button>
       <button class="btn icon ghost" data-cvb="fit" title="${esc(T("mmFit"))}">⤢</button>
       <button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
@@ -10907,7 +10910,8 @@ function cvFit() {
   if (!items.length) return cvSetView(st.clientWidth / 2, st.clientHeight / 2, 1);
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const x of items) { const b = cvBox(x); x0 = Math.min(x0, b.x); y0 = Math.min(y0, b.y); x1 = Math.max(x1, b.x + b.w); y1 = Math.max(y1, b.y + b.h); }
-  const W = st.clientWidth, H = st.clientHeight, z = Math.min(2, Math.max(0.03, Math.min((W - 140) / Math.max(1, x1 - x0), (H - 100) / Math.max(1, y1 - y0))));
+  const M = items.some((x) => x.t === "grid" && x.walls) ? 2 * 112 : 0; // room for the dimension chains on both sides (they keep their size on screen)
+  const W = st.clientWidth, H = st.clientHeight, z = Math.min(2, Math.max(0.03, Math.min((W - 140 - M) / Math.max(1, x1 - x0), (H - 100 - M) / Math.max(1, y1 - y0))));
   cvSetView(W / 2 - ((x0 + x1) / 2) * z, H / 2 - ((y0 + y1) / 2) * z, z);
 }
 function cvZoomAt(sx, sy, k) { const v = CV.view, z = Math.min(8, Math.max(0.03, v.z * k)); cvSetView(sx - (sx - v.x) * (z / v.z), sy - (sy - v.y) * (z / v.z), z); }
@@ -10928,9 +10932,9 @@ function cvDrawSel() {
     else if (x.t === "line" || x.t === "arrow" || x.t === "dim") s += `<circle data-cvh="p1" cx="${x.x1}" cy="${x.y1}" r="${r}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/><circle data-cvh="p2" cx="${x.x2}" cy="${x.y2}" r="${r}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/>`;
     else if (["rect", "ellipse", "note", "img"].includes(x.t)) s += `<rect data-cvh="se" x="${b.x + b.w - r}" y="${b.y + b.h - r}" width="${r * 2}" height="${r * 2}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/>`;
   }
-  if (CV.pad) { const gx = cvById(CV.pad.id); if (gx && gx.t === "grid") { const xs = cvGridXs(gx), ys = cvGridYs(gx), i = CV.pad.i;
-      s += CV.pad.ax === "c" ? `<rect x="${xs[i]}" y="${gx.y}" width="${xs[i + 1] - xs[i]}" height="${ys[ys.length - 1] - gx.y}" fill="#ff8a00" fill-opacity=".14" stroke="#ff8a00" stroke-width="${2 / z}"/>`
-        : `<rect x="${gx.x}" y="${ys[i]}" width="${xs[xs.length - 1] - gx.x}" height="${ys[i + 1] - ys[i]}" fill="#ff8a00" fill-opacity=".14" stroke="#ff8a00" stroke-width="${2 / z}"/>`; } }
+  if (CV.pad) { const gx = cvById(CV.pad.id); if (gx && gx.t === "grid") { const sp = cvGridSpan(gx, CV.pad.ax, CV.pad.i);
+      if (sp) s += `<rect x="${sp.x0}" y="${sp.y0}" width="${sp.x1 - sp.x0}" height="${sp.y1 - sp.y0}" fill="#ff8a00" fill-opacity=".16" stroke="#ff8a00" stroke-width="${2 / z}"/>`; } }
+  if (x && x.t === "grid" && x.walls && CV.op != null && x.ops && x.ops[CV.op] && !CV.pad) { const sp = cvGridSpan(x, "ow", CV.op); if (sp) s += `<rect x="${sp.x0 - 4 / z}" y="${sp.y0 - 4 / z}" width="${sp.x1 - sp.x0 + 8 / z}" height="${sp.y1 - sp.y0 + 8 / z}" fill="#ff8a00" fill-opacity=".18" stroke="#ff8a00" stroke-width="${2 / z}"/>`; }
   if (CV.pad) { const px = cvById(CV.pad.id); if (px && px.pts) { const ring = px.closed ? [...px.pts, px.pts[0]] : px.pts, a = ring[CV.pad.i], b = ring[CV.pad.i + 1];
     if (a && b) s += `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="#ff8a00" stroke-opacity=".55" stroke-width="${10 / z}" stroke-linecap="round"/>`; } }
   g.innerHTML = s; cvToolbar();
@@ -10948,11 +10952,14 @@ function cvDel(id) { cvPush(); CV.d.items = CV.d.items.filter((x) => x.id !== id
 function cvToolbar() {
   const tb = $("#cvTb"); if (!tb || !CV) return;
   const x = CV.sel && cvById(CV.sel);
-  if (!x || CV.ro || CV.edit) { tb.classList.add("hide"); return; }
+  if (!x || CV.ro || CV.edit || CV.pad) { tb.classList.add("hide"); return; } // the number pad has the floor while typing
   const btn = (k, l, t) => `<button type="button" data-cvs="${k}" title="${esc(t || l)}">${l}</button>`;
   let h = x.t === "furn" ? `<span class="nm">${esc(T("cvF_" + (x.k || "table")))} · ${num(((x.w || 0) / CV_U).toFixed(2))}×${num(((x.h || 0) / CV_U).toFixed(2))} m</span>` : "";
   if (x.t === "furn") h += btn("kind", "🔁", T("cvChangeKind"));
-  if (x.t === "grid") h += btn("explode", "✂︎ " + esc(T("svExplode")), T("svExplode")) + btn("addc", esc(T("svAddCol"))) + btn("rmc", esc(T("svRmCol"))) + btn("addr", esc(T("svAddRow"))) + btn("rmr", esc(T("svRmRow")));
+  if (x.t === "grid" && x.walls && CV.op != null && x.ops && x.ops[CV.op]) { const o = x.ops[CV.op];
+    tb.innerHTML = `<span class="nm">${esc(o.k === "d" ? T("svDoor") : T("svWin"))} – ${esc(cvMM(o.w))}</span>` + btn("opw", "↔ " + esc(T("svOpW"))) + btn("opo", "⇤ " + esc(T("svOpO"))) + (o.k === "d" ? btn("opflip", "⟳", T("svFlip")) : "") + btn("opdel", "🗑", T("delete"));
+    tb.classList.remove("hide"); return cvPlaceTb(); }
+  if (x.t === "grid") h += (x.walls ? "" : btn("explode", "✂︎ " + esc(T("svExplode")), T("svExplode"))) + btn("addc", esc(T("svAddCol"))) + btn("rmc", esc(T("svRmCol"))) + btn("addr", esc(T("svAddRow"))) + btn("rmr", esc(T("svRmRow")));
   if (["text", "note", "idea"].includes(x.t)) h += btn("edit", "✎", T("cvEdit"));
   if (x.t === "idea") h += btn("child", "＋💡", T("cvChild"));
   if (["text", "idea", "pen", "rect", "ellipse", "arrow", "line", "link", "wall", "dim"].includes(x.t)) h += CV_COLS.slice(0, 5).map((c) => `<button type="button" class="sw" data-cvs="col" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("");
@@ -11090,7 +11097,7 @@ function cvSetTool(k) {
   if (CV.what) { CV.what = null; }
   if (CV.wall) cvWallEnd();
   if (k === "img") return cvPickImage();
-  CV.tool = k; CV.link = null; if (k !== "sel") { CV.sel = null; cvDrawSel(); }
+  CV.tool = k; CV.link = null; CV.op = null; if (k !== "sel") { CV.sel = null; cvDrawSel(); }
   if (k === "note") CV.color = CV_NOTE[0]; else if (!CV_COLS.includes(CV.color)) CV.color = CV_COLS[0];
   cvRail(); $("#cvStage").dataset.tool = k;
   cvHint({ wall: T("cvHintWall"), room: T("cvHintRoom"), link: T("cvHintLink"), dim: T("cvHintDim"), door: T("cvHintPlace"), window: T("cvHintPlace"), furn: T("cvHintPlace"), erase: T("cvHintErase"), svpen: T("svHintPen"), grid: T("svHintGrid") }[k] || "");
@@ -11125,9 +11132,12 @@ function cvDown(e) {
   if (CV.ptr.size > 2) return;
   if (cvSv() && !CV.ro) {
     const sp = cvWorld(e), stol = (e.pointerType === "touch" ? 18 : 9) / CV.view.z, penLike = e.pointerType !== "touch";
-    if (CV.tool === "text" || CV.tool === "photo") { CV.g = { kind: "tap", p: sp, sx: e.clientX, sy: e.clientY, tool: CV.tool }; return; }
+    if (CV.tool === "text" || CV.tool === "photo" || CV.tool === "svdoor" || CV.tool === "svwin") {
+      const oh = cvGridAt(sp, stol); if (oh && oh.op != null && !penLike) { CV.g = { kind: "opdrag", g: oh.g, i: oh.op, p0: sp, o0: oh.g.ops[oh.op].o, pushed: false }; return; }
+      CV.g = { kind: "tap", p: sp, sx: e.clientX, sy: e.clientY, tool: CV.tool }; return; }
     const gh = (!penLike || CV.tool === "grid") && cvGridAt(sp, stol);
     if (gh && gh.lab) { CV.g = { kind: "tap", p: sp, sx: e.clientX, sy: e.clientY, act: () => { CV.sel = null; cvSvPad(gh); } }; return; }
+    if (gh && gh.op != null) { CV.g = { kind: "opdrag", g: gh.g, i: gh.op, p0: sp, o0: gh.g.ops[gh.op].o, pushed: false }; return; }
     if (gh) { CV.g = { kind: "gdrag", gh, p0: sp, x0: JSON.parse(JSON.stringify(gh.g)), pushed: false }; return; }
     const sg = !penLike && CV.sel && cvById(CV.sel);
     if (sg && sg.t === "grid") { const bb = cvGridBox(sg); if (sp[0] > bb.x && sp[0] < bb.x + bb.w && sp[1] > bb.y && sp[1] < bb.y + bb.h) { CV.g = { kind: "move", id: sg.id, p0: sp, x0: JSON.parse(JSON.stringify(sg)), pushed: false, again: false }; return; } }
@@ -11174,6 +11184,7 @@ function cvMove(e) {
     return cvSetView(cx - (cx - g.v.x) * (z / g.v.z) + (m[0] - g.m[0]), cy - (cy - g.v.y) * (z / g.v.z) + (m[1] - g.m[1]), z);
   }
   if (g.kind === "gdrag") return cvGridDrag(g, p);
+  if (g.kind === "opdrag") return cvWgOpDrag(g, p);
   if (g.kind === "pan") { if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 4) g.moved = true; if (g.moved) cvSetView(g.v.x + e.clientX - g.sx, g.v.y + e.clientY - g.sy, g.v.z); return; }
   if (g.kind === "draw") { const l = g.pts[g.pts.length - 1]; if (cvLen(l, p) * CV.view.z > 1.5) g.pts.push([cvR(p[0], 10), cvR(p[1], 10)]); $("#cvLive").innerHTML = `<path d="${cvPenPath(g.pts)}" fill="none" stroke="${CV.color}" stroke-width="${CV.width}" stroke-linecap="round" stroke-linejoin="round"/>`; return; }
   if (g.kind === "erase") return cvEraseAt(p, (e.pointerType === "touch" ? 16 : 7) / CV.view.z);
@@ -11208,7 +11219,8 @@ function cvUp(e) {
   if (g.kind === "shape") { $("#cvLive").innerHTML = ""; const x = cvShapeOf(g); if (cvBox(x).w + cvBox(x).h > 12 || x.t === "dim" && cvLen([x.x1, x.y1], [x.x2, x.y2]) > 10) { cvAdd(x); } return; }
   if (g.kind === "move") { if (g.pushed) { const x = cvById(g.id); if (x && cvToWall(x)) cvDraw(); cvSave(); } else if (g.again) { const x = cvById(g.id); if (x && ["text", "note", "idea"].includes(x.t)) cvEditText(x); } cvDrawSel(); return; }
   if (g.kind === "handle") { cvSave(); cvDraw(); return; }
-  if (g.kind === "gdrag") { cvHint(""); if (g.pushed) { cvSave(); cvDraw(); } else { CV.sel = g.gh.g.id; if (CV.pad) cvSvPad(null); cvDrawSel(); } return; }
+  if (g.kind === "opdrag") { cvHint(""); if (g.pushed) { cvSave(); cvDraw(); } else { if (CV.pad) cvSvPad(null); CV.sel = g.g.id; CV.op = g.i; cvDrawSel(); } return; }
+  if (g.kind === "gdrag") { cvHint(""); CV.op = null; if (g.pushed) { cvSave(); cvDraw(); } else { CV.sel = g.gh.g.id; if (CV.pad) cvSvPad(null); cvDrawSel(); } return; }
   if (g.kind === "erase") return;
   if (g.kind === "walltap") return cvWallTap(cvAngleSnap(CV.wall ? CV.wall.pts[CV.wall.pts.length - 1] : g.p, g.p));
   if (g.kind === "tap") { if (g.act) return g.act(); if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) return; return cvPlace(g.tool, g.p); }
@@ -11219,13 +11231,15 @@ function cvShapeOf(g) {
   return { t: g.t, x: Math.min(a[0], b[0]), y: Math.min(a[1], b[1]), w: Math.abs(b[0] - a[0]), h: Math.abs(b[1] - a[1]), c: CV.color, sw: CV.width };
 }
 function cvEraseAt(p, tol) {
-  const x = cvHit(p, tol); if (!x || x.t === "grid" || (x.t === "wall" && x.closed && !(x.pts || []).some((q, i, a) => cvSegD(p, q, a[(i + 1) % a.length]) < tol + 10))) return;
+  const x = cvHit(p, tol); if (x && x.t === "grid" && x.walls) return cvWgErase(x, p, tol);
+  if (!x || x.t === "grid" || (x.t === "wall" && x.closed && !(x.pts || []).some((q, i, a) => cvSegD(p, q, a[(i + 1) % a.length]) < tol + 10))) return;
   if (!CV.g.pushed) { cvPush(); CV.g.pushed = true; }
   CV.d.items = CV.d.items.filter((q) => q.id !== x.id && q.from !== x.id && q.to !== x.id); cvSave(); cvDraw();
 }
 async function cvPlace(tool, p) {
   if (tool === "svtap") return cvSvTap(p, 18 / CV.view.z);
   if (tool === "gridnew") return cvGridNew(p);
+  if (tool === "svdoor" || tool === "svwin") return cvWgPlace(tool === "svdoor" ? "d" : "w", p);
   const sp = cvSnap(p);
   if (tool === "text") { const x = cvAdd({ t: "text", x: p[0], y: p[1], s: "", c: CV.color, fs: 22 }); return cvEditText(x, true); }
   if (tool === "note") { const x = cvAdd({ t: "note", x: p[0] - 90, y: p[1] - 70, w: 180, h: 140, s: "", f: CV_NOTE.includes(CV.color) ? CV.color : CV_NOTE[0] }); return cvEditText(x, true); }
@@ -11681,7 +11695,7 @@ function cvSvLabels(x, opt) {
 }
 /* ---- the big number pad ---- */
 function cvSvPad(seg) {
-  CV.pad = !seg ? null : seg.ax ? { id: seg.g.id, ax: seg.ax, i: seg.i, val: String((seg.ax === "c" ? seg.g.cols : seg.g.rows)[seg.i] || ""), fresh: true }
+  CV.pad = !seg ? null : seg.ax ? { id: seg.g.id, ax: seg.ax, i: seg.i, val: String(cvGridVal(seg.g, seg.ax, seg.i) ?? ""), fresh: true }
     : { id: seg.x.id, i: seg.i, val: seg.x.dims && seg.x.dims[seg.i] ? String(seg.x.dims[seg.i]) : "", fresh: true };
   const el = $("#cvPad"); if (!el) return;
   if (!CV.pad) { el.classList.add("hide"); cvDrawSel(); return; }
@@ -11690,8 +11704,10 @@ function cvSvPad(seg) {
 }
 function cvSvPadShow() {
   const el = $("#cvPad"); if (!el || !CV.pad) return;
-  const x = cvById(CV.pad.id), gr = x && x.t === "grid", n = !x ? 0 : gr ? (CV.pad.ax === "c" ? x.cols : x.rows).length : x.closed ? x.pts.length : x.pts.length - 1;
-  el.innerHTML = `<div class="pdh"><span>${esc(T(gr ? (CV.pad.ax === "c" ? "svCol" : "svRow") : "svSide"))} ${num(CV.pad.i + 1)}/${num(n)}</span><b dir="ltr">${CV.pad.val ? esc(cvMM(+CV.pad.val)) : "—"} <small>mm</small></b></div>
+  const x = cvById(CV.pad.id), gr = x && x.t === "grid", n = !x ? 0 : gr ? cvGridCount(x, CV.pad.ax) : x.closed ? x.pts.length : x.pts.length - 1;
+  const opk = gr && (CV.pad.ax === "ow" || CV.pad.ax === "oo") && x.ops[CV.pad.i] ? (x.ops[CV.pad.i].k === "d" ? T("svDoor") : T("svWin")) + " – " : "";
+  const nm = gr ? { c: "svCol", r: "svRow", tv: "svThick", th: "svThick", ow: "svOpW", oo: "svOpO" }[CV.pad.ax] : "svSide";
+  el.innerHTML = `<div class="pdh"><span>${esc(opk + T(nm))}${opk ? "" : " " + num(CV.pad.i + 1) + "/" + num(n)}</span><b dir="ltr">${CV.pad.val ? esc(cvMM(+CV.pad.val)) : "—"} <small>mm</small></b></div>
     <div class="pdk">${["7", "8", "9", "4", "5", "6", "1", "2", "3"].map((k) => `<button type="button" data-pk="${k}">${num(k)}</button>`).join("")}
     <button type="button" data-pk="del" aria-label="${esc(T("delete"))}">⌫</button><button type="button" data-pk="0">${num("0")}</button><button type="button" class="ok" data-pk="next">${esc(T("svNext"))}</button></div>
     <div class="pdf"><button type="button" data-pk="clear">${esc(T("svClear"))}</button><button type="button" data-pk="close">${esc(T("svDone"))} ✓</button></div>`;
@@ -11709,7 +11725,7 @@ function cvSvKey(k) {
 }
 function cvSvCommit() {
   const x = cvById(CV.pad.id); if (!x) return;
-  if (x.t === "grid") { const v = parseInt(CV.pad.val, 10), arr = CV.pad.ax === "c" ? x.cols : x.rows; if (v > 0 && v !== arr[CV.pad.i]) { cvPush(); arr[CV.pad.i] = Math.min(99999, v); cvSave(); cvDraw(); } return; }
+  if (x.t === "grid") { if (CV.pad.val === "") return; const v = parseInt(CV.pad.val, 10), before = JSON.stringify(x); if (cvGridVal(x, CV.pad.ax, CV.pad.i) === v) return; const snap = JSON.stringify(CV.d.items); if (cvGridSet(x, CV.pad.ax, CV.pad.i, v)) { CV.undo.push(snap); CV.redo = []; cvSave(); cvDraw(); } return; }
   const v = parseInt(CV.pad.val, 10), old = x.dims && x.dims[CV.pad.i];
   if ((v > 0 ? v : undefined) === old) return;
   cvPush(); x.dims = { ...(x.dims || {}) };
@@ -11728,6 +11744,8 @@ function cvSvNextSeg() {
 function cvSvTap(p, tol) {
   const gh = cvGridAt(p, tol);
   if (gh && gh.lab) { CV.sel = null; return cvSvPad(gh); }
+  if (gh && gh.op != null) { if (CV.pad) cvSvPad(null); CV.sel = gh.g.id; CV.op = gh.op; return cvDrawSel(); }
+  if (cvWgRestore(p, tol)) return;
   const seg = cvSvSegAt(p, tol * 1.4);
   if (seg) { CV.sel = null; return cvSvPad(seg); }
   const hit = cvHit(p, tol);
@@ -11772,7 +11790,7 @@ function cvSvStroke(raw) {
 function cvSvHead() {
   const h = $("#cvHead"); if (!h || !cvSv()) return;
   const m = CV.d.meta || {};
-  h.innerHTML = `<b dir="auto">📋 ${esc(CV.n.title || T("svNew"))}</b><span dir="auto">${esc(m.addr || T("svAddrPh"))}</span><span>${esc(m.date || "")}${m.people ? " · " + esc(m.people) : ""}</span>`;
+  h.innerHTML = `<b dir="auto">📋 ${esc(CV.n.title || T("svNew"))}</b><span dir="auto">${esc(m.addr || T("svAddrPh"))}</span><span>${esc(m.date || "")}${m.people ? "، " + esc(m.people) : ""}</span>`;
 }
 async function cvSvHeadEdit() {
   const m = CV.d.meta || {};
@@ -11785,15 +11803,16 @@ async function cvSvHeadEdit() {
   CV.n.title = r.t || CV.n.title; const ti = $("#titleIn"); if (ti) ti.value = CV.n.title;
   CV.d.meta = { addr: r.a, date: r.d, people: r.p }; cvSave(); saveNote(CV.n.id, 0); cvSvHead();
 }
-function cvSvTitle() { const m = CV.d.meta || {}; return [CV.n.title, m.addr, m.date, m.people].filter(Boolean).join("  ·  "); }
+function cvSvTitle() { const m = CV.d.meta || {}; return [CV.n.title, m.addr, m.date, m.people].filter(Boolean).join("   |   "); }
 
 /* ---- the measured grid: columns and rows in exact millimetres; drag a line to resize, tap a number to type it, then cut it into lines ---- */
 const CV_MMU = CV_U / 1000; // world units per millimetre (the grid is to scale)
-function cvGridXs(g) { const xs = [g.x]; for (const c of g.cols) xs.push(xs[xs.length - 1] + c * CV_MMU); return xs; }
-function cvGridYs(g) { const ys = [g.y]; for (const r of g.rows) ys.push(ys[ys.length - 1] + r * CV_MMU); return ys; }
-function cvGridBox(g) { const xs = cvGridXs(g), ys = cvGridYs(g); return { x: g.x, y: g.y, w: xs[xs.length - 1] - g.x, h: ys[ys.length - 1] - g.y }; }
+function cvGridXs(g) { if (g.walls) { const L = cvWgL(g); return L.X.flatMap((x, j) => [x, x + g.tv[j] * L.K]); } const xs = [g.x]; for (const c of g.cols) xs.push(xs[xs.length - 1] + c * CV_MMU); return xs; }
+function cvGridYs(g) { if (g.walls) { const L = cvWgL(g); return L.Y.flatMap((y, k) => [y, y + g.th[k] * L.K]); } const ys = [g.y]; for (const r of g.rows) ys.push(ys[ys.length - 1] + r * CV_MMU); return ys; }
+function cvGridBox(g) { if (g.walls) { const L = cvWgL(g); return { x: L.X[0], y: L.Y[0], w: L.xe - L.X[0], h: L.ye - L.Y[0] }; } const xs = cvGridXs(g), ys = cvGridYs(g); return { x: g.x, y: g.y, w: xs[xs.length - 1] - g.x, h: ys[ys.length - 1] - g.y }; }
 const cvSum = (a) => a.reduce((s, v) => s + v, 0);
 function cvGridSvg(g, opt) {
+  if (g.walls) return cvWgSvg(g, opt);
   const xs = cvGridXs(g), ys = cvGridYs(g), x1 = xs[xs.length - 1], y1 = ys[ys.length - 1];
   const z = cvLabZ(opt), fs = 14 / z, off = 20 / z;
   const T2 = (x, y, s, rot, col) => `<text x="${cvR(x, 10)}" y="${cvR(y, 10)}"${rot ? ` transform="rotate(-90 ${cvR(x, 10)} ${cvR(y, 10)})"` : ""} font-size="${cvR(fs, 100)}" font-weight="700" fill="${col || "#1f4fbf"}" text-anchor="middle" dominant-baseline="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif">${esc(s)}</text>`;
@@ -11811,6 +11830,7 @@ function cvGridAt(p, tol) {
   const items = CV.d.items;
   for (let k = items.length - 1; k >= 0; k--) {
     const g = items[k]; if (g.t !== "grid") continue;
+    if (g.walls) { const h = cvWgAt(g, p, tol); if (h) return h; continue; }
     const xs = cvGridXs(g), ys = cvGridYs(g), x1 = xs[xs.length - 1], y1 = ys[ys.length - 1], band = 40 / CV.view.z, gap = 8 / CV.view.z; // right next to a line = the line; further out = its number
     if (p[1] < g.y - gap && p[1] > g.y - band && p[0] > g.x && p[0] < x1) { for (let i = 0; i < g.cols.length; i++) if (p[0] < xs[i + 1]) return { g, lab: true, ax: "c", i }; }
     if (p[0] < g.x - gap && p[0] > g.x - band && p[1] > g.y && p[1] < y1) { for (let i = 0; i < g.rows.length; i++) if (p[1] < ys[i + 1]) return { g, lab: true, ax: "r", i }; }
@@ -11828,11 +11848,15 @@ function cvGridDrag(gd, p) {
   g[arr] = o[arr].slice(); g.x = o.x; g.y = o.y;
   if (j === 0) { const v = Math.max(10, Math.round((o[arr][0] - dmm) / 10) * 10); g[arr][0] = v; g[pos] = o[pos] + (o[arr][0] - v) * CV_MMU; }
   else g[arr][j - 1] = Math.max(10, Math.round((o[arr][j - 1] + dmm) / 10) * 10);
+  if (g.walls) cvWgValid(g);
   cvHint(T(ax === "c" ? "svCol" : "svRow") + " " + num(j === 0 ? 1 : j) + ": " + cvMM(g[arr][j === 0 ? 0 : j - 1]) + " mm");
   cvDraw();
 }
 function cvGridNext(g) {
   const ax = CV.pad.ax, i = CV.pad.i;
+  if (ax === "ow") return { g, ax: "oo", i };
+  if (ax === "oo") return null;
+  if (ax === "tv" || ax === "th") return i + 1 < cvGridCount(g, ax) ? { g, ax, i: i + 1 } : null;
   if (ax === "c" && i + 1 < g.cols.length) return { g, ax: "c", i: i + 1 };
   if (ax === "c") return { g, ax: "r", i: 0 };
   if (i + 1 < g.rows.length) return { g, ax: "r", i: i + 1 };
@@ -11840,11 +11864,20 @@ function cvGridNext(g) {
 }
 async function cvGridNew(p) {
   const r = await formBox("▦ " + T("svGridNew"), `<div class="field"><label>${esc(T("svCols"))}</label><input name="c" inputmode="numeric" value="2"></div>
-    <div class="field"><label>${esc(T("svRows"))}</label><input name="r" inputmode="numeric" value="2"></div><p class="msg" style="font-size:13px">${esc(T("svGridHelp"))}</p>`,
-    (f) => ({ c: Math.round(cvParse(f.c.value)), r: Math.round(cvParse(f.r.value)) }), T("ok"));
+    <div class="field"><label>${esc(T("svRows"))}</label><input name="r" inputmode="numeric" value="2"></div>
+    <div class="field"><label>${esc(T("svWallOut"))} (mm)</label><input name="wo" inputmode="numeric" value="${lsGet("babak-sa-svwo", 300)}"></div>
+    <div class="field"><label>${esc(T("svWallIn"))} (mm)</label><input name="wi" inputmode="numeric" value="${lsGet("babak-sa-svwi", 150)}"></div><p class="msg" style="font-size:13px">${esc(T("svGridHelp"))}</p>`,
+    (f) => ({ c: Math.round(cvParse(f.c.value)), r: Math.round(cvParse(f.r.value)), wo: Math.round(cvParse(f.wo.value)), wi: Math.round(cvParse(f.wi.value)) }), T("ok"));
   if (!r) return;
-  const nc = Math.max(1, Math.min(20, r.c || 1)), nr = Math.max(1, Math.min(20, r.r || 1));
-  const g = cvAdd({ t: "grid", x: cvR(p[0], 10), y: cvR(p[1], 10), cols: Array(nc).fill(3000), rows: Array(nr).fill(3000) }, false);
+  if (r.wo === 0 && r.wi === 0) { // thickness 0: just lines, as before
+    const nc0 = Math.max(1, Math.min(20, r.c || 1)), nr0 = Math.max(1, Math.min(20, r.r || 1));
+    const g0 = cvAdd({ t: "grid", x: cvR(p[0], 10), y: cvR(p[1], 10), cols: Array(nc0).fill(3000), rows: Array(nr0).fill(3000) }, false);
+    return cvSvPad({ g: g0, ax: "c", i: 0 });
+  }
+  const nc = Math.max(1, Math.min(20, r.c || 1)), nr = Math.max(1, Math.min(20, r.r || 1)), wo = Math.max(20, Math.min(2000, r.wo || 300)), wi = Math.max(20, Math.min(2000, r.wi || 150));
+  lsSet("babak-sa-svwo", wo); lsSet("babak-sa-svwi", wi);
+  const tl = (n) => Array.from({ length: n + 1 }, (_, i) => (i === 0 || i === n ? wo : wi));
+  const g = cvAdd({ t: "grid", walls: true, x: cvR(p[0], 10), y: cvR(p[1], 10), cols: Array(nc).fill(3000), rows: Array(nr).fill(3000), tv: tl(nc), th: tl(nr), off: [], ops: [] }, false);
   cvSvPad({ g, ax: "c", i: 0 });
 }
 /** Cut the grid into separate lines, each carrying its own length; then the eraser takes away what isn't a wall. */
@@ -11858,6 +11891,23 @@ function cvGridExplode(g) {
 }
 function cvGridAct(g, a) {
   if (a === "explode") { cvGridExplode(g); return true; }
+  if (g.walls && CV.op != null && g.ops && g.ops[CV.op]) {
+    const o = g.ops[CV.op];
+    if (a === "opw") { cvSvPad({ g, ax: "ow", i: CV.op }); return true; }
+    if (a === "opo") { cvSvPad({ g, ax: "oo", i: CV.op }); return true; }
+    if (a === "opflip") { cvPush(); o.f = ((o.f || 0) + 1) % 4; cvSave(); cvDraw(); return true; }
+    if (a === "opdel") { cvPush(); g.ops.splice(CV.op, 1); CV.op = null; if (CV.pad) cvSvPad(null); cvSave(); cvDraw(); cvDrawSel(); return true; }
+  }
+  if (g.walls && (a === "addc" || a === "rmc" || a === "addr" || a === "rmr")) {
+    const col = a === "addc" || a === "rmc", arr = col ? g.cols : g.rows, th = col ? g.tv : g.th, add = a[0] === "a";
+    if (!add && arr.length < 2) return true; if (add && arr.length >= 20) return true;
+    cvPush();
+    if (add) { arr.push(arr[arr.length - 1]); th.splice(th.length - 1, 0, th.length > 2 ? th[th.length - 2] : lsGet("babak-sa-svwi", 150)); }
+    else { arr.pop(); th.splice(th.length - 2, 1); }
+    cvWgValid(g); cvSave(); cvDraw(); cvDrawSel();
+    if (add) cvSvPad({ g, ax: col ? "c" : "r", i: arr.length - 1 });
+    return true;
+  }
   const ch = { addc: ["cols", 1], addr: ["rows", 1], rmc: ["cols", -1], rmr: ["rows", -1] }[a]; if (!ch) return false;
   const arr = g[ch[0]]; if (ch[1] < 0 && arr.length < 2) return true; if (ch[1] > 0 && arr.length >= 20) return true;
   cvPush(); if (ch[1] > 0) arr.push(arr[arr.length - 1]); else arr.pop(); cvSave(); cvDraw(); cvDrawSel();
@@ -11869,7 +11919,7 @@ function cvGridAct(g, a) {
 function cvSvKeepInView() {
   const st = $("#cvStage"), x = CV.pad && cvById(CV.pad.id); if (!st || !x) return;
   let a, b;
-  if (x.t === "grid") { const xs = cvGridXs(x), ys = cvGridYs(x), i = CV.pad.i; a = CV.pad.ax === "c" ? [xs[i], x.y] : [x.x, ys[i]]; b = CV.pad.ax === "c" ? [xs[i + 1], x.y] : [x.x, ys[i + 1]]; }
+  if (x.t === "grid") { const sp = cvGridSpan(x, CV.pad.ax, CV.pad.i); if (!sp) return; const col = CV.pad.ax === "c" || CV.pad.ax === "tv"; a = col ? [sp.x0, sp.y0] : [sp.x0, sp.y0]; b = col ? [sp.x1, sp.y0 + Math.min(sp.y1 - sp.y0, 1)] : [sp.x0 + Math.min(sp.x1 - sp.x0, 1), sp.y1]; if (CV.pad.ax === "ow" || CV.pad.ax === "oo") b = [sp.x1, sp.y1]; }
   else { const ring = x.closed ? [...x.pts, x.pts[0]] : x.pts; a = ring[CV.pad.i]; b = ring[CV.pad.i + 1]; }
   if (!a || !b) return;
   const v = CV.view, W = st.clientWidth, H = st.clientHeight, padH = ($("#cvPad")?.offsetHeight || 0) + 20, m = 90;
@@ -11878,6 +11928,206 @@ function cvSvKeepInView() {
   if (sx1 > W - m) dx = W - m - sx1; if (sx0 + dx < m) dx = m - sx0;
   if (sy1 > H - padH) dy = H - padH - sy1; if (sy0 + dy < 60) dy = 60 - sy0;
   if (dx || dy) cvSetView(v.x + dx, v.y + dy, v.z);
+}
+
+/* ---- wall grid: the measured grid drawn as an architect's plan — double-line walls with real thickness, openings cut into
+   the walls, and dimension chains (Maßketten) on all four sides. Sizes are clear inside widths in millimetres. ---- */
+const cvWgK = () => CV_MMU;
+/** Where every wall line starts (X/Y), the wall pieces, and their joints. */
+function cvWgL(g) {
+  const K = CV_MMU, X = [g.x], Y = [g.y];
+  for (let j = 0; j < g.cols.length; j++) X.push(X[j] + (g.tv[j] + g.cols[j]) * K);
+  for (let k = 0; k < g.rows.length; k++) Y.push(Y[k] + (g.th[k] + g.rows[k]) * K);
+  const n = g.cols.length, m = g.rows.length, xe = X[n] + g.tv[n] * K, ye = Y[m] + g.th[m] * K;
+  return { K, X, Y, n, m, xe, ye };
+}
+/** One wall piece: its rectangle, and where its length runs (a→b along the wall). */
+function cvWgSeg(g, L, key) {
+  const [d, a1, a2] = key.split(":"), A = +a1, B = +a2, K = L.K;
+  if (d === "v") { const x0 = L.X[A], x1 = x0 + g.tv[A] * K, y0 = L.Y[B] + g.th[B] * K, y1 = L.Y[B + 1]; return { key, d, x0, x1, y0, y1, a: y0, b: y1 }; }
+  const y0 = L.Y[A], y1 = y0 + g.th[A] * K, x0 = L.X[B] + g.tv[B] * K, x1 = L.X[B + 1]; return { key, d, x0, x1, y0, y1, a: x0, b: x1 };
+}
+function cvWgSegs(g, L) {
+  const out = [];
+  for (let j = 0; j <= L.n; j++) for (let k = 0; k < L.m; k++) out.push(cvWgSeg(g, L, `v:${j}:${k}`));
+  for (let k = 0; k <= L.m; k++) for (let j = 0; j < L.n; j++) out.push(cvWgSeg(g, L, `h:${k}:${j}`));
+  return out;
+}
+const cvWgOff = (g) => new Set(g.off || []);
+function cvWgOpRect(g, L, op) {
+  const s = cvWgSeg(g, L, op.s), a = s.a + op.o * L.K, b = a + op.w * L.K;
+  return s.d === "v" ? { s, x0: s.x0, x1: s.x1, y0: a, y1: b, a, b } : { s, x0: a, x1: b, y0: s.y0, y1: s.y1, a, b };
+}
+function cvWgValid(g) { // drop pieces/openings that no longer exist after rows or columns change
+  const L = cvWgL(g), ok = (k) => { const [d, a, b] = k.split(":").map((v, i) => i ? +v : v); return d === "v" ? a <= L.n && b < L.m : a <= L.m && b < L.n; };
+  g.off = (g.off || []).filter(ok);
+  g.ops = (g.ops || []).filter((o) => ok(o.s) && !g.off.includes(o.s)).map((o) => { const s = cvWgSeg(g, L, o.s), len = (s.b - s.a) / L.K; o.w = Math.max(100, Math.min(o.w, Math.round(len))); o.o = Math.max(0, Math.min(o.o, Math.round(len - o.w))); return o; });
+}
+
+/* ---- the dimension chains ---- */
+/** Rows of a chain on each side, outermost last: openings of that outer wall (if any), walls+rooms, total. */
+function cvWgChains(g, L) {
+  const K = L.K, off = cvWgOff(g), sides = [];
+  const det = (P, T, S, axT, axS) => { const pts = [P[0]], map = []; for (let j = 0; j < S.length; j++) { pts.push(P[j] + T[j] * K); map.push({ ax: axT, i: j }); pts.push(P[j + 1]); map.push({ ax: axS, i: j }); } pts.push(P[S.length] + T[S.length] * K); map.push({ ax: axT, i: S.length }); return { pts, map }; };
+  const opRow = (line, d, P, e) => { // openings on one outer wall line
+    const list = (g.ops || []).map((o, i) => ({ o, i })).filter(({ o }) => { const [dd, a] = o.s.split(":"); return dd === d && +a === line && !off.has(o.s); })
+      .map(({ o, i }) => ({ r: cvWgOpRect(g, L, o), i })).sort((p, q) => p.r.a - q.r.a);
+    if (!list.length) return null;
+    const pts = [P], map = []; for (const { r, i } of list) { pts.push(r.a); map.push(null); pts.push(r.b); map.push({ ax: "ow", i }); }
+    pts.push(e); map.push(null); return { pts, map };
+  };
+  const dx = det(L.X, g.tv, g.cols, "tv", "c"), dy = det(L.Y, g.th, g.rows, "th", "r");
+  const totX = { pts: [L.X[0], L.xe], map: [null] }, totY = { pts: [L.Y[0], L.ye], map: [null] };
+  sides.push({ side: "t", rows: [opRow(0, "h", L.X[0], L.xe), dx, totX].filter(Boolean) });
+  sides.push({ side: "b", rows: [opRow(L.m, "h", L.X[0], L.xe), dx, totX].filter(Boolean) });
+  sides.push({ side: "l", rows: [opRow(0, "v", L.Y[0], L.ye), dy, totY].filter(Boolean) });
+  sides.push({ side: "r", rows: [opRow(L.n, "v", L.Y[0], L.ye), dy, totY].filter(Boolean) });
+  return sides;
+}
+/** Every number on the chains with its place, tier and what it edits — used to draw and to tap. */
+function cvWgLabels(g, L, fs) {
+  const out = [], gap0 = fs * 2.6, rowGap = fs * 2.5;
+  for (const sd of cvWgChains(g, L)) sd.rows.forEach((row, r) => {
+    const horiz = sd.side === "t" || sd.side === "b", base = sd.side === "t" ? L.Y[0] - gap0 - r * rowGap : sd.side === "b" ? L.ye + gap0 + r * rowGap : sd.side === "l" ? L.X[0] - gap0 - r * rowGap : L.xe + gap0 + r * rowGap;
+    const outward = sd.side === "t" || sd.side === "l" ? -1 : 1;
+    let prevSmall = false;
+    for (let i = 0; i < row.pts.length - 1; i++) {
+      const a = row.pts[i], b = row.pts[i + 1], len = b - a; if (len <= 0) continue;
+      const mm = Math.round(len / L.K), txt = cvMM(mm), tw = txt.length * fs * 0.62, small = tw > len * 0.92;
+      const tier = small && prevSmall ? 2 : small ? 1 : 0; prevSmall = small && tier === 1;
+      const lift = fs * 0.75 + (tier === 2 ? fs * 1.15 : 0), mid = (a + b) / 2 + (tier ? 0 : 0);
+      const tx = horiz ? mid : base + outward * lift * (sd.side === "l" ? 1 : -1) * -1, ty = horiz ? base - lift : mid;
+      out.push({ side: sd.side, r, a, b, base, horiz, txt, tx: horiz ? tx : base - lift, ty, tw, map: row.map[i], tier });
+    }
+  });
+  return out;
+}
+function cvWgChainSvg(g, L, fs) {
+  const gap0 = fs * 2.6, rowGap = fs * 2.5, tk = fs * 0.45, ln = (x1, y1, x2, y2, w) => `<line x1="${cvR(x1, 10)}" y1="${cvR(y1, 10)}" x2="${cvR(x2, 10)}" y2="${cvR(y2, 10)}" stroke="#2b2b2b" ${cvWgSW(w)}/>`;
+  let s = "";
+  for (const sd of cvWgChains(g, L)) sd.rows.forEach((row, r) => {
+    const horiz = sd.side === "t" || sd.side === "b", base = sd.side === "t" ? L.Y[0] - gap0 - r * rowGap : sd.side === "b" ? L.ye + gap0 + r * rowGap : sd.side === "l" ? L.X[0] - gap0 - r * rowGap : L.xe + gap0 + r * rowGap;
+    const p0 = row.pts[0], p1 = row.pts[row.pts.length - 1];
+    s += horiz ? ln(p0 - tk, base, p1 + tk, base, 0.9) : ln(base, p0 - tk, base, p1 + tk, 0.9);
+    for (const p of row.pts) s += horiz ? ln(p - tk, base + tk, p + tk, base - tk, 1.4) + ln(p, base - tk * 1.4, p, base + tk * 1.4, 0.7) : ln(base - tk, p + tk, base + tk, p - tk, 1.4) + ln(base - tk * 1.4, p, base + tk * 1.4, p, 0.7);
+  });
+  for (const l of cvWgLabels(g, L, fs)) {
+    const x = l.horiz ? (l.a + l.b) / 2 : l.tx, y = l.horiz ? l.ty : (l.a + l.b) / 2, small = l.tier > 0;
+    s += `<text x="${cvR(x, 10)}" y="${cvR(y, 10)}"${l.horiz ? "" : ` transform="rotate(-90 ${cvR(x, 10)} ${cvR(y, 10)})"`} font-size="${cvR(small ? fs * 0.86 : fs, 100)}" fill="${l.map ? "#111" : "#444"}" text-anchor="middle" dominant-baseline="alphabetic" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif">${esc(l.txt)}</text>`;
+  }
+  return s;
+}
+
+/* ---- drawing the plan ---- */
+let cvWgSW = (w) => `stroke-width="${w}" vector-effect="non-scaling-stroke"`;
+function cvWgSvg(g, opt) {
+  const L = cvWgL(g), K = L.K, off = cvWgOff(g), live = !(opt && (opt.doc || opt.thumb)), z = cvLabZ(opt), fs = 12 / z;
+  cvWgSW = live ? (w) => `stroke-width="${w}" vector-effect="non-scaling-stroke"` : (w) => `stroke-width="${cvR(w * 0.75 / z, 100)}"`;
+  const segs = cvWgSegs(g, L), on = segs.filter((s) => !off.has(s.key)), ops = (g.ops || []).filter((o) => !off.has(o.s));
+  const rects = [], R = (x0, y0, x1, y1) => { if (x1 - x0 > 1e-6 && y1 - y0 > 1e-6) rects.push(`M${cvR(x0, 100)} ${cvR(y0, 100)}H${cvR(x1, 100)}V${cvR(y1, 100)}H${cvR(x0, 100)}Z`); };
+  // pieces between openings
+  for (const s of on) {
+    const cuts = ops.filter((o) => o.s === s.key).map((o) => cvWgOpRect(g, L, o)).sort((p, q) => p.a - q.a);
+    let a = s.a; for (const c of cuts) { s.d === "v" ? R(s.x0, a, s.x1, c.a) : R(a, s.y0, c.a, s.y1); a = c.b; }
+    s.d === "v" ? R(s.x0, a, s.x1, s.b) : R(a, s.y0, s.b, s.y1);
+  }
+  // joints wherever a wall piece meets them
+  for (let j = 0; j <= L.n; j++) for (let k = 0; k <= L.m; k++) {
+    const near = [`v:${j}:${k - 1}`, `v:${j}:${k}`, `h:${k}:${j - 1}`, `h:${k}:${j}`].filter((q) => { const [d, a, b] = q.split(":"); return +b >= 0 && (d === "v" ? +b < L.m : +b < L.n) && !off.has(q); });
+    if (near.length) R(L.X[j], L.Y[k], L.X[j] + g.tv[j] * K, L.Y[k] + g.th[k] * K);
+  }
+  const d = rects.join("");
+  let s = `<path d="${d}" fill="none" stroke="#111" ${cvWgSW(live ? 2.6 : 3.4)} stroke-linejoin="miter"/><path d="${d}" fill="#fff" stroke="none"/>`;
+  // windows and doors
+  const thin = (x1, y1, x2, y2, w = 0.9) => `<line x1="${cvR(x1, 100)}" y1="${cvR(y1, 100)}" x2="${cvR(x2, 100)}" y2="${cvR(y2, 100)}" stroke="#111" ${cvWgSW(w)}/>`;
+  for (const o of ops) {
+    const r = cvWgOpRect(g, L, o), v = r.s.d === "v";
+    if (o.k === "w") {
+      if (v) { const xm = (r.x0 + r.x1) / 2; s += thin(r.x0, r.a, r.x0, r.b) + thin(r.x1, r.a, r.x1, r.b) + thin(xm - (r.x1 - r.x0) * 0.12, r.a, xm - (r.x1 - r.x0) * 0.12, r.b, 0.7) + thin(xm + (r.x1 - r.x0) * 0.12, r.a, xm + (r.x1 - r.x0) * 0.12, r.b, 0.7) + thin(r.x0, r.a, r.x1, r.a) + thin(r.x0, r.b, r.x1, r.b); }
+      else { const ym = (r.y0 + r.y1) / 2; s += thin(r.a, r.y0, r.b, r.y0) + thin(r.a, r.y1, r.b, r.y1) + thin(r.a, ym - (r.y1 - r.y0) * 0.12, r.b, ym - (r.y1 - r.y0) * 0.12, 0.7) + thin(r.a, ym + (r.y1 - r.y0) * 0.12, r.b, ym + (r.y1 - r.y0) * 0.12, 0.7) + thin(r.a, r.y0, r.a, r.y1) + thin(r.b, r.y0, r.b, r.y1); }
+    } else {
+      const sg = o.f & 2 ? -1 : 1, w = o.w * K, h = o.f & 1 ? r.b : r.a, e = o.f & 1 ? r.a : r.b;
+      if (v) { const xf = sg > 0 ? r.x1 : r.x0, sweep = sg * w * (e - h) > 0 ? 1 : 0; s += thin(xf, h, xf + sg * w, h, 1.3) + `<path d="M${cvR(xf + sg * w, 100)} ${cvR(h, 100)}A${cvR(w, 100)} ${cvR(w, 100)} 0 0 ${sweep} ${cvR(xf, 100)} ${cvR(e, 100)}" fill="none" stroke="#111" ${cvWgSW(0.8)}/>`; }
+      else { const yf = sg > 0 ? r.y1 : r.y0, sweep = -sg * w * (e - h) > 0 ? 1 : 0; s += thin(h, yf, h, yf + sg * w, 1.3) + `<path d="M${cvR(h, 100)} ${cvR(yf + sg * w, 100)}A${cvR(w, 100)} ${cvR(w, 100)} 0 0 ${sweep} ${cvR(e, 100)} ${cvR(yf, 100)}" fill="none" stroke="#111" ${cvWgSW(0.8)}/>`; }
+    }
+  }
+  // removed pieces stay faintly visible while drawing, so a tap can bring them back
+  if (live) for (const q of segs.filter((q) => off.has(q.key))) s += `<rect x="${cvR(q.x0, 100)}" y="${cvR(q.y0, 100)}" width="${cvR(q.x1 - q.x0, 100)}" height="${cvR(q.y1 - q.y0, 100)}" fill="none" stroke="#9aa3b5" stroke-width="1" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>`;
+  return s + cvWgChainSvg(g, L, fs);
+}
+
+/* ---- touching the plan ---- */
+function cvWgAt(g, p, tol) {
+  const L = cvWgL(g), z = CV.view.z, fs = 12 / z, off = cvWgOff(g);
+  for (const l of cvWgLabels(g, L, fs)) { if (!l.map) continue;
+    const hw = Math.max(l.b - l.a, l.tw) / 2 + 2 / z, hh = fs * 0.9, cx = (l.a + l.b) / 2, cy = l.horiz ? l.ty - fs * 0.35 : 0;
+    if (l.horiz ? Math.abs(p[0] - cx) < hw && Math.abs(p[1] - cy) < hh : Math.abs(p[1] - cx) < hw && Math.abs(p[0] - (l.tx - fs * 0.35)) < hh) return { g, lab: true, ax: l.map.ax, i: l.map.i };
+  }
+  const ops = g.ops || [];
+  for (let i = ops.length - 1; i >= 0; i--) { if (off.has(ops[i].s)) continue; const r = cvWgOpRect(g, L, ops[i]), t = tol * 0.5; if (p[0] > r.x0 - t && p[0] < r.x1 + t && p[1] > r.y0 - t && p[1] < r.y1 + t) return { g, op: i }; }
+  if (p[1] > L.Y[0] - tol && p[1] < L.ye + tol) for (let j = 0; j <= L.n; j++) if (p[0] > L.X[j] - tol && p[0] < L.X[j] + g.tv[j] * L.K + tol) return { g, ax: "c", line: j };
+  if (p[0] > L.X[0] - tol && p[0] < L.xe + tol) for (let k = 0; k <= L.m; k++) if (p[1] > L.Y[k] - tol && p[1] < L.Y[k] + g.th[k] * L.K + tol) return { g, ax: "r", line: k };
+  return null;
+}
+function cvWgSegAt(g, p, tol, wantOff) {
+  const L = cvWgL(g), off = cvWgOff(g);
+  for (const s of cvWgSegs(g, L)) if (off.has(s.key) === !!wantOff && p[0] > s.x0 - tol && p[0] < s.x1 + tol && p[1] > s.y0 - tol && p[1] < s.y1 + tol) return s;
+  return null;
+}
+/** The eraser takes an opening first, then the wall piece under it. */
+function cvWgErase(g, p, tol) {
+  const h = cvWgAt(g, p, tol);
+  if (h && h.op != null) { if (!CV.g.pushed) { cvPush(); CV.g.pushed = true; } g.ops.splice(h.op, 1); cvSave(); return cvDraw(); }
+  const s = cvWgSegAt(g, p, tol); if (!s) return;
+  if (!CV.g.pushed) { cvPush(); CV.g.pushed = true; }
+  g.off = [...(g.off || []), s.key]; g.ops = (g.ops || []).filter((o) => o.s !== s.key); cvSave(); cvDraw();
+}
+/** A tap on a faint removed piece brings the wall back. */
+function cvWgRestore(p, tol) {
+  for (const g of CV.d.items) { if (g.t !== "grid" || !g.walls) continue; const s = cvWgSegAt(g, p, tol, true); if (s) { cvPush(); g.off = g.off.filter((k) => k !== s.key); cvSave(); cvDraw(); return true; } }
+  return false;
+}
+/** Put a door or a window where the wall was tapped, then type its width and its distance from the corner. */
+function cvWgPlace(kind, p) {
+  const tol = 14 / CV.view.z;
+  for (let k = CV.d.items.length - 1; k >= 0; k--) {
+    const g = CV.d.items[k]; if (g.t !== "grid" || !g.walls) continue;
+    const s = cvWgSegAt(g, p, tol); if (!s) continue;
+    const L = cvWgL(g), len = Math.round((s.b - s.a) / L.K), w = Math.min(kind === "d" ? 900 : 1200, Math.max(100, len - 100)), at = (s.d === "v" ? p[1] : p[0]) - s.a;
+    const o = Math.max(0, Math.min(len - w, Math.round((at / L.K - w / 2) / 10) * 10));
+    const [dd, la] = s.key.split(":"), inward = dd === "v" ? (+la === L.n ? 2 : 0) : (+la === L.m ? 2 : 0); // bit 2 = swing to the other side
+    cvPush(); g.ops = [...(g.ops || []), { s: s.key, o, w, k: kind, f: kind === "d" ? inward : 0 }]; cvSave(); cvDraw();
+    CV.sel = g.id; CV.op = g.ops.length - 1; cvDrawSel();
+    return cvSvPad({ g, ax: "ow", i: CV.op });
+  }
+  cvHint(T("svNeedWall")); clearTimeout(cvSetTool.h); cvSetTool.h = setTimeout(() => cvHint(""), 4000);
+}
+function cvWgOpDrag(gd, p) {
+  const g = cvById(gd.g.id), o = g && g.ops[gd.i]; if (!o) return;
+  const L = cvWgL(g), s = cvWgSeg(g, L, o.s), d = ((s.d === "v" ? p[1] - gd.p0[1] : p[0] - gd.p0[0])) / L.K;
+  if (!gd.pushed) { if (Math.abs(d) * L.K * CV.view.z < 4) return; cvPush(); gd.pushed = true; }
+  const len = Math.round((s.b - s.a) / L.K); o.o = Math.max(0, Math.min(len - o.w, Math.round((gd.o0 + d) / 10) * 10));
+  cvHint(T("svOpO") + ": " + cvMM(o.o) + " mm"); cvDraw();
+}
+/* values the number pad edits */
+function cvGridVal(g, ax, i) { return ax === "c" ? g.cols[i] : ax === "r" ? g.rows[i] : ax === "tv" ? g.tv[i] : ax === "th" ? g.th[i] : ax === "ow" ? g.ops[i]?.w : ax === "oo" ? g.ops[i]?.o : 0; }
+function cvGridCount(g, ax) { return ax === "c" ? g.cols.length : ax === "r" ? g.rows.length : ax === "tv" ? g.tv.length : ax === "th" ? g.th.length : (g.ops || []).length; }
+function cvGridSet(g, ax, i, v) {
+  if (ax === "oo" ? !(v >= 0) : !(v > 0)) return false;
+  v = Math.min(99999, Math.round(v));
+  if (ax === "ow" || ax === "oo") { const o = g.ops[i]; if (!o) return false; const L = cvWgL(g), s = cvWgSeg(g, L, o.s), len = Math.round((s.b - s.a) / L.K);
+    if (ax === "ow") { o.w = Math.max(100, Math.min(len, v)); o.o = Math.min(o.o, len - o.w); } else o.o = Math.max(0, Math.min(len - o.w, v)); return true; }
+  const arr = ax === "c" ? g.cols : ax === "r" ? g.rows : ax === "tv" ? g.tv : g.th; if (arr[i] === v) return false; arr[i] = v; if (g.walls) cvWgValid(g); return true;
+}
+/** The span on the plan that the number being typed belongs to (for the orange highlight and to keep it in view). */
+function cvGridSpan(g, ax, i) {
+  if (!g.walls) { const xs = cvGridXs(g), ys = cvGridYs(g), b = cvGridBox(g); return ax === "c" ? { x0: xs[i], x1: xs[i + 1], y0: b.y, y1: b.y + b.h } : { x0: b.x, x1: b.x + b.w, y0: ys[i], y1: ys[i + 1] }; }
+  const L = cvWgL(g), K = L.K;
+  if (ax === "c") return { x0: L.X[i] + g.tv[i] * K, x1: L.X[i + 1], y0: L.Y[0], y1: L.ye };
+  if (ax === "r") return { x0: L.X[0], x1: L.xe, y0: L.Y[i] + g.th[i] * K, y1: L.Y[i + 1] };
+  if (ax === "tv") return { x0: L.X[i], x1: L.X[i] + g.tv[i] * K, y0: L.Y[0], y1: L.ye };
+  if (ax === "th") return { x0: L.X[0], x1: L.xe, y0: L.Y[i], y1: L.Y[i] + g.th[i] * K };
+  const o = g.ops[i]; if (!o) return null; const r = cvWgOpRect(g, L, o); return { x0: r.x0, x1: r.x1, y0: r.y0, y1: r.y1 };
 }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
