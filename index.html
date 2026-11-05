@@ -1136,6 +1136,11 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 :root[data-theme="dark"] .cvstage.plan{--cvbg:#cfd4de}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cvstage{--cvbg:#d6d2c8;--cvgrid:rgba(0,0,0,.06);--cvgrid2:rgba(0,0,0,.12)}:root:not([data-theme="light"]) .cvstage.plan{--cvbg:#cfd4de}}
 .skyhome .skd .th.cvth{background:#fbfaf6;padding:6px}.skyhome .skd .th.cvth svg{width:100%;height:100%}
+.cvstyle .smart{height:30px;border-radius:15px;border:1px solid var(--line);background:none;color:var(--ink);font-size:13px;padding:0 10px;white-space:nowrap}
+.cvstyle .smart[aria-pressed="true"]{background:#4f7fe0;color:#fff;border-color:transparent}
+.cvhint .fk{display:flex;flex-direction:column;align-items:center;height:auto;min-height:56px;padding:3px 4px;gap:0}
+.cvhint .fk small{font-size:11px;color:var(--muted);white-space:nowrap}
+.cvtb .nm{display:flex;align-items:center;padding:0 8px;font-size:13px;color:#cfd3e0;white-space:nowrap}
 </style>
 
 <div class="app" id="app">
@@ -7683,9 +7688,9 @@ Object.assign(I18N.en, {"skyName": "Idea sky", "skyMe": "Me", "skyCmdPh": "Searc
 Object.assign(I18N.fa, {"cfTitle": "هر کلود (فایل همگام‌سازی)", "cfChoose": "iCloud، OneDrive، Dropbox، Google Drive، Nextcloud — هر جایی که در Files یا پوشه‌ها هست", "cfShort": "کلود", "cfHow": "کل دفترچه در یک فایل به نام babak-sync.babak.zip می‌رود. آن را در یک پوشهٔ کلود بگذارید و روی دستگاه دیگر همان فایل را بگیرید؛ فقط صفحه‌های تازه‌تر جایگزین می‌شوند و چیزی دوتا نمی‌شود.", "cfSend": "بفرست به کلود", "cfGet": "بگیر از کلود", "cfLast": "آخرین بار:", "cfDirty": "تغییر فرستاده‌نشده", "cfReady": "فایل آماده است", "cfReadyText": "{n} صفحه · {mb}. حالا آن را در پوشهٔ کلودتان ذخیره کنید.", "cfSaveToFiles": "ذخیره در Files / کلود", "cfSaveToFilesSub": "در پنجرهٔ بعد «Save to Files» و بعد پوشهٔ iCloud، OneDrive، Dropbox یا Nextcloud", "cfDownload": "دانلود فایل", "cfDownloadSub": "بعد فایل را به پوشهٔ کلودتان ببرید", "cfReplaceHint": "همیشه همان پوشه را انتخاب کنید؛ اگر پرسید جایگزین شود، «Replace / جایگزین» را بزنید.", "cfSentMsg": "فایل همگام‌سازی ذخیره شد", "cfLink": "وصل کردن به یک پوشهٔ کلود (خودکار)", "cfLinkSub": "مثلاً پوشهٔ OneDrive یا Nextcloud روی همین کامپیوتر؛ از آن به بعد خودش می‌فرستد و می‌گیرد", "cfLinked": "وصل شد به پوشهٔ «{f}»", "cfLinkedTo": "وصل به پوشهٔ «{f}»", "cfAutoOn": "خودکار: هر چند دقیقه و هنگام بستن — برای قطع بزنید", "cfUnlinked": "اتصال به پوشه برداشته شد", "cfResume": "همگام‌سازی با پوشهٔ «{f}» منتظر اجازهٔ شماست", "cfResumeBtn": "ادامه", "cfFail": "همگام‌سازی کلود نشد:", "cfPrivacy": "فایل فقط در کلود خودتان است؛ هیچ سرور دیگری آن را نمی‌بیند. صفحه‌های قفل‌شده داخل آن نمی‌روند."});
 Object.assign(I18N.de, {"cfTitle": "Jede Cloud (Sync-Datei)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – alles, was in „Dateien“ oder als Ordner erscheint", "cfShort": "Cloud", "cfHow": "Das ganze Notizbuch kommt in eine Datei babak-sync.babak.zip. Lege sie in einen Cloud-Ordner und hole sie auf dem anderen Gerät; nur neuere Seiten ersetzen ältere, nichts wird doppelt.", "cfSend": "In die Cloud senden", "cfGet": "Aus der Cloud holen", "cfLast": "Zuletzt:", "cfDirty": "nicht gesendet", "cfReady": "Datei ist bereit", "cfReadyText": "{n} Seiten · {mb}. Jetzt im Cloud-Ordner speichern.", "cfSaveToFiles": "In Dateien / Cloud sichern", "cfSaveToFilesSub": "Im nächsten Fenster „In Dateien sichern“ und den iCloud-, OneDrive-, Dropbox- oder Nextcloud-Ordner wählen", "cfDownload": "Datei herunterladen", "cfDownloadSub": "Danach in den Cloud-Ordner verschieben", "cfReplaceHint": "Immer denselben Ordner wählen; bei der Frage „Ersetzen“ bestätigen.", "cfSentMsg": "Sync-Datei gespeichert", "cfLink": "Mit einem Cloud-Ordner verbinden (automatisch)", "cfLinkSub": "z. B. OneDrive- oder Nextcloud-Ordner auf diesem Computer; danach senden und holen von selbst", "cfLinked": "Verbunden mit „{f}“", "cfLinkedTo": "Verbunden mit „{f}“", "cfAutoOn": "Automatisch: alle paar Minuten und beim Schließen – tippen zum Trennen", "cfUnlinked": "Ordner getrennt", "cfResume": "Sync mit „{f}“ wartet auf deine Erlaubnis", "cfResumeBtn": "Weiter", "cfFail": "Cloud-Sync fehlgeschlagen:", "cfPrivacy": "Die Datei liegt nur in deiner eigenen Cloud; kein anderer Server sieht sie. Gesperrte Seiten kommen nicht hinein."});
 Object.assign(I18N.en, {"cfTitle": "Any cloud (sync file)", "cfChoose": "iCloud, OneDrive, Dropbox, Google Drive, Nextcloud – anything that shows up in Files or as a folder", "cfShort": "Cloud", "cfHow": "The whole notebook goes into one file, babak-sync.babak.zip. Put it in a cloud folder and pick it on the other device; only newer pages replace older ones, nothing is doubled.", "cfSend": "Send to cloud", "cfGet": "Get from cloud", "cfLast": "Last:", "cfDirty": "not sent", "cfReady": "File is ready", "cfReadyText": "{n} pages · {mb}. Now save it in your cloud folder.", "cfSaveToFiles": "Save to Files / cloud", "cfSaveToFilesSub": "In the next window tap “Save to Files” and choose the iCloud, OneDrive, Dropbox or Nextcloud folder", "cfDownload": "Download file", "cfDownloadSub": "Then move it to your cloud folder", "cfReplaceHint": "Always choose the same folder; if asked, tap “Replace”.", "cfSentMsg": "Sync file saved", "cfLink": "Link a cloud folder (automatic)", "cfLinkSub": "e.g. your OneDrive or Nextcloud folder on this computer; from then on it sends and gets by itself", "cfLinked": "Linked to “{f}”", "cfLinkedTo": "Linked to “{f}”", "cfAutoOn": "Automatic: every few minutes and when closing – tap to unlink", "cfUnlinked": "Folder unlinked", "cfResume": "Sync with “{f}” is waiting for your permission", "cfResumeBtn": "Continue", "cfFail": "Cloud sync failed:", "cfPrivacy": "The file stays in your own cloud; no other server sees it. Locked pages are not included."});
-Object.assign(I18N.fa, {"cvNew": "بوم بی‌نهایت", "cvNewPlan": "نقشهٔ ساختمان", "skyNewCanvas": "بوم", "skyTyCanvas": "بوم", "skyMk_canvas": "＋ بوم تازه «{t}»", "skyMk_plan": "＋ نقشهٔ ساختمان «{t}»", "cvPlan": "نقشهٔ ساختمان", "cvGrid": "شبکه", "cvExport": "خروجی", "cvReadOnly": "فقط خواندنی", "cvPlanHint": "حالت نقشهٔ ساختمان: هر خانهٔ بزرگ شبکه ۱ متر است. از نوار کنار «دیوار» یا «اتاق» را بزنید.", "cvTSel": "انتخاب", "cvTPen": "قلم", "cvTErase": "پاک‌کن", "cvTText": "متن", "cvTNote": "یادداشت", "cvTIdea": "ایده", "cvTLink": "اتصال", "cvTRect": "مستطیل", "cvTEllipse": "بیضی", "cvTArrow": "فلش", "cvTImg": "عکس", "cvTWall": "دیوار", "cvTRoom": "اتاق", "cvTDoor": "در", "cvTWin": "پنجره", "cvTFurn": "مبلمان", "cvTDim": "اندازه", "cvHintWall": "گوشه به گوشه بزنید، یا طول را به متر بنویسید و Enter. روی نقطهٔ اول بزنید تا اتاق بسته شود.", "cvHintRoom": "جای اتاق را بزنید؛ عرض و طولش را به متر می‌نویسید.", "cvHintLink": "روی ایدهٔ اول بزنید", "cvHintLink2": "حالا روی ایدهٔ دوم بزنید", "cvHintDim": "از یک نقطه تا نقطهٔ دیگر بکشید تا فاصله نشان داده شود.", "cvHintPlace": "جایش را روی نقشه بزنید. بعد می‌توانید بچرخانید و اندازه‌اش را دقیق کنید.", "cvHintErase": "روی هر چیزی بکشید تا پاک شود.", "cvEdit": "ویرایش متن", "cvChild": "ایدهٔ تازه کنارش", "cvFill": "پُر / خالی", "cvRotate": "چرخش ۹۰°", "cvSize": "اندازه", "cvLens": "طول ضلع‌ها", "cvRoomName": "نام اتاق", "cvRoomPh": "مثلاً: آشپزخانه", "cvBigger": "بزرگ‌تر", "cvSmaller": "کوچک‌تر", "cvFront": "بیاور جلو", "cvBack": "ببر عقب", "cvWidth": "عرض", "cvDepth": "طول / عمق", "cvSide": "ضلع", "cvLensHint": "طول واقعی هر ضلع را به متر بنویسید؛ جهت دیوارها همان می‌ماند.", "cvNotClosed": "ضلع آخر {a} متر شد (شما {b} نوشتید) — اندازه‌ها با هم جور نیستند.", "cvRoomHint": "اندازهٔ اتاق را با متر بگیرید و اینجا بنویسید؛ بعد در و پنجره و مبلمان را داخلش بگذارید.", "cvMake": "بساز", "cvIdeaNew": "ایدهٔ تازه", "cvWallLenLbl": "طول:", "cvClose": "بستن اتاق", "cvDone": "پایان", "cvEmpty": "بوم هنوز خالی است", "cvPngSub": "تصویر برای فرستادن و دیدن", "cvSvgSub": "طرح برداری؛ در هر اندازه تیز می‌ماند", "cvPrint": "چاپ / PDF", "cvPrintSub": "در پنجرهٔ چاپ «ذخیره به PDF» را بزنید", "cvPngFail": "ساختن PNG نشد؛ فایل SVG ذخیره شد.", "cvF_bed": "تخت دونفره", "cvF_bed1": "تخت یک‌نفره", "cvF_sofa": "مبل", "cvF_table": "میز غذا", "cvF_desk": "میز کار", "cvF_chair": "صندلی", "cvF_wardrobe": "کمد", "cvF_kitchen": "کابینت آشپزخانه", "cvF_fridge": "یخچال", "cvF_wc": "توالت", "cvF_shower": "دوش", "cvF_bath": "وان", "cvF_sink": "روشویی", "cvF_washer": "ماشین لباسشویی"});
-Object.assign(I18N.de, {"cvNew": "Endlose Leinwand", "cvNewPlan": "Grundriss", "skyNewCanvas": "Leinwand", "skyTyCanvas": "Leinwand", "skyMk_canvas": "＋ Neue Leinwand „{t}“", "skyMk_plan": "＋ Grundriss „{t}“", "cvPlan": "Grundriss", "cvGrid": "Raster", "cvExport": "Export", "cvReadOnly": "Nur lesen", "cvPlanHint": "Grundriss-Modus: ein großes Rasterfeld ist 1 m. Links „Wand“ oder „Raum“ wählen.", "cvTSel": "Auswahl", "cvTPen": "Stift", "cvTErase": "Radierer", "cvTText": "Text", "cvTNote": "Notiz", "cvTIdea": "Idee", "cvTLink": "Verbinden", "cvTRect": "Rechteck", "cvTEllipse": "Ellipse", "cvTArrow": "Pfeil", "cvTImg": "Bild", "cvTWall": "Wand", "cvTRoom": "Raum", "cvTDoor": "Tür", "cvTWin": "Fenster", "cvTFurn": "Möbel", "cvTDim": "Maß", "cvHintWall": "Ecke für Ecke tippen oder Länge in Metern eingeben und Enter. Auf den ersten Punkt tippen schließt den Raum.", "cvHintRoom": "Tippe, wo der Raum hin soll; dann Breite und Länge in Metern.", "cvHintLink": "Erste Idee antippen", "cvHintLink2": "Jetzt die zweite Idee antippen", "cvHintDim": "Von einem Punkt zum anderen ziehen, um den Abstand zu zeigen.", "cvHintPlace": "Stelle auf dem Plan antippen; danach drehen und genau bemaßen.", "cvHintErase": "Über Dinge streichen, um sie zu löschen.", "cvEdit": "Text bearbeiten", "cvChild": "Neue Idee daneben", "cvFill": "Füllen / leer", "cvRotate": "90° drehen", "cvSize": "Größe", "cvLens": "Seitenlängen", "cvRoomName": "Raumname", "cvRoomPh": "z. B. Küche", "cvBigger": "Größer", "cvSmaller": "Kleiner", "cvFront": "Nach vorn", "cvBack": "Nach hinten", "cvWidth": "Breite", "cvDepth": "Länge / Tiefe", "cvSide": "Seite", "cvLensHint": "Echte Länge jeder Seite in Metern; die Richtungen bleiben.", "cvNotClosed": "Letzte Seite ist {a} m (du hast {b} eingegeben) – die Maße passen nicht zusammen.", "cvRoomHint": "Miss den Raum aus und trage die Maße ein; danach Türen, Fenster und Möbel hineinsetzen.", "cvMake": "Erstellen", "cvIdeaNew": "Neue Idee", "cvWallLenLbl": "Länge:", "cvClose": "Raum schließen", "cvDone": "Fertig", "cvEmpty": "Die Leinwand ist noch leer", "cvPngSub": "Bild zum Teilen", "cvSvgSub": "Vektor; bleibt in jeder Größe scharf", "cvPrint": "Drucken / PDF", "cvPrintSub": "Im Druckfenster „Als PDF sichern“", "cvPngFail": "PNG ging nicht; SVG gespeichert.", "cvF_bed": "Doppelbett", "cvF_bed1": "Einzelbett", "cvF_sofa": "Sofa", "cvF_table": "Esstisch", "cvF_desk": "Schreibtisch", "cvF_chair": "Stuhl", "cvF_wardrobe": "Schrank", "cvF_kitchen": "Küchenzeile", "cvF_fridge": "Kühlschrank", "cvF_wc": "WC", "cvF_shower": "Dusche", "cvF_bath": "Badewanne", "cvF_sink": "Waschbecken", "cvF_washer": "Waschmaschine"});
-Object.assign(I18N.en, {"cvNew": "Endless canvas", "cvNewPlan": "Floor plan", "skyNewCanvas": "Canvas", "skyTyCanvas": "Canvas", "skyMk_canvas": "＋ New canvas “{t}”", "skyMk_plan": "＋ Floor plan “{t}”", "cvPlan": "Floor plan", "cvGrid": "Grid", "cvExport": "Export", "cvReadOnly": "Read only", "cvPlanHint": "Floor-plan mode: one big grid square is 1 m. Pick “Wall” or “Room” on the side.", "cvTSel": "Select", "cvTPen": "Pen", "cvTErase": "Eraser", "cvTText": "Text", "cvTNote": "Sticky", "cvTIdea": "Idea", "cvTLink": "Connect", "cvTRect": "Rectangle", "cvTEllipse": "Ellipse", "cvTArrow": "Arrow", "cvTImg": "Picture", "cvTWall": "Wall", "cvTRoom": "Room", "cvTDoor": "Door", "cvTWin": "Window", "cvTFurn": "Furniture", "cvTDim": "Measure", "cvHintWall": "Tap corner by corner, or type the length in metres and press Enter. Tap the first point to close the room.", "cvHintRoom": "Tap where the room goes; then type its width and length in metres.", "cvHintLink": "Tap the first idea", "cvHintLink2": "Now tap the second idea", "cvHintDim": "Drag from one point to another to show the distance.", "cvHintPlace": "Tap its place on the plan; then rotate it and set exact sizes.", "cvHintErase": "Swipe over things to erase them.", "cvEdit": "Edit text", "cvChild": "New idea next to it", "cvFill": "Fill / empty", "cvRotate": "Rotate 90°", "cvSize": "Size", "cvLens": "Side lengths", "cvRoomName": "Room name", "cvRoomPh": "e.g. Kitchen", "cvBigger": "Bigger", "cvSmaller": "Smaller", "cvFront": "Bring forward", "cvBack": "Send back", "cvWidth": "Width", "cvDepth": "Length / depth", "cvSide": "Side", "cvLensHint": "Type the true length of every side in metres; wall directions stay.", "cvNotClosed": "The last side came out {a} m (you typed {b}) – the sizes don't fit together.", "cvRoomHint": "Measure the room and type its size here; then put doors, windows and furniture in it.", "cvMake": "Create", "cvIdeaNew": "New idea", "cvWallLenLbl": "Length:", "cvClose": "Close room", "cvDone": "Done", "cvEmpty": "The canvas is still empty", "cvPngSub": "Picture to share and view", "cvSvgSub": "Vector drawing; sharp at any size", "cvPrint": "Print / PDF", "cvPrintSub": "In the print window choose “Save as PDF”", "cvPngFail": "PNG didn't work; saved SVG instead.", "cvF_bed": "Double bed", "cvF_bed1": "Single bed", "cvF_sofa": "Sofa", "cvF_table": "Dining table", "cvF_desk": "Desk", "cvF_chair": "Chair", "cvF_wardrobe": "Wardrobe", "cvF_kitchen": "Kitchen counter", "cvF_fridge": "Fridge", "cvF_wc": "Toilet", "cvF_shower": "Shower", "cvF_bath": "Bathtub", "cvF_sink": "Sink", "cvF_washer": "Washing machine"});
+Object.assign(I18N.fa, {"cvNew": "بوم بی‌نهایت", "cvNewPlan": "نقشهٔ ساختمان", "skyNewCanvas": "بوم", "skyTyCanvas": "بوم", "skyMk_canvas": "＋ بوم تازه «{t}»", "skyMk_plan": "＋ نقشهٔ ساختمان «{t}»", "cvPlan": "نقشهٔ ساختمان", "cvGrid": "شبکه", "cvExport": "خروجی", "cvReadOnly": "فقط خواندنی", "cvPlanHint": "حالت نقشهٔ ساختمان: هر خانهٔ بزرگ شبکه ۱ متر است. از نوار کنار «دیوار» یا «اتاق» را بزنید.", "cvTSel": "انتخاب", "cvTPen": "قلم", "cvTErase": "پاک‌کن", "cvTText": "متن", "cvTNote": "یادداشت", "cvTIdea": "ایده", "cvTLink": "اتصال", "cvTRect": "مستطیل", "cvTEllipse": "بیضی", "cvTArrow": "فلش", "cvTImg": "عکس", "cvTWall": "دیوار", "cvTRoom": "اتاق", "cvTDoor": "در", "cvTWin": "پنجره", "cvTFurn": "مبلمان", "cvTDim": "اندازه", "cvHintWall": "گوشه به گوشه بزنید، یا طول را به متر بنویسید و Enter. روی نقطهٔ اول بزنید تا اتاق بسته شود.", "cvHintRoom": "جای اتاق را بزنید؛ عرض و طولش را به متر می‌نویسید.", "cvHintLink": "روی ایدهٔ اول بزنید", "cvHintLink2": "حالا روی ایدهٔ دوم بزنید", "cvHintDim": "از یک نقطه تا نقطهٔ دیگر بکشید تا فاصله نشان داده شود.", "cvHintPlace": "جایش را روی نقشه بزنید. بعد می‌توانید بچرخانید و اندازه‌اش را دقیق کنید.", "cvHintErase": "روی هر چیزی بکشید تا پاک شود.", "cvEdit": "ویرایش متن", "cvChild": "ایدهٔ تازه کنارش", "cvFill": "پُر / خالی", "cvRotate": "چرخش ۹۰°", "cvSize": "اندازه", "cvLens": "طول ضلع‌ها", "cvRoomName": "نام اتاق", "cvRoomPh": "مثلاً: آشپزخانه", "cvBigger": "بزرگ‌تر", "cvSmaller": "کوچک‌تر", "cvFront": "بیاور جلو", "cvBack": "ببر عقب", "cvWidth": "عرض", "cvDepth": "طول / عمق", "cvSide": "ضلع", "cvLensHint": "طول واقعی هر ضلع را به متر بنویسید؛ جهت دیوارها همان می‌ماند.", "cvNotClosed": "ضلع آخر {a} متر شد (شما {b} نوشتید) — اندازه‌ها با هم جور نیستند.", "cvRoomHint": "اندازهٔ اتاق را با متر بگیرید و اینجا بنویسید؛ بعد در و پنجره و مبلمان را داخلش بگذارید.", "cvMake": "بساز", "cvIdeaNew": "ایدهٔ تازه", "cvWallLenLbl": "طول:", "cvClose": "بستن اتاق", "cvDone": "پایان", "cvEmpty": "بوم هنوز خالی است", "cvPngSub": "تصویر برای فرستادن و دیدن", "cvSvgSub": "طرح برداری؛ در هر اندازه تیز می‌ماند", "cvPrint": "چاپ / PDF", "cvPrintSub": "در پنجرهٔ چاپ «ذخیره به PDF» را بزنید", "cvPngFail": "ساختن PNG نشد؛ فایل SVG ذخیره شد.", "cvF_bed": "تخت دونفره", "cvF_bed1": "تخت یک‌نفره", "cvF_sofa": "مبل", "cvF_table": "میز غذا", "cvF_desk": "میز کار", "cvF_chair": "صندلی", "cvF_wardrobe": "کمد", "cvF_kitchen": "کابینت آشپزخانه", "cvF_fridge": "یخچال", "cvF_wc": "توالت", "cvF_shower": "دوش", "cvF_bath": "وان", "cvF_sink": "روشویی", "cvF_washer": "ماشین لباسشویی", "cvF_rtable": "میز گرد", "cvF_plant": "گلدان", "cvSmart": "هوشمند", "cvSmartT": "خط کج صاف می‌شود، گوشه‌ها به هم می‌چسبند، مستطیل و دایره شکل درست می‌گیرند", "cvSmartOnMsg": "کشیدن هوشمند روشن شد", "cvSmartOffMsg": "کشیدن هوشمند خاموش شد — دست‌خط آزاد", "cvWhat": "این چیست؟", "cvKeepShape": "فقط شکل", "cvChangeKind": "عوض کردن نوع"});
+Object.assign(I18N.de, {"cvNew": "Endlose Leinwand", "cvNewPlan": "Grundriss", "skyNewCanvas": "Leinwand", "skyTyCanvas": "Leinwand", "skyMk_canvas": "＋ Neue Leinwand „{t}“", "skyMk_plan": "＋ Grundriss „{t}“", "cvPlan": "Grundriss", "cvGrid": "Raster", "cvExport": "Export", "cvReadOnly": "Nur lesen", "cvPlanHint": "Grundriss-Modus: ein großes Rasterfeld ist 1 m. Links „Wand“ oder „Raum“ wählen.", "cvTSel": "Auswahl", "cvTPen": "Stift", "cvTErase": "Radierer", "cvTText": "Text", "cvTNote": "Notiz", "cvTIdea": "Idee", "cvTLink": "Verbinden", "cvTRect": "Rechteck", "cvTEllipse": "Ellipse", "cvTArrow": "Pfeil", "cvTImg": "Bild", "cvTWall": "Wand", "cvTRoom": "Raum", "cvTDoor": "Tür", "cvTWin": "Fenster", "cvTFurn": "Möbel", "cvTDim": "Maß", "cvHintWall": "Ecke für Ecke tippen oder Länge in Metern eingeben und Enter. Auf den ersten Punkt tippen schließt den Raum.", "cvHintRoom": "Tippe, wo der Raum hin soll; dann Breite und Länge in Metern.", "cvHintLink": "Erste Idee antippen", "cvHintLink2": "Jetzt die zweite Idee antippen", "cvHintDim": "Von einem Punkt zum anderen ziehen, um den Abstand zu zeigen.", "cvHintPlace": "Stelle auf dem Plan antippen; danach drehen und genau bemaßen.", "cvHintErase": "Über Dinge streichen, um sie zu löschen.", "cvEdit": "Text bearbeiten", "cvChild": "Neue Idee daneben", "cvFill": "Füllen / leer", "cvRotate": "90° drehen", "cvSize": "Größe", "cvLens": "Seitenlängen", "cvRoomName": "Raumname", "cvRoomPh": "z. B. Küche", "cvBigger": "Größer", "cvSmaller": "Kleiner", "cvFront": "Nach vorn", "cvBack": "Nach hinten", "cvWidth": "Breite", "cvDepth": "Länge / Tiefe", "cvSide": "Seite", "cvLensHint": "Echte Länge jeder Seite in Metern; die Richtungen bleiben.", "cvNotClosed": "Letzte Seite ist {a} m (du hast {b} eingegeben) – die Maße passen nicht zusammen.", "cvRoomHint": "Miss den Raum aus und trage die Maße ein; danach Türen, Fenster und Möbel hineinsetzen.", "cvMake": "Erstellen", "cvIdeaNew": "Neue Idee", "cvWallLenLbl": "Länge:", "cvClose": "Raum schließen", "cvDone": "Fertig", "cvEmpty": "Die Leinwand ist noch leer", "cvPngSub": "Bild zum Teilen", "cvSvgSub": "Vektor; bleibt in jeder Größe scharf", "cvPrint": "Drucken / PDF", "cvPrintSub": "Im Druckfenster „Als PDF sichern“", "cvPngFail": "PNG ging nicht; SVG gespeichert.", "cvF_bed": "Doppelbett", "cvF_bed1": "Einzelbett", "cvF_sofa": "Sofa", "cvF_table": "Esstisch", "cvF_desk": "Schreibtisch", "cvF_chair": "Stuhl", "cvF_wardrobe": "Schrank", "cvF_kitchen": "Küchenzeile", "cvF_fridge": "Kühlschrank", "cvF_wc": "WC", "cvF_shower": "Dusche", "cvF_bath": "Badewanne", "cvF_sink": "Waschbecken", "cvF_washer": "Waschmaschine", "cvF_rtable": "Runder Tisch", "cvF_plant": "Pflanze", "cvSmart": "Smart", "cvSmartT": "Krumme Striche werden gerade, Ecken rasten ein, Rechtecke und Kreise werden sauber", "cvSmartOnMsg": "Smartes Zeichnen an", "cvSmartOffMsg": "Smartes Zeichnen aus – freie Hand", "cvWhat": "Was ist das?", "cvKeepShape": "Nur Form", "cvChangeKind": "Art ändern"});
+Object.assign(I18N.en, {"cvNew": "Endless canvas", "cvNewPlan": "Floor plan", "skyNewCanvas": "Canvas", "skyTyCanvas": "Canvas", "skyMk_canvas": "＋ New canvas “{t}”", "skyMk_plan": "＋ Floor plan “{t}”", "cvPlan": "Floor plan", "cvGrid": "Grid", "cvExport": "Export", "cvReadOnly": "Read only", "cvPlanHint": "Floor-plan mode: one big grid square is 1 m. Pick “Wall” or “Room” on the side.", "cvTSel": "Select", "cvTPen": "Pen", "cvTErase": "Eraser", "cvTText": "Text", "cvTNote": "Sticky", "cvTIdea": "Idea", "cvTLink": "Connect", "cvTRect": "Rectangle", "cvTEllipse": "Ellipse", "cvTArrow": "Arrow", "cvTImg": "Picture", "cvTWall": "Wall", "cvTRoom": "Room", "cvTDoor": "Door", "cvTWin": "Window", "cvTFurn": "Furniture", "cvTDim": "Measure", "cvHintWall": "Tap corner by corner, or type the length in metres and press Enter. Tap the first point to close the room.", "cvHintRoom": "Tap where the room goes; then type its width and length in metres.", "cvHintLink": "Tap the first idea", "cvHintLink2": "Now tap the second idea", "cvHintDim": "Drag from one point to another to show the distance.", "cvHintPlace": "Tap its place on the plan; then rotate it and set exact sizes.", "cvHintErase": "Swipe over things to erase them.", "cvEdit": "Edit text", "cvChild": "New idea next to it", "cvFill": "Fill / empty", "cvRotate": "Rotate 90°", "cvSize": "Size", "cvLens": "Side lengths", "cvRoomName": "Room name", "cvRoomPh": "e.g. Kitchen", "cvBigger": "Bigger", "cvSmaller": "Smaller", "cvFront": "Bring forward", "cvBack": "Send back", "cvWidth": "Width", "cvDepth": "Length / depth", "cvSide": "Side", "cvLensHint": "Type the true length of every side in metres; wall directions stay.", "cvNotClosed": "The last side came out {a} m (you typed {b}) – the sizes don't fit together.", "cvRoomHint": "Measure the room and type its size here; then put doors, windows and furniture in it.", "cvMake": "Create", "cvIdeaNew": "New idea", "cvWallLenLbl": "Length:", "cvClose": "Close room", "cvDone": "Done", "cvEmpty": "The canvas is still empty", "cvPngSub": "Picture to share and view", "cvSvgSub": "Vector drawing; sharp at any size", "cvPrint": "Print / PDF", "cvPrintSub": "In the print window choose “Save as PDF”", "cvPngFail": "PNG didn't work; saved SVG instead.", "cvF_bed": "Double bed", "cvF_bed1": "Single bed", "cvF_sofa": "Sofa", "cvF_table": "Dining table", "cvF_desk": "Desk", "cvF_chair": "Chair", "cvF_wardrobe": "Wardrobe", "cvF_kitchen": "Kitchen counter", "cvF_fridge": "Fridge", "cvF_wc": "Toilet", "cvF_shower": "Shower", "cvF_bath": "Bathtub", "cvF_sink": "Sink", "cvF_washer": "Washing machine", "cvF_rtable": "Round table", "cvF_plant": "Plant", "cvSmart": "Smart", "cvSmartT": "Wobbly strokes turn straight, corners snap together, boxes and circles come out clean", "cvSmartOnMsg": "Smart drawing on", "cvSmartOffMsg": "Smart drawing off – free hand", "cvWhat": "What is this?", "cvKeepShape": "Just a shape", "cvChangeKind": "Change type"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10638,7 +10643,7 @@ async function cloudFilePanel() {
 const CV_U = 100; // world units per metre
 const CV_COLS = ["#1d1d1f", "#d64545", "#e08a2c", "#1f8a4c", "#4f7fe0", "#7b61d6"];
 const CV_NOTE = ["#ffe58f", "#ffc9de", "#c6f0d4", "#cfe3ff", "#e6dcff"];
-const CV_FURN = { bed: [1.6, 2.0], bed1: [0.9, 2.0], sofa: [2.0, 0.9], table: [1.6, 0.9], desk: [1.4, 0.7], chair: [0.5, 0.5], wardrobe: [1.2, 0.6], kitchen: [2.4, 0.6], fridge: [0.6, 0.65], wc: [0.4, 0.65], shower: [0.9, 0.9], bath: [1.7, 0.75], sink: [0.6, 0.45], washer: [0.6, 0.6] };
+const CV_FURN = { rtable: [1.2, 1.2], plant: [0.5, 0.5], bed: [1.6, 2.0], bed1: [0.9, 2.0], sofa: [2.0, 0.9], table: [1.6, 0.9], desk: [1.4, 0.7], chair: [0.5, 0.5], wardrobe: [1.2, 0.6], kitchen: [2.4, 0.6], fridge: [0.6, 0.65], wc: [0.4, 0.65], shower: [0.9, 0.9], bath: [1.7, 0.75], sink: [0.6, 0.45], washer: [0.6, 0.6] };
 let CV = null; // the open canvas: { n, d, tool, sel, color, width, undo, redo, wall, ptr, ... }
 const cvR = (v, k = 1) => Math.round(v * k) / k;
 const cvNum = (v, d = 0) => (typeof v === "number" && isFinite(v) ? v : d);
@@ -10739,7 +10744,7 @@ function cvTextSvg(lines, cx, cy, fs, fill, weight) {
 function cvItemSvg(x, opt = {}) {
   const c = x.c || "#1d1d1f", id = opt.thumb ? "" : ` data-cv="${esc(x.id)}"`;
   switch (x.t) {
-    case "pen": return `<path${id} d="${cvPenPath(x.pts || [])}" fill="none" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    case "pen": return `<path${id} d="${x.k === "sharp" ? "M" + (x.pts || []).map((p) => cvR(p[0], 10) + " " + cvR(p[1], 10)).join("L") + (x.closed ? "Z" : "") : cvPenPath(x.pts || [])}" fill="none" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" stroke-linejoin="round"/>`;
     case "rect": return `<rect${id} x="${x.x}" y="${x.y}" width="${x.w}" height="${x.h}" rx="8" fill="${x.f && x.f !== "none" ? x.f : "none"}" fill-opacity="${x.f && x.f !== "none" ? 0.35 : 0}" stroke="${c}" stroke-width="${x.sw || 3}"/>`;
     case "ellipse": return `<ellipse${id} cx="${x.x + x.w / 2}" cy="${x.y + x.h / 2}" rx="${Math.abs(x.w / 2)}" ry="${Math.abs(x.h / 2)}" fill="${x.f && x.f !== "none" ? x.f : "none"}" fill-opacity="${x.f && x.f !== "none" ? 0.35 : 0}" stroke="${c}" stroke-width="${x.sw || 3}"/>`;
     case "line": case "arrow": return `<line${id} x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" ${x.t === "arrow" ? `marker-end="url(#cvArr)" style="color:${c}"` : ""}/>`;
@@ -10764,7 +10769,7 @@ function cvItemSvg(x, opt = {}) {
     }
     case "door": { const w = x.w || 90; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-9" width="${w}" height="18" fill="#fff"/><path d="M${-w / 2} 0 L${-w / 2} ${-w} M${-w / 2} ${-w} A${w} ${w} 0 0 1 ${w / 2} 0" fill="none" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/></g>`; }
     case "window": { const w = x.w || 120; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-8" width="${w}" height="16" fill="#fff" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/><line x1="${-w / 2}" y1="0" x2="${w / 2}" y2="0" stroke="${c === "#1d1d1f" ? "#4f7fe0" : c}" stroke-width="2"/></g>`; }
-    case "furn": { const w = x.w || 100, h = x.h || 60; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" rx="5" fill="${x.f && x.f !== "none" ? x.f : "#f3efe6"}" stroke="${c === "#1d1d1f" ? "#6b6f7c" : c}" stroke-width="2"/>${opt.thumb ? "" : cvTextSvg([T("cvF_" + (x.k || "table")), `${num((w / CV_U).toFixed(2))}×${num((h / CV_U).toFixed(2))}`], 0, 0, Math.max(10, Math.min(15, h / 4)), "#5b6377")}</g>`; }
+    case "furn": { const w = x.w || 100, h = x.h || 60; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" fill="transparent"/>${cvFurnSym(x.k || "table", w, h)}</g>`; }
     case "dim": { const L = cvLen([x.x1, x.y1], [x.x2, x.y2]), mx = (x.x1 + x.x2) / 2, my = (x.y1 + x.y2) / 2; let ang = Math.atan2(x.y2 - x.y1, x.x2 - x.x1) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; return `<g${id} style="color:${c === "#1d1d1f" ? "#d97757" : c}"><line x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="currentColor" stroke-width="2" marker-start="url(#cvTick)" marker-end="url(#cvTick)"/><text x="${mx}" y="${my - 14}" transform="rotate(${cvR(ang, 10)} ${mx} ${my})" font-size="16" fill="currentColor" text-anchor="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif" font-weight="700">${esc(cvM(L))}</text></g>`; }
   }
   return "";
@@ -10846,6 +10851,7 @@ function cvRail() {
   const showStyle = ["pen", "text", "note", "idea", "rect", "ellipse", "arrow", "link"].includes(CV.tool);
   s.classList.toggle("hide", !showStyle);
   if (showStyle) s.innerHTML = (CV.tool === "note" ? CV_NOTE : CV_COLS).map((c) => `<button type="button" class="sw" data-cvc="${c}" style="background:${c}" aria-pressed="${CV.color === c}" aria-label="${c}"></button>`).join("")
+    + (CV.tool === "pen" ? `<span class="sep"></span><button type="button" class="smart" data-cvsmart aria-pressed="${cvSmartOn()}" title="${esc(T("cvSmartT"))}">✨ ${esc(T("cvSmart"))}</button>` : "")
     + (["pen", "rect", "ellipse", "arrow"].includes(CV.tool) ? `<span class="sep"></span>${[2, 4, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${w}px"></i></button>`).join("")}` : "");
 }
 function cvHint(t) { const h = $("#cvHint"); if (!h) return; h.textContent = t || ""; h.classList.toggle("hide", !t); }
@@ -10896,7 +10902,8 @@ function cvToolbar() {
   const x = CV.sel && cvById(CV.sel);
   if (!x || CV.ro || CV.edit) { tb.classList.add("hide"); return; }
   const btn = (k, l, t) => `<button type="button" data-cvs="${k}" title="${esc(t || l)}">${l}</button>`;
-  let h = "";
+  let h = x.t === "furn" ? `<span class="nm">${esc(T("cvF_" + (x.k || "table")))} · ${num(((x.w || 0) / CV_U).toFixed(2))}×${num(((x.h || 0) / CV_U).toFixed(2))} m</span>` : "";
+  if (x.t === "furn") h += btn("kind", "🔁", T("cvChangeKind"));
   if (["text", "note", "idea"].includes(x.t)) h += btn("edit", "✎", T("cvEdit"));
   if (x.t === "idea") h += btn("child", "＋💡", T("cvChild"));
   if (["text", "idea", "pen", "rect", "ellipse", "arrow", "line", "link", "wall", "dim"].includes(x.t)) h += CV_COLS.slice(0, 5).map((c) => `<button type="button" class="sw" data-cvs="col" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("");
@@ -10935,6 +10942,7 @@ async function cvSelAct(a, el) {
   }
   if (a === "name") { const r = await formBox("🏷 " + T("cvRoomName"), `<div class="field"><input name="s" dir="auto" maxlength="60" value="${esc(x.s || "")}" placeholder="${esc(T("cvRoomPh"))}"></div>`, (fm) => ({ s: fm.s.value.trim() }), T("save")); if (!r) return; cvPush(); x.s = r.s; cvSave(); return cvDraw(); }
   if (a === "lens") return cvWallLens(x);
+  if (a === "kind") return cvAskWhat(x);
 }
 const cvParse = (v) => parseFloat(String(v || "").trim().replace(/[۰-۹]/g, (c) => "۰۱۲۳۴۵۶۷۸۹".indexOf(c)).replace(/[٫,]/, "."));
 /** Type the true length of every side; directions stay, the shape follows. */
@@ -10993,6 +11001,8 @@ function cvBind() {
     const s = e.target.closest("[data-cvs]"); if (s) return cvSelAct(s.dataset.cvs, s);
     const b = e.target.closest("[data-cvb]"); if (b) return cvBtn(b.dataset.cvb);
     const wb = e.target.closest("[data-cvwall]"); if (wb) return cvWallBar(wb.dataset.cvwall);
+    const wh = e.target.closest("[data-cvwhat]"); if (wh) return cvWhatPick(wh.dataset.cvwhat);
+    if (e.target.closest("[data-cvsmart]")) { lsSet("babak-sa-cvsmart", !cvSmartOn()); cvRail(); return toast(cvSmartOn() ? T("cvSmartOnMsg") : T("cvSmartOffMsg")); }
   });
   $("#bar").addEventListener("click", (e) => { const b = e.target.closest("[data-cvb]"); if (b) cvBtn(b.dataset.cvb); });
   st.addEventListener("wheel", (e) => {
@@ -11017,6 +11027,7 @@ function cvBind() {
 }
 window.addEventListener("resize", () => { if (CV && $("#cvStage")) { cvSize(); cvApplyView(); } });
 function cvSetTool(k) {
+  if (CV.what) { CV.what = null; }
   if (CV.wall) cvWallEnd();
   if (k === "img") return cvPickImage();
   CV.tool = k; CV.link = null; if (k !== "sel") { CV.sel = null; cvDrawSel(); }
@@ -11109,7 +11120,7 @@ function cvUp(e) {
   CV.g = null;
   const p = CV.view ? cvWorld(e) : [0, 0];
   if (g.kind === "pan") { if (!g.moved && CV.tool === "sel" && CV.sel) { CV.sel = null; cvDrawSel(); } return; }
-  if (g.kind === "draw") { $("#cvLive").innerHTML = ""; if (g.pts.length) cvAdd({ t: "pen", pts: g.pts, c: CV.color, sw: CV.width }, false); return; }
+  if (g.kind === "draw") { $("#cvLive").innerHTML = ""; if (g.pts.length) cvSmartFinish(g.pts); return; }
   if (g.kind === "shape") { $("#cvLive").innerHTML = ""; const x = cvShapeOf(g); if (cvBox(x).w + cvBox(x).h > 12 || x.t === "dim" && cvLen([x.x1, x.y1], [x.x2, x.y2]) > 10) { cvAdd(x); } return; }
   if (g.kind === "move") { if (g.pushed) cvSave(); else if (g.again) { const x = cvById(g.id); if (x && ["text", "note", "idea"].includes(x.t)) cvEditText(x); } cvDrawSel(); return; }
   if (g.kind === "handle") { cvSave(); cvDraw(); return; }
@@ -11258,6 +11269,169 @@ function cvThumb(n) {
   if (h && h.k === k) return h.s;
   const s = cvSvgDoc(n.cv.items.length > 1500 ? { ...n.cv, items: n.cv.items.slice(-1500) } : n.cv, { thumb: true, pad: 10 });
   CV_THUMBS.set(n.id, { k, s }); return s;
+}
+
+/* ---- smart drawing: wobbly strokes become straight lines, corners join, boxes become rooms or furniture ---- */
+const cvSmartOn = () => lsGet("babak-sa-cvsmart", true) !== false;
+function cvRdp(pts, eps) {
+  if (pts.length < 3) return pts.slice();
+  const a = pts[0], b = pts[pts.length - 1]; let idx = -1, md = 0;
+  for (let i = 1; i < pts.length - 1; i++) { const d = cvSegD(pts[i], a, b); if (d > md) { md = d; idx = i; } }
+  if (md <= eps) return [a, b];
+  return [...cvRdp(pts.slice(0, idx + 1), eps).slice(0, -1), ...cvRdp(pts.slice(idx), eps)];
+}
+function cvPathLen(pts) { let L = 0; for (let i = 1; i < pts.length; i++) L += cvLen(pts[i - 1], pts[i]); return L; }
+/** Keep each side's length but turn it to 0°/45°/90°… when it is close. */
+function cvSquareUp(pts, closed) {
+  const out = [pts[0].slice()];
+  for (let i = 1; i < pts.length; i++) {
+    const a = pts[i - 1], b = pts[i], L = cvLen(a, b), ang = Math.atan2(b[1] - a[1], b[0] - a[0]), s = Math.round(ang / (Math.PI / 4)) * (Math.PI / 4);
+    const use = Math.abs(ang - s) < 0.16 ? s : ang, p = out[out.length - 1];
+    out.push([cvR(p[0] + Math.cos(use) * L, 10), cvR(p[1] + Math.sin(use) * L, 10)]);
+  }
+  if (closed && out.length > 2 && cvLen(out[out.length - 1], out[0]) < cvPathLen(out) * 0.08) out[out.length - 1] = out[0].slice();
+  return out;
+}
+/** What did the hand mean? → { kind: "line" | "poly" | "rect" | "ellipse" | "tri" | null, pts, box } */
+function cvRecognize(raw) {
+  if (raw.length < 4) return { kind: null };
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of raw) { x0 = Math.min(x0, p[0]); y0 = Math.min(y0, p[1]); x1 = Math.max(x1, p[0]); y1 = Math.max(y1, p[1]); }
+  const D = Math.hypot(x1 - x0, y1 - y0), L = cvPathLen(raw), z = CV.view.z;
+  if (D * z < 14) return { kind: null };
+  const box = { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+  const gap = cvLen(raw[0], raw[raw.length - 1]), closed = gap < Math.max(0.22 * D, 14 / z) && L > 2 * D;
+  if (closed) {
+    const c = [(x0 + x1) / 2, (y0 + y1) / 2];
+    // an ellipse: every point about as far from the middle as the box says it should be
+    const errs = raw.map((p) => { const nx = (p[0] - c[0]) / Math.max(1, box.w / 2), ny = (p[1] - c[1]) / Math.max(1, box.h / 2); return Math.abs(Math.hypot(nx, ny) - 1); });
+    const eMean = errs.reduce((s, v) => s + v, 0) / errs.length;
+    let v = cvRdp([...raw, raw[0]], Math.max(6 / z, 0.09 * D)); v.pop();
+    if (v.length > 2 && cvLen(v[v.length - 1], v[0]) < 0.12 * D) v.pop();
+    if (v.length === 4) {
+      const angOk = v.every((p, i) => { const a = v[(i + 3) % 4], b = v[(i + 1) % 4], u = [a[0] - p[0], a[1] - p[1]], w = [b[0] - p[0], b[1] - p[1]], cos = (u[0] * w[0] + u[1] * w[1]) / (Math.hypot(...u) * Math.hypot(...w) || 1); return Math.abs(cos) < 0.42; });
+      if (angOk) {
+        const e0 = Math.atan2(v[1][1] - v[0][1], v[1][0] - v[0][0]), off = Math.abs(((e0 % (Math.PI / 2)) + Math.PI / 2) % (Math.PI / 2));
+        if (Math.min(off, Math.PI / 2 - off) < 0.22) return { kind: "rect", box: { x: Math.min(...v.map((p) => p[0])), y: Math.min(...v.map((p) => p[1])), w: Math.max(...v.map((p) => p[0])) - Math.min(...v.map((p) => p[0])), h: Math.max(...v.map((p) => p[1])) - Math.min(...v.map((p) => p[1])) } };
+        return { kind: "poly", pts: [...v, v[0]], closed: true };
+      }
+    }
+    if (eMean < 0.14 && v.length >= 5) return { kind: "ellipse", box };
+    if (v.length === 3) return { kind: "poly", pts: cvSquareUp([...v, v[0]], true), closed: true };
+    if (v.length >= 4 && v.length <= 8 && eMean >= 0.14) return { kind: "poly", pts: cvSquareUp([...v, v[0]], true), closed: true };
+    return { kind: null };
+  }
+  const v = cvRdp(raw, Math.max(5 / z, 0.045 * L));
+  if (v.length === 2) return { kind: "line", pts: cvSquareUp(v) };
+  if (v.length <= 7) {
+    let ok = true; for (let i = 1; i < v.length; i++) if (cvLen(v[i - 1], v[i]) < 0.08 * L) ok = false;
+    if (ok) return { kind: "poly", pts: cvSquareUp(v) };
+  }
+  return { kind: null };
+}
+/** Ends that land near another line's end are glued to it exactly. */
+function cvEnds(skip) {
+  const out = [];
+  for (const x of CV.d.items) {
+    if (x.id === skip || x.closed) continue;
+    if ((x.t === "pen" && x.k === "sharp") || x.t === "wall") { const p = x.pts; if (p && p.length > 1) { out.push({ x, end: 0, p: p[0] }); out.push({ x, end: 1, p: p[p.length - 1] }); } }
+  }
+  return out;
+}
+function cvGlue(pts, kind) {
+  const tol = 28 / CV.view.z, ends = cvEnds(null).filter((e) => (kind === "wall") === (e.x.t === "wall"));
+  const near = (p) => { let best = null, bd = tol; for (const e of ends) { const d = cvLen(p, e.p); if (d < bd) { bd = d; best = e; } } return best; };
+  const a = near(pts[0]), b = near(pts[pts.length - 1]);
+  return { a, b };
+}
+/** Put the new straight stroke in; join it to the line it touches; a ring that closes becomes a shape (or a room). */
+function cvSmartStroke(rec) {
+  const plan = CV.d.plan, kind = plan ? "wall" : "pen";
+  let pts = rec.pts.map((p) => p.slice());
+  const { a, b } = cvGlue(pts, kind);
+  // glue an end, then keep the side next to it level/upright (its far end keeps its reach)
+  const level = (p, q) => { const ang = Math.atan2(q[1] - p[1], q[0] - p[0]), s4 = Math.round(ang / (Math.PI / 2)) * (Math.PI / 2); if (Math.abs(ang - s4) < 0.2) { if (Math.abs(Math.cos(s4)) > 0.5) q[1] = p[1]; else q[0] = p[0]; } };
+  if (a) { pts[0] = a.p.slice(); if (pts.length > 1) { const old = pts[1].slice(); level(pts[0], pts[1]); const dx = pts[1][0] - old[0], dy = pts[1][1] - old[1]; for (let i = 2; i < pts.length; i++) pts[i] = [pts[i][0] + dx, pts[i][1] + dy]; } }
+  if (b) { const n = pts.length; pts[n - 1] = b.p.slice(); if (n > 2 || !a) level(pts[n - 1], pts[n - 2]); }
+  cvPush();
+  const style = plan ? { th: 15 } : { c: CV.color, sw: CV.width, k: "sharp" };
+  let target = null;
+  const fits = (e) => e && (plan || (e.x.c === CV.color && (e.x.sw || 3) === CV.width));
+  if (fits(a)) { target = a.x; const tp = target.pts; target.pts = a.end === 1 ? [...tp, ...pts.slice(1)] : [...pts.slice().reverse(), ...tp.slice(1)]; }
+  if (fits(b) && (!target || b.x !== target)) {
+    const other = b.x, op = other.pts;
+    if (target) { const tp = target.pts, endAtB = cvLen(tp[tp.length - 1], b.p) < 0.5; const add = b.end === 0 ? op : op.slice().reverse(); target.pts = endAtB ? [...tp, ...add.slice(1)] : [...add, ...tp.slice(1)]; CV.d.items = CV.d.items.filter((q) => q !== other); }
+    else { target = other; other.pts = b.end === 0 ? [...pts, ...op.slice(1)] : [...op, ...pts.slice().reverse().slice(1)]; }
+  } else if (target && b && b.x === target) { target.pts.pop(); target.closed = true; }
+  if (!target) { target = { id: uid(), t: kind, pts, ...style }; CV.d.items.push(target); }
+  // a ring that closed by itself
+  const tp = target.pts;
+  if (!target.closed && tp.length > 3 && cvLen(tp[0], tp[tp.length - 1]) < 0.5) { tp.pop(); target.closed = true; }
+  CV.sel = null; cvSave(); cvDraw();
+  return target;
+}
+function cvSmartFinish(raw) {
+  const rec = cvSmartOn() ? cvRecognize(raw) : { kind: null };
+  if (!rec.kind) return cvAdd({ t: "pen", pts: raw, c: CV.color, sw: CV.width }, false);
+  const plan = CV.d.plan;
+  if (rec.kind === "line" || (rec.kind === "poly" && !rec.closed)) return cvSmartStroke(rec);
+  if (rec.kind === "poly" && rec.closed) { const pts = rec.pts.slice(0, -1); return plan ? cvAdd({ t: "wall", pts, closed: true, th: 15 }, false) : cvAdd({ t: "pen", pts, closed: true, k: "sharp", c: CV.color, sw: CV.width }, false); }
+  const bx = rec.box;
+  if (plan && (rec.kind === "rect" || rec.kind === "ellipse")) {
+    const big = rec.kind === "rect" && Math.min(bx.w, bx.h) >= 1.8 * CV_U;
+    if (big) { const x = bx.x, y = bx.y, W = Math.round(bx.w / 5) * 5, H = Math.round(bx.h / 5) * 5; return cvAdd({ t: "wall", closed: true, pts: [[x, y], [x + W, y], [x + W, y + H], [x, y + H]], th: 15 }, false); }
+    const sh = cvAdd({ t: rec.kind, x: bx.x, y: bx.y, w: bx.w, h: bx.h, c: "#6b6f7c", sw: 2 });
+    return cvAskWhat(sh);
+  }
+  const sh = cvAdd({ t: rec.kind === "rect" ? "rect" : "ellipse", x: bx.x, y: bx.y, w: bx.w, h: bx.h, c: CV.color, sw: CV.width });
+  if (rec.kind === "rect" && CV.d.grid) cvAskWhat(sh, true);
+  return sh;
+}
+/** "What is this?" — one tap turns a drawn box into a real piece of furniture, at the size it was drawn. */
+const CV_ROUND = ["rtable", "plant", "washer"];
+function cvAskWhat(sh, soft) {
+  const h = $("#cvHint"); if (!h) return;
+  const round = sh.t === "ellipse", list = round ? CV_ROUND : [...(sh.t === "furn" ? ["rtable", "plant"] : []), "bed", "bed1", "sofa", "table", "desk", "chair", "wardrobe", "kitchen", "fridge", "wc", "shower", "bath", "sink", "washer"];
+  h.classList.remove("hide");
+  h.innerHTML = `<span>${esc(T("cvWhat"))}</span>${list.map((k) => `<button type="button" class="fk" data-cvwhat="${k}" title="${esc(T("cvF_" + k))}"><svg viewBox="-28 -22 56 44" width="40" height="32">${cvFurnSym(k, 50, k === "bed" || k === "bed1" || k === "wc" ? 40 : 34)}</svg><small>${esc(T("cvF_" + k))}</small></button>`).join("")}<button type="button" data-cvwhat="">${esc(sh.t === "furn" ? T("cancel") : T("cvKeepShape"))}</button>`;
+  CV.what = sh.id;
+}
+function cvWhatPick(k) {
+  const sh = CV.what && cvById(CV.what); CV.what = null; cvHint("");
+  if (!sh || !k) return;
+  cvPush();
+  if (sh.t === "furn") { sh.k = k; CV.sel = sh.id; cvSave(); return cvDraw(); }
+  // drawn roughly to scale → keep the drawn size; a quick little sketch → the usual real size
+  const std = CV_FURN[k] || [1, 1], sw = std[0] * CV_U, shh = std[1] * CV_U, tall = sh.h > sh.w * 1.15 && std[0] > std[1] * 1.15;
+  const want = tall ? [shh, sw] : [sw, shh], ok = sh.w > want[0] * 0.55 && sh.w < want[0] * 1.8 && sh.h > want[1] * 0.55 && sh.h < want[1] * 1.8;
+  const f = { id: uid(), t: "furn", k, x: sh.x + sh.w / 2, y: sh.y + sh.h / 2, w: ok ? sh.w : sw, h: ok ? sh.h : shh, rot: tall && !ok ? 90 : 0 };
+  CV.d.items = CV.d.items.map((q) => (q.id === sh.id ? f : q)); CV.sel = f.id; cvSave(); cvDraw();
+}
+/** Plan symbols, drawn in the piece's own box (centre 0,0). */
+function cvFurnSym(k, w, h) {
+  const L = -w / 2, Tp = -h / 2, s = `fill="none" stroke="#6b6f7c" stroke-width="1.6"`, f = `fill="#f6f2ea" stroke="#6b6f7c" stroke-width="1.8"`, m = Math.min(w, h);
+  const R = (x, y, ww, hh, r = 3, a = s) => `<rect x="${x}" y="${y}" width="${Math.max(1, ww)}" height="${Math.max(1, hh)}" rx="${r}" ${a}/>`;
+  const C = (x, y, r, a = s) => `<circle cx="${x}" cy="${y}" r="${Math.max(1, r)}" ${a}/>`;
+  const E = (x, y, rx, ry, a = s) => `<ellipse cx="${x}" cy="${y}" rx="${Math.max(1, rx)}" ry="${Math.max(1, ry)}" ${a}/>`;
+  const Ln = (x1, y1, x2, y2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#6b6f7c" stroke-width="1.6"/>`;
+  switch (k) {
+    case "bed": case "bed1": { const p = m * 0.08, ph = h * 0.15, two = k === "bed"; return R(L, Tp, w, h, 4, f) + (two ? R(L + p, Tp + p, w / 2 - 1.5 * p, ph, 4) + R(p / 2, Tp + p, w / 2 - 1.5 * p, ph, 4) : R(L + p, Tp + p, w - 2 * p, ph, 4)) + Ln(L, Tp + h * 0.32, -L, Tp + h * 0.32) + `<path d="M${L} ${Tp + h * 0.32} L${L + w * 0.3} ${Tp + h * 0.45} L${-L} ${Tp + h * 0.32}" ${s}/>`; }
+    case "sofa": { const bk = h * 0.28, ar = Math.min(w * 0.14, h * 0.4); return R(L, Tp, w, h, 6, f) + R(L, Tp, w, bk, 4) + R(L, Tp + bk, ar, h - bk, 4) + R(-L - ar, Tp + bk, ar, h - bk, 4) + Ln(0, Tp + bk, 0, -Tp); }
+    case "table": { const cw = Math.min(w, h) * 0.22, iw = w - cw * 1.4, ih = h - cw * 1.4; let ch = ""; const n = Math.max(1, Math.round(iw / (cw * 2.2))); for (let i = 0; i < n; i++) { const cx = -iw / 2 + iw * (i + 0.5) / n; ch += R(cx - cw / 2, Tp, cw, cw * 0.65, 2) + R(cx - cw / 2, -Tp - cw * 0.65, cw, cw * 0.65, 2); } return ch + R(-iw / 2, -ih / 2, iw, ih, 4, f); }
+    case "rtable": { const r = m / 2; return C(0, 0, r * 0.62, f) + [0, 90, 180, 270].map((a) => C(Math.cos(a * Math.PI / 180) * r * 0.84, Math.sin(a * Math.PI / 180) * r * 0.84, r * 0.15)).join(""); }
+    case "desk": return R(L, Tp, w, h * 0.7, 3, f) + `<path d="M${-w * 0.14} ${-Tp - h * 0.05} a${w * 0.14} ${h * 0.25} 0 0 1 ${w * 0.28} 0" ${s}/>`;
+    case "chair": return R(L + w * 0.1, Tp + h * 0.2, w * 0.8, h * 0.75, 4, f) + R(L + w * 0.1, Tp, w * 0.8, h * 0.2, 3);
+    case "wardrobe": { let t = ""; for (let i = 1; i < 6; i++) t += Ln(L + w * i / 6, -h * 0.18, L + w * i / 6 + w * 0.04, h * 0.18); return R(L, Tp, w, h, 2, f) + Ln(L, 0, -L, 0) + t; }
+    case "kitchen": return R(L, Tp, w, h, 2, f) + R(L + w * 0.08, Tp + h * 0.18, w * 0.22, h * 0.64, 5) + [0, 1].map((i) => [0, 1].map((j) => C(w * 0.12 + i * w * 0.16, Tp + h * 0.3 + j * h * 0.4, m * 0.13)).join("")).join("");
+    case "fridge": return R(L, Tp, w, h, 3, f) + Ln(L, Tp + h * 0.2, -L, Tp + h * 0.2) + R(-L - w * 0.18, Tp + h * 0.3, w * 0.06, h * 0.3, 1);
+    case "wc": return R(L + w * 0.05, Tp, w * 0.9, h * 0.26, 3, f) + E(0, Tp + h * 0.62, w * 0.42, h * 0.36, f) + E(0, Tp + h * 0.64, w * 0.26, h * 0.24);
+    case "shower": return R(L, Tp, w, h, 2, f) + Ln(L, Tp, -L, -Tp) + Ln(-L, Tp, L, -Tp) + C(0, 0, m * 0.07, `fill="#6b6f7c"`);
+    case "bath": return R(L, Tp, w, h, 6, f) + R(L + m * 0.1, Tp + m * 0.1, w - m * 0.2, h - m * 0.2, m * 0.3) + C(L + w * 0.15, 0, m * 0.05, `fill="#6b6f7c"`);
+    case "sink": return R(L, Tp, w, h, 3, f) + E(0, h * 0.06, w * 0.32, h * 0.3) + C(0, Tp + h * 0.16, m * 0.05, `fill="#6b6f7c"`);
+    case "washer": return R(L, Tp, w, h, 4, f) + C(0, h * 0.06, m * 0.32) + C(0, h * 0.06, m * 0.2) + Ln(L + w * 0.12, Tp + h * 0.12, L + w * 0.32, Tp + h * 0.12);
+    case "plant": { const r = m / 2; return C(0, 0, r * 0.9, f) + [0, 60, 120, 180, 240, 300].map((a) => E(Math.cos(a * Math.PI / 180) * r * 0.45, Math.sin(a * Math.PI / 180) * r * 0.45, r * 0.32, r * 0.16, `fill="#cfe5cf" stroke="#6b8f6b" stroke-width="1.2" transform="rotate(${a} ${Math.cos(a * Math.PI / 180) * r * 0.45} ${Math.sin(a * Math.PI / 180) * r * 0.45})"`)).join(""); }
+  }
+  return R(L, Tp, w, h, 4, f);
 }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
