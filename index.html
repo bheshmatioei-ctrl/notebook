@@ -1193,6 +1193,13 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 @media (max-height:900px){.cvrail.sk small{display:none}.cvrail.sk button{min-height:38px;padding:4px}.cvrail.sk{gap:1px}}
 .cvvcb .lk{background:var(--hover);color:var(--ink);font-size:16px;padding:0 8px}
 .cvvcb .lk[aria-pressed="true"]{background:#c24bd6;color:#fff}
+.cvmode{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:13px;background:var(--hover);margin-inline-end:6px}
+.cvmode button{display:inline-flex;align-items:center;gap:5px;height:34px;padding:0 12px;border:0;border-radius:10px;background:none;color:var(--muted);font-size:14px;font-weight:600;white-space:nowrap}
+.cvmode button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.14)}
+.cvmode button[data-cvmode="cad"][aria-pressed="true"]{color:#2f5fc4}
+.cvmode button[data-cvmode="note"][aria-pressed="true"]{color:#a86a00}
+@media (max-width:620px){.cvmode .mmlab{display:none}.cvmode button{padding:0 9px}}
+.cvstyle .hw i{display:block;width:22px;border-radius:4px;background:#e8b400;opacity:.55}
 </style>
 
 <div class="app" id="app">
@@ -7753,6 +7760,9 @@ Object.assign(I18N.en, {"skLine": "Line", "skFree": "Freehand", "skArc": "Arc", 
 Object.assign(I18N.fa, {"skLasso": "کمند", "skRRect": "مستطیل چرخان", "skCArc": "کمان از مرکز", "skArc3": "کمان ۳ نقطه", "skPie": "قطاع", "skMirror": "قرینه", "skProto": "نقاله", "skAxes": "محورها", "skPan": "دست", "skLocked": "جهت قفل شد", "skUnlocked": "قفل جهت باز شد", "skLockT": "قفل جهت (کلیدهای جهت‌نما هم)", "skAxesSet": "محورها جابه‌جا شدند", "skI_par": "موازی", "skI_lock": "قفل", "skGuidesClear": "پاک کردن خط‌های راهنما", "skFlipR": "قرینه روی محور قرمز", "skFlipG": "قرینه روی محور سبز", "skH_lasso": "دور چیزهایی که می‌خواهید با قلم خط بکشید تا انتخاب شوند", "skH_rrect": "دو نقطهٔ یک ضلع را بزنید، بعد ارتفاع را", "skH_carc": "مرکز، بعد شروع کمان، بعد پایان آن", "skH_arc3": "شروع، یک نقطه روی کمان، بعد پایان", "skH_pie": "مرکز، بعد شروع، بعد پایان قطاع", "skH_mirror": "چیزی را انتخاب کنید، بعد دو نقطهٔ خط قرینه را بزنید؛ یا دکمه‌های پایین", "skH_proto": "مرکز را بزنید، بعد جهت مبنا، بعد زاویه؛ یک خط راهنما ساخته می‌شود", "skH_axes": "مبدأ را بزنید، بعد جهت محور قرمز را", "skH_pan": "صفحه را بکشید", "skH_group": "اول چند چیز را انتخاب کنید (با کمند یا کادر)، بعد «یکپارچه»", "skH_tape": "روی یک خط بزنید و بکشید تا خط راهنمای موازی در فاصلهٔ دلخواه ساخته شود؛ یا از نقطه‌ای تا نقطهٔ دیگر بکشید تا فاصله را بخوانید"});
 Object.assign(I18N.de, {"skLasso": "Lasso", "skRRect": "Gedrehtes Rechteck", "skCArc": "Mittelpunktbogen", "skArc3": "3-Punkt-Bogen", "skPie": "Kreissektor", "skMirror": "Spiegeln", "skProto": "Winkelmesser", "skAxes": "Achsen", "skPan": "Hand", "skLocked": "Richtung gesperrt", "skUnlocked": "Richtung frei", "skLockT": "Richtung sperren (auch Pfeiltasten)", "skAxesSet": "Achsen versetzt", "skI_par": "Parallel", "skI_lock": "Gesperrt", "skGuidesClear": "Hilfslinien löschen", "skFlipR": "An roter Achse spiegeln", "skFlipG": "An grüner Achse spiegeln", "skH_lasso": "Mit dem Stift um die Objekte fahren", "skH_rrect": "Zwei Punkte einer Seite, dann die Höhe", "skH_carc": "Mitte, dann Bogenanfang, dann Ende", "skH_arc3": "Anfang, Punkt auf dem Bogen, Ende", "skH_pie": "Mitte, Anfang, Ende", "skH_mirror": "Auswählen, dann zwei Punkte der Spiegelachse – oder die Tasten unten", "skH_proto": "Mitte, Bezugsrichtung, Winkel: es entsteht eine Hilfslinie", "skH_axes": "Ursprung tippen, dann Richtung der roten Achse", "skH_pan": "Seite ziehen", "skH_group": "Erst mehrere Objekte wählen (Lasso oder Rahmen), dann „Gruppieren“", "skH_tape": "Eine Kante antippen und ziehen: parallele Hilfslinie im gewünschten Abstand – oder von Punkt zu Punkt messen"});
 Object.assign(I18N.en, {"skLasso": "Lasso", "skRRect": "Rotated rectangle", "skCArc": "Centre arc", "skArc3": "3-point arc", "skPie": "Pie", "skMirror": "Flip", "skProto": "Protractor", "skAxes": "Axes", "skPan": "Pan", "skLocked": "Direction locked", "skUnlocked": "Direction unlocked", "skLockT": "Lock direction (arrow keys too)", "skAxesSet": "Axes moved", "skI_par": "Parallel", "skI_lock": "Locked", "skGuidesClear": "Clear guide lines", "skFlipR": "Flip on red axis", "skFlipG": "Flip on green axis", "skH_lasso": "Draw round the things to select them", "skH_rrect": "Two points of one side, then the height", "skH_carc": "Centre, then start, then end", "skH_arc3": "Start, a point on the arc, then end", "skH_pie": "Centre, start, end", "skH_mirror": "Select, then tap two points of the mirror line – or the buttons below", "skH_proto": "Centre, reference direction, angle: a guide line is made", "skH_axes": "Tap the origin, then the red axis direction", "skH_pan": "Drag the page", "skH_group": "First select several things (lasso or frame), then Group", "skH_tape": "Tap an edge and drag: a parallel guide line at any distance – or measure point to point"});
+Object.assign(I18N.fa, {"nmMode": "حالت کار", "nmCad": "نقشه", "nmNote": "یادداشت", "nmCadT": "حالت نقشه و طراحی: خط‌ها دقیق و میلی‌متری، نقطه‌ها خودشان پیدا می‌شوند", "nmNoteT": "حالت یادداشت: قلم آزاد مثل کاغذ", "nmCadOn": "📐 حالت نقشه: خط‌ها دقیق و میلی‌متری؛ سیستم خودش نقطه‌ها را پیدا می‌کند", "nmNoteOn": "📝 حالت یادداشت: قلم آزاد مثل کاغذ؛ چیزی نمی‌چسبد و اندازه نمی‌گیرد", "nmPen": "قلم", "nmHl": "ماژیک"});
+Object.assign(I18N.de, {"nmMode": "Arbeitsweise", "nmCad": "Plan", "nmNote": "Notiz", "nmCadT": "Plan & Entwurf: exakt in Millimetern, Punkte werden automatisch gefunden", "nmNoteT": "Notizen: freier Stift wie auf Papier", "nmCadOn": "📐 Plan-Modus: exakte Linien in mm, Punkte rasten selbst ein", "nmNoteOn": "📝 Notiz-Modus: freier Stift wie auf Papier, nichts rastet ein", "nmPen": "Stift", "nmHl": "Marker"});
+Object.assign(I18N.en, {"nmMode": "Mode", "nmCad": "Drafting", "nmNote": "Notes", "nmCadT": "Drafting & design: exact millimetres, the points find themselves", "nmNoteT": "Notes: a free pen like paper", "nmCadOn": "📐 Drafting: exact lines in mm; the system finds the points", "nmNoteOn": "📝 Notes: free pen like paper; nothing snaps or measures", "nmPen": "Pen", "nmHl": "Highlighter"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10745,7 +10755,7 @@ function cvNorm(d) {
   const v = d.view && isFinite(d.view.x) && isFinite(d.view.y) && isFinite(d.view.z) ? { x: d.view.x, y: d.view.y, z: d.view.z } : null;
   const meta = d.meta && typeof d.meta === "object" ? { addr: cvStr(d.meta.addr, 200), date: cvStr(d.meta.date, 40), people: cvStr(d.meta.people, 200) } : undefined;
   const ax = d.ax && typeof d.ax === "object" && isFinite(d.ax.x) && isFinite(d.ax.y) && isFinite(d.ax.a) ? { ax: { x: +d.ax.x, y: +d.ax.y, a: +d.ax.a } } : {};
-  return { v: 1, items, view: v, grid: d.grid !== false, plan: !!d.plan, ...ax, ...([10, 20, 25, 50, 100, 200, 500, 1000].includes(d.cell) ? { cell: d.cell } : {}), ...(d.survey ? { survey: true } : {}), ...(meta ? { meta } : {}) };
+  return { v: 1, items, view: v, grid: d.grid !== false, plan: !!d.plan, ...ax, ...([10, 20, 25, 50, 100, 200, 500, 1000].includes(d.cell) ? { cell: d.cell } : {}), ...(d.survey ? { survey: true } : {}), ...(meta ? { meta } : {}), ...(d.mode === "note" && !d.plan && !d.survey ? { mode: "note" } : {}) };
 }
 function cvText(d) { const m = d.meta || {}; return [m.addr, m.people, ...(d.items || []).filter((x) => x.s).map((x) => x.s)].filter(Boolean).join(" · "); }
 function cvById(id) { return CV && CV.d.items.find((x) => x.id === id); }
@@ -10838,7 +10848,7 @@ function cvItemSvg0(x, opt = {}) {
   const c = x.c || "#1d1d1f", id = opt.thumb ? "" : ` data-cv="${esc(x.id)}"`;
   switch (x.t) {
     case "pen": if (x.dims && x.k === "sharp") return `<g${id}>${cvItemSvg({ ...x, dims: null }, { ...opt, thumb: true })}${cvSvLabels(x, opt)}</g>`;
-      return `<path${id} d="${x.k === "sharp" ? "M" + (x.pts || []).map((p) => cvR(p[0], 10) + " " + cvR(p[1], 10)).join("L") + (x.closed ? "Z" : "") : cvPenPath(x.pts || [])}" fill="none" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" stroke-linejoin="round"${cvDashAttr(x)}/>`;
+      return `<path${id} d="${x.k === "sharp" ? "M" + (x.pts || []).map((p) => cvR(p[0], 10) + " " + cvR(p[1], 10)).join("L") + (x.closed ? "Z" : "") : cvPenPath(x.pts || [])}" fill="none" stroke="${c}" stroke-width="${x.sw || 3}" stroke-linecap="round" stroke-linejoin="round"${x.k === "hl" ? ' stroke-opacity=".42"' : cvDashAttr(x)}/>`;
     case "grid": return `<g${id}>${cvGridSvg(x, opt)}</g>`;
     case "hatch": return cvHatchSvg(x, id);
     case "guide": return cvGuideSvg(x, id, opt);
@@ -10901,7 +10911,7 @@ function newCanvas(opt) {
   if (S.readOnly) return;
   opt = opt && typeof opt === "object" && !(opt instanceof Event) ? opt : {};
   const folder = opt.folder != null ? opt.folder : S.view && !S.view.startsWith("__") ? S.view : "", now = new Date().toISOString();
-  const d = cvNew(); d.plan = !!opt.plan; if (!opt.plan && !opt.survey) d.cell = 50; // one small cell = 50 mm
+  const d = cvNew(); d.plan = !!opt.plan; if (!opt.plan && !opt.survey) { d.cell = 50; if (lsGet("babak-sa-cvlastmode", "cad") === "note") d.mode = "note"; } // one small cell = 50 mm
   if (opt.survey) { d.survey = true; d.grid = true; d.meta = { addr: "", date: new Date().toLocaleDateString(S.meta.settings.lang === "fa" ? "fa-IR" : S.meta.settings.lang === "de" ? "de-DE" : "en-GB"), people: "" }; }
   const n = normNote({ id: uid(), title: String(opt.title || "").trim() || T(opt.survey ? "svNew" : opt.plan ? "cvNewPlan" : "cvNew"), html: "", folder, cv: d, pageStyle: "blank", createdAt: now, updatedAt: now });
   S.notes.set(n.id, n); saveNote(n.id, 0); openNote(n.id);
@@ -10912,11 +10922,11 @@ function cvTools(plan) {
   if (cvSv()) return [["svpen", "✏️", "svPen"], ["grid", "▦", "svGrid"], ["svdoor", "🚪", "svDoor"], ["svwin", "🪟", "svWin"], ["erase", "⌫", "cvTErase"], ["hatch", "▨", "cvTHatch"], ["text", "T", "cvTText"], ["photo", "📷", "cvTPhoto"]];
   return plan
     ? [["sel", "➤", "cvTSel"], ["wall", "🧱", "cvTWall"], ["room", "⬚", "cvTRoom"], ["door", "🚪", "cvTDoor"], ["window", "🪟", "cvTWin"], ["sym", "🔌", "cvTSym"], ["furn", "🛋", "cvTFurn"], ["dim", "📏", "cvTDim"], ["photo", "📷", "cvTPhoto"], ["north", "🧭", "cvTNorth"], ["text", "T", "cvTText"], ["pen", "✏️", "cvTPen"], ["erase", "⌫", "cvTErase"]]
-    : CV_SKRAIL.map(([k, l]) => (k === "-" ? ["-"] : [k, CV_SKIC[k] || "", l]));
+    : (cvNoteMode() ? CV_NOTERAIL : CV_SKRAIL).map(([k, l]) => (k === "-" ? ["-"] : [k, (cvNoteMode() && k === "pen" ? CV_SKIC.npen : CV_SKIC[k]) || "", l]));
 }
 function renderCanvas(n) {
   const rtl = document.documentElement.dir === "rtl", d = cvNorm(n.cv) || cvNew(), ro = n.trashed || S.readOnly;
-  CV = { n, d, tool: "sel", sel: null, color: CV_COLS[0], width: +lsGet("babak-sa-cvwidth", 3) || 3, dash: lsGet("babak-sa-cvdash", "") || "", undo: [], redo: [], wall: null, link: null, ptr: new Map(), ro, edit: null };
+  CV = { n, d, tool: "sel", sel: null, color: CV_COLS[0], width: +lsGet("babak-sa-cvwidth", 3) || 3, dash: lsGet("babak-sa-cvdash", "") || "", hlc: CV_HL.includes(lsGet("babak-sa-cvhlc", "")) ? lsGet("babak-sa-cvhlc", "") : CV_HL[0], hlw: CV_HLW.includes(+lsGet("babak-sa-cvhlw", 0)) ? +lsGet("babak-sa-cvhlw", 0) : 18, undo: [], redo: [], wall: null, link: null, ptr: new Map(), ro, edit: null };
   $("#main").innerHTML = `
   <div class="bar" id="bar"><div class="bar-main mmbar">
     <div class="bz bz-start">
@@ -10925,7 +10935,7 @@ function renderCanvas(n) {
       <input id="titleIn" class="ttl" value="${esc(n.title)}" placeholder="${esc(T("cvNew"))}" maxlength="200" dir="auto">
     </div>
     <div class="bz bz-end">
-      <span class="sdot" id="status2"></span>
+      ${!d.plan && !d.survey ? cvModeBtns() : ""}<span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-cvb="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-cvb="redo" title="${esc(T("redo"))}">${ic("redo")}</button><button class="btn ghost" data-cvb="cell" title="${esc(T("skCell"))}"></button><button class="btn ghost hide" data-cvb="paste" title="${esc(T("cvPaste"))}">📋<span class="mmlab keep">${esc(T("cvPaste"))}</span></button>
       ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey || !d.plan ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
       <button class="btn icon ghost" data-cvb="grid" aria-pressed="${d.grid}" title="${esc(T("cvGrid"))}">#</button>
@@ -10933,7 +10943,7 @@ function renderCanvas(n) {
       <button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
-  <div class="cvstage ${d.plan ? "plan" : ""} ${d.survey ? "survey" : ""}" id="cvStage" tabindex="-1">${d.survey ? `<div class="cvhead" id="cvHead" data-cvb="head"></div>` : ""}<div class="cvpad hide" id="cvPad"></div>
+  <div class="cvstage ${d.plan ? "plan" : ""} ${d.survey ? "survey" : ""} ${d.mode === "note" && !d.plan && !d.survey ? "note" : ""}" id="cvStage" tabindex="-1">${d.survey ? `<div class="cvhead" id="cvHead" data-cvb="head"></div>` : ""}<div class="cvpad hide" id="cvPad"></div>
     <svg class="cvsvg" id="cvSvg">${CV_DEFS}<defs><pattern id="cvG1" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="var(--cvgrid)" stroke-width=".6"/></pattern><pattern id="cvG2" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#cvG1)"/><path d="M100 0H0V100" fill="none" stroke="var(--cvgrid2)" stroke-width="1.2"/></pattern></defs>
       <g id="cvW"><rect id="cvGrid" fill="url(#cvG2)"/><g id="cvItems"></g><g id="cvLive"></g><g id="cvSelG"></g></g></svg>
     <div class="cvrail" id="cvRail"></div>
@@ -10944,7 +10954,7 @@ function renderCanvas(n) {
   </div>`;
   renderStatus();
   $("#titleIn").addEventListener("input", (e) => { n.title = e.target.value; touch(n); saveNote(n.id, 800); });
-  if (d.survey) CV.tool = "svpen";
+  if (d.survey) CV.tool = "svpen"; else if (cvNoteMode()) CV.tool = "pen";
   setTimeout(() => { cvClipBtn(); cvCellChip(); }, 0);
   cvSize(); cvRail(); cvBind(); cvDraw(); cvLoadImgs(d); cvSvHead();
   if (d.survey && !ro) { const k = "babak-sa-svhint", c = +(lsGet(k, 0) || 0); if (c < 5) { lsSet(k, c + 1); cvHint(T("svHintPen")); clearTimeout(cvSetTool.h); cvSetTool.h = setTimeout(() => cvHint(""), 6000); } }
@@ -10957,8 +10967,10 @@ function cvRail() {
   r.classList.toggle("sk", !CV.d.plan && !CV.d.survey);
   r.innerHTML = cvTools(CV.d.plan).map(([k, i, l]) => k === "-" ? `<span class="rsep"></span>` : `<button type="button" data-cvt="${k}" aria-pressed="${CV.tool === k}" title="${esc(T(l))}"><span>${i}</span><small>${esc(T(l))}</small></button>`).join("");
   const s = $("#cvStyle");
+  if (CV.tool === "hl") { s.classList.remove("hide"); s.innerHTML = CV_HL.map((c) => `<button type="button" class="sw" data-cvhc="${c}" style="background:${c}" aria-pressed="${CV.hlc === c}" aria-label="${c}"></button>`).join("") + `<span class="sep"></span>` + CV_HLW.map((w) => `<button type="button" class="wd hw" data-cvhw="${w}" aria-pressed="${CV.hlw === w}"><i style="height:${Math.round(w / 2.2)}px"></i></button>`).join(""); return; }
   const showStyle = ["pen", "svpen", "line", "arc", "srect", "circle", "poly", "rrect", "carc", "arc3", "pie", "text", "note", "idea", "rect", "ellipse", "arrow", "link", "erase", "hatch"].includes(CV.tool);
   s.classList.toggle("hide", !showStyle);
+  if (CV.tool === "erase" && cvNoteMode()) { s.classList.add("hide"); return; }
   if (CV.tool === "erase") { const em = cvEMode(); s.innerHTML = `<button type="button" class="smart" data-cvem="piece" aria-pressed="${em === "piece"}" title="${esc(T("cvEPieceT"))}">✂︎ ${esc(T("cvEPiece"))}</button><button type="button" class="smart" data-cvem="whole" aria-pressed="${em === "whole"}">⌫ ${esc(T("cvEWhole"))}</button>`; return; }
   if (CV.tool === "mirror") { const cp = !!lsGet("babak-sa-skcopy", false); s.classList.remove("hide"); s.innerHTML = `<button type="button" class="smart" data-flip="v">⇋ ${esc(T("skFlipR"))}</button><button type="button" class="smart" data-flip="h">⇵ ${esc(T("skFlipG"))}</button><span class="sep"></span><button type="button" class="smart" data-skcopy aria-pressed="${cp}">⧉ ${esc(T("skCopy"))}</button>`; return; }
   if (CV.tool === "tape" || CV.tool === "proto") { const n = CV.d.items.filter((x) => x.t === "guide").length; s.classList.toggle("hide", !n); s.innerHTML = n ? `<button type="button" class="smart" data-guidesclear>🧹 ${esc(T("skGuidesClear"))} (${num(n)})</button>` : ""; return; }
@@ -10967,12 +10979,12 @@ function cvRail() {
   if (["tape", "sdim", "scale", "offset", "lasso", "axes", "pan"].includes(CV.tool)) { s.classList.add("hide"); return; }
   if (CV.tool === "hatch") { const hp = lsGet("babak-sa-cvhpat", "diag"); s.innerHTML = CV_COLS.map((c) => `<button type="button" class="sw" data-cvc="${c}" style="background:${c}" aria-pressed="${CV.color === c}" aria-label="${c}"></button>`).join("") + `<span class="sep"></span>` + CV_HPATS.map(([k, l]) => `<button type="button" class="dsh" data-cvhp="${k}" aria-pressed="${hp === k}">${l}</button>`).join(""); return; }
   if (showStyle) s.innerHTML = (CV.tool === "note" ? CV_NOTE : CV_COLS).map((c) => `<button type="button" class="sw" data-cvc="${c}" style="background:${c}" aria-pressed="${CV.color === c}" aria-label="${c}"></button>`).join("")
-    + (CV.tool === "pen" ? `<span class="sep"></span><button type="button" class="smart" data-cvsmart aria-pressed="${cvSmartOn()}" title="${esc(T("cvSmartT"))}">✨ ${esc(T("cvSmart"))}</button>` : "")
+    + (CV.tool === "pen" && !cvNoteMode() ? `<span class="sep"></span><button type="button" class="smart" data-cvsmart aria-pressed="${cvSmartOn()}" title="${esc(T("cvSmartT"))}">✨ ${esc(T("cvSmart"))}</button>` : "")
     + (CV.tool === "poly" ? `<span class="sep"></span>` + [3, 4, 5, 6, 8, 12].map((k) => `<button type="button" class="dsh" data-sides="${k}" aria-pressed="${(+lsGet("babak-sa-cvsides", 6) || 6) === k}" title="${esc(T("skSides"))}">${num(k)}</button>`).join("") : "")
-    + (["pen", "svpen", "rect", "ellipse", "arrow", "line", "arc", "srect", "circle", "poly", "rrect", "carc", "arc3", "pie"].includes(CV.tool) ? `<span class="sep"></span>${[1, 2, 3, 5, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${Math.max(1, w)}px"></i></button>`).join("")}<label class="wr" title="${esc(T("cvWidth"))}"><input type="range" min="0.5" max="14" step="0.5" value="${CV.width}" data-cvwr><b dir="ltr">${num(CV.width)}</b></label><span class="sep"></span>${CV_DASHES.map(([k, l]) => `<button type="button" class="dsh" data-cvdash="${k}" aria-pressed="${(CV.dash || "") === k}" title="${esc(T("cvLineType"))}">${l}</button>`).join("")}` : "");
+    + (["pen", "svpen", "rect", "ellipse", "arrow", "line", "arc", "srect", "circle", "poly", "rrect", "carc", "arc3", "pie"].includes(CV.tool) ? `<span class="sep"></span>${[1, 2, 3, 5, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${Math.max(1, w)}px"></i></button>`).join("")}<label class="wr" title="${esc(T("cvWidth"))}"><input type="range" min="0.5" max="14" step="0.5" value="${CV.width}" data-cvwr><b dir="ltr">${num(CV.width)}</b></label>${cvNoteMode() ? "" : `<span class="sep"></span>`}${(cvNoteMode() ? [] : CV_DASHES).map(([k, l]) => `<button type="button" class="dsh" data-cvdash="${k}" aria-pressed="${(CV.dash || "") === k}" title="${esc(T("cvLineType"))}">${l}</button>`).join("")}` : "");
 }
 function cvHint(t) { const h = $("#cvHint"); if (!h) return; h.textContent = t || ""; h.classList.toggle("hide", !t); }
-function cvApplyView() { const v = CV.view, g = $("#cvW"); if (!g) return; g.setAttribute("transform", `translate(${v.x} ${v.y}) scale(${v.z})`); const st = $("#cvStage"), gr = $("#cvGrid"); const W = st.clientWidth, H = st.clientHeight, x0 = -v.x / v.z, y0 = -v.y / v.z; gr.setAttribute("x", Math.floor(x0 / 100) * 100 - 100); gr.setAttribute("y", Math.floor(y0 / 100) * 100 - 100); gr.setAttribute("width", W / v.z + 300); gr.setAttribute("height", H / v.z + 300); gr.style.display = CV.d.grid ? "" : "none"; $("#cvZ").textContent = num(Math.round(v.z * 100)) + "%"; cvPlaceTb(); }
+function cvApplyView() { const v = CV.view, g = $("#cvW"); if (!g || !v) return; g.setAttribute("transform", `translate(${v.x} ${v.y}) scale(${v.z})`); const st = $("#cvStage"), gr = $("#cvGrid"); const W = st.clientWidth, H = st.clientHeight, x0 = -v.x / v.z, y0 = -v.y / v.z; gr.setAttribute("x", Math.floor(x0 / 100) * 100 - 100); gr.setAttribute("y", Math.floor(y0 / 100) * 100 - 100); gr.setAttribute("width", W / v.z + 300); gr.setAttribute("height", H / v.z + 300); gr.style.display = CV.d.grid ? "" : "none"; $("#cvZ").textContent = num(Math.round(v.z * 100)) + "%"; cvPlaceTb(); }
 function cvSetView(x, y, z, quiet) {
   const z0 = CV.view && CV.view.z;
   CV.view = { x, y, z: Math.min(8, Math.max(0.03, z)) }; CV.d.view = CV.view; cvApplyView();
@@ -10992,7 +11004,7 @@ function cvFit() {
 function cvZoomAt(sx, sy, k) { const v = CV.view, z = Math.min(8, Math.max(0.03, v.z * k)); cvSetView(sx - (sx - v.x) * (z / v.z), sy - (sy - v.y) * (z / v.z), z); }
 function cvDraw() {
   const g = $("#cvItems"); if (!g || !CV) return;
-  g.innerHTML = cvAxesSvg() + CV.d.items.map((x) => cvItemSvg(x)).join("");
+  g.innerHTML = (cvNoteMode() ? "" : cvAxesSvg()) + CV.d.items.map((x) => cvItemSvg(x)).join("");
   cvDrawSel();
 }
 function cvDrawSel() {
@@ -11166,6 +11178,8 @@ function cvBind() {
     const pk = e.target.closest("[data-pk]"); if (pk) return cvSvKey(pk.dataset.pk);
     const t = e.target.closest("[data-cvt]"); if (t) { cvSetTool(t.dataset.cvt); return; }
     const c = e.target.closest("[data-cvc]"); if (c) { CV.color = c.dataset.cvc; return cvRail(); }
+    const hc = e.target.closest("[data-cvhc]"); if (hc) { CV.hlc = hc.dataset.cvhc; lsSet("babak-sa-cvhlc", CV.hlc); return cvRail(); }
+    const hw = e.target.closest("[data-cvhw]"); if (hw) { CV.hlw = +hw.dataset.cvhw; lsSet("babak-sa-cvhlw", CV.hlw); return cvRail(); }
     const w = e.target.closest("[data-cvw]"); if (w) { CV.width = +w.dataset.cvw; lsSet("babak-sa-cvwidth", CV.width); return cvRail(); }
     const dsh = e.target.closest("[data-cvdash]"); if (dsh) { CV.dash = dsh.dataset.cvdash || ""; lsSet("babak-sa-cvdash", CV.dash); return cvRail(); }
     const em = e.target.closest("[data-cvem]"); if (em) { lsSet("babak-sa-cvemode", em.dataset.cvem); return cvRail(); }
@@ -11186,7 +11200,7 @@ function cvBind() {
     const wh = e.target.closest("[data-cvwhat]"); if (wh) return cvWhatPick(wh.dataset.cvwhat);
     if (e.target.closest("[data-cvsmart]")) { lsSet("babak-sa-cvsmart", !cvSmartOn()); cvRail(); return toast(cvSmartOn() ? T("cvSmartOnMsg") : T("cvSmartOffMsg")); }
   });
-  $("#bar").addEventListener("click", (e) => { const b = e.target.closest("[data-cvb]"); if (b) cvBtn(b.dataset.cvb); });
+  $("#bar").addEventListener("click", (e) => { const md = e.target.closest("[data-cvmode]"); if (md) return cvSetMode(md.dataset.cvmode); const b = e.target.closest("[data-cvb]"); if (b) cvBtn(b.dataset.cvb); });
   st.addEventListener("wheel", (e) => {
     if (!e.target.closest("#cvSvg")) return; e.preventDefault();
     const r = st.getBoundingClientRect();
@@ -11204,7 +11218,7 @@ function cvBind() {
     if (CV.sk && /^[\d.]$/.test(e.key) && !e.metaKey && !e.ctrlKey) { e.preventDefault(); return cvVcbOpen(e.key); }
     if (CV.sk && e.key === "Escape") { e.preventDefault(); return cvSkEnd(true); }
     if (CV.sk && /^Arrow/.test(e.key)) { e.preventDefault(); const A = cvAxA(); return cvLockSet(e.key === "ArrowLeft" || e.key === "ArrowRight" ? [Math.cos(A), Math.sin(A)] : [-Math.sin(A), Math.cos(A)]); }
-    if (!e.metaKey && !e.ctrlKey && !e.altKey && !CV.d.plan && !CV.d.survey && !CV.ro) { const map = { " ": "sel", l: "line", a: "arc", r: "srect", c: "circle", m: "move", q: "rotate", s: "scale", f: "offset", t: "tape", d: "sdim", b: "bucket", e: "erase", p: "pen", h: "pan", g: "group" }, tk = map[e.key.toLowerCase()]; if (tk) { e.preventDefault(); return cvSetTool(tk); } }
+    if (!e.metaKey && !e.ctrlKey && !e.altKey && !CV.d.plan && !CV.d.survey && !CV.ro && !cvNoteMode()) { const map = { " ": "sel", l: "line", a: "arc", r: "srect", c: "circle", m: "move", q: "rotate", s: "scale", f: "offset", t: "tape", d: "sdim", b: "bucket", e: "erase", p: "pen", h: "pan", g: "group" }, tk = map[e.key.toLowerCase()]; if (tk) { e.preventDefault(); return cvSetTool(tk); } }
     if ((e.key === "Delete" || e.key === "Backspace") && CV.ms && CV.ms.length > 1) { e.preventDefault(); cvMultiAct("del"); }
     else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "c" && cvIds().length) { e.preventDefault(); cvCopy(); }
     else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "v") { e.preventDefault(); cvPaste(); }
@@ -11224,7 +11238,7 @@ function cvSetTool(k) {
   if (k === "img") return cvPickImage();
   if (CV.sk) cvSkEnd(); else if ($("#cvLive")) $("#cvLive").innerHTML = "";
   CV.tool = k; CV.link = null; CV.op = null; if (!["move", "rotate", "scale", "mirror"].includes(k)) CV.ms = null; if (CV.gap) cvGapOffer(null); if (k !== "sel" && !["move", "rotate", "scale", "mirror"].includes(k)) { CV.sel = null; cvDrawSel(); } else cvDrawSel(); // the selection stays for the tools that work on it
-  if (k === "note") CV.color = CV_NOTE[0]; else if (!CV_COLS.includes(CV.color)) CV.color = CV_COLS[0];
+  if (k === "note") CV.color = CV_NOTE[0]; else if (k === "hl") {} else if (!CV_COLS.includes(CV.color)) CV.color = CV_COLS[0];
   cvRail(); $("#cvStage").dataset.tool = k;
   cvHint({ wall: T("cvHintWall"), room: T("cvHintRoom"), link: T("cvHintLink"), dim: T("cvHintDim"), door: T("cvHintPlace"), window: T("cvHintPlace"), furn: T("cvHintPlace"), erase: T(cvEMode() === "piece" ? "cvHintTrim" : "cvHintErase"), svpen: T("svHintPen"), grid: T("svHintGrid"), hatch: T("cvHintHatch") }[k] || (CV_SK.includes(k) ? T("skH_" + k) : ""));
   if (CV_SK.includes(k)) { clearTimeout(cvSetTool.h); cvSetTool.h = setTimeout(() => cvHint(""), 6500); }
@@ -11303,6 +11317,7 @@ function cvDown(e) {
     if (e.pointerType === "touch") { CV.g = { kind: "tap", p, sx: e.clientX, sy: e.clientY, tool: "noop" }; return; } // a finger moves the page
     CV.g = { kind: "marq", a: p, b: p }; return; // the pen frames several things
   }
+  if ((tool === "pen" || tool === "hl") && cvNoteMode()) { CV.g = { kind: "draw", pts: [p], note: true, hl: tool === "hl" }; return; }
   if (tool === "pen") { const inf = cvPenSnap(p, e); CV.g = { kind: "draw", pts: [inf && !cvSmartOn() ? inf.p : p], snap0: inf }; return; } // with ✨ the straightened line is glued to the green point
   if (tool === "erase") { CV.g = { kind: "erase", pushed: false }; cvEraseAt(p, tol); return; }
   if (["rect", "ellipse", "arrow", "dim"].includes(tool)) { CV.g = { kind: "shape", t: tool, a: cvSnap(p), b: cvSnap(p) }; return; }
@@ -11314,7 +11329,7 @@ function cvMove(e) {
   const rec = CV.ptr.get(e.pointerId); if (rec) { rec.x = e.clientX; rec.y = e.clientY; }
   const g = CV.g; const p = CV.view ? cvWorld(e) : [0, 0];
   if (CV.wall && (!g || g.kind === "walltap")) cvWallPreview(cvAngleSnap(CV.wall.pts[CV.wall.pts.length - 1], cvSnap(p)));
-  if (!g) { if (cvSkTool(CV.tool) && e.pointerType !== "touch" && !CV.ro) cvSkHover(e, p); else if (CV.tool === "pen" && e.pointerType !== "touch" && !CV.ro) { const inf = cvPenSnap(p, e); $("#cvLive").innerHTML = inf ? cvInfSvg(inf) : ""; } return; }
+  if (!g) { if (cvSkTool(CV.tool) && e.pointerType !== "touch" && !CV.ro) cvSkHover(e, p); else if (CV.tool === "pen" && !cvNoteMode() && e.pointerType !== "touch" && !CV.ro) { const inf = cvPenSnap(p, e); $("#cvLive").innerHTML = inf ? cvInfSvg(inf) : ""; } return; }
   if ((g.kind === "tap" || g.kind === "walltap") && !g.act && Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) { CV.g = { kind: "pan", sx: g.sx, sy: g.sy, v: { ...CV.view }, moved: true }; return cvMove(e); }
   if (g.kind === "pinch" && CV.ptr.size >= 2) {
     const [a, b] = [...CV.ptr.values()], d = Math.hypot(a.x - b.x, a.y - b.y), m = [(a.x + b.x) / 2, (a.y + b.y) / 2], r = $("#cvStage").getBoundingClientRect();
@@ -11328,8 +11343,8 @@ function cvMove(e) {
   if (g.kind === "opdrag") return cvWgOpDrag(g, p);
   if (g.kind === "pan") { if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 4) g.moved = true; if (g.moved) cvSetView(g.v.x + e.clientX - g.sx, g.v.y + e.clientY - g.sy, g.v.z); return; }
   if (g.kind === "draw") { const l = g.pts[g.pts.length - 1]; if (cvLen(l, p) * CV.view.z > 1.5) g.pts.push([cvR(p[0], 10), cvR(p[1], 10)]);
-    const ie = !g.sv && cvPenSnap(p, e); g.snap1 = ie;
-    $("#cvLive").innerHTML = `<path d="${cvPenPath(g.pts)}" fill="none" stroke="${CV.color}" stroke-width="${CV.width}" stroke-linecap="round" stroke-linejoin="round"/>` + (g.snap0 ? cvInfSvg(g.snap0) : "") + (ie ? cvInfSvg(ie) : ""); return; }
+    const ie = !g.sv && !g.note && cvPenSnap(p, e); g.snap1 = ie;
+    $("#cvLive").innerHTML = `<path d="${cvPenPath(g.pts)}" fill="none" stroke="${g.hl ? CV.hlc : CV.color}" stroke-width="${g.hl ? CV.hlw : CV.width}" stroke-linecap="round" stroke-linejoin="round"${g.hl ? ' stroke-opacity=".42"' : ""}/>` + (g.snap0 ? cvInfSvg(g.snap0) : "") + (ie ? cvInfSvg(ie) : ""); return; }
   if (g.kind === "erase") return cvEraseAt(p, (e.pointerType === "touch" ? 16 : 7) / CV.view.z);
   if (g.kind === "shape") { g.b = cvSnap(p); const x = cvShapeOf(g); $("#cvLive").innerHTML = cvItemSvg(x, { thumb: false }).replace(/ data-cv="[^"]*"/, ""); return; }
   if (g.kind === "move") {
@@ -11358,6 +11373,7 @@ function cvUp(e) {
   CV.g = null;
   const p = CV.view ? cvWorld(e) : [0, 0];
   if (g.kind === "pan") { if (!g.moved && CV.tool === "sel" && CV.sel) { CV.sel = null; cvDrawSel(); } if (g.moved && !cvSv() && CV_FINGERLESS.includes(CV.tool) && e.pointerType === "touch") cvSvFingerTip(); if (g.moved && cvSv() && CV.tool === "svpen" && e.pointerType === "touch") cvSvFingerTip(); return; }
+  if (g.kind === "draw" && g.note) { $("#cvLive").innerHTML = ""; if (g.pts.length) cvAdd(g.hl ? { t: "pen", k: "hl", pts: g.pts, c: CV.hlc, sw: CV.hlw } : { t: "pen", pts: g.pts, c: CV.color, sw: CV.width, ...(CV.dash ? {} : {}) }, false); return; }
   if (g.kind === "draw") { $("#cvLive").innerHTML = ""; if (g.snap1 && g.pts.length > 1 && !cvSmartOn()) g.pts[g.pts.length - 1] = g.snap1.p.slice(); if (g.pts.length) (g.sv ? cvSvStroke(g.pts) : cvSmartFinish(g.pts)); return; }
   if (g.kind === "shape") { $("#cvLive").innerHTML = ""; const x = cvShapeOf(g); if (cvBox(x).w + cvBox(x).h > 12 || x.t === "dim" && cvLen([x.x1, x.y1], [x.x2, x.y2]) > 10) { cvAdd(x); } return; }
   if (g.kind === "move") { if (g.pushed) { const x = cvById(g.id); if (x && cvToWall(x)) cvDraw(); cvSave(); } else if (g.again) { const x = cvById(g.id); if (x && ["text", "note", "idea"].includes(x.t)) cvEditText(x); } cvDrawSel(); return; }
@@ -12309,7 +12325,7 @@ function cvDashAttr(x) { // drawn with square ends, so the dots don't need round
   if (x.dash === "dd") return ` stroke-dasharray="${cvR(w * 7, 100)} ${cvR(w * 2.5, 100)} ${cvR(w, 100)} ${cvR(w * 2.5, 100)}"`;
   return "";
 }
-const cvEMode = () => lsGet("babak-sa-cvemode", "piece");
+const cvEMode = () => (cvNoteMode() ? "whole" : lsGet("babak-sa-cvemode", "piece"));
 
 /* ---- geometry of lines for trimming and hatching ---- */
 /** Any drawn thing as one or more polylines: [{pts, closed}] — pens, lines, rectangles, ellipses, walls. */
@@ -12730,7 +12746,7 @@ async function cvCellPick() {
     actions: [{ label: T("close"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-cell]"); if (b) close(+b.dataset.cell); }) });
   if (!v) return; CV.d.cell = v; cvSave(); cvDraw(); cvDrawSel(); cvCellChip();
 }
-function cvCellChip() { const b = $("[data-cvb=cell]"); if (b && CV) { b.classList.toggle("hide", !!(CV.d.survey || CV.d.plan)); b.innerHTML = `▦ <span dir="ltr">${num(CV.d.cell || 200)} mm</span>`; } }
+function cvCellChip() { const b = $("[data-cvb=cell]"); if (b && CV) { b.classList.toggle("hide", !!(CV.d.survey || CV.d.plan || cvNoteMode())); b.innerHTML = `▦ <span dir="ltr">${num(CV.d.cell || 200)} mm</span>`; } }
 const CV_SK = ["line", "arc", "srect", "circle", "poly", "move", "rotate", "scale", "offset", "tape", "sdim", "bucket"];
 const cvSkTool = (t) => CV_SK.includes(t) && CV && CV.d && !CV.d.survey && !CV.d.plan;
 const cvSkMM = (u) => cvMM(Math.abs(u) / cvK());
@@ -13090,10 +13106,10 @@ function cvBucket(p) {
 }
 
 /* drawing tools a finger never uses (a finger moves and zooms the page) */
-const CV_FINGERLESS = ["pen", "erase", "hatch", "lasso", "rrect", "carc", "arc3", "pie", "mirror", "proto", "axes", "line", "arc", "srect", "circle", "poly", "move", "rotate", "scale", "offset", "tape", "sdim", "rect", "ellipse", "arrow", "link", "wall", "dim"];
+const CV_FINGERLESS = ["pen", "hl", "erase", "hatch", "lasso", "rrect", "carc", "arc3", "pie", "mirror", "proto", "axes", "line", "arc", "srect", "circle", "poly", "move", "rotate", "scale", "offset", "tape", "sdim", "rect", "ellipse", "arrow", "link", "wall", "dim"];
 /** The pen's magnet: endpoints and corners (green), crossings, within a generous reach. */
 function cvPenSnap(p, e) {
-  if (!CV || CV.d.survey) return null;
+  if (!CV || CV.d.survey || cvNoteMode()) return null;
   const inf = cvInfer(p, { touch: e && e.pointerType === "touch" });
   return inf && (inf.kind === "end" || inf.kind === "int" || inf.kind === "grid") ? inf : null;
 }
@@ -13281,6 +13297,33 @@ function cvFlipQuick(axis) {
   cvPush(); const copy = lsGet("babak-sa-skcopy", false), x0s = ids.map((id) => JSON.parse(JSON.stringify(cvById(id)))), a = c, bb = [c[0] + d[0] * 100, c[1] + d[1] * 100];
   let out = ids; if (copy) out = cvSkClones({ x0s }, (q) => cvRefl(q, a, bb), 1); else for (const o of x0s) cvSkApply(o, (q) => cvRefl(q, a, bb));
   cvSave(); cvDraw(); cvSelect(out);
+}
+
+/* ---- two ways of working on a free canvas: 📐 drafting (exact, millimetres, points found by themselves)
+   and 📝 notes (a pen like paper: free ink, highlighter, stickies — nothing snaps, nothing is measured) ---- */
+function cvNoteMode() { return !!(CV && CV.d && !CV.d.plan && !CV.d.survey && CV.d.mode === "note"); }
+const CV_HL = ["#ffd84d", "#8fe39a", "#ff9ccb", "#86c8ff", "#ffb35c"];
+const CV_HLW = [8, 12, 18, 26];
+CV_SKIC.hl = ski(`<path d="M14.5 3.5l6 6-8.5 8.5H8v-4z"/><path d="M8 14l4 4"/><path d="M3 21h10" stroke="#e8b400" stroke-width="3.2"/>`);
+CV_SKIC.npen = ski(`<path d="M4 20l1.2-4.4L16 4.8a2.2 2.2 0 0 1 3.1 3.1L8.4 18.8z"/><path d="M14.5 6.3l3.2 3.2"/>`);
+const CV_NOTERAIL = [["sel", "cvTSel"], ["lasso", "skLasso"], ["-"],
+  ["pen", "nmPen"], ["hl", "nmHl"], ["erase", "cvTErase"], ["text", "cvTText"], ["-"],
+  ["note", "cvTNote"], ["idea", "cvTIdea"], ["img", "cvTImg"], ["link", "cvTLink"], ["arrow", "cvTArrow"], ["pan", "skPan"]];
+function cvModeBtns() {
+  const m = CV.d.mode === "note" ? "note" : "cad";
+  return `<span class="cvmode" role="group" aria-label="${esc(T("nmMode"))}"><button type="button" data-cvmode="cad" aria-pressed="${m === "cad"}" title="${esc(T("nmCadT"))}">📐<span class="mmlab keep">${esc(T("nmCad"))}</span></button><button type="button" data-cvmode="note" aria-pressed="${m === "note"}" title="${esc(T("nmNoteT"))}">📝<span class="mmlab keep">${esc(T("nmNote"))}</span></button></span>`;
+}
+function cvSetMode(m) {
+  if (!CV || CV.d.plan || CV.d.survey) return;
+  m = m === "note" ? "note" : "cad"; lsSet("babak-sa-cvlastmode", m);
+  if ((CV.d.mode === "note" ? "note" : "cad") === m) return;
+  if (m === "note") CV.d.mode = "note"; else delete CV.d.mode;
+  cvSave();
+  $$("[data-cvmode]").forEach((b) => b.setAttribute("aria-pressed", b.dataset.cvmode === m));
+  const st = $("#cvStage"); if (st) st.classList.toggle("note", m === "note");
+  CV.sel = null; CV.ms = null;
+  cvSetTool(m === "note" ? "pen" : "line"); cvCellChip(); cvDraw();
+  toast(T(m === "note" ? "nmNoteOn" : "nmCadOn"));
 }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
