@@ -1200,6 +1200,13 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 .cvmode button[data-cvmode="note"][aria-pressed="true"]{color:#a86a00}
 @media (max-width:620px){.cvmode .mmlab{display:none}.cvmode button{padding:0 9px}}
 .cvstyle .hw i{display:block;width:22px;border-radius:4px;background:#e8b400;opacity:.55}
+.cvio{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.cviosync{margin-top:10px;font-size:13px;opacity:.8}
+.cvpdf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cvpdf label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.cvpdf select{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:15px;padding:0 8px}
+.cvpgs{display:flex;flex-wrap:wrap;gap:6px}
+.cvpgs .btn{min-width:56px}
 </style>
 
 <div class="app" id="app">
@@ -4887,6 +4894,7 @@ async function importFile(file) {
   return importData(data);
 }
 async function importData(data, confirmed = false) {
+  if (data && data.kind === "babak-canvas") return cvRestore(data);
   const incoming = [];
   const fromOriginal = (o) => {
     const content = String(o.content || "");
@@ -7763,6 +7771,9 @@ Object.assign(I18N.en, {"skLasso": "Lasso", "skRRect": "Rotated rectangle", "skC
 Object.assign(I18N.fa, {"nmMode": "حالت کار", "nmCad": "نقشه", "nmNote": "یادداشت", "nmCadT": "حالت نقشه و طراحی: خط‌ها دقیق و میلی‌متری، نقطه‌ها خودشان پیدا می‌شوند", "nmNoteT": "حالت یادداشت: قلم آزاد مثل کاغذ", "nmCadOn": "📐 حالت نقشه: خط‌ها دقیق و میلی‌متری؛ سیستم خودش نقطه‌ها را پیدا می‌کند", "nmNoteOn": "📝 حالت یادداشت: قلم آزاد مثل کاغذ؛ چیزی نمی‌چسبد و اندازه نمی‌گیرد", "nmPen": "قلم", "nmHl": "ماژیک"});
 Object.assign(I18N.de, {"nmMode": "Arbeitsweise", "nmCad": "Plan", "nmNote": "Notiz", "nmCadT": "Plan & Entwurf: exakt in Millimetern, Punkte werden automatisch gefunden", "nmNoteT": "Notizen: freier Stift wie auf Papier", "nmCadOn": "📐 Plan-Modus: exakte Linien in mm, Punkte rasten selbst ein", "nmNoteOn": "📝 Notiz-Modus: freier Stift wie auf Papier, nichts rastet ein", "nmPen": "Stift", "nmHl": "Marker"});
 Object.assign(I18N.en, {"nmMode": "Mode", "nmCad": "Drafting", "nmNote": "Notes", "nmCadT": "Drafting & design: exact millimetres, the points find themselves", "nmNoteT": "Notes: a free pen like paper", "nmCadOn": "📐 Drafting: exact lines in mm; the system finds the points", "nmNoteOn": "📝 Notes: free pen like paper; nothing snaps or measures", "nmPen": "Pen", "nmHl": "Highlighter"});
+Object.assign(I18N.fa, {"ioToScale": "به مقیاس", "ioPdfSub": "روی A4 / A3 / A2 با مقیاس واقعی (۱:۵۰، ۱:۱۰۰…) و خط مقیاس", "ioJpgSub": "عکس سبک برای واتس‌اپ و ایمیل", "ioDxfSub": "برای AutoCAD و SketchUp؛ میلی‌متری، با لایه", "ioBackup": "فایل پشتیبان", "ioBackupSub": "همه‌چیز بوم با عکس‌ها؛ بعداً دوباره باز می‌شود", "ioSyncNote": "بوم خودش روی همین دستگاه ذخیره می‌شود؛ اگر همگام‌سازی Google Drive روشن باشد، آنجا هم می‌رود.", "ioFail": "نشد:", "ioDrawing": "نقشه", "ioLand": "افقی", "ioPort": "عمودی", "ioPages": "صفحه", "ioTooMany": "بیش از ۳۰ صفحه می‌شود؛ مقیاس کوچک‌تر یا کاغذ بزرگ‌تر بگیرید.", "ioPaper": "کاغذ", "ioOrient": "جهت", "ioScale": "مقیاس", "ioAuto": "خودکار", "ioFit": "جا شود (خودکار)", "ioPdfHint": "هنگام چاپ «اندازهٔ واقعی / ۱۰۰٪» را انتخاب کنید، نه «جا شدن در صفحه»؛ وگرنه مقیاس به هم می‌خورد.", "ioMaking": "در حال ساختن…", "ioDxfNoImg": "عکس‌ها در DXF نمی‌روند؛ فقط خط‌ها، شکل‌ها و نوشته‌ها.", "ioRestored": "بوم از فایل پشتیبان باز شد", "ioImport": "ورود فایل", "ioPdfPlan": "نقشهٔ PDF", "ioPdfPlanSub": "زیر نقشه می‌نشیند؛ با مقیاسش (۱:۵۰، ۱:۱۰۰…)", "ioPicture": "عکس", "ioPictureSub": "از دوربین یا گالری", "ioRestoreSub": "بومی که قبلاً ذخیره کرده‌اید، به‌صورت بوم تازه باز می‌شود", "ioWhichPage": "کدام صفحه؟", "ioPdfScaleQ": "مقیاس این نقشه چیست؟", "ioPdfPage": "اندازهٔ کاغذ", "ioNoScale": "نمی‌دانم / بدون مقیاس", "ioPdfScaleHint": "مقیاس را معمولاً پایین نقشه نوشته‌اند. اگر نمی‌دانید، بعداً با دکمهٔ 📐 روی دو نقطهٔ معلوم درستش کنید.", "ioPdfPlaced": "نقشه به مقیاس زیر کار نشست؛ با قلم رویش بکشید. برای جابه‌جایی، انتخابش کنید.", "ioPdfPlacedFree": "نقشه نشست. برای درست کردن مقیاس، انتخابش کنید و 📐 را بزنید.", "ioCalib": "تنظیم مقیاس", "ioCalibHint": "روی دو نقطه از عکس بزنید که فاصلهٔ واقعی‌شان را می‌دانید (مثلاً دو سر یک دیوار).", "ioCalibQ": "فاصلهٔ واقعی این دو نقطه چند میلی‌متر است؟", "ioCalibNow": "الان", "ioCalibDone": "مقیاس عکس درست شد"});
+Object.assign(I18N.de, {"ioToScale": "maßstäblich", "ioPdfSub": "Auf A4 / A3 / A2 im echten Maßstab (1:50, 1:100 …) mit Maßstabsleiste", "ioJpgSub": "Leichtes Bild für WhatsApp und E-Mail", "ioDxfSub": "Für AutoCAD und SketchUp; in mm, mit Layern", "ioBackup": "Sicherungsdatei", "ioBackupSub": "Die ganze Leinwand mit Bildern; später wieder öffnen", "ioSyncNote": "Die Leinwand wird auf diesem Gerät gespeichert; mit Google-Drive-Sync auch dort.", "ioFail": "Fehlgeschlagen:", "ioDrawing": "Zeichnung", "ioLand": "Quer", "ioPort": "Hoch", "ioPages": "Seite(n)", "ioTooMany": "Mehr als 30 Seiten – kleineren Maßstab oder größeres Papier wählen.", "ioPaper": "Papier", "ioOrient": "Ausrichtung", "ioScale": "Maßstab", "ioAuto": "Automatisch", "ioFit": "Passend (automatisch)", "ioPdfHint": "Beim Drucken „Tatsächliche Größe / 100 %“ wählen, nicht „An Seite anpassen“ – sonst stimmt der Maßstab nicht.", "ioMaking": "Wird erstellt …", "ioDxfNoImg": "Bilder gehen nicht in DXF – nur Linien, Formen und Texte.", "ioRestored": "Leinwand aus der Sicherung geöffnet", "ioImport": "Datei importieren", "ioPdfPlan": "PDF-Plan", "ioPdfPlanSub": "Liegt unter der Zeichnung, im Maßstab (1:50, 1:100 …)", "ioPicture": "Bild", "ioPictureSub": "Kamera oder Fotos", "ioRestoreSub": "Gespeicherte Leinwand als neue Leinwand öffnen", "ioWhichPage": "Welche Seite?", "ioPdfScaleQ": "Welchen Maßstab hat der Plan?", "ioPdfPage": "Papierformat", "ioNoScale": "Weiß nicht / ohne Maßstab", "ioPdfScaleHint": "Der Maßstab steht meist unten im Plan. Sonst später mit 📐 an zwei bekannten Punkten einstellen.", "ioPdfPlaced": "Plan liegt maßstäblich unter der Zeichnung – mit dem Stift darauf zeichnen.", "ioPdfPlacedFree": "Plan eingefügt. Für den Maßstab auswählen und 📐 tippen.", "ioCalib": "Maßstab einstellen", "ioCalibHint": "Zwei Punkte im Bild antippen, deren echten Abstand Sie kennen (z. B. beide Enden einer Wand).", "ioCalibQ": "Wie viele Millimeter liegen die zwei Punkte wirklich auseinander?", "ioCalibNow": "Jetzt", "ioCalibDone": "Bildmaßstab eingestellt"});
+Object.assign(I18N.en, {"ioToScale": "to scale", "ioPdfSub": "On A4 / A3 / A2 at true scale (1:50, 1:100 …) with a scale bar", "ioJpgSub": "Light picture for WhatsApp and email", "ioDxfSub": "For AutoCAD and SketchUp; millimetres, with layers", "ioBackup": "Backup file", "ioBackupSub": "The whole board with its pictures; open it again later", "ioSyncNote": "The board saves itself on this device; with Google Drive sync on, it goes there too.", "ioFail": "Didn't work:", "ioDrawing": "Drawing", "ioLand": "Landscape", "ioPort": "Portrait", "ioPages": "page(s)", "ioTooMany": "More than 30 pages – pick a smaller scale or bigger paper.", "ioPaper": "Paper", "ioOrient": "Orientation", "ioScale": "Scale", "ioAuto": "Automatic", "ioFit": "Fit (automatic)", "ioPdfHint": "When printing choose “Actual size / 100 %”, not “Fit to page” – otherwise the scale is off.", "ioMaking": "Making it…", "ioDxfNoImg": "Pictures don't go into DXF – only lines, shapes and texts.", "ioRestored": "Board opened from the backup", "ioImport": "Import file", "ioPdfPlan": "PDF plan", "ioPdfPlanSub": "Sits under your drawing, at its scale (1:50, 1:100 …)", "ioPicture": "Picture", "ioPictureSub": "Camera or photos", "ioRestoreSub": "Open a saved board as a new board", "ioWhichPage": "Which page?", "ioPdfScaleQ": "What scale is this plan?", "ioPdfPage": "Paper size", "ioNoScale": "Don't know / no scale", "ioPdfScaleHint": "The scale is usually written at the bottom of the plan. If not, set it later with 📐 on two known points.", "ioPdfPlaced": "The plan sits to scale under your drawing – draw on it with the pen.", "ioPdfPlacedFree": "Plan placed. To set its scale, select it and tap 📐.", "ioCalib": "Set scale", "ioCalibHint": "Tap two points on the picture whose real distance you know (e.g. both ends of a wall).", "ioCalibQ": "How many millimetres apart are these two points really?", "ioCalibNow": "Now", "ioCalibDone": "Picture scale set"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10940,7 +10951,7 @@ function renderCanvas(n) {
       ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey || !d.plan ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
       <button class="btn icon ghost" data-cvb="grid" aria-pressed="${d.grid}" title="${esc(T("cvGrid"))}">#</button>
       <button class="btn icon ghost" data-cvb="fit" title="${esc(T("mmFit"))}">⤢</button>
-      <button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
+      ${ro ? "" : `<button class="btn icon ghost" data-cvb="import" title="${esc(T("ioImport"))}">📂</button>`}<button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
       <button class="btn icon ghost" data-act="noteMenu" title="${esc(T("more"))}">${ic("dots")}</button>
     </div></div></div>
   <div class="cvstage ${d.plan ? "plan" : ""} ${d.survey ? "survey" : ""} ${d.mode === "note" && !d.plan && !d.survey ? "note" : ""}" id="cvStage" tabindex="-1">${d.survey ? `<div class="cvhead" id="cvHead" data-cvb="head"></div>` : ""}<div class="cvpad hide" id="cvPad"></div>
@@ -11066,6 +11077,7 @@ function cvToolbar() {
   if (["sym", "door", "window", "furn", "pin"].includes(x.t)) h += btn("note", "📝", T("cvItemNote"));
   if (["door", "window", "furn", "sym"].includes(x.t)) h += btn("rot", "⟳", T("cvRotate"));
   if (["door", "window", "furn", "rect", "ellipse", "img"].includes(x.t)) h += btn("size", "📏", T("cvSize"));
+  if (x.t === "img") h += btn("calib", "📐", T("ioCalib"));
   if (x.t === "wall") h += btn("lens", "📏", T("cvLens")) + (x.closed ? btn("name", "🏷", T("cvRoomName")) : "");
   if (["text", "idea", "note"].includes(x.t)) h += btn("big", "A+", T("cvBigger")) + btn("small", "A−", T("cvSmaller"));
   if (cvCanMat(x) || x.t === "hatch") h += btn("mat", "🧱", T("cvMaterial"));
@@ -11085,6 +11097,7 @@ function cvPlaceTb() {
 }
 async function cvSelAct(a, el) {
   if (CV.ms && CV.ms.length > 1) return cvMultiAct(a, el);
+  if (a === "calib") { const x = cvById(CV.sel); if (x) cvCalibStart(x); return; }
   if (a === "copy") return cvCopy();
   if (a === "mat") return cvMatPick();
   if (a === "explode") return cvExplode();
@@ -11226,6 +11239,7 @@ function cvBind() {
     else if ((e.key === "Delete" || e.key === "Backspace") && CV.sel) { e.preventDefault(); cvDel(CV.sel); }
     else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z") { e.preventDefault(); cvUndo(!e.shiftKey); }
     else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y") { e.preventDefault(); cvUndo(false); }
+    else if (e.key === "Escape" && CV.calib) { CV.calib = null; $("#cvLive").innerHTML = ""; cvHint(""); }
     else if (e.key === "Escape") { if (CV.wall) cvWallEnd(); else { CV.sel = null; CV.ms = null; CV.link = null; cvDrawSel(); cvHint(""); } }
     else if (e.key === "Enter" && CV.wall) cvWallEnd();
   });
@@ -11252,12 +11266,14 @@ async function cvBtn(k) {
   if (k === "grid") { CV.d.grid = !CV.d.grid; cvSave(); cvApplyView(); return $$("[data-cvb=grid]").forEach((b) => b.setAttribute("aria-pressed", CV.d.grid)); }
   if (k === "plan") { CV.d.plan = !CV.d.plan; if (CV.d.plan) CV.d.grid = true; cvSave(); $("#cvStage").classList.toggle("plan", CV.d.plan); $$("[data-cvb=plan]").forEach((b) => b.setAttribute("aria-pressed", CV.d.plan)); cvSetTool("sel"); cvApplyView(); if (CV.d.plan) cvHint(T("cvPlanHint")); return; }
   if (k === "export") return cvExport();
+  if (k === "import") return cvImport();
   if (k === "paste") return cvPaste();
   if (k === "cell") return cvCellPick();
   if (k === "head") return cvSvHeadEdit();
 }
 function cvDown(e) {
   if (!CV || CV.edit) return;
+  if (CV.calib && CV.ptr.size === 0 && !e.target.closest("button,input,.cvtb,.cvrail,.cvstyle,.cvzoom")) { e.preventDefault(); cvCalibTap(cvWorld(e)); return; } // two points of known distance
   const st = $("#cvStage"); st.focus({ preventScroll: true });
   if (e.pointerType === "pen") CV.penAt = Date.now();
   else if (e.pointerType === "touch" && (Date.now() - (CV.penAt || 0) < (cvSv() ? 350 : 900) || (CV.g && CV.g.kind === "draw" && CV.g.sv))) return; // palm
@@ -11509,7 +11525,7 @@ function cvPickImage() {
 }
 
 /* ---- export: picture, vector drawing, printing ---- */
-async function cvExport() {
+async function cvExportOld() {
   if (!CV.d.items.length) return toast(T("cvEmpty"));
   const a = await dialog({ title: "⇩ " + T("cvExport"), body: `<div class="mailbtns"><button type="button" class="acctcard" data-m="png"><span class="ai">🖼</span><span><b>PNG</b><small>${esc(T("cvPngSub"))}</small></span></button><button type="button" class="acctcard alt" data-m="svg"><span class="ai">✒️</span><span><b>SVG</b><small>${esc(T("cvSvgSub"))}</small></span></button><button type="button" class="acctcard alt" data-m="print"><span class="ai">🖨</span><span><b>${esc(T("cvPrint"))}</b><small>${esc(T("cvPrintSub"))}</small></span></button></div>`,
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
@@ -13325,6 +13341,309 @@ function cvSetMode(m) {
   cvSetTool(m === "note" ? "pen" : "line"); cvCellChip(); cvDraw();
   toast(T(m === "note" ? "nmNoteOn" : "nmCadOn"));
 }
+
+/* ---- files in and out of a board: PDF to scale, JPG/PNG, DXF (AutoCAD · SketchUp), SVG, backup; PDF plans, pictures
+   and backups coming in; a picture or PDF set to scale with two points ---- */
+const CV_PAPERS = { A4: [210, 297], A3: [297, 420], A2: [420, 594] };
+const CV_PSCALES = [1, 2, 5, 10, 20, 25, 50, 75, 100, 200, 250, 500, 1000, 2000, 5000];
+const cvIoK = () => cvK(); // world units per millimetre
+const cvIoIcon = (i, b, s) => `<span class="ai">${i}</span><span><b>${b}</b><small>${s}</small></span>`;
+
+/** The drawing as one SVG (pictures inlined), without guide lines; the world box it covers. */
+async function cvIoSvg(opt = {}) {
+  const d = JSON.parse(JSON.stringify(CV.d)); d.items = d.items.filter((x) => x.t !== "guide" && !(opt.noImg && x.t === "img"));
+  if (!d.items.length) return null;
+  const inl = new Map();
+  if (!opt.noImg) for (const x of d.items) if (x.t === "img" && x.a && !inl.has(x.a)) { try { inl.set(x.a, await blobToDataUrl(await assetBlob(x.a))); } catch {} }
+  const keep = new Map(CV_IMG); for (const [k, v] of inl) CV_IMG.set(k, v);
+  let svg; try { svg = cvSvgDoc(d, { bg: opt.bg, pad: opt.pad ?? 20, title: opt.title }); } finally { CV_IMG.clear(); for (const [k, v] of keep) CV_IMG.set(k, v); }
+  const vb = svg.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number);
+  return { svg, vb, d };
+}
+/** Lines that keep their width on screen get a width that suits the picture being made (f = pixels per screen pixel). */
+function cvIoStrokes(svg, f) {
+  if (Math.abs(f - 1) < 0.01) return svg;
+  const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+  for (const el of doc.querySelectorAll('[vector-effect="non-scaling-stroke"]')) {
+    const w = parseFloat(el.getAttribute("stroke-width") || "1"); el.setAttribute("stroke-width", String(+(w * f).toFixed(3)));
+    const da = el.getAttribute("stroke-dasharray"); if (da && da !== "none") el.setAttribute("stroke-dasharray", da.split(/[\s,]+/).map((v) => +(parseFloat(v) * f).toFixed(3)).join(" "));
+  }
+  return new XMLSerializer().serializeToString(doc);
+}
+async function cvIoImage(svg, vb, W, H) {
+  const s = svg.replace(/viewBox="[^"]+"/, `viewBox="${vb.join(" ")}"`).replace(/<svg /, `<svg width="${W}" height="${H}" `).replace(/preserveAspectRatio="[^"]+"/, 'preserveAspectRatio="none"');
+  const img = new Image(); img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+  await img.decode(); return img;
+}
+const cvIoName = () => safeName(CV.n.title || T("cvNew"));
+
+async function cvExport() {
+  if (!CV.d.items.some((x) => x.t !== "guide")) return toast(T("cvEmpty"));
+  const card = (m, i, b, s) => `<button type="button" class="acctcard" data-m="${m}">${cvIoIcon(i, b, esc(s))}</button>`;
+  const a = await dialog({ title: "⇩ " + T("cvExport"), wide: true, body: `<div class="mailbtns cvio">${card("pdf", "📐", "PDF " + T("ioToScale"), T("ioPdfSub"))}${card("jpg", "🖼", "JPG", T("ioJpgSub"))}${card("png", "🖼", "PNG", T("cvPngSub"))}${card("dxf", "📏", "DXF", T("ioDxfSub"))}${card("svg", "✒️", "SVG", T("cvSvgSub"))}${card("backup", "💾", T("ioBackup"), T("ioBackupSub"))}${card("print", "🖨", T("cvPrint"), T("cvPrintSub"))}</div><p class="msg cviosync">☁️ ${esc(T("ioSyncNote"))}</p>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (!a) return;
+  try {
+    if (a === "pdf") return await cvPdfScale();
+    if (a === "dxf") return await cvDxfExport();
+    if (a === "backup") return await cvBackupExport();
+    const o = await cvIoSvg({ bg: "#ffffff", pad: 40, title: cvSv() ? cvSvTitle() : (CV.n.title || "") + "  ·  " + new Date().toLocaleDateString(S.meta.settings.lang === "fa" ? "fa-IR" : undefined) });
+    if (!o) return toast(T("cvEmpty"));
+    if (a === "svg") return saveFile(cvIoName() + ".svg", new Blob([o.svg], { type: "image/svg+xml" }));
+    if (a === "print") { const w = window.open("", "_blank"); if (!w) return toast(T("downloadsOff"), { kind: "err" }); w.document.write(`<!doctype html><meta charset="utf-8"><title>${esc(cvIoName())}</title><style>@page{margin:10mm}html,body{margin:0}svg{width:100%;height:auto;display:block}</style>${o.svg}<script>setTimeout(()=>print(),400)<\/script>`); w.document.close(); return; }
+    const vb = o.vb, k = Math.max(0.05, Math.min(4, 3600 / Math.max(vb[2], vb[3]), Math.sqrt(12e6 / (vb[2] * vb[3]))));
+    const W = Math.round(vb[2] * k), H = Math.round(vb[3] * k), img = await cvIoImage(cvIoStrokes(o.svg, Math.max(1, k / 1.5)), vb, W, H);
+    const c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, W, H); g.drawImage(img, 0, 0, W, H);
+    const blob = await new Promise((res) => c.toBlob(res, a === "jpg" ? "image/jpeg" : "image/png", 0.92));
+    return saveFile(cvIoName() + "." + a, blob);
+  } catch (e) { console.warn(e); toast(T("ioFail") + " " + String((e && e.message) || e), { kind: "err" }); }
+}
+
+/* ---- PDF to scale: paper, orientation, 1:n; a big drawing is split over pages; a title strip with a scale bar ---- */
+function cvPdfPlan(vb, paper, orient, scale) {
+  const K = cvIoK(), dw = vb[2] / K, dh = vb[3] / K, M = 10, TB = 14; // drawing in real mm; paper margins and title strip in mm
+  const fit = (s, o) => { const [a, b] = CV_PAPERS[paper], W = o === "l" ? b : a, H = o === "l" ? a : b, pw = W - 2 * M, ph = H - 2 * M - TB, nx = Math.max(1, Math.ceil(dw / s / pw - 1e-6)), ny = Math.max(1, Math.ceil(dh / s / ph - 1e-6)); return { s, o, W, H, pw, ph, nx, ny, n: nx * ny, paper }; };
+  const os = orient === "auto" ? ["l", "p"] : [orient];
+  const best = (s) => os.map((o) => fit(s, o)).sort((x, y) => x.n - y.n || (y.pw / y.ph > 1) - (x.pw / x.ph > 1))[0];
+  if (scale) return { ...best(scale), dw, dh, M, TB };
+  for (const s of CV_PSCALES) { const f = best(s); if (f.n === 1) return { ...f, dw, dh, M, TB, auto: true }; }
+  return { ...best(CV_PSCALES[CV_PSCALES.length - 1]), dw, dh, M, TB, auto: true };
+}
+async function cvPdfScale() {
+  const o0 = await cvIoSvg({}); if (!o0) return toast(T("cvEmpty"));
+  const st = { paper: lsGet("babak-sa-pdfpaper", "A3"), orient: lsGet("babak-sa-pdforient", "auto"), scale: +lsGet("babak-sa-pdfscale", 0) || 0 };
+  if (!CV_PAPERS[st.paper]) st.paper = "A3";
+  const sel = (k, opts) => `<select data-pdf="${k}">${opts.map(([v, l]) => `<option value="${v}" ${String(st[k]) === String(v) ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
+  const m = (v) => num((v / 1000).toFixed(2));
+  const info = () => { const p = cvPdfPlan(o0.vb, st.paper, st.orient, st.scale); return `${esc(T("ioDrawing"))}: <b dir="ltr">${m(p.dw)} × ${m(p.dh)} m</b> → ${esc(st.paper)} ${esc(T(p.o === "l" ? "ioLand" : "ioPort"))}, <b dir="ltr">1:${p.s}</b>, ${num(p.n)} ${esc(T("ioPages"))}${p.n > 30 ? " ⚠️ " + esc(T("ioTooMany")) : ""}`; };
+  const go = await dialog({ title: "📐 PDF " + T("ioToScale"), body: `<div class="cvpdf"><label>${esc(T("ioPaper"))} ${sel("paper", Object.keys(CV_PAPERS).map((k) => [k, k]))}</label><label>${esc(T("ioOrient"))} ${sel("orient", [["auto", T("ioAuto")], ["l", T("ioLand")], ["p", T("ioPort")]])}</label><label>${esc(T("ioScale"))} ${sel("scale", [[0, T("ioFit")], ...CV_PSCALES.map((s) => [s, "1:" + s])])}</label></div><p class="msg" id="cvPdfInfo">${info()}</p><p class="msg">${esc(T("ioPdfHint"))}</p>`,
+    actions: [{ label: T("cancel"), value: null }, { label: "⇩ PDF", value: "y", kind: "primary" }],
+    onOpen: (el) => el.addEventListener("change", (e) => { const s = e.target.closest("[data-pdf]"); if (!s) return; st[s.dataset.pdf] = s.dataset.pdf === "scale" ? +s.value : s.value; el.querySelector("#cvPdfInfo").innerHTML = info(); }) });
+  if (!go) return;
+  lsSet("babak-sa-pdfpaper", st.paper); lsSet("babak-sa-pdforient", st.orient); lsSet("babak-sa-pdfscale", st.scale);
+  const p = cvPdfPlan(o0.vb, st.paper, st.orient, st.scale);
+  if (p.n > 30) return toast(T("ioTooMany"), { kind: "err" });
+  toast(T("ioMaking"));
+  const o = o0, K = cvIoK(), dpmm = Math.min(200 / 25.4, Math.sqrt(9e6 / (p.W * p.H))), unitsPerPaperMm = K * p.s;
+  const svg = cvIoStrokes(o.svg, dpmm * 0.18), pages = [];
+  const offX = p.n === 1 ? (p.pw - p.dw / p.s) / 2 : 0, offY = p.n === 1 ? (p.ph - p.dh / p.s) / 2 : 0; // one page: the drawing sits in the middle
+  for (let j = 0; j < p.ny; j++) for (let i = 0; i < p.nx; i++) {
+    const c = document.createElement("canvas"); c.width = Math.round(p.W * dpmm); c.height = Math.round(p.H * dpmm);
+    const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+    const tvb = [o.vb[0] + (i * p.pw - offX) * unitsPerPaperMm, o.vb[1] + (j * p.ph - offY) * unitsPerPaperMm, p.pw * unitsPerPaperMm, p.ph * unitsPerPaperMm];
+    const img = await cvIoImage(svg, tvb, Math.round(p.pw * dpmm), Math.round(p.ph * dpmm));
+    g.drawImage(img, p.M * dpmm, p.M * dpmm, p.pw * dpmm, p.ph * dpmm);
+    cvPdfFrame(g, p, dpmm, p.n > 1 ? `${j * p.nx + i + 1}/${p.n}  (${j + 1}·${i + 1})` : "");
+    pages.push(c);
+  }
+  const blob = await jpegPdf(pages, (p.W * 72) / 25.4, (p.H * 72) / 25.4, CV.n.title || "");
+  return saveFile(`${cvIoName()} 1-${p.s} ${st.paper}.pdf`, blob);
+}
+function cvPdfFrame(g, p, k, pageLab) {
+  const M = p.M * k, W = p.W * k, H = p.H * k, y0 = H - M - p.TB * k;
+  g.strokeStyle = "#1d1d1f"; g.lineWidth = Math.max(1, 0.35 * k); g.strokeRect(M, M, W - 2 * M, H - 2 * M); g.beginPath(); g.moveTo(M, y0); g.lineTo(W - M, y0); g.stroke();
+  const fa = S.meta.settings.lang === "fa", date = new Date().toLocaleDateString(fa ? "fa-IR" : S.meta.settings.lang === "de" ? "de-DE" : "en-GB");
+  const fs = 3.2 * k, ty = y0 + p.TB * k * 0.62;
+  g.fillStyle = "#1d1d1f"; g.textBaseline = "middle";
+  g.font = `700 ${fs * 1.15}px Vazirmatn, system-ui, sans-serif`; g.direction = "rtl"; g.textAlign = "right";
+  g.fillText(String(CV.n.title || T("cvNew")).slice(0, 60), W - M - 3 * k, ty);
+  g.font = `${fs}px Vazirmatn, system-ui, sans-serif`; g.direction = "ltr"; g.textAlign = "left";
+  g.fillText(`1:${p.s}  ·  ${p.paper}  ·  ${date}${pageLab ? "  ·  " + pageLab : ""}`, M + 3 * k, ty);
+  // a scale bar of a round length, 25–60 mm long on paper
+  const Ls = [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500], L = Ls.find((v) => (v * 1000) / p.s >= 25) || Ls[Ls.length - 1], bl = ((L * 1000) / p.s) * k;
+  const bx = W / 2 - bl / 2, by = y0 + p.TB * k * 0.42, bh = 1.6 * k;
+  for (let q = 0; q < 4; q++) { g.fillStyle = q % 2 ? "#fff" : "#1d1d1f"; g.fillRect(bx + (q * bl) / 4, by, bl / 4, bh); }
+  g.lineWidth = Math.max(1, 0.2 * k); g.strokeRect(bx, by, bl, bh);
+  g.fillStyle = "#1d1d1f"; g.font = `${fs * 0.85}px Vazirmatn, system-ui, sans-serif`; g.textAlign = "center"; g.textBaseline = "top";
+  g.fillText("0", bx, by + bh + 0.8 * k); g.fillText(L < 1 ? `${Math.round(L * 100)} cm` : `${L} m`, bx + bl, by + bh + 0.8 * k);
+}
+
+/* ---- DXF (R12, millimetres): opens in AutoCAD, SketchUp (Import), LibreCAD, ArchiCAD … ---- */
+const CV_ACI = [[1, 255, 0, 0], [2, 255, 255, 0], [3, 0, 255, 0], [4, 0, 255, 255], [5, 0, 0, 255], [6, 255, 0, 255], [7, 0, 0, 0], [8, 128, 128, 128], [9, 192, 192, 192], [30, 255, 127, 0], [34, 153, 76, 0], [150, 0, 127, 255], [190, 127, 0, 255], [94, 0, 127, 0]];
+function cvAci(col) {
+  const m = String(col || "").match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/); let r, g, b;
+  if (m) [r, g, b] = [+m[1], +m[2], +m[3]]; else { const h = String(col || "").replace("#", ""); if (!/^[0-9a-f]{6}$/i.test(h)) return 7; r = parseInt(h.slice(0, 2), 16); g = parseInt(h.slice(2, 4), 16); b = parseInt(h.slice(4, 6), 16); }
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), v = mx / 255, sat = mx ? (mx - mn) / mx : 0;
+  if (sat < 0.18) return v < 0.35 ? 7 : v < 0.7 ? 8 : 9; // black (shown white on a dark CAD screen) and greys
+  let hue = mx === r ? ((g - b) / (mx - mn)) * 60 : mx === g ? (2 + (b - r) / (mx - mn)) * 60 : (4 + (r - g) / (mx - mn)) * 60; if (hue < 0) hue += 360;
+  if (hue < 15 || hue >= 345) return 1; if (hue < 45) return v < 0.6 ? 34 : 30; if (hue < 70) return 2; if (hue < 170) return 3; if (hue < 200) return 4; if (hue < 245) return 5; return 6;
+}
+const CV_LAYER = { pen: "LINES", line: "LINES", arrow: "LINES", rect: "SHAPES", ellipse: "SHAPES", wall: "WALLS", grid: "WALLS", op: "OPENINGS", door: "OPENINGS", window: "OPENINGS", dim: "DIMENSIONS", text: "TEXT", note: "NOTES", idea: "NOTES", link: "NOTES", hatch: "HATCH", sym: "SYMBOLS", furn: "FURNITURE", north: "SYMBOLS", pin: "NOTES" };
+function cvDxfText(s) { return Array.from(String(s)).map((ch) => { const c = ch.codePointAt(0); return c < 128 ? ch : "\\U+" + c.toString(16).toUpperCase().padStart(4, "0"); }).join(""); }
+/** Every visible line, outline and text of the drawing, flattened into polylines in millimetres (y up). */
+function cvDxfShapes(svg) {
+  const host = document.createElement("div"); host.style.cssText = "position:fixed;left:-20000px;top:0;width:1000px;height:1000px;visibility:hidden;pointer-events:none";
+  host.innerHTML = svg.replace(/<svg /, '<svg width="1000" height="1000" '); document.body.append(host);
+  const root = host.querySelector("svg"), K = cvIoK(), out = [];
+  try {
+    const items = new Map(CV.d.items.map((x) => [x.id, x]));
+    const layerOf = (el) => { const h = el.closest("[data-cv]"); const x = h && items.get(h.getAttribute("data-cv")); if (el.tagName === "text" && x && ["grid", "wall", "pen", "rect"].includes(x.t)) return "DIMENSIONS"; return (x && CV_LAYER[x.t]) || (el.tagName === "text" ? "TEXT" : "OTHER"); };
+    const base = root.getScreenCTM().inverse();
+    const toMm = (m, x, y) => { const pt = root.createSVGPoint(); pt.x = x; pt.y = y; const q = pt.matrixTransform(m); const w = q.matrixTransform(base); return [+(w.x / K).toFixed(3), +(-w.y / K).toFixed(3)]; };
+    // the root's own viewBox mapping: world = base * screenCTM(el) * local
+    for (const el of root.querySelectorAll("line,rect,circle,ellipse,polyline,polygon,path,text")) {
+      if (el.closest("defs,pattern,marker,clipPath,mask,symbol")) continue;
+      const cs = getComputedStyle(el); if (cs.display === "none") continue;
+      const m = el.getScreenCTM(); if (!m) continue;
+      const stroke = cs.stroke && cs.stroke !== "none" ? cs.stroke : "", fill = el.getAttribute("fill") || "", lay = layerOf(el);
+      if (el.tagName === "text") {
+        const s = (el.textContent || "").trim(); if (!s) continue;
+        let bb; try { bb = el.getBBox(); } catch { continue; }
+        const fsz = parseFloat(cs.fontSize) || 12, p0 = toMm(m, bb.x, bb.y + bb.height * 0.8), p1 = toMm(m, bb.x + 1, bb.y + bb.height * 0.8), a = (Math.atan2(p1[1] - p0[1], p1[0] - p0[0]) * 180) / Math.PI;
+        const q0 = toMm(m, bb.x, bb.y), q1 = toMm(m, bb.x, bb.y + fsz), hh = Math.hypot(q1[0] - q0[0], q1[1] - q0[1]) * 0.72;
+        out.push({ t: "text", lay, c: cvAci(cs.fill), p: p0, h: +hh.toFixed(3), a: +a.toFixed(2), s });
+        continue;
+      }
+      if (!stroke && !/^url\(/.test(fill)) continue; // fills only (backgrounds, picture frames)
+      const c = cvAci(stroke || "#1d1d1f"), L = /^url\(/.test(fill) && !stroke ? "HATCH" : lay;
+      const add = (pts, closed) => { if (pts.length > 1) out.push({ t: "pl", lay: L, c, pts, closed }); };
+      const g = (n) => parseFloat(el.getAttribute(n) || "0");
+      if (el.tagName === "line") add([toMm(m, g("x1"), g("y1")), toMm(m, g("x2"), g("y2"))], false);
+      else if (el.tagName === "rect") { const x = g("x"), y = g("y"), w = g("width"), h = g("height"); if (w > 0 && h > 0) add([toMm(m, x, y), toMm(m, x + w, y), toMm(m, x + w, y + h), toMm(m, x, y + h)], true); }
+      else if (el.tagName === "circle" || el.tagName === "ellipse") { const cx = g("cx"), cy = g("cy"), rx = el.tagName === "circle" ? g("r") : g("rx"), ry = el.tagName === "circle" ? g("r") : g("ry"); if (rx > 0 && ry > 0) add(Array.from({ length: 72 }, (_, i) => toMm(m, cx + rx * Math.cos((i * Math.PI) / 36), cy + ry * Math.sin((i * Math.PI) / 36))), true); }
+      else if (el.tagName === "polyline" || el.tagName === "polygon") { const v = (el.getAttribute("points") || "").trim().split(/[\s,]+/).map(Number); const pts = []; for (let i = 0; i + 1 < v.length; i += 2) pts.push(toMm(m, v[i], v[i + 1])); add(pts, el.tagName === "polygon"); }
+      else if (el.tagName === "path") {
+        const d = el.getAttribute("d") || "";
+        for (const sub of d.match(/[Mm][^Mm]*/g) || []) {
+          if (/^[MmLlHhVvZz0-9eE.,\s+-]+$/.test(sub)) { // straight pieces: exact corners
+            const tk = sub.match(/[MmLlHhVvZz]|[-+]?(?:\d+\.?\d*|\.\d+)(?:e[-+]?\d+)?/gi) || []; let cmd = "", x = 0, y = 0, sx = 0, sy = 0, closed = false, j = 0; const pts = [], nx = () => parseFloat(tk[j++]);
+            while (j < tk.length) {
+              const t = tk[j]; if (/^[a-z]$/i.test(t)) { cmd = t; j++; if (/z/i.test(cmd)) { closed = true; x = sx; y = sy; } continue; }
+              if (cmd === "M" || cmd === "L") { x = nx(); y = nx(); } else if (cmd === "m" || cmd === "l") { x += nx(); y += nx(); } else if (cmd === "H") x = nx(); else if (cmd === "h") x += nx(); else if (cmd === "V") y = nx(); else if (cmd === "v") y += nx(); else { j++; continue; }
+              if (!pts.length) { sx = x; sy = y; } pts.push(toMm(m, x, y)); if (cmd === "M") cmd = "L"; if (cmd === "m") cmd = "l";
+            }
+            add(pts, closed);
+          } else { // curves: follow the path closely
+            const tmp = document.createElementNS("http://www.w3.org/2000/svg", "path"); tmp.setAttribute("d", sub); el.parentNode.insertBefore(tmp, el);
+            try { const len = tmp.getTotalLength(), n = Math.max(2, Math.min(400, Math.ceil(len / (2 * K)) + 1)); const pts = []; for (let q = 0; q < n; q++) { const pt = tmp.getPointAtLength((len * q) / (n - 1)); pts.push(toMm(m, pt.x, pt.y)); } add(pts, /z\s*$/i.test(sub)); } catch {}
+            tmp.remove();
+          }
+        }
+      }
+    }
+  } finally { host.remove(); }
+  return out;
+}
+function cvDxf(shapes) {
+  const L = [...new Set(["0", ...shapes.map((s) => s.lay)])], o = [];
+  const w = (...a) => { for (let i = 0; i < a.length; i += 2) o.push(String(a[i]), String(a[i + 1])); };
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const s of shapes) for (const p of s.pts || [s.p]) { x0 = Math.min(x0, p[0]); y0 = Math.min(y0, p[1]); x1 = Math.max(x1, p[0]); y1 = Math.max(y1, p[1]); }
+  if (!isFinite(x0)) { x0 = y0 = 0; x1 = y1 = 1; }
+  w(0, "SECTION", 2, "HEADER", 9, "$ACADVER", 1, "AC1009", 9, "$INSUNITS", 70, 4, 9, "$MEASUREMENT", 70, 1, 9, "$EXTMIN", 10, x0, 20, y0, 30, 0, 9, "$EXTMAX", 10, x1, 20, y1, 30, 0, 0, "ENDSEC");
+  w(0, "SECTION", 2, "TABLES", 0, "TABLE", 2, "LTYPE", 70, 1, 0, "LTYPE", 2, "CONTINUOUS", 70, 0, 3, "Solid line", 72, 65, 73, 0, 40, 0, 0, "ENDTAB");
+  w(0, "TABLE", 2, "LAYER", 70, L.length); for (const l of L) w(0, "LAYER", 2, l, 70, 0, 62, 7, 6, "CONTINUOUS"); w(0, "ENDTAB", 0, "ENDSEC");
+  w(0, "SECTION", 2, "ENTITIES");
+  for (const s of shapes) {
+    if (s.t === "text") { w(0, "TEXT", 8, s.lay, 62, s.c, 10, s.p[0], 20, s.p[1], 30, 0, 40, Math.max(0.1, s.h), 1, cvDxfText(s.s)); if (Math.abs(s.a) > 0.01) w(50, s.a); continue; }
+    if (s.pts.length === 2 && !s.closed) { w(0, "LINE", 8, s.lay, 62, s.c, 10, s.pts[0][0], 20, s.pts[0][1], 30, 0, 11, s.pts[1][0], 21, s.pts[1][1], 31, 0); continue; }
+    w(0, "POLYLINE", 8, s.lay, 62, s.c, 66, 1, 10, 0, 20, 0, 30, 0, 70, s.closed ? 1 : 0);
+    for (const p of s.pts) w(0, "VERTEX", 8, s.lay, 10, p[0], 20, p[1], 30, 0);
+    w(0, "SEQEND", 8, s.lay);
+  }
+  w(0, "ENDSEC", 0, "EOF");
+  return o.join("\r\n") + "\r\n";
+}
+async function cvDxfExport() {
+  const o = await cvIoSvg({ noImg: true, pad: 0 }); if (!o) return toast(T("cvEmpty"));
+  const shapes = cvDxfShapes(o.svg);
+  if (!shapes.length) return toast(T("cvEmpty"));
+  await saveFile(cvIoName() + ".dxf", new Blob([cvDxf(shapes)], { type: "application/dxf" }));
+  if (CV.d.items.some((x) => x.t === "img")) toast(T("ioDxfNoImg"));
+}
+
+/* ---- backup: one file with the whole board and its pictures; opening it makes a new board ---- */
+async function cvBackupExport() {
+  const d = JSON.parse(JSON.stringify(CV.d)), assets = {};
+  for (const x of d.items) if (x.t === "img" && x.a && !assets[x.a]) { try { assets[x.a] = await blobToDataUrl(await assetBlob(x.a)); } catch {} }
+  const data = { kind: "babak-canvas", v: 1, app: "Babak Notebook", title: CV.n.title || "", savedAt: new Date().toISOString(), cv: d, assets };
+  return saveFile(cvIoName() + ".canvas.json", new Blob([JSON.stringify(data)], { type: "application/json" }));
+}
+async function cvRestore(data) {
+  if (!data || data.kind !== "babak-canvas" || !data.cv) return toast(T("importBad"), { kind: "err" });
+  const d = cvNorm(data.cv); if (!d) return toast(T("importBad"), { kind: "err" });
+  const map = new Map();
+  for (const [id, url] of Object.entries(data.assets || {})) {
+    if (!S.assets || typeof url !== "string" || !url.startsWith("data:")) continue;
+    try { const blob = await (await fetch(url)).blob(), up = await S.assets.upload(blob); map.set(id, up.id); CV_IMG.set(up.id, S.mode === "local" ? URL.createObjectURL(blob) : "/_blob/" + up.id); } catch (e) { console.warn(e); }
+  }
+  for (const x of d.items) if (x.t === "img" && x.a) { if (map.has(x.a)) x.a = map.get(x.a); }
+  const now = new Date().toISOString(), folder = S.view && !S.view.startsWith("__") ? S.view : "";
+  const n = normNote({ id: uid(), title: String(data.title || T("cvNew")).slice(0, 200), html: "", folder, cv: d, pageStyle: "blank", createdAt: now, updatedAt: now });
+  S.notes.set(n.id, n); saveNote(n.id, 0); openNote(n.id); toast(T("ioRestored"));
+  return n;
+}
+
+/* ---- bringing things in ---- */
+let cvIoIn = null;
+function cvIoPick(accept) {
+  return new Promise((res) => {
+    if (!cvIoIn) { cvIoIn = document.createElement("input"); cvIoIn.type = "file"; cvIoIn.className = "vhide"; document.body.append(cvIoIn); }
+    cvIoIn.accept = accept; cvIoIn.value = ""; cvIoIn.onchange = () => { const f = cvIoIn.files && cvIoIn.files[0]; cvIoIn.value = ""; res(f || null); }; cvIoIn.click();
+  });
+}
+async function cvImport() {
+  if (CV.ro) return;
+  const card = (m, i, b, s) => `<button type="button" class="acctcard" data-m="${m}">${cvIoIcon(i, b, esc(s))}</button>`;
+  const a = await dialog({ title: "📥 " + T("ioImport"), wide: true, body: `<div class="mailbtns cvio">${card("pdf", "📄", T("ioPdfPlan"), T("ioPdfPlanSub"))}${card("img", "📷", T("ioPicture"), T("ioPictureSub"))}${card("backup", "💾", T("ioBackup"), T("ioRestoreSub"))}</div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
+  if (!a) return;
+  if (a === "img") return cvPickImage();
+  const f = await cvIoPick(a === "pdf" ? ".pdf,application/pdf" : ".json,application/json");
+  if (!f) return;
+  try {
+    if (a === "backup") { let data; try { data = JSON.parse(await f.text()); } catch { return toast(T("importBad"), { kind: "err" }); } return await cvRestore(data); }
+    return await cvPdfIn(f);
+  } catch (e) { console.warn(e); toast(T("ioFail") + " " + String((e && e.message) || e), { kind: "err" }); }
+}
+async function cvPdfIn(file) {
+  if (!S.assets) return toast(T("mmNoAssets"), { kind: "err" });
+  const lib = await loadPdfJs(), buf = new Uint8Array(await file.arrayBuffer());
+  let pdf; try { pdf = await lib.getDocument({ data: buf.slice() }).promise; } catch { pdf = await lib.getDocument({ data: buf.slice(), disableWorker: true }).promise; }
+  let pg = 1;
+  if (pdf.numPages > 1) { pg = await dialog({ title: "📄 " + T("ioWhichPage"), body: `<div class="cvpgs">${Array.from({ length: Math.min(40, pdf.numPages) }, (_, i) => `<button type="button" class="btn" data-pg="${i + 1}">${num(i + 1)}</button>`).join("")}</div>`, actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-pg]"); if (b) close(+b.dataset.pg); }) }); if (!pg) return; }
+  const page = await pdf.getPage(pg), v1 = page.getViewport({ scale: 1 }), wmm = (v1.width * 25.4) / 72, hmm = (v1.height * 25.4) / 72;
+  const sz = (() => { for (const [k, [a, b]] of Object.entries({ A4: [210, 297], A3: [297, 420], A2: [420, 594], A1: [594, 841], A0: [841, 1189] })) if ((Math.abs(wmm - a) < 4 && Math.abs(hmm - b) < 4) || (Math.abs(wmm - b) < 4 && Math.abs(hmm - a) < 4)) return k; return `${Math.round(wmm)}×${Math.round(hmm)} mm`; })();
+  const sc = await dialog({ title: "📐 " + T("ioPdfScaleQ"), body: `<p class="msg">${esc(T("ioPdfPage"))}: <b dir="ltr">${esc(sz)}</b></p><div class="cvpgs">${[["0", T("ioNoScale")], ...[10, 20, 25, 50, 75, 100, 200, 250, 500, 1000].map((s) => [String(s), "1:" + s])].map(([v, l]) => `<button type="button" class="btn" data-sc="${v}">${esc(l)}</button>`).join("")}</div><p class="msg">${esc(T("ioPdfScaleHint"))}</p>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-sc]"); if (b) close(b.dataset.sc); }) });
+  if (sc == null) return;
+  toast(T("ioMaking"));
+  const k = Math.min(3200 / Math.max(v1.width, v1.height), Math.sqrt(9e6 / (v1.width * v1.height))), vp = page.getViewport({ scale: k });
+  const c = document.createElement("canvas"); c.width = Math.round(vp.width); c.height = Math.round(vp.height);
+  const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+  await page.render({ canvasContext: g, viewport: vp }).promise;
+  const blob = await new Promise((res) => c.toBlob(res, "image/jpeg", 0.92)), up = await S.assets.upload(blob);
+  CV_IMG.set(up.id, S.mode === "local" ? URL.createObjectURL(blob) : "/_blob/" + up.id);
+  const s = +sc, K = cvIoK(), st = $("#cvStage"), v = CV.view;
+  let w, h; if (s) { w = wmm * s * K; h = hmm * s * K; } else { const f = Math.min(1, 900 / Math.max(c.width, c.height)); w = c.width * f; h = c.height * f; }
+  const cx = (st.clientWidth / 2 - v.x) / v.z, cy = (st.clientHeight / 2 - v.y) / v.z;
+  const x = cvAdd({ t: "img", a: up.id, x: cx - w / 2, y: cy - h / 2, w, h });
+  const i = CV.d.items.indexOf(x); if (i > 0) { CV.d.items.splice(i, 1); CV.d.items.unshift(x); cvSave(); } // the plan goes underneath
+  cvSetTool("sel"); CV.sel = x.id; cvDraw(); cvDrawSel(); cvFit();
+  cvHint(T(s ? "ioPdfPlaced" : "ioPdfPlacedFree")); clearTimeout(cvSetTool.h); cvSetTool.h = setTimeout(() => cvHint(""), 7000);
+}
+
+/* ---- setting a picture to scale: tap two points you know the distance of ---- */
+function cvCalibStart(x) {
+  CV.calib = { id: x.id, pts: [] }; CV.sel = null; cvDrawSel();
+  cvHint(T("ioCalibHint"));
+}
+async function cvCalibTap(p) {
+  const cb = CV.calib; if (!cb) return false;
+  cb.pts.push(p);
+  $("#cvLive").innerHTML = cb.pts.map((q) => `<circle cx="${q[0]}" cy="${q[1]}" r="${6 / CV.view.z}" fill="#d64545" stroke="#fff" stroke-width="${1.5 / CV.view.z}"/>`).join("") + (cb.pts.length === 2 ? `<line x1="${cb.pts[0][0]}" y1="${cb.pts[0][1]}" x2="${p[0]}" y2="${p[1]}" stroke="#d64545" stroke-width="2" vector-effect="non-scaling-stroke" stroke-dasharray="5 4"/>` : "");
+  if (cb.pts.length < 2) return true;
+  const [a, b] = cb.pts, dist = cvLen(a, b); CV.calib = null;
+  const cur = Math.round(dist / cvIoK());
+  const mm = await dialog({ title: "📐 " + T("ioCalib"), body: `<p class="msg">${esc(T("ioCalibQ"))}</p><input type="number" inputmode="decimal" min="1" step="any" id="cvCalIn" placeholder="${cur}" style="width:100%;font-size:20px" dir="ltr"><p class="msg">${esc(T("ioCalibNow"))}: <b dir="ltr">${num(cur)} mm</b></p>`,
+    actions: [{ label: T("cancel"), value: null }, { label: T("ok"), kind: "primary", run: (el) => { const v = parseFloat(String(el.querySelector("#cvCalIn").value).replace(",", ".")); return v > 0 ? v : false; } }] });
+  $("#cvLive").innerHTML = ""; cvHint("");
+  const x = cvById(cb.id); if (!mm || !x || dist < 1e-6) return true;
+  const f = (mm * cvIoK()) / dist; cvPush();
+  x.x = a[0] + (x.x - a[0]) * f; x.y = a[1] + (x.y - a[1]) * f; x.w *= f; x.h *= f;
+  cvSave(); CV.sel = x.id; cvDraw(); cvDrawSel(); toast(T("ioCalibDone")); return true;
+}
+/* a small handle for the automatic tests */
+window.__cv = { get CV() { return CV; }, add: (x) => cvAdd(x, false), K: () => cvK(), fit: () => cvFit() };
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
