@@ -1207,6 +1207,31 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 .cvpdf select{height:38px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:15px;padding:0 8px}
 .cvpgs{display:flex;flex-wrap:wrap;gap:6px}
 .cvpgs .btn{min-width:56px}
+/* slimmer bars on the board: they leave the page to the drawing */
+.cvrail{padding:3px;border-radius:12px;gap:1px;top:8px;inset-inline-start:8px;box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.cvrail button{width:36px;min-height:34px;border-radius:9px;font-size:15px;padding:0}
+.cvrail.sk{grid-template-columns:repeat(2,36px);gap:1px}
+.cvrail.sk button{min-height:34px;padding:0}
+.cvrail.sk .skic{width:18px;height:18px}
+.cvrail.sk small,.cvrail button small{display:none}
+.cvrail .rsep{margin:2px 3px}
+.cvstyle{gap:3px;padding:3px 7px;border-radius:16px;bottom:10px;box-shadow:0 3px 10px rgba(0,0,0,.07)}
+.cvstyle .sw{width:20px;height:20px;border-width:1.5px}
+.cvstyle .sw[aria-pressed="true"]{outline-width:1.5px}
+.cvstyle .sep{height:16px;margin:0 2px}
+.cvstyle .wd{width:26px;height:24px;border-radius:6px}
+.cvstyle .wd i{width:15px}
+.cvstyle .dsh{min-width:30px;height:24px;font-size:13px;padding:0 4px}
+.cvstyle .smart{height:24px;font-size:12px;padding:0 8px}
+.cvstyle .wr input{width:80px}
+.cvstyle .wr b{font-size:12px;min-width:20px}
+.cvstyle .mt small{font-size:8px}
+.cvstyle .hw i{width:16px}
+.cvzoom{bottom:10px;border-radius:10px}
+.cvzoom button{width:30px;height:28px;font-size:15px}
+.cvzoom span{min-width:42px;font-size:12px}
+.cvmode{padding:2px;border-radius:10px}
+.cvmode button{height:28px;padding:0 9px;font-size:13px;border-radius:8px;gap:4px}
 </style>
 
 <div class="app" id="app">
@@ -11278,11 +11303,12 @@ function cvDown(e) {
   if (e.pointerType === "pen") CV.penAt = Date.now();
   else if (e.pointerType === "touch" && (Date.now() - (CV.penAt || 0) < (cvSv() ? 350 : 900) || (CV.g && CV.g.kind === "draw" && CV.g.sv))) return; // palm
   if (CV.gap) cvGapOffer(null);
-  if (e.pointerType === "pen" && cvSv()) { // a palm that landed first must not turn the pencil into a pinch
+  if (e.pointerType === "pen") { // a palm that landed first must not turn the pencil into a pinch
     for (const [id, q] of CV.ptr) if (q.t === "touch") CV.ptr.delete(id);
     if (CV.g && ["pinch", "pan", "tap"].includes(CV.g.kind)) CV.g = null;
   }
   CV.ptr.set(e.pointerId, { x: e.clientX, y: e.clientY, t: e.pointerType });
+  if (CV.ptr.size === 1) CV.gpid = e.pointerId; // the one finger or pencil this gesture belongs to
   try { (e.currentTarget || e.target).setPointerCapture?.(e.pointerId); } catch {}
   if (CV.ptr.size === 2) { // pinch: forget the half-made stroke
     if (CV.g && CV.g.kind === "draw") $("#cvLive").innerHTML = "";
@@ -11343,6 +11369,7 @@ function cvDown(e) {
 function cvMove(e) {
   if (!CV) return;
   const rec = CV.ptr.get(e.pointerId); if (rec) { rec.x = e.clientX; rec.y = e.clientY; }
+  if (CV.g && CV.g.kind !== "pinch" && CV.gpid != null && e.pointerId !== CV.gpid) return; // a resting palm must not bend or end the stroke
   const g = CV.g; const p = CV.view ? cvWorld(e) : [0, 0];
   if (CV.wall && (!g || g.kind === "walltap")) cvWallPreview(cvAngleSnap(CV.wall.pts[CV.wall.pts.length - 1], cvSnap(p)));
   if (!g) { if (cvSkTool(CV.tool) && e.pointerType !== "touch" && !CV.ro) cvSkHover(e, p); else if (CV.tool === "pen" && !cvNoteMode() && e.pointerType !== "touch" && !CV.ro) { const inf = cvPenSnap(p, e); $("#cvLive").innerHTML = inf ? cvInfSvg(inf) : ""; } return; }
@@ -11358,7 +11385,8 @@ function cvMove(e) {
   if (g.kind === "marq") { g.b = p; const z = CV.view.z, x0 = Math.min(g.a[0], p[0]), y0 = Math.min(g.a[1], p[1]); $("#cvLive").innerHTML = `<rect x="${x0}" y="${y0}" width="${Math.abs(p[0] - g.a[0])}" height="${Math.abs(p[1] - g.a[1])}" fill="#4f7fe0" fill-opacity=".08" stroke="#4f7fe0" stroke-width="${1.2 / z}" stroke-dasharray="${4 / z} ${3 / z}"/>`; return; }
   if (g.kind === "opdrag") return cvWgOpDrag(g, p);
   if (g.kind === "pan") { if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 4) g.moved = true; if (g.moved) cvSetView(g.v.x + e.clientX - g.sx, g.v.y + e.clientY - g.sy, g.v.z); return; }
-  if (g.kind === "draw") { const l = g.pts[g.pts.length - 1]; if (cvLen(l, p) * CV.view.z > 1.5) g.pts.push([cvR(p[0], 10), cvR(p[1], 10)]);
+  if (g.kind === "draw") { const ce = e.getCoalescedEvents ? e.getCoalescedEvents() : []; for (const q of ce.length > 1 ? ce.slice(0, -1) : []) { const pq = cvWorld(q), lq = g.pts[g.pts.length - 1]; if (cvLen(lq, pq) * CV.view.z > 1.5) g.pts.push([cvR(pq[0], 10), cvR(pq[1], 10)]); } // every sample of a fast pencil
+    const l = g.pts[g.pts.length - 1]; if (cvLen(l, p) * CV.view.z > 1.5) g.pts.push([cvR(p[0], 10), cvR(p[1], 10)]);
     const ie = !g.sv && !g.note && cvPenSnap(p, e); g.snap1 = ie;
     $("#cvLive").innerHTML = `<path d="${cvPenPath(g.pts)}" fill="none" stroke="${g.hl ? CV.hlc : CV.color}" stroke-width="${g.hl ? CV.hlw : CV.width}" stroke-linecap="round" stroke-linejoin="round"${g.hl ? ' stroke-opacity=".42"' : ""}/>` + (g.snap0 ? cvInfSvg(g.snap0) : "") + (ie ? cvInfSvg(ie) : ""); return; }
   if (g.kind === "erase") return cvEraseAt(p, (e.pointerType === "touch" ? 16 : 7) / CV.view.z);
@@ -11384,6 +11412,7 @@ function cvMove(e) {
 function cvUp(e) {
   if (!CV) return;
   CV.ptr.delete(e.pointerId);
+  if (CV.g && CV.g.kind !== "pinch" && CV.gpid != null && e.pointerId !== CV.gpid) return;
   const g = CV.g; if (!g) return;
   if (g.kind === "pinch") { if (CV.ptr.size === 0) CV.g = null; return; }
   CV.g = null;
