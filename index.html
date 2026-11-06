@@ -1183,6 +1183,10 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 .cvstyle .mt{display:flex;flex-direction:column;align-items:center;gap:1px;border:0;background:none;border-radius:8px;padding:2px 3px;color:var(--ink)}
 .cvstyle .mt small{font-size:9px;white-space:nowrap}
 .cvstyle .mt[aria-pressed="true"]{background:var(--hover);outline:1px solid var(--line)}
+
+.cvstyle .wr{display:flex;align-items:center;gap:6px;padding:0 4px}
+.cvstyle .wr input{width:110px;accent-color:#4f7fe0}
+.cvstyle .wr b{min-width:26px;font-size:13px;color:var(--ink);text-align:center}
 </style>
 
 <div class="app" id="app">
@@ -10810,8 +10814,10 @@ function cvTextSvg(lines, cx, cy, fs, fill, weight) {
   const lh = fs * 1.35, y0 = cy - ((lines.length - 1) * lh) / 2;
   return `<text x="${cx}" y="${y0}" font-size="${fs}" fill="${fill}" text-anchor="middle" dominant-baseline="middle" font-family="Vazirmatn, system-ui, sans-serif" ${weight ? `font-weight="${weight}"` : ""}>${lines.map((l, i) => `<tspan x="${cx}" y="${cvR(y0 + i * lh, 10)}" direction="${/[֐-ࣿ]/.test(l) ? "rtl" : "ltr"}" unicode-bidi="plaintext">${esc(l)}</tspan>`).join("")}</text>`;
 }
+const cvCad = (x) => !cvSv() && ((x.t === "pen" && (x.k === "sharp" || x.k === "arc")) || x.t === "rect" || x.t === "ellipse" || x.t === "line");
 function cvItemSvg(x, opt = {}) {
   let s = cvItemSvg0(x, opt);
+  if (cvCad(x)) s = s.replace(' stroke-linecap="round" stroke-linejoin="round"', ' stroke-linecap="butt" stroke-linejoin="miter"').replace(' stroke-linecap="round"', ' stroke-linecap="butt"').replace(/\/>$/, ' vector-effect="non-scaling-stroke"/>');
   if (x.mat && cvCanMat(x)) s = cvMatSvg(x, opt.thumb ? s.replace(/ data-cv="[^"]*"/, "") : s);
   if (x.sd && !cvSv()) s += cvShapeDimsSvg(x, cvLabZ(opt), false);
   return s;
@@ -10897,7 +10903,7 @@ function cvTools(plan) {
 }
 function renderCanvas(n) {
   const rtl = document.documentElement.dir === "rtl", d = cvNorm(n.cv) || cvNew(), ro = n.trashed || S.readOnly;
-  CV = { n, d, tool: "sel", sel: null, color: CV_COLS[0], width: 3, dash: lsGet("babak-sa-cvdash", "") || "", undo: [], redo: [], wall: null, link: null, ptr: new Map(), ro, edit: null };
+  CV = { n, d, tool: "sel", sel: null, color: CV_COLS[0], width: +lsGet("babak-sa-cvwidth", 3) || 3, dash: lsGet("babak-sa-cvdash", "") || "", undo: [], redo: [], wall: null, link: null, ptr: new Map(), ro, edit: null };
   $("#main").innerHTML = `
   <div class="bar" id="bar"><div class="bar-main mmbar">
     <div class="bz bz-start">
@@ -10948,7 +10954,7 @@ function cvRail() {
   if (showStyle) s.innerHTML = (CV.tool === "note" ? CV_NOTE : CV_COLS).map((c) => `<button type="button" class="sw" data-cvc="${c}" style="background:${c}" aria-pressed="${CV.color === c}" aria-label="${c}"></button>`).join("")
     + (CV.tool === "pen" ? `<span class="sep"></span><button type="button" class="smart" data-cvsmart aria-pressed="${cvSmartOn()}" title="${esc(T("cvSmartT"))}">✨ ${esc(T("cvSmart"))}</button>` : "")
     + (CV.tool === "poly" ? `<span class="sep"></span>` + [3, 4, 5, 6, 8, 12].map((k) => `<button type="button" class="dsh" data-sides="${k}" aria-pressed="${(+lsGet("babak-sa-cvsides", 6) || 6) === k}" title="${esc(T("skSides"))}">${num(k)}</button>`).join("") : "")
-    + (["pen", "svpen", "rect", "ellipse", "arrow", "line", "arc", "srect", "circle", "poly"].includes(CV.tool) ? `<span class="sep"></span>${[2, 4, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${w}px"></i></button>`).join("")}<span class="sep"></span>${CV_DASHES.map(([k, l]) => `<button type="button" class="dsh" data-cvdash="${k}" aria-pressed="${(CV.dash || "") === k}" title="${esc(T("cvLineType"))}">${l}</button>`).join("")}` : "");
+    + (["pen", "svpen", "rect", "ellipse", "arrow", "line", "arc", "srect", "circle", "poly"].includes(CV.tool) ? `<span class="sep"></span>${[1, 2, 3, 5, 8].map((w) => `<button type="button" class="wd" data-cvw="${w}" aria-pressed="${CV.width === w}"><i style="height:${Math.max(1, w)}px"></i></button>`).join("")}<label class="wr" title="${esc(T("cvWidth"))}"><input type="range" min="0.5" max="14" step="0.5" value="${CV.width}" data-cvwr><b dir="ltr">${num(CV.width)}</b></label><span class="sep"></span>${CV_DASHES.map(([k, l]) => `<button type="button" class="dsh" data-cvdash="${k}" aria-pressed="${(CV.dash || "") === k}" title="${esc(T("cvLineType"))}">${l}</button>`).join("")}` : "");
 }
 function cvHint(t) { const h = $("#cvHint"); if (!h) return; h.textContent = t || ""; h.classList.toggle("hide", !t); }
 function cvApplyView() { const v = CV.view, g = $("#cvW"); if (!g) return; g.setAttribute("transform", `translate(${v.x} ${v.y}) scale(${v.z})`); const st = $("#cvStage"), gr = $("#cvGrid"); const W = st.clientWidth, H = st.clientHeight, x0 = -v.x / v.z, y0 = -v.y / v.z; gr.setAttribute("x", Math.floor(x0 / 100) * 100 - 100); gr.setAttribute("y", Math.floor(y0 / 100) * 100 - 100); gr.setAttribute("width", W / v.z + 300); gr.setAttribute("height", H / v.z + 300); gr.style.display = CV.d.grid ? "" : "none"; $("#cvZ").textContent = num(Math.round(v.z * 100)) + "%"; cvPlaceTb(); }
@@ -11062,7 +11068,7 @@ async function cvSelAct(a, el) {
   if (a === "del") return cvDel(x.id);
   if (a === "col") { cvPush(); x.c = el.dataset.c; cvSave(); return cvDraw(); }
   if (a === "dash") { cvPush(); const i = CV_DASHES.findIndex((d) => d[0] === (x.dash || "")), n = CV_DASHES[(i + 1) % CV_DASHES.length][0]; if (n) x.dash = n; else delete x.dash; cvSave(); return cvDraw(); }
-  if (a === "wid") { cvPush(); const ws = [2, 4, 8], cur = x.sw || 3, i = ws.findIndex((w) => w >= cur - 0.01); x.sw = ws[(i + 1) % ws.length] * (cvSv() ? 1 / Math.min(1, CV.view.z) : 1); cvSave(); return cvDraw(); }
+  if (a === "wid") { cvPush(); const ws = [1, 2, 3, 5, 8], cur = x.sw || 3, i = ws.findIndex((w) => w >= cur - 0.01); x.sw = ws[(i + 1) % ws.length] * (cvSv() ? 1 / Math.min(1, CV.view.z) : 1); cvSave(); return cvDraw(); }
   if (a === "opk") { cvPush(); x.k = el.dataset.k; cvSave(); return cvDraw(); }
   if (a === "opfl") { cvPush(); x.fl = ((x.fl || 0) + 1) % 4; cvSave(); return cvDraw(); }
   if (a === "hpat") { cvPush(); const i = CV_HPATS.findIndex((q) => q[0] === x.pat); x.pat = CV_HPATS[(i + 1) % CV_HPATS.length][0]; cvSave(); return cvDraw(); }
@@ -11136,11 +11142,16 @@ function cvAngleSnap(a, p) { // walls: keep to 0/45/90… when close
 }
 function cvBind() {
   const st = $("#cvStage");
+  st.addEventListener("input", (e) => { // the thickness slider: live, without rebuilding the bar
+    const r = e.target.closest("[data-cvwr]"); if (!r) return;
+    CV.width = +r.value; lsSet("babak-sa-cvwidth", CV.width); const lb = r.parentNode.querySelector("b"); if (lb) lb.textContent = num(CV.width);
+    $$("#cvStyle [data-cvw]").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.cvw === CV.width));
+  });
   st.addEventListener("click", (e) => {
     const pk = e.target.closest("[data-pk]"); if (pk) return cvSvKey(pk.dataset.pk);
     const t = e.target.closest("[data-cvt]"); if (t) { cvSetTool(t.dataset.cvt); return; }
     const c = e.target.closest("[data-cvc]"); if (c) { CV.color = c.dataset.cvc; return cvRail(); }
-    const w = e.target.closest("[data-cvw]"); if (w) { CV.width = +w.dataset.cvw; return cvRail(); }
+    const w = e.target.closest("[data-cvw]"); if (w) { CV.width = +w.dataset.cvw; lsSet("babak-sa-cvwidth", CV.width); return cvRail(); }
     const dsh = e.target.closest("[data-cvdash]"); if (dsh) { CV.dash = dsh.dataset.cvdash || ""; lsSet("babak-sa-cvdash", CV.dash); return cvRail(); }
     const em = e.target.closest("[data-cvem]"); if (em) { lsSet("babak-sa-cvemode", em.dataset.cvem); return cvRail(); }
     const hp = e.target.closest("[data-cvhp]"); if (hp) { lsSet("babak-sa-cvhpat", hp.dataset.cvhp); return cvRail(); }
@@ -12270,11 +12281,11 @@ function cvGridSpan(g, ax, i) {
 const CV_DASHES = [["", "—"], ["d", "– –"], ["o", "···"], ["dd", "–·–"]];
 const CV_HPATS = [["diag", "／／"], ["cross", "✕✕"], ["solid", "▓"], ["dots", "⋰"]];
 /** The dash pattern of a line, scaled to its width so it reads the same at any thickness. */
-function cvDashAttr(x) {
+function cvDashAttr(x) { // drawn with square ends, so the dots don't need round caps
   const w = x.sw || 3;
   if (x.dash === "d") return ` stroke-dasharray="${cvR(w * 4, 100)} ${cvR(w * 3, 100)}"`;
-  if (x.dash === "o") return ` stroke-dasharray="0.01 ${cvR(w * 2.4, 100)}" stroke-linecap="round"`;
-  if (x.dash === "dd") return ` stroke-dasharray="${cvR(w * 7, 100)} ${cvR(w * 2.6, 100)} 0.01 ${cvR(w * 2.6, 100)}" stroke-linecap="round"`;
+  if (x.dash === "o") return ` stroke-dasharray="${cvR(w, 100)} ${cvR(w * 2, 100)}"`;
+  if (x.dash === "dd") return ` stroke-dasharray="${cvR(w * 7, 100)} ${cvR(w * 2.5, 100)} ${cvR(w, 100)} ${cvR(w * 2.5, 100)}"`;
   return "";
 }
 const cvEMode = () => lsGet("babak-sa-cvemode", "piece");
