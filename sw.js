@@ -1,5 +1,5 @@
 // Babak notebook: opens at once (also offline) from this device; a newer version is fetched from the web page in the background.
-const VERSION = "fefe2b19799d";
+const VERSION = "d6c53e6e5d8c";
 const CACHE = "babak-web-" + VERSION;
 const SHELL = ["./", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 self.addEventListener("install", (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL))); });

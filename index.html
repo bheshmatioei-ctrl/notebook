@@ -2319,7 +2319,7 @@ function pageMenu(anchor) {
 function insertMenu(anchor) {
   const n = S.notes.get(S.activeId); if (!n) return;
   const mic = S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
-  const items = [["pdfHere", "page", T("pdfHere")], ["stickyNote", "sticky", T("stickyNote")], ["tableHere", "table", T("tableInsert")], ["signMenu", "sign", T("signTitle")], ["symbolsMenu", "star", T("symbols")], ["shapesMenu", "shapes", T("shapesTitle")], ["scanHere", "scan", T("scanDoc")], ["insertImage", "image", T("insertImage")], ["attach", "clip", T("attach")], ...(mic ? [["record", "mic", T("recordVoice")]] : []),
+  const items = [["pdfHere", "page", T("pdfHere")], ["stickyNote", "sticky", T("stickyNote")], ["tableHere", "table", T("tableInsert")], ["signMenu", "sign", T("signTitle")], ["symbolsMenu", "star", T("symbols")], ["shapesMenu", "shapes", T("shapesTitle")], ["scanHere", "scan", T("scanDoc")], ["pasteImage", "image", T("pasteImg")], ["insertImage", "image", T("insertImage")], ["attach", "clip", T("attach")], ...(mic ? [["record", "mic", T("recordVoice")]] : []),
     ["checklistHere", "check", T("checklist")], ["remindNote", "alarm", T("newReminder")], ["newPageHere", "newpage", T("newPageHere")], ["addPage", "extend", T("addPage")]];
   popover(anchor, `<h4>${ic("plus")} ${esc(T("insert"))}</h4><div class="ilist">${items.map(([a, i, l]) => `<button type="button" class="irow" data-act="${a}">${ic(i)}<span>${esc(l)}</span></button>`).join("")}</div>`, "inspop");
 }
@@ -5706,6 +5706,18 @@ function pickFiles(insert) {
   pendingInsert = insert;
   const inp = $("#fileIn"); inp.accept = insert ? "image/*" : S.mode === "cloud" ? "image/*,application/pdf" : ""; inp.value = ""; inp.click();
 }
+/** 📋 a screenshot or copied picture onto the page (Safari asks once with a small "Paste" bubble). */
+async function pastePicture() {
+  if (!S.notes.get(S.activeId)) return;
+  if (!navigator.clipboard || !navigator.clipboard.read) return toast(T("pasteImgNo"), { kind: "err" });
+  try {
+    for (const it of await navigator.clipboard.read()) {
+      const t = it.types.find((x) => /^image\//.test(x)); if (!t) continue;
+      const b = await it.getType(t); return uploadFiles([new File([b], "picture." + (t.split("/")[1] || "png").replace("jpeg", "jpg"), { type: t })], true);
+    }
+    toast(T("pasteImgNone"));
+  } catch (e) { console.warn(e); toast(T("pasteImgNo"), { kind: "err" }); }
+}
 async function uploadFiles(files, insert) {
   const n = S.notes.get(S.activeId); if (!n || sealedLocked(n)) return;
   if (!S.assets) return toast(T("attachUnavailable"), { kind: "err" });
@@ -6698,6 +6710,7 @@ function doAct(act, el) {
     case "pin": if (n) { n.pinned = !n.pinned; touch(n); saveNote(n.id, 0); el?.setAttribute("aria-pressed", String(n.pinned)); renderSide(); toast(n.pinned ? "⭐ " + T("pinnedMsg") : T("unpinnedMsg")); } return;
     case "attach": return pickFiles(false);
     case "insertImage": saveSel(); return pickFiles(true);
+    case "pasteImage": return pastePicture();
     case "remindNote": return n && reminderForm({ noteId: n.id });
     case "lock": return n && lockNote(n);
     case "lockNow": return n && relock(n);
@@ -6801,8 +6814,9 @@ addEventListener("resize", () => flSel && requestAnimationFrame(drawFrame));
 setInterval(() => { if (S.loaded) sweepSeals(); }, 60000);
 setTimeout(() => { if (S.loaded) sweepSeals(); }, 4000);
 document.addEventListener("paste", (e) => {
-  const c = $("#content"); if (!c || !c.contains(e.target)) return;
+  const c = $("#content"); if (!c) return;
   const files = Array.from(e.clipboardData?.files || []).filter((f) => /^image\//.test(f.type));
+  if (!c.contains(e.target)) { if (files.length && $("#paper") && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || "") && !e.target.isContentEditable) { e.preventDefault(); uploadFiles(files, true); } return; }
   e.preventDefault();
   if (files.length) return uploadFiles(files, true);
   const html = e.clipboardData.getData("text/html"), text = e.clipboardData.getData("text/plain");
@@ -6810,7 +6824,7 @@ document.addEventListener("paste", (e) => {
   onContentInput();
 });
 document.addEventListener("dragover", (e) => { if ($("#paper") && e.dataTransfer?.types?.includes("Files")) e.preventDefault(); });
-document.addEventListener("drop", (e) => { if (!$("#paper") || !e.dataTransfer?.files?.length) return; e.preventDefault(); uploadFiles(Array.from(e.dataTransfer.files), false); });
+document.addEventListener("drop", (e) => { if (!$("#paper") || !e.dataTransfer?.files?.length) return; e.preventDefault(); const fs = Array.from(e.dataTransfer.files), im = fs.filter((f) => /^image\//.test(f.type)); if (im.length) uploadFiles(im, true); const rest = fs.filter((f) => !im.includes(f)); if (rest.length) uploadFiles(rest, false); });
 // checklist toggle: click on the box at the start of the item
 document.addEventListener("pointerdown", (e) => {
   const li = e.target.closest && e.target.closest("#content ul[data-list=check] > li"); if (!li || S.tool.mode !== "type") return;
@@ -7799,6 +7813,9 @@ Object.assign(I18N.en, {"nmMode": "Mode", "nmCad": "Drafting", "nmNote": "Notes"
 Object.assign(I18N.fa, {"ioToScale": "به مقیاس", "ioPdfSub": "روی A4 / A3 / A2 با مقیاس واقعی (۱:۵۰، ۱:۱۰۰…) و خط مقیاس", "ioJpgSub": "عکس سبک برای واتس‌اپ و ایمیل", "ioDxfSub": "برای AutoCAD و SketchUp؛ میلی‌متری، با لایه", "ioBackup": "فایل پشتیبان", "ioBackupSub": "همه‌چیز بوم با عکس‌ها؛ بعداً دوباره باز می‌شود", "ioSyncNote": "بوم خودش روی همین دستگاه ذخیره می‌شود؛ اگر همگام‌سازی Google Drive روشن باشد، آنجا هم می‌رود.", "ioFail": "نشد:", "ioDrawing": "نقشه", "ioLand": "افقی", "ioPort": "عمودی", "ioPages": "صفحه", "ioTooMany": "بیش از ۳۰ صفحه می‌شود؛ مقیاس کوچک‌تر یا کاغذ بزرگ‌تر بگیرید.", "ioPaper": "کاغذ", "ioOrient": "جهت", "ioScale": "مقیاس", "ioAuto": "خودکار", "ioFit": "جا شود (خودکار)", "ioPdfHint": "هنگام چاپ «اندازهٔ واقعی / ۱۰۰٪» را انتخاب کنید، نه «جا شدن در صفحه»؛ وگرنه مقیاس به هم می‌خورد.", "ioMaking": "در حال ساختن…", "ioDxfNoImg": "عکس‌ها در DXF نمی‌روند؛ فقط خط‌ها، شکل‌ها و نوشته‌ها.", "ioRestored": "بوم از فایل پشتیبان باز شد", "ioImport": "ورود فایل", "ioPdfPlan": "نقشهٔ PDF", "ioPdfPlanSub": "زیر نقشه می‌نشیند؛ با مقیاسش (۱:۵۰، ۱:۱۰۰…)", "ioPicture": "عکس", "ioPictureSub": "از دوربین یا گالری", "ioRestoreSub": "بومی که قبلاً ذخیره کرده‌اید، به‌صورت بوم تازه باز می‌شود", "ioWhichPage": "کدام صفحه؟", "ioPdfScaleQ": "مقیاس این نقشه چیست؟", "ioPdfPage": "اندازهٔ کاغذ", "ioNoScale": "نمی‌دانم / بدون مقیاس", "ioPdfScaleHint": "مقیاس را معمولاً پایین نقشه نوشته‌اند. اگر نمی‌دانید، بعداً با دکمهٔ 📐 روی دو نقطهٔ معلوم درستش کنید.", "ioPdfPlaced": "نقشه به مقیاس زیر کار نشست؛ با قلم رویش بکشید. برای جابه‌جایی، انتخابش کنید.", "ioPdfPlacedFree": "نقشه نشست. برای درست کردن مقیاس، انتخابش کنید و 📐 را بزنید.", "ioCalib": "تنظیم مقیاس", "ioCalibHint": "روی دو نقطه از عکس بزنید که فاصلهٔ واقعی‌شان را می‌دانید (مثلاً دو سر یک دیوار).", "ioCalibQ": "فاصلهٔ واقعی این دو نقطه چند میلی‌متر است؟", "ioCalibNow": "الان", "ioCalibDone": "مقیاس عکس درست شد"});
 Object.assign(I18N.de, {"ioToScale": "maßstäblich", "ioPdfSub": "Auf A4 / A3 / A2 im echten Maßstab (1:50, 1:100 …) mit Maßstabsleiste", "ioJpgSub": "Leichtes Bild für WhatsApp und E-Mail", "ioDxfSub": "Für AutoCAD und SketchUp; in mm, mit Layern", "ioBackup": "Sicherungsdatei", "ioBackupSub": "Die ganze Leinwand mit Bildern; später wieder öffnen", "ioSyncNote": "Die Leinwand wird auf diesem Gerät gespeichert; mit Google-Drive-Sync auch dort.", "ioFail": "Fehlgeschlagen:", "ioDrawing": "Zeichnung", "ioLand": "Quer", "ioPort": "Hoch", "ioPages": "Seite(n)", "ioTooMany": "Mehr als 30 Seiten – kleineren Maßstab oder größeres Papier wählen.", "ioPaper": "Papier", "ioOrient": "Ausrichtung", "ioScale": "Maßstab", "ioAuto": "Automatisch", "ioFit": "Passend (automatisch)", "ioPdfHint": "Beim Drucken „Tatsächliche Größe / 100 %“ wählen, nicht „An Seite anpassen“ – sonst stimmt der Maßstab nicht.", "ioMaking": "Wird erstellt …", "ioDxfNoImg": "Bilder gehen nicht in DXF – nur Linien, Formen und Texte.", "ioRestored": "Leinwand aus der Sicherung geöffnet", "ioImport": "Datei importieren", "ioPdfPlan": "PDF-Plan", "ioPdfPlanSub": "Liegt unter der Zeichnung, im Maßstab (1:50, 1:100 …)", "ioPicture": "Bild", "ioPictureSub": "Kamera oder Fotos", "ioRestoreSub": "Gespeicherte Leinwand als neue Leinwand öffnen", "ioWhichPage": "Welche Seite?", "ioPdfScaleQ": "Welchen Maßstab hat der Plan?", "ioPdfPage": "Papierformat", "ioNoScale": "Weiß nicht / ohne Maßstab", "ioPdfScaleHint": "Der Maßstab steht meist unten im Plan. Sonst später mit 📐 an zwei bekannten Punkten einstellen.", "ioPdfPlaced": "Plan liegt maßstäblich unter der Zeichnung – mit dem Stift darauf zeichnen.", "ioPdfPlacedFree": "Plan eingefügt. Für den Maßstab auswählen und 📐 tippen.", "ioCalib": "Maßstab einstellen", "ioCalibHint": "Zwei Punkte im Bild antippen, deren echten Abstand Sie kennen (z. B. beide Enden einer Wand).", "ioCalibQ": "Wie viele Millimeter liegen die zwei Punkte wirklich auseinander?", "ioCalibNow": "Jetzt", "ioCalibDone": "Bildmaßstab eingestellt"});
 Object.assign(I18N.en, {"ioToScale": "to scale", "ioPdfSub": "On A4 / A3 / A2 at true scale (1:50, 1:100 …) with a scale bar", "ioJpgSub": "Light picture for WhatsApp and email", "ioDxfSub": "For AutoCAD and SketchUp; millimetres, with layers", "ioBackup": "Backup file", "ioBackupSub": "The whole board with its pictures; open it again later", "ioSyncNote": "The board saves itself on this device; with Google Drive sync on, it goes there too.", "ioFail": "Didn't work:", "ioDrawing": "Drawing", "ioLand": "Landscape", "ioPort": "Portrait", "ioPages": "page(s)", "ioTooMany": "More than 30 pages – pick a smaller scale or bigger paper.", "ioPaper": "Paper", "ioOrient": "Orientation", "ioScale": "Scale", "ioAuto": "Automatic", "ioFit": "Fit (automatic)", "ioPdfHint": "When printing choose “Actual size / 100 %”, not “Fit to page” – otherwise the scale is off.", "ioMaking": "Making it…", "ioDxfNoImg": "Pictures don't go into DXF – only lines, shapes and texts.", "ioRestored": "Board opened from the backup", "ioImport": "Import file", "ioPdfPlan": "PDF plan", "ioPdfPlanSub": "Sits under your drawing, at its scale (1:50, 1:100 …)", "ioPicture": "Picture", "ioPictureSub": "Camera or photos", "ioRestoreSub": "Open a saved board as a new board", "ioWhichPage": "Which page?", "ioPdfScaleQ": "What scale is this plan?", "ioPdfPage": "Paper size", "ioNoScale": "Don't know / no scale", "ioPdfScaleHint": "The scale is usually written at the bottom of the plan. If not, set it later with 📐 on two known points.", "ioPdfPlaced": "The plan sits to scale under your drawing – draw on it with the pen.", "ioPdfPlacedFree": "Plan placed. To set its scale, select it and tap 📐.", "ioCalib": "Set scale", "ioCalibHint": "Tap two points on the picture whose real distance you know (e.g. both ends of a wall).", "ioCalibQ": "How many millimetres apart are these two points really?", "ioCalibNow": "Now", "ioCalibDone": "Picture scale set"});
+Object.assign(I18N.fa, {"pasteImg": "چسباندن تصویر (اسکرین‌شات)", "pasteImgNone": "در حافظه تصویری نیست. اول از اسکرین‌شات «کپی» بزنید، بعد اینجا را بزنید.", "pasteImgNo": "این مرورگر اجازهٔ خواندن تصویر از حافظه را نداد. از «درج تصویر» استفاده کنید یا تصویر را روی صفحه بکشید و رها کنید."});
+Object.assign(I18N.de, {"pasteImg": "Bild einfügen (Screenshot)", "pasteImgNone": "Kein Bild in der Zwischenablage. Erst den Screenshot „Kopieren“, dann hier tippen.", "pasteImgNo": "Der Browser erlaubt das Lesen des Bildes nicht. „Bild einfügen“ nutzen oder das Bild auf die Seite ziehen."});
+Object.assign(I18N.en, {"pasteImg": "Paste picture (screenshot)", "pasteImgNone": "No picture on the clipboard. Tap “Copy” on the screenshot first, then here.", "pasteImgNo": "This browser didn't allow reading the picture. Use “Insert image” or drag the picture onto the page."});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10434,8 +10451,9 @@ function skyDockHtml(live) {
 }
 
 /* ---- the page ---- */
+function skyNoBook(arr) { const bk = new Map(), inBk = (n) => { if (!n.folder) return false; if (!bk.has(n.folder)) bk.set(n.folder, folderKind(n.folder) === "book"); return bk.get(n.folder); }; return arr.filter((n) => !inBk(n)); }
 function renderSky() {
-  const main = $("#main"), ui = skyUi(), live = skyLive(), tops = folderPaths().filter((f) => !f.path.includes(SEP));
+  const main = $("#main"), ui = skyUi(), all = skyLive(), live = skyNoBook(all), tops = folderPaths().filter((f) => !f.path.includes(SEP));
   if (skyFocus && !tops.some((f) => f.path === skyFocus)) skyFocus = "";
   const can = !!S.assets, mic = can && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const maps = live.filter((n) => n.mm).length;
@@ -10456,7 +10474,7 @@ function renderSky() {
     <div class="skchips"><button type="button" class="chip" data-sky="focus" data-p="" aria-pressed="${!skyFocus}">${esc(T("skyAll"))}</button>${chips.map((p) => `<button type="button" class="chip" data-sky="focus" data-p="${esc(p)}" aria-pressed="${skyFocus === p}"><i style="background:${esc((tops.find((f) => f.path === p) || {}).color || "#9aa4b8")}"></i>${esc(skyShort(p, 18))}</button>`).join("")}</div>
     <div class="skgrid">
       <div class="skwrap">${ui.view === "list" ? skyListHtml(live) : `<div class="skyc" id="skyc">${skyStarsHtml(live)}</div>`}</div>
-      ${skyTodayHtml(live)}
+      ${skyTodayHtml(all)}
       ${skyThinkHtml()}
       ${skyDockHtml(live)}
     </div></div></div>`;
