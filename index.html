@@ -1232,6 +1232,15 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 .cvzoom span{min-width:42px;font-size:12px}
 .cvmode{padding:2px;border-radius:10px}
 .cvmode button{height:28px;padding:0 9px;font-size:13px;border-radius:8px;gap:4px}
+.pgghost{margin:22px auto 0;cursor:pointer;position:relative}
+.pgghost.prev{margin:0 auto 22px}
+.pgghost .ghostp{pointer-events:none;user-select:none;-webkit-user-select:none}
+.pgghost .ghostp .content{outline:none}
+.pgghost .gcap{text-align:center;font-size:12px;color:var(--muted);margin:0 0 6px;opacity:.8}
+.pgghost.prev .gcap{margin:6px 0 0;order:2}
+.pgghost.prev{display:flex;flex-direction:column-reverse}
+.pgtail{display:flex;flex-direction:column;align-items:center;gap:6px;padding:26px 0 10px;color:var(--muted)}
+.pgtail small{font-size:12px;opacity:.8}
 </style>
 
 <div class="app" id="app">
@@ -3484,7 +3493,7 @@ function renderMain() {
     </div>
     <div class="atts" id="atts"></div>
   </div></div>`;
-  renderPnav(); renderStatus(); applyZoom();
+  renderPnav(); renderStatus(); applyZoom(); pfMount(n);
   const content = $("#content");
   content.innerHTML = sanitize(w.html || "");
   flSel = null;
@@ -7816,6 +7825,9 @@ Object.assign(I18N.en, {"ioToScale": "to scale", "ioPdfSub": "On A4 / A3 / A2 at
 Object.assign(I18N.fa, {"pasteImg": "چسباندن تصویر (اسکرین‌شات)", "pasteImgNone": "در حافظه تصویری نیست. اول از اسکرین‌شات «کپی» بزنید، بعد اینجا را بزنید.", "pasteImgNo": "این مرورگر اجازهٔ خواندن تصویر از حافظه را نداد. از «درج تصویر» استفاده کنید یا تصویر را روی صفحه بکشید و رها کنید."});
 Object.assign(I18N.de, {"pasteImg": "Bild einfügen (Screenshot)", "pasteImgNone": "Kein Bild in der Zwischenablage. Erst den Screenshot „Kopieren“, dann hier tippen.", "pasteImgNo": "Der Browser erlaubt das Lesen des Bildes nicht. „Bild einfügen“ nutzen oder das Bild auf die Seite ziehen."});
 Object.assign(I18N.en, {"pasteImg": "Paste picture (screenshot)", "pasteImgNone": "No picture on the clipboard. Tap “Copy” on the screenshot first, then here.", "pasteImgNo": "This browser didn't allow reading the picture. Use “Insert image” or drag the picture onto the page."});
+Object.assign(I18N.fa, {"pfTailHint": "یا ادامه بدهید و بالا بکشید؛ صفحهٔ تازه ساخته می‌شود", "pfNewPull": "رها کنید: صفحهٔ تازه"});
+Object.assign(I18N.de, {"pfTailHint": "Oder weiter nach oben ziehen – eine neue Seite entsteht", "pfNewPull": "Loslassen: neue Seite"});
+Object.assign(I18N.en, {"pfTailHint": "Or keep pulling up – a new page is made", "pfNewPull": "Let go: new page"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10162,15 +10174,19 @@ function showPull(dir, amount) {
   let el = $("#pullHint");
   if (!el) { el = document.createElement("div"); el.id = "pullHint"; el.className = "pullhint"; $("#main").appendChild(el); }
   const peer = pagePeers(dir), ready = amount >= 1;
-  el.classList.toggle("top", dir < 0); el.classList.toggle("ready", ready && !!peer);
-  el.textContent = !peer ? (dir > 0 ? "⏹ " + T("lastPage") : "⏹ " + T("firstPage")) : (dir > 0 ? "⬆ " : "⬇ ") + (ready ? T(dir > 0 ? "nextPagePull" : "prevPagePull") : titleOf(peer));
+  const add = !peer && dir > 0 && pfCanAdd();
+  el.classList.toggle("top", dir < 0); el.classList.toggle("ready", ready && (!!peer || add));
+  el.textContent = add ? (ready ? "⬆ " + T("pfNewPull") : "＋ " + T("newPageHere")) : !peer ? (dir > 0 ? "⏹ " + T("lastPage") : "⏹ " + T("firstPage")) : (dir > 0 ? "⬆ " : "⬇ ") + (ready ? T(dir > 0 ? "nextPagePull" : "prevPagePull") : titleOf(peer));
   el.style.opacity = String(Math.min(1, 0.25 + amount));
 }
 function hidePull() { $("#pullHint")?.remove(); }
 function turnPage(dir) {
-  const peer = pagePeers(dir); if (!peer) return false;
+  const peer = pagePeers(dir);
+  if (!peer && dir > 0 && pfCanAdd()) { const n = S.notes.get(S.activeId); newNote({ folder: n.folder, like: n, after: n }); return true; } // past the last page: a new page
+  if (!peer) return false;
+  if (dir < 0 && pfOn(peer)) { const sc = $("#scroll"); pfMount.keep = { side: "prev", y: sc ? sc.clientHeight * 0.85 : 600 }; }
   openNote(peer.id);
-  if (dir < 0) requestAnimationFrame(() => { const sc = $("#scroll"); if (sc) sc.scrollTop = sc.scrollHeight; });
+  if (dir < 0 && !pfOn(peer)) requestAnimationFrame(() => { const sc = $("#scroll"); if (sc) sc.scrollTop = sc.scrollHeight; });
   return true;
 }
 const PULL_PX = 110;
@@ -13691,6 +13707,68 @@ async function cvCalibTap(p) {
 }
 /* a small handle for the automatic tests */
 window.__cv = { get CV() { return CV; }, add: (x) => cvAdd(x, false), K: () => cvK(), fit: () => cvFit() };
+
+/* ---- a notebook scrolls like paper: the page before and the page after sit above and below the open page;
+   scroll with the finger and the next page simply becomes the open one; past the last page a new page waits ---- */
+let pfLock = 0;
+function pfOn(n) { return !!(n && n.folder && !n.mm && !n.cv && !n.trashed && !isStored(n) && S.meta.settings.pageFlow !== false); }
+function pfGhost(n, side, idx, total) {
+  const el = document.createElement("div"); el.className = "pgghost " + side; el.dataset.ghost = n.id;
+  const bgs = n.bgs || [], tpl = TEMPLATES.includes(n.pageStyle), c = paperColorOf(n), dark = c && lum(c) < 0.18;
+  const st = `--pages:${Math.max(n.pages || 1, bgs.length)};--aspect:${aspectOf(n)};${c ? `--paper:${c};` : ""}${dark ? "--paper-ink:#eef1f6;--rule:#4a5463;--dot:#5d6878;" : ""}${tpl && !bgs.length ? `background-image:url(&quot;${templateSVG(n.pageStyle, aspectOf(n))}&quot;);` : ""}`;
+  const html = n.locked ? `<p style="text-align:center;opacity:.6">🔒</p>` : sanitize(W(n).html || "");
+  el.innerHTML = `<div class="gcap">${num(idx + 1)} / ${num(total)} · <span dir="auto">${esc(titleOf(n))}</span></div><div class="paper ghostp ps-${bgs.length || tpl ? "blank" : esc(n.pageStyle)}" style="${st}"><div class="gdeco">${bgs.map((id, i) => `<img class="pbg" src="/_blob/${esc(id)}" alt="" draggable="false" style="top:calc(var(--ph) * ${i})">`).join("")}</div><div class="content" dir="${S.meta.settings.lang === "fa" ? "rtl" : "ltr"}">${html}</div><canvas class="gink"></canvas></div>`;
+  hydrate(el);
+  el.querySelectorAll(".content > *").forEach((b) => { if (!b.getAttribute("dir")) b.setAttribute("dir", "auto"); }); // each line keeps its own direction, as on the open page
+  el.addEventListener("click", (e) => { e.preventDefault(); pfGo(n.id, side, el); });
+  return el;
+}
+async function pfPaint(el, n) {
+  const p = el.querySelector(".ghostp"), cv = el.querySelector(".gink"); if (!p || !cv || n.locked) return;
+  await ensureInk(n); if (!el.isConnected) return;
+  const W_ = p.clientWidth; p.style.setProperty("--w", W_ + "px");
+  const H = p.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+  cv.width = Math.round(W_ * dpr); cv.height = Math.round(H * dpr); cv.style.width = W_ + "px"; cv.style.height = H + "px";
+  const x = cv.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0);
+  for (const st of strokesOf(n)) paintStroke(x, st, W_, W_ * ASPECT);
+}
+function pfMount(n) {
+  const sc = $("#scroll.studio-scroll"), paper = $("#paper"); if (!sc || !paper || !pfOn(n)) return;
+  const pages = siblings(n), i = pages.findIndex((x) => x.id === n.id); if (i < 0) return;
+  const sheet = paper.parentElement, atts = $("#atts");
+  const prev = pages[i - 1], next = pages[i + 1];
+  if (prev) { const g = pfGhost(prev, "prev", i - 1, pages.length); sheet.insertBefore(g, paper); requestAnimationFrame(() => pfPaint(g, prev)); }
+  if (next) { const g = pfGhost(next, "next", i + 1, pages.length); (atts || paper).after(g); requestAnimationFrame(() => pfPaint(g, next)); }
+  else if (!S.readOnly && !isFrozen(n)) {
+    const t = document.createElement("div"); t.className = "pgtail"; t.innerHTML = `<button type="button" class="btn" data-act="newPageHere">＋ ${esc(T("newPageHere"))}</button><small>${esc(T("pfTailHint"))}</small>`;
+    (atts || paper).after(t);
+  }
+  // keep the page you were on where it was: opening a neighbour must not jump
+  if (pfMount.keep) { const k = pfMount.keep; pfMount.keep = null; requestAnimationFrame(() => { const top = paper.offsetTop; sc.scrollTop = k.side === "next" ? top - k.y : top + paper.offsetHeight - k.y; }); }
+  else if (prev) requestAnimationFrame(() => { if (sc.scrollTop < paper.offsetTop - 40) sc.scrollTop = paper.offsetTop - 16; }); // a page opens at its own top, the page before stays just above
+  pfLock = Math.max(pfLock, Date.now() + 450);
+  if (!sc.dataset.pf) { sc.dataset.pf = "1"; sc.addEventListener("scroll", pfScroll, { passive: true }); }
+}
+function pfGo(id, side, el) {
+  const sc = $("#scroll.studio-scroll"); if (!sc || !S.notes.get(id)) return;
+  const r = el.querySelector(".ghostp").getBoundingClientRect(), sr = sc.getBoundingClientRect();
+  pfMount.keep = { side, y: side === "next" ? r.top - sr.top : r.bottom - sr.top };
+  pfLock = Date.now() + 450; openNote(id);
+}
+function pfScroll() {
+  if (Date.now() < pfLock || pfScroll.raf) return;
+  pfScroll.raf = requestAnimationFrame(() => {
+    pfScroll.raf = 0;
+    const sc = $("#scroll.studio-scroll"); if (!sc || Date.now() < pfLock) return;
+    if (paperState && (paperState.cur || paperState.move || paperState.sel)) return; // writing or moving something: stay
+    if (typeof pinch !== "undefined" && pinch) return;
+    const sr = sc.getBoundingClientRect(), H = sc.clientHeight;
+    const nx = sc.querySelector(".pgghost.next"), pv = sc.querySelector(".pgghost.prev");
+    if (nx) { const r = nx.querySelector(".ghostp").getBoundingClientRect(); if (r.top - sr.top < H * 0.42) return pfGo(nx.dataset.ghost, "next", nx); }
+    if (pv) { const r = pv.querySelector(".ghostp").getBoundingClientRect(); if (r.bottom - sr.top > H * 0.58) return pfGo(pv.dataset.ghost, "prev", pv); }
+  });
+}
+function pfCanAdd() { const n = S.notes.get(S.activeId); return pfOn(n) && !S.readOnly && !isFrozen(n); }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
