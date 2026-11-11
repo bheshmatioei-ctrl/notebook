@@ -1376,6 +1376,14 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 /* the sync label changes its words; its box must not, or the buttons beside it jump */
 header.top #status{flex:none;width:96px;box-sizing:border-box;text-align:center;overflow:hidden;text-overflow:ellipsis}
 .uisrow{display:flex;gap:6px;align-items:center}.uisrow select{flex:1;min-width:0}.uisrow .btn{flex:none;min-width:44px;justify-content:center;font-weight:700}
+/* thinner top bar: one slim row, the space goes to the pages */
+header.top{padding-top:3px;padding-bottom:3px;min-height:0;gap:6px}
+header.top .brand{font-size:15px;line-height:1.2}header.top .brand small{display:none}
+header.top>.btn,header.top>.btn.icon{min-height:34px;height:34px;min-width:34px;padding:0 7px}
+header.top .topx .btn{min-height:30px;height:30px}
+header.top #status{min-height:0;padding-top:2px;padding-bottom:2px}
+.thwrap{padding-top:0}
+.skyhome .skin{padding-top:4px}
 /* sky home: create buttons as coloured tabs on top of one sheet (like the tab home) */
 .skyhome .skin{padding-top:12px}
 .skyhome .skh [data-sky="theme"],.skyhome .skh [data-sky="cloud"],.skyhome .skh [data-sky="classic"],.skyhome .skcmd kbd{display:none}
