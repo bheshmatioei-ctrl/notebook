@@ -1397,6 +1397,18 @@ header.top #status{flex:none;width:96px;box-sizing:border-box;text-align:center;
 .skyhome .sksheet .skchips{padding:6px 16px 10px}
 .skyhome .sksheet .skchips .chip{min-height:30px;font-size:13px}
 .skyhome .sksheet .skgrid{padding:14px}
+/* the other style: one "+ New" button with a list (chosen in the settings) */
+.skyhome .sknew{flex:none;min-height:36px;padding:0 16px;border:0;border-radius:12px;background:#c9643f;color:#fff;font-size:14px;font-weight:700;box-shadow:0 4px 10px -4px rgba(201,100,63,.7);white-space:nowrap}
+.skyhome.barmenu .sktabrow{display:none}.skyhome.bartabs .sknew{display:none}
+.skyhome.barmenu .sksheet{border-start-start-radius:16px}
+.pop.skynewpop{min-width:230px;padding:6px}
+.pop.skynewpop .irow{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:0 10px;border:0;border-radius:9px;background:none;font-size:14.5px;color:inherit;text-align:start}
+.pop.skynewpop .irow:hover,.pop.skynewpop .irow:active{background:var(--qt,#eee)}
+.pop.skynewpop .irow .qi{display:flex;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:var(--qt,#eee);color:#2a2723}.pop.skynewpop .irow .qi svg{width:15px;height:15px}
+.pop.skynewpop .skyin{border-top:1px solid var(--line,#e5e0d6);margin-top:4px;padding:8px 10px 4px;font-size:13px;color:var(--muted,#8a8276);display:flex;gap:8px;align-items:center}
+.pop.skynewpop .skyin button{margin-inline-start:auto;border:0;background:none;color:#c9643f;font-size:13px}
+.pop.skynewpop [data-skyk="note"]{--qt:#f7c9b9}.pop.skynewpop [data-skyk="map"]{--qt:#e0cdee}.pop.skynewpop [data-skyk="survey"]{--qt:#f6e3a1}.pop.skynewpop [data-skyk="canvas"]{--qt:#cfeab0}
+.pop.skynewpop [data-skyk="table"]{--qt:#c6def2}.pop.skynewpop [data-skyk="task"]{--qt:#fbd9b2}.pop.skynewpop [data-skyk="voice"]{--qt:#f2cfe0}.pop.skynewpop [data-skyk="file"]{--qt:#dfe3e8}
 </style>
 
 <div class="app" id="app">
@@ -6714,6 +6726,7 @@ async function settingsPanel() {
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
     <div class="field"><label>${esc(T("uiScale"))}</label><select name="uiScale">${[["1", "uiS100"], ["0.9", "uiS90"], ["0.83", "uiS83"], ["0.75", "uiS75"]].map(([v, k]) => `<option value="${v}" ${lsGet("babak-uiscale", "0.83") === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
+    <div class="field"><label>${esc(T("skyBarSet"))}</label><select name="skyBar">${[["menu", "skyBarMenu"], ["tabs", "skyBarTabs"]].map(([v, k]) => `<option value="${v}" ${skyBar() === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("theme"))}</label><select name="theme">${["auto", "light", "dark"].map((x) => `<option value="${x}" ${st.theme === x ? "selected" : ""}>${esc(T("theme" + x[0].toUpperCase() + x.slice(1)))}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("defaultStyle"))}</label><select name="pageStyle">${PAGE_STYLES.map((s) => `<option value="${s}" ${st.pageStyle === s ? "selected" : ""}>${esc(T("s_" + s))}</option>`).join("")}</select></div>
     <div class="field"><label>🌍 ${esc(T("regionTitle"))}</label><select name="region">${regionOptions(regionValue())}</select><small class="msg">${esc(T("regionHint"))}</small></div>
@@ -6730,7 +6743,7 @@ async function settingsPanel() {
     ${S.web ? `<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" data-x="install">📲 ${esc(T("installApp"))}</button></div>` : ""}
     ${isHome() ? `<hr style="border:0;border-top:1px solid var(--line)"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button type="button" class="btn" data-x="home">🏠 ${esc(T("homePage"))}</button><button type="button" class="btn" data-x="install">📲 ${esc(T("installApp"))}</button><button type="button" class="btn" data-x="account">👤 ${esc(S.account?.email || T("account"))}</button></div>` : ""}
     ${S.mode !== "cloud" ? `<hr style="border:0;border-top:1px solid var(--line)"><div id="aboutBox" class="msg" style="font-size:12.5px;line-height:1.8">${esc(T("aboutText"))}</div>` : ""}`,
-  (f) => ({ lang: f.lang.value, theme: (lsSet("babak-uiscale", f.uiScale.value), uiScaleApply(), f.theme.value), pageStyle: f.pageStyle.value, layout: f.layout.value, smooth: +f.smooth.value, region: parseRegion(f.region.value), split: f.split.checked, autoPen: f.autoPen.checked, penOnly: f.penOnly.checked, notify: f.notify.checked, sound: f.sound.value }), T("save"),
+  (f) => ({ lang: f.lang.value, theme: (lsSet("babak-uiscale", f.uiScale.value), lsSet("babak-skybar", f.skyBar.value), uiScaleApply(), f.theme.value), pageStyle: f.pageStyle.value, layout: f.layout.value, smooth: +f.smooth.value, region: parseRegion(f.region.value), split: f.split.checked, autoPen: f.autoPen.checked, penOnly: f.penOnly.checked, notify: f.notify.checked, sound: f.sound.value }), T("save"),
   (el, close) => (isHome() && api("/api/version").then((v) => { const b = el.querySelector("#aboutBox"); if (b && v) b.insertAdjacentHTML("afterbegin", `<b>${esc(T("versionLabel"))} ${esc(v.installed)}</b>${v.updateAvailable ? ` — <span style="color:var(--accent)">✨ ${esc(T("updateAvail").replace("{v}", v.latest.version))}</span>` : ""}<br>`); }).catch(() => {}), el.addEventListener("click", (e) => {
     const x = e.target.closest("[data-x]")?.dataset.x; if (!x) return;
     if (x === "testsound") { const v = el.querySelector("select[name=sound]").value; return v === "off" ? toast(T("soundOff")) : playSound(v); }
@@ -7999,6 +8012,9 @@ Object.assign(I18N.en, {txTabs: "Tab view", txTheme: "Light / dark"});
 Object.assign(I18N.fa, {uiScale: "اندازهٔ نمایش (وضوح)", uiS100: "۱۰۰٪ — درشت", uiS90: "۹۰٪", uiS83: "۸۳٪ — ۲۰٪ جای بیشتر (پیش‌فرض)", uiS75: "۷۵٪ — ریز"});
 Object.assign(I18N.de, {uiScale: "Anzeigegröße", uiS100: "100 % — groß", uiS90: "90 %", uiS83: "83 % — 20 % mehr Platz (Standard)", uiS75: "75 % — klein"});
 Object.assign(I18N.en, {uiScale: "Display size", uiS100: "100% — large", uiS90: "90%", uiS83: "83% — 20% more space (default)", uiS75: "75% — small"});
+Object.assign(I18N.fa, {skyNewBtn: "تازه", skyAsTabs: "نمایش به شکل زبانه", skyBarSet: "دکمه‌های ساختن در آسمان ایده", skyBarMenu: "یک دکمهٔ «+ تازه» با فهرست", skyBarTabs: "زبانه‌های رنگی"});
+Object.assign(I18N.de, {skyNewBtn: "Neu", skyAsTabs: "Als Reiter zeigen", skyBarSet: "Anlegen im Ideenhimmel", skyBarMenu: "Eine „+ Neu“-Taste mit Liste", skyBarTabs: "Farbige Reiter"});
+Object.assign(I18N.en, {skyNewBtn: "New", skyAsTabs: "Show as tabs", skyBarSet: "Create buttons in Idea sky", skyBarMenu: "One “+ New” button with a list", skyBarTabs: "Coloured tabs"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10647,13 +10663,14 @@ function renderSky() {
   const sky = skyLayout(live), chips = Object.entries(sky.f).sort((a, b) => a[1] - b[1]).map(([p]) => p);
   const qb = (k, act, icon, label) => `<button type="button" class="qa" ${act ? `data-act="${act}"` : ""} data-skyk="${k}"><span class="qi">${icon}</span><span>${esc(label)}</span></button>`;
   skyThemeOnce(); ui.theme = skyNight() ? "night" : "day";
-  main.innerHTML = `<div class="scroll lib skyhome ${ui.theme === "day" ? "day" : "night"}" id="scroll"><div class="skin">
+  main.innerHTML = `<div class="scroll lib skyhome ${ui.theme === "day" ? "day" : "night"} bar${skyBar()}" id="scroll"><div class="skin">
     <div class="quickrow skq sktabrow">${qb("note", "newNote", ic("newpage"), T("skyNewNote"))}${qb("map", "newMap", SKY_MAPIC, T("skyNewMap"))}${qb("survey", "", SKY_SVIC, T("skyNewSurvey"))}${qb("canvas", "", SKY_CVIC, T("skyNewCanvas"))}${qb("table", "", ic("table"), T("skyNewTable"))}${qb("task", "", ic("alarm"), T("skyNewTask"))}${mic ? qb("voice", "", ic("mic"), T("skyNewVoice")) : ""}${can ? qb("file", "", ic("clip"), T("skyNewFile")) : ""}
       <span class="sktarget">${esc(T("skyInto"))} <b>${esc(skyFocus ? leaf(skyFocus) : T("skyRoot"))}</b></span></div>
     <div class="sksheet"><div class="skshead"><div class="skh">
       <div class="skt"><h1>✦ ${esc(T("skyName"))}</h1><small>${esc(T("skyStats", { n: num(live.length), m: num(maps), f: num(tops.length) }))}</small></div>
       <div class="skcmd"><span class="qi">⌕</span><input id="skyCmd" autocomplete="off" dir="auto" placeholder="${esc(T("skyCmdPh"))}" enterkeyhint="go" aria-label="${esc(T("skyCmdPh"))}"><kbd>⌘K</kbd><div class="skdrop" id="skyDrop" hidden></div></div>
       <div class="sktools"><div class="seg"><button type="button" data-sky="view" data-v="sky" aria-pressed="${ui.view !== "list"}">✦ ${esc(T("skyViewSky"))}</button><button type="button" data-sky="view" data-v="list" aria-pressed="${ui.view === "list"}">☰ ${esc(T("skyViewList"))}</button></div>
+        <button type="button" class="sknew" data-sky="newmenu" data-pop>+ ${esc(T("skyNewBtn"))} ▾</button>
         <button type="button" class="btn icon" data-sky="theme" title="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}" aria-label="${esc(ui.theme === "day" ? T("skyNight") : T("skyDay"))}">${ui.theme === "day" ? "☾" : "☀︎"}</button>
         <button type="button" class="btn ${cfDirty() ? "cfwarn" : ""}" data-sky="cloud" title="${esc(T("cfTitle"))}">☁️ ${esc(cfCfg().lastSent ? (cfDirty() ? T("cfDirty") : skyAgo(cfCfg().lastSent)) : T("cfShort"))}</button>
         <button type="button" class="btn" data-sky="classic">${esc(T("skyClassic"))}</button></div>
@@ -10760,6 +10777,7 @@ function skyWire(root) {
     if (a === "view") { skyUiSet({ view: b.dataset.v }); return renderLibrary(); }
     if (a === "theme") { const night = !skyNight(); S.meta.settings.theme = night ? "dark" : "light"; skyUiSet({ theme: night ? "night" : "day" }); saveMeta(0); applyLangTheme(); renderSide(); return renderLibrary(); }
     if (a === "classic") { S.meta.settings.homeStyle = "classic"; saveMeta(0); renderLibrary(); return toast(T("skyClassicMsg")); }
+    if (a === "newmenu") return skyNewMenu(b);
     if (a === "focus") { skyFocus = b.dataset.p || ""; return renderLibrary(); }
     if (a === "dock") { skyUiSet({ dock: b.dataset.v }); return renderLibrary(); }
     if (a === "rdone") return skyRemDone(b.dataset.id);
@@ -14095,6 +14113,20 @@ function uiScaleApply() {
   if (m) m.setAttribute("content", `width=device-width, initial-scale=${s}, minimum-scale=${s}, maximum-scale=${s}, viewport-fit=cover`);
 }
 uiScaleApply();
+
+/* sky home: one "+ New" button that lists what can be made (the other style shows them as tabs) */
+const skyBar = () => (lsGet("babak-skybar", "menu") === "tabs" ? "tabs" : "menu");
+function skyNewMenu(anchor) {
+  const items = [...document.querySelectorAll(".sktabrow .qa")].map((q) => `<button type="button" class="irow" data-skyk="${esc(q.dataset.skyk)}">${q.innerHTML}</button>`).join("");
+  const into = document.querySelector(".sktabrow .sktarget");
+  const el = popover(anchor, `<div class="ilist">${items}</div><div class="skyin"><span>${into ? into.innerHTML : ""}</span><button type="button" data-skybar="tabs">${esc(T("skyAsTabs"))}</button></div>`, "skynewpop");
+  if (!el) return;
+  el.addEventListener("click", (e) => {
+    const q = e.target.closest("[data-skyk]");
+    if (q) { e.stopPropagation(); closePop(); return skyCreate(q.dataset.skyk, ""); }
+    if (e.target.closest("[data-skybar]")) { closePop(); lsSet("babak-skybar", "tabs"); renderLibrary(); }
+  });
+}
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
