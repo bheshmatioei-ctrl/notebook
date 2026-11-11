@@ -1373,6 +1373,8 @@ header.top,aside.side,.bar-main{background:var(--bar)}
 .thhome .thsheet{border-radius:0;box-shadow:0 -1px 0 var(--line);min-height:0}
 .thhome .thsheet::after{display:none}
 @media (max-width:860px){ #sideBtn{display:none} .topx .btn[data-tx="classic"]{display:none} }
+/* the sync label changes its words; its box must not, or the buttons beside it jump */
+header.top #status{flex:none;width:96px;box-sizing:border-box;text-align:center;overflow:hidden;text-overflow:ellipsis}
 </style>
 
 <div class="app" id="app">
@@ -6689,6 +6691,7 @@ async function settingsPanel() {
     <button type="button" class="acctcard" data-x="ai"><span class="ai">✨</span><span><b>${esc(T("aiTitle"))}</b><small>${esc(aiReady() ? AI_PROVIDERS[aiCfg().provider]?.name + " · " + (aiCfg().model || AI_PROVIDERS[aiCfg().provider]?.def) : T("aiSub"))}</small></span><span class="go">›</span></button>
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
+    <div class="field"><label>${esc(T("uiScale"))}</label><select name="uiScale">${[["1", "uiS100"], ["0.9", "uiS90"], ["0.83", "uiS83"], ["0.75", "uiS75"]].map(([v, k]) => `<option value="${v}" ${lsGet("babak-uiscale", "0.83") === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("theme"))}</label><select name="theme">${["auto", "light", "dark"].map((x) => `<option value="${x}" ${st.theme === x ? "selected" : ""}>${esc(T("theme" + x[0].toUpperCase() + x.slice(1)))}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("defaultStyle"))}</label><select name="pageStyle">${PAGE_STYLES.map((s) => `<option value="${s}" ${st.pageStyle === s ? "selected" : ""}>${esc(T("s_" + s))}</option>`).join("")}</select></div>
     <div class="field"><label>🌍 ${esc(T("regionTitle"))}</label><select name="region">${regionOptions(regionValue())}</select><small class="msg">${esc(T("regionHint"))}</small></div>
@@ -6705,7 +6708,7 @@ async function settingsPanel() {
     ${S.web ? `<div style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" data-x="install">📲 ${esc(T("installApp"))}</button></div>` : ""}
     ${isHome() ? `<hr style="border:0;border-top:1px solid var(--line)"><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button type="button" class="btn" data-x="home">🏠 ${esc(T("homePage"))}</button><button type="button" class="btn" data-x="install">📲 ${esc(T("installApp"))}</button><button type="button" class="btn" data-x="account">👤 ${esc(S.account?.email || T("account"))}</button></div>` : ""}
     ${S.mode !== "cloud" ? `<hr style="border:0;border-top:1px solid var(--line)"><div id="aboutBox" class="msg" style="font-size:12.5px;line-height:1.8">${esc(T("aboutText"))}</div>` : ""}`,
-  (f) => ({ lang: f.lang.value, theme: f.theme.value, pageStyle: f.pageStyle.value, layout: f.layout.value, smooth: +f.smooth.value, region: parseRegion(f.region.value), split: f.split.checked, autoPen: f.autoPen.checked, penOnly: f.penOnly.checked, notify: f.notify.checked, sound: f.sound.value }), T("save"),
+  (f) => ({ lang: f.lang.value, theme: (lsSet("babak-uiscale", f.uiScale.value), uiScaleApply(), f.theme.value), pageStyle: f.pageStyle.value, layout: f.layout.value, smooth: +f.smooth.value, region: parseRegion(f.region.value), split: f.split.checked, autoPen: f.autoPen.checked, penOnly: f.penOnly.checked, notify: f.notify.checked, sound: f.sound.value }), T("save"),
   (el, close) => (isHome() && api("/api/version").then((v) => { const b = el.querySelector("#aboutBox"); if (b && v) b.insertAdjacentHTML("afterbegin", `<b>${esc(T("versionLabel"))} ${esc(v.installed)}</b>${v.updateAvailable ? ` — <span style="color:var(--accent)">✨ ${esc(T("updateAvail").replace("{v}", v.latest.version))}</span>` : ""}<br>`); }).catch(() => {}), el.addEventListener("click", (e) => {
     const x = e.target.closest("[data-x]")?.dataset.x; if (!x) return;
     if (x === "testsound") { const v = el.querySelector("select[name=sound]").value; return v === "off" ? toast(T("soundOff")) : playSound(v); }
@@ -7971,6 +7974,9 @@ Object.assign(I18N.en, {"thFolders": "Folders", "thBooks": "Notebooks", "thNotes
 Object.assign(I18N.fa, {txTabs: "نمای زبانه‌ای", txTheme: "روشن / تیره"});
 Object.assign(I18N.de, {txTabs: "Reiter-Ansicht", txTheme: "Hell / Dunkel"});
 Object.assign(I18N.en, {txTabs: "Tab view", txTheme: "Light / dark"});
+Object.assign(I18N.fa, {uiScale: "اندازهٔ نمایش (وضوح)", uiS100: "۱۰۰٪ — درشت", uiS90: "۹۰٪", uiS83: "۸۳٪ — ۲۰٪ جای بیشتر (پیش‌فرض)", uiS75: "۷۵٪ — ریز"});
+Object.assign(I18N.de, {uiScale: "Anzeigegröße", uiS100: "100 % — groß", uiS90: "90 %", uiS83: "83 % — 20 % mehr Platz (Standard)", uiS75: "75 % — klein"});
+Object.assign(I18N.en, {uiScale: "Display size", uiS100: "100% — large", uiS90: "90%", uiS83: "83% — 20% more space (default)", uiS75: "75% — small"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -14058,6 +14064,12 @@ document.addEventListener("click", (e) => {
   if (a === "classic") { if (st.homeStyle !== "classic") { st.homeStyle = "classic"; st.tabHome = true; } else st.tabHome = st.tabHome === false; saveMeta(0); return txHome(); }
   if (a === "theme") { st.theme = txDark() ? "light" : "dark"; saveMeta(0); applyLangTheme(); txRender(); if (S.screen !== "studio") renderMain(); return; }
 }, true);
+/* display size: the page laid out wider and drawn smaller, sharp (like "more space" on the iPad); per device */
+function uiScaleApply() {
+  const v = parseFloat(lsGet("babak-uiscale", "0.83")) || 1, s = Math.min(1, Math.max(0.6, v)), m = document.querySelector('meta[name="viewport"]');
+  if (m) m.setAttribute("content", `width=device-width, initial-scale=${s}, minimum-scale=${s}, maximum-scale=${s}, viewport-fit=cover`);
+}
+uiScaleApply();
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
