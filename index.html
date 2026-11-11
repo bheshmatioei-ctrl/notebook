@@ -7012,7 +7012,9 @@ document.addEventListener("paste", (e) => {
   e.preventDefault();
   if (files.length) return uploadFiles(files, true);
   const html = e.clipboardData.getData("text/html"), text = e.clipboardData.getData("text/plain");
-  document.execCommand("insertHTML", false, html ? sanitize(html) : plainToHtml(text).replace(/^<div>(.*)<\/div>$/s, "$1"));
+  const rich = html && /<(b|strong|h[1-6]|table|li|img|em|i|u)[\s>]/i.test(html), fromPdf = !rich && text ? pdfTextToHtml(text) : null;
+  document.execCommand("insertHTML", false, fromPdf || (html ? sanitize(html) : plainToHtml(text).replace(/^<div>(.*)<\/div>$/s, "$1")));
+  if (fromPdf) toast(T("pdfPasteFixed"));
   onContentInput();
 });
 document.addEventListener("dragover", (e) => { if ($("#paper") && e.dataTransfer?.types?.includes("Files")) e.preventDefault(); });
@@ -8024,6 +8026,9 @@ Object.assign(I18N.en, {"uiScale": "Whole page size (text and pictures)", "txtSc
 Object.assign(I18N.fa, {skyNewBtn: "تازه", skyAsTabs: "نمایش به شکل زبانه", skyBarSet: "دکمه‌های ساختن در آسمان ایده", skyBarMenu: "یک دکمهٔ «+ تازه» با فهرست", skyBarTabs: "زبانه‌های رنگی"});
 Object.assign(I18N.de, {skyNewBtn: "Neu", skyAsTabs: "Als Reiter zeigen", skyBarSet: "Anlegen im Ideenhimmel", skyBarMenu: "Eine „+ Neu“-Taste mit Liste", skyBarTabs: "Farbige Reiter"});
 Object.assign(I18N.en, {skyNewBtn: "New", skyAsTabs: "Show as tabs", skyBarSet: "Create buttons in Idea sky", skyBarMenu: "One “+ New” button with a list", skyBarTabs: "Coloured tabs"});
+Object.assign(I18N.fa, {pdfPasteFixed: "متن PDF با پاراگراف‌ها و فاصله‌های اصلی چسبانده شد"});
+Object.assign(I18N.de, {pdfPasteFixed: "PDF-Text mit seinen Absätzen und Abständen eingefügt"});
+Object.assign(I18N.en, {pdfPasteFixed: "PDF text pasted with its paragraphs and spacing"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -14166,6 +14171,44 @@ function skyNewMenu(anchor) {
     if (q) { e.stopPropagation(); closePop(); return skyCreate(q.dataset.skyk, ""); }
     if (e.target.closest("[data-skybar]")) { closePop(); lsSet("babak-skybar", "tabs"); renderLibrary(); }
   });
+}
+
+/* text copied out of a PDF arrives as one line per printed line: put the paragraphs, address blocks,
+   blank lines and bold labels back, so the page looks like the PDF did */
+function pdfLooksLike(text) {
+  const ls = text.replace(/\r/g, "").split("\n").map((l) => l.trim());
+  const full = ls.filter(Boolean); if (full.length < 4) return null;
+  const lens = full.map((l) => l.length).sort((a, b) => a - b), max = lens[Math.floor(lens.length * 0.9)] || lens[lens.length - 1];
+  if (max > 130 || max < 30) return null;
+  const longs = full.filter((l) => l.length >= 0.7 * max).length;
+  return longs >= 2 ? { ls, max } : null;
+}
+function pdfTextToHtml(text) {
+  const g = pdfLooksLike(text); if (!g) return null;
+  const { ls, max } = g, long = (l) => l.length >= 0.7 * max;
+  const label = (l) => /^[^\s:][^:]{0,38}:$/.test(l);
+  const subj = (l) => /^(betreff|betr\.|subject|re|موضوع)\s*:/i.test(l);
+  const date = (l) => /^[^\d]{0,30},?\s*(den\s+)?\d{1,2}\.\s?\d{1,2}\.\s?\d{2,4}$/i.test(l) || /^\d{1,2}[./]\d{1,2}[./]\d{2,4}$/.test(l);
+  const blocks = []; let cur = null, prev = "";
+  const close = () => { if (cur) blocks.push(cur); cur = null; };
+  for (const raw of ls) {
+    const l = raw.replace(/\s+/g, " ");
+    if (!l) { close(); prev = ""; continue; }
+    const brk = !cur || label(l) || subj(l) || date(l) || date(prev) || /[.!?]$/.test(prev) || (/,$/.test(prev) && !long(prev)) || (cur.prose && !long(prev) && !label(prev));
+    if (brk) { close(); cur = { lines: [l], bold: subj(l), prose: long(l), labels: new Set(label(l) ? [0] : []) }; }
+    else if (long(prev) && !label(prev)) {
+      const i = cur.lines.length - 1, a = cur.lines[i];
+      cur.lines[i] = /\p{Ll}-$/u.test(a) && /^\p{Ll}/u.test(l) ? a.slice(0, -1) + l : a + (/-$/.test(a) ? "" : " ") + l;
+      cur.prose = true;
+    } else { if (label(l)) cur.labels.add(cur.lines.length); cur.lines.push(l); }
+    prev = l;
+  }
+  close();
+  const h = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  return blocks.map((b) => {
+    const inner = b.lines.map((l, i) => (b.labels.has(i) ? `<b>${h(l)}</b>` : h(l))).join("<br>");
+    return `<div>${b.bold ? `<b>${inner}</b>` : inner}</div>`;
+  }).join("<div><br></div>");
 }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
