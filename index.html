@@ -1417,6 +1417,10 @@ header.top #status{flex:none;width:96px;box-sizing:border-box;text-align:center;
 .skyhome .skwrap{min-height:420px}
 @container (max-width:640px){.skyhome .sksheet .skgrid{grid-template-rows:none}}
 .scroll.skyhome{padding:0}
+.xfhub h4{margin:14px 2px 8px;font-size:14px;font-weight:700;color:var(--muted,#6b655c)}
+.xfhub h4:first-of-type{margin-top:4px}
+.xfhub .xgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.xfhub .xbtn{min-height:64px}
 </style>
 
 <div class="app" id="app">
@@ -4940,6 +4944,7 @@ function noteMenu(n) {
     if (!n.mm && !n.cv && !sealedLocked(n) && !S.readOnly) items.push(["pageToMap", "🧠 " + T("mmToMap")]);
     items.push(["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "unpin" : "pin")]);
     if (!S.readOnly && !isFrozen(n)) items.push(["readMode", "📖 " + T(readMode(n) ? "readOff" : "readTitle")]);
+    if (!sealedLocked(n)) items.push(["xfer", "📤 " + T("xfHub")]);
     items.push(["export", "⤓ " + T("export")], ["print", "🖨 " + T("print")]);
     if (n.locked) items.push(["lockNow", "🔒 " + T("lockNow")], ["removeLock", "🔓 " + T("removeLock")]);
     else items.push(["lock", "🔒 " + T("lockNote")]);
@@ -5138,6 +5143,7 @@ async function importData(data, confirmed = false) {
   S.view = "__all"; openNote(lastId);
 }
 async function saveFile(filename, blob) {
+  if (xferShareOn()) { xferShareUntil = 0; return xferShare(filename, blob); }
   if (window.BabakNative && typeof window.BabakNative.saveFile === "function") {
     try { const b64 = await blobToB64(blob); window.BabakNative.saveFile(filename, blob.type || "application/octet-stream", b64); return; } catch (e) { console.warn(e); }
   }
@@ -6898,6 +6904,7 @@ function doAct(act, el) {
     case "deleteForever": return n && deleteForever(n);
     case "trashNote": return n && trashNote(n);
     case "noteMenu": return n && noteMenu(n);
+    case "xfer": return n && xferHub(n);
     case "export": return n && exportMenu(n);
     case "pin": if (n) { n.pinned = !n.pinned; touch(n); saveNote(n.id, 0); el?.setAttribute("aria-pressed", String(n.pinned)); renderSide(); toast(n.pinned ? "⭐ " + T("pinnedMsg") : T("unpinnedMsg")); } return;
     case "attach": return pickFiles(false);
@@ -8029,6 +8036,9 @@ Object.assign(I18N.en, {skyNewBtn: "New", skyAsTabs: "Show as tabs", skyBarSet: 
 Object.assign(I18N.fa, {pdfPasteFixed: "متن PDF با پاراگراف‌ها و فاصله‌های اصلی چسبانده شد"});
 Object.assign(I18N.de, {pdfPasteFixed: "PDF-Text mit seinen Absätzen und Abständen eingefügt"});
 Object.assign(I18N.en, {pdfPasteFixed: "PDF text pasted with its paragraphs and spacing"});
+Object.assign(I18N.fa, {"xfHub": "کپی · ارسال · انتقال", "xfOut": "فرستادن به بیرون (ایمیل، واتس‌اپ، AirDrop، Files)", "xfClip": "کپی برای چسباندن در برنامهٔ دیگر", "xfIn": "داخل دفترچه", "xfMove": "انتقال به…", "xfCopyTo": "کپی به…", "xfDup": "یک نسخهٔ دیگر همین‌جا", "xfCopyText": "متن با قالب‌بندی", "xfCopyPic": "به شکل تصویر", "xfCopied": "کپی شد؛ حالا در برنامهٔ دیگر بچسبانید", "xfCopyFail": "کپی نشد؛ از «فرستادن به بیرون» استفاده کنید", "xfReady": "«{f}» آماده است", "xfSendBtn": "فرستادن", "xfPick": "مقصد (پوشه یا دفترچه)", "xfCopiedTo": "کپی شد در «{f}»", "xfOpen": "باز کردن", "xfCvSend": "انتخاب قالب: PDF به مقیاس، تصویر، اسکیچاپ…", "xfCvClip": "برای بوم و برداشت از «فرستادن» یا «کپی به…» استفاده کنید."});
+Object.assign(I18N.de, {"xfHub": "Kopieren · Senden · Verschieben", "xfOut": "Nach außen senden (Mail, WhatsApp, AirDrop, Dateien)", "xfClip": "Kopieren zum Einfügen in einer anderen App", "xfIn": "Im Notizbuch", "xfMove": "Verschieben nach…", "xfCopyTo": "Kopieren nach…", "xfDup": "Noch eine Kopie hier", "xfCopyText": "Text mit Formatierung", "xfCopyPic": "Als Bild", "xfCopied": "Kopiert – jetzt in der anderen App einfügen", "xfCopyFail": "Kopieren ging nicht; bitte „Senden“ nutzen", "xfReady": "„{f}“ ist bereit", "xfSendBtn": "Senden", "xfPick": "Ziel (Ordner oder Notizbuch)", "xfCopiedTo": "Kopiert nach „{f}“", "xfOpen": "Öffnen", "xfCvSend": "Format wählen: PDF maßstäblich, Bild, SketchUp…", "xfCvClip": "Für Zeichenflächen und Aufmaße „Senden“ oder „Kopieren nach…“ nutzen."});
+Object.assign(I18N.en, {"xfHub": "Copy · Send · Move", "xfOut": "Send out (Mail, WhatsApp, AirDrop, Files)", "xfClip": "Copy to paste in another app", "xfIn": "Inside the notebook", "xfMove": "Move to…", "xfCopyTo": "Copy to…", "xfDup": "Another copy here", "xfCopyText": "Text with formatting", "xfCopyPic": "As a picture", "xfCopied": "Copied – now paste it in the other app", "xfCopyFail": "Couldn't copy; use “Send out” instead", "xfReady": "“{f}” is ready", "xfSendBtn": "Send", "xfPick": "Destination (folder or notebook)", "xfCopiedTo": "Copied to “{f}”", "xfOpen": "Open", "xfCvSend": "Choose a format: PDF to scale, picture, SketchUp…", "xfCvClip": "For canvases and surveys use “Send out” or “Copy to…”."});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -14209,6 +14219,95 @@ function pdfTextToHtml(text) {
     const inner = b.lines.map((l, i) => (b.labels.has(i) ? `<b>${h(l)}</b>` : h(l))).join("<br>");
     return `<div>${b.bold ? `<b>${inner}</b>` : inner}</div>`;
   }).join("<div><br></div>");
+}
+
+/* ---- one place to copy, send and move a page: out of the notebook in many formats, or inside it ---- */
+let xferShareUntil = 0;
+const xferShareOn = () => Date.now() < xferShareUntil;
+/** The share sheet (Mail, WhatsApp, AirDrop, Files). Building a file takes time and iPad may then refuse to open
+    the sheet; the toast's "Send" button opens it with a fresh tap. */
+async function xferShare(filename, blob) {
+  const file = new File([blob], filename, { type: blob.type || "application/octet-stream" });
+  const go = async () => { try { await navigator.share({ files: [file], title: filename }); } catch (e) { if (e && e.name !== "AbortError") saveFile(filename, blob); } };
+  if (!(navigator.canShare && navigator.canShare({ files: [file] }))) return saveFile(filename, blob);
+  try { await navigator.share({ files: [file], title: filename }); }
+  catch (e) { if (e && e.name === "AbortError") return; skyToast("📤 " + T("xfReady", { f: filename }), [{ label: T("xfSendBtn"), run: go }]); }
+}
+function xferTargets(n) {
+  const fs = folderPaths().map((f) => f.path).sort((a, b) => a.localeCompare(b));
+  return `<option value="">${esc(T("skyRoot"))}</option>` + fs.map((p) => {
+    const d = p.split(SEP).length - 1, ic = folderKind(p) === "book" ? "📗" : "📁";
+    return `<option value="${esc(p)}" ${p === n.folder ? "selected" : ""}>${" ".repeat(d)}${ic} ${esc(leaf(p))}</option>`;
+  }).join("");
+}
+async function xferPick(n, title) {
+  const r = await formBox(title, `<div class="field"><label>${esc(T("xfPick"))}</label><select name="p">${xferTargets(n)}</select></div>`, (f) => ({ p: f.p.value }), T("ok"));
+  return r ? r.p : null;
+}
+const xferEnd = (folder) => Math.max(0, ...[...S.notes.values()].filter((x) => !x.trashed && (x.folder || "") === folder && typeof x.order === "number").map((x) => x.order)) + 1000;
+async function xferMove(n) {
+  const p = await xferPick(n, "📂 " + T("xfMove")); if (p === null || p === (n.folder || "")) return;
+  if (folderKind(p) === "book") { n.order = xferEnd(p); }
+  skyMoveNote(n, p);
+}
+async function xferCopyTo(n) {
+  const p = await xferPick(n, "⧉ " + T("xfCopyTo")); if (p === null) return;
+  if (!S.ink.has(n.id)) { try { await loadInk(n.id); } catch {} }
+  const w = W(n), now = new Date().toISOString(), deep = (v) => (v == null ? v : JSON.parse(JSON.stringify(v)));
+  const c = normNote({ ...n, id: uid(), folder: p, title: (w.title || T("untitled")) + (p === (n.folder || "") ? " – " + T("copyWord") : ""), html: w.html, attachments: w.attachments,
+    mm: deep(n.mm), cv: deep(n.cv), seal: null, locked: false, vault: "", pinned: false, createdAt: now, updatedAt: now });
+  c.order = xferEnd(p); S.notes.set(c.id, c); S.ink.set(c.id, strokesOf(n).map((s) => ({ ...s, path: s.path.map((q) => q.slice()) })));
+  saveNote(c.id, 0); saveInk(c.id); renderSide(); renderMain();
+  skyToast("⧉ " + T("xfCopiedTo", { f: p ? leaf(p) : T("skyRoot") }), [{ label: T("xfOpen"), run: () => openNote(c.id) }]);
+}
+/** Copy to the clipboard so it can be pasted in Mail, Word, WhatsApp… The data is handed over while the tap still counts. */
+async function xferClip(n, how) {
+  try {
+    if (how === "text") {
+      const w = W(n), html = `<div>${w.title ? `<h2>${esc(w.title)}</h2>` : ""}${w.html || ""}</div>`, txt = (w.title ? w.title + "\n\n" : "") + htmlToText(w.html || "");
+      if (window.ClipboardItem && navigator.clipboard?.write) await navigator.clipboard.write([new ClipboardItem({ "text/html": new Blob([html], { type: "text/html" }), "text/plain": new Blob([txt], { type: "text/plain" }) })]);
+      else await navigator.clipboard.writeText(txt);
+    } else {
+      const png = (async () => { if (n.mm && window.MM && MM.n === n) return canvasBlob(await mmToCanvas(), "image/png"); await ensureInk(n); const pages = await collectPages([n], {}); return canvasBlob(pages[0], "image/png"); })();
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": png })]);
+    }
+    toast("📋 " + T("xfCopied"));
+  } catch (e) { console.warn(e); toast(T("xfCopyFail"), { kind: "err" }); }
+}
+async function xferHub(n) {
+  captureActive();
+  const book = !n.mm && !n.cv ? bookOf(n) : [n], kind = n.mm ? "mm" : n.cv ? "cv" : "page";
+  const sends = kind === "mm" ? [["png", "🖼", "PNG"], ["pdf", "📕", "PDF"], ["xmind", "🧩", "XMind"], ["smmx", "🧠", "SimpleMind"], ["bmap", "🗂", T("x_backup")]]
+    : kind === "cv" ? [["cv", "📐", T("xfCvSend")]]
+    : [["pdf", "📕", T("x_pdf")], ["img", "🖼", T("x_img")], ["docx", "📘", T("x_docx")], ["txt", "📝", T("x_txt")], ["md", "Ⓜ️", T("x_md")], ["html", "🌐", T("x_html")], ["backup", "🗂", T("x_backup")]];
+  const btn = (attr, ic, l) => `<button type="button" class="xbtn" ${attr}><span class="xi">${ic}</span><b>${esc(l)}</b></button>`;
+  const v = await dialog({ title: "📤 " + T("xfHub"), wide: true, body: `<div class="xfhub">
+    ${book.length > 1 ? `<div class="tscope xscope"><button type="button" data-xs="page" aria-pressed="true">${esc(T("scopePage"))}</button><button type="button" data-xs="book" aria-pressed="false">${esc(T("scopeBook"))} (${num(book.length)} ${esc(T("page"))})</button></div>` : ""}
+    <h4>📤 ${esc(T("xfOut"))}</h4><div class="xgrid">${sends.map(([k, ic, l]) => btn(`data-xf="send:${k}"`, ic, l)).join("")}</div>
+    <h4>📋 ${esc(T("xfClip"))}</h4><div class="xgrid">${kind === "page" ? btn('data-xf="clip:text"', "📝", T("xfCopyText")) : ""}${kind !== "cv" ? btn('data-xf="clip:pic"', "🖼", T("xfCopyPic")) : ""}${kind === "cv" ? `<small class="msg">${esc(T("xfCvClip"))}</small>` : ""}</div>
+    <h4>📂 ${esc(T("xfIn"))}</h4><div class="xgrid">${btn('data-xf="move"', "📂", T("xfMove"))}${btn('data-xf="copyto"', "⧉", T("xfCopyTo"))}${kind === "page" ? btn('data-xf="dup"', "➕", T("xfDup")) : ""}</div></div>`,
+    actions: [{ label: T("cancel"), value: null }],
+    onOpen: (el, close) => {
+      let scope = "page";
+      el.addEventListener("click", (e) => {
+        const s = e.target.closest("[data-xs]"); if (s) { scope = s.dataset.xs; el.querySelectorAll("[data-xs]").forEach((b) => b.setAttribute("aria-pressed", String(b === s))); return; }
+        const b = e.target.closest("[data-xf]"); if (!b) return;
+        const a = b.dataset.xf;
+        if (a.startsWith("clip:")) { xferClip(n, a.slice(5)); return close(null); } // keep the tap for the clipboard
+        close({ a, scope });
+      });
+    } });
+  if (!v) return;
+  const [a, k] = v.a.split(":");
+  if (a === "send") {
+    xferShareUntil = Date.now() + (k === "cv" ? 180e3 : 90e3);
+    if (kind === "mm") return mmExport(k);
+    if (kind === "cv") return cvExport();
+    return runExport(n, k, v.scope);
+  }
+  if (a === "move") return xferMove(n);
+  if (a === "copyto") return xferCopyTo(n);
+  if (a === "dup") return duplicatePage(n.id);
 }
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
