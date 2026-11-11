@@ -1345,13 +1345,43 @@ header.top,aside.side,.bar-main{background:var(--bar)}
   .thgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
   .thpv{height:130px}
 }
+#newBtn{display:none!important}
+.topx{display:flex;align-items:center;gap:6px;min-width:0}
+.topx .btn{min-height:32px;padding:4px 10px;font-size:13px}
+.topx .btn.icon{min-width:32px;padding:4px 7px}
+.topx .btn.on{background:var(--accent-soft);border-color:var(--accent)}
+.txdate{font-size:12.5px;color:var(--muted);padding:5px 10px;border-radius:99px;background:var(--panel2);white-space:nowrap}
+#sideBtn[aria-pressed="false"]{background:var(--accent-soft);border-color:var(--accent)}
+/* a slimmer sidebar that can be put away */
+@media (min-width:861px){.app:not(.studio) .body{grid-template-columns:clamp(210px,19vw,250px) minmax(0,1fr)}.app.sidehide:not(.studio) .body{grid-template-columns:minmax(0,1fr)}}
+.app.sidehide:not(.drawer) aside.side{display:none}
+.side .sec{padding:8px 10px}
+.tree{padding:4px 6px}
+.side .tiles{gap:6px;padding:2px 2px 6px}
+.side .tile{min-height:0;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px;padding:7px 8px;border-radius:11px}
+.side .tile .ti{width:24px;height:24px;border-radius:7px;margin:0}
+.side .tile .ti .ic{width:15px;height:15px}
+.side .tile b{font-size:12.5px}
+.side .tile small{top:6px;inset-inline-end:8px;font-size:11px}
+.side .tile.wide{grid-column:1/-1}
+.side .tile .tplart{display:none}
+.side .sechead{font-size:13px}
+/* the tab home fills the whole work area */
+.scroll.thhome{padding:0}
+.thhome .thwrap{max-width:none;padding:6px 0 0;min-height:100%}
+.thhome .thtabs{padding:0 12px}
+.thhome .thsheet{border-radius:0;box-shadow:0 -1px 0 var(--line);min-height:0}
+.thhome .thsheet::after{display:none}
+@media (max-width:860px){ #sideBtn{display:none} .topx .btn[data-tx="classic"]{display:none} }
 </style>
 
 <div class="app" id="app">
   <header class="top">
     <button class="btn icon ghost only-m" id="menuBtn" aria-label="menu">☰</button>
+    <button class="btn icon" id="sideBtn" data-tx="side" aria-label="sidebar" title="sidebar" aria-pressed="true"><svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></svg></button>
     <div class="brand"><span id="brandName"></span><small id="brandSub"></small></div>
     <div class="grow"></div>
+    <div class="topx" id="topx"></div>
     <span class="pill" id="status"></span>
     <button class="btn icon" id="remBtn" aria-label="reminders">⏰ <span class="badge hide" id="remBadge">0</span></button>
     <button class="btn icon" id="syncBtn" aria-label="account">☁️</button>
@@ -3504,6 +3534,7 @@ async function handwritingToText() {
 /* ---------------- editor ---------------- */
 let ro = null;
 function renderMain() {
+  queueMicrotask(txRender);
   const main = $("#main");
   closePop(); clearTblHandles(); document.querySelectorAll(".tblguide").forEach((g) => g.remove()); // table grips belong to one page only
   captureActive(); S.contentDirty = false; paperState = null;
@@ -6964,6 +6995,7 @@ $("#setBtn").addEventListener("click", settingsPanel);
 $("#syncBtn").addEventListener("click", () => (isHome() ? accountPanel() : S.mode === "local" ? accountSyncPanel() : S.mcp ? gdPanel() : toast(T("syncCloudOnly"))));
 $("#status").addEventListener("click", () => { if (S.mode === "local") accountSyncPanel(); });
 $("#menuBtn").addEventListener("click", () => $("#app").classList.toggle("drawer"));
+if (lsGet("babak-sidehide", "")) $("#app").classList.add("sidehide");
 $("#scrim").addEventListener("click", () => $("#app").classList.remove("drawer"));
 $("#status").addEventListener("click", () => { if (S.error) retryFailed(); });
 addEventListener("pagehide", () => { captureActive(); flushAll(); });
@@ -7936,6 +7968,9 @@ Object.assign(I18N.en, {"pfTailHint": "Or keep pulling up – a new page is made
 Object.assign(I18N.fa, {"thFolders": "پوشه‌ها", "thBooks": "دفترچه‌ها", "thNotes": "یادداشت‌ها", "thMaps": "نقشه‌های ذهنی", "thCanvas": "بوم‌ها", "thFiles": "فایل‌ها", "thGroups": "گروه‌ها", "thAll": "همه", "thLoose": "بدون گروه", "thNewGroup": "گروه تازه", "thTip": "هر گروه یک پوشه است؛ چیزی که در یک گروه می‌سازید همان‌جا می‌رود.", "thNone": "هنوز چیزی اینجا نیست.", "thLastChange": "آخرین تغییر", "thRecent": "اخیر: «{t}» — {d}", "thGo": "ادامه ←", "thTabsEdit": "زبانه‌ها: نمایش و ترتیب", "thTabsHint": "تیک = نمایش زبانه. با ↑ ↓ ترتیبشان را عوض کنید."});
 Object.assign(I18N.de, {"thFolders": "Ordner", "thBooks": "Notizbücher", "thNotes": "Notizen", "thMaps": "Mindmaps", "thCanvas": "Leinwände", "thFiles": "Dateien", "thGroups": "Gruppen", "thAll": "Alle", "thLoose": "Ohne Gruppe", "thNewGroup": "Neue Gruppe", "thTip": "Jede Gruppe ist ein Ordner; was Sie in einer Gruppe anlegen, landet dort.", "thNone": "Hier ist noch nichts.", "thLastChange": "Zuletzt geändert", "thRecent": "Zuletzt: „{t}“ — {d}", "thGo": "Weiter →", "thTabsEdit": "Reiter: anzeigen und ordnen", "thTabsHint": "Haken = Reiter anzeigen. Mit ↑ ↓ die Reihenfolge ändern."});
 Object.assign(I18N.en, {"thFolders": "Folders", "thBooks": "Notebooks", "thNotes": "Notes", "thMaps": "Mind maps", "thCanvas": "Canvases", "thFiles": "Files", "thGroups": "Groups", "thAll": "All", "thLoose": "No group", "thNewGroup": "New group", "thTip": "Each group is a folder; what you make in a group goes there.", "thNone": "Nothing here yet.", "thLastChange": "Last change", "thRecent": "Recent: “{t}” — {d}", "thGo": "Continue →", "thTabsEdit": "Tabs: show and order", "thTabsHint": "Tick = show the tab. Use ↑ ↓ to change the order."});
+Object.assign(I18N.fa, {txTabs: "نمای زبانه‌ای", txTheme: "روشن / تیره"});
+Object.assign(I18N.de, {txTabs: "Reiter-Ansicht", txTheme: "Hell / Dunkel"});
+Object.assign(I18N.en, {txTabs: "Tab view", txTheme: "Light / dark"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -13958,15 +13993,15 @@ function renderTabHome() {
     <div class="thsheet" style="--ac:${tab.ac};--tink:${tab.ink}">
       ${nav}
       <section class="thbody">
-        <div class="thtop"><div><h2>${esc(T(tab.lab))}</h2><small>${esc(date)} · ${esc(T("itemsN", { n: num(shown.length) }))}</small></div><span class="sp"></span>
-          <div class="thtools"><button class="btn icon" data-act="skyOn" title="${esc(T("skyName"))}" aria-label="${esc(T("skyName"))}">✦</button><button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}" aria-label="${esc(T("sort"))}">⇅</button><button class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button></div>
+        <div class="thtop"><div><h2>${esc(T(tab.lab))}</h2><small>${esc(T("itemsN", { n: num(shown.length) }))}</small></div><span class="sp"></span>
+          <div class="thtools"><button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}" aria-label="${esc(T("sort"))}">⇅</button></div>
           ${["notes", "maps", "canvas"].includes(tab.k) ? `<div class="thview"><button type="button" data-th="view:grid" aria-pressed="${!list}" aria-label="grid">▦</button><button type="button" data-th="view:list" aria-pressed="${list}" aria-label="list">☰</button></div>` : ""}
           ${tab.k === "books" || tab.k === "files" ? `<button type="button" class="thnew2" data-th="pdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button>` : ""}
           <button type="button" class="thnew" data-th="new">+ ${esc(T(tab.newLab))}</button></div>
         ${body}
         ${last && tab.k !== "files" ? `<div class="threcent" data-note="${esc(last.n.id)}"><span>🕘</span><span>${esc(T("thRecent", { t: titleOf(last.n), d: fmtDate(last.n.updatedAt, false) }))}</span><b>${esc(T("thGo"))}</b></div>` : ""}
       </section>
-    </div></div></div><button class="fab" data-act="plus" aria-label="${esc(T("newNote"))}">＋</button>`;
+    </div></div></div>`;
 }
 async function thNew(tab) {
   const g = lsGet("babak-th-group-" + tab.k, ""), keep = S.view;
@@ -13999,6 +14034,30 @@ async function thTabsEdit() {
   if (!r.some((x) => x.on)) r[0].on = true;
   lsSet("babak-th-order", JSON.stringify(r)); renderLibrary();
 }
+
+/* ---- the top bar: sidebar on/off, idea sky, classic or tab view, light/dark, select, today's date ---- */
+function txDark() { const t = S.meta.settings.theme; return t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches); }
+function txRender() {
+  const box = $("#topx"); if (!box) return;
+  const lib = S.screen !== "studio", tabs = S.meta.settings.tabHome !== false, sky = S.meta.settings.homeStyle !== "classic";
+  let date = ""; try { date = new Date().toLocaleDateString(LOCALE[S.meta.settings.lang], { weekday: "long", day: "numeric", month: "long" }); } catch {}
+  box.innerHTML = `<button type="button" class="btn ${sky && lib ? "on" : ""}" data-tx="sky" aria-pressed="${sky}">✦ <span class="hide-m">${esc(T("skyName"))}</span></button>
+    <button type="button" class="btn" data-tx="classic"><span>${esc(T(sky || tabs ? "skyClassic" : "txTabs"))}</span></button>
+    <button type="button" class="btn icon" data-tx="theme" title="${esc(T("txTheme"))}" aria-label="${esc(T("txTheme"))}">${txDark() ? "☀️" : "🌙"}</button>
+    <button type="button" class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
+    <span class="txdate hide-m">${esc(date)}</span>`;
+  const sb = $("#sideBtn"); if (sb) sb.setAttribute("aria-pressed", String(!$("#app").classList.contains("sidehide")));
+}
+function txHome() { captureActive(); flushAll(); S.view = "__all"; S.query = ""; const s = $("#search"); if (s) s.value = ""; lsSet("babak-sa-view", S.view); S.screen = "library"; renderMain(); }
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-tx]"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const a = b.dataset.tx, st = S.meta.settings;
+  if (a === "side") { const on = $("#app").classList.toggle("sidehide"); lsSet("babak-sidehide", on ? "1" : ""); txRender(); return; }
+  if (a === "sky") { st.homeStyle = "sky"; saveMeta(0); return txHome(); }
+  if (a === "classic") { if (st.homeStyle !== "classic") { st.homeStyle = "classic"; st.tabHome = true; } else st.tabHome = st.tabHome === false; saveMeta(0); return txHome(); }
+  if (a === "theme") { st.theme = txDark() ? "light" : "dark"; saveMeta(0); applyLangTheme(); txRender(); if (S.screen !== "studio") renderMain(); return; }
+}, true);
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
