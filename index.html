@@ -1429,6 +1429,63 @@ header.top #status{min-height:0;padding-top:2px;padding-bottom:2px}
 .xfhub h4:first-of-type{margin-top:4px}
 .xfhub .xgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 .xfhub .xbtn{min-height:64px}
+/* ===== r62 ===== */
+/* 2. navigation buttons big enough for a finger */
+.bar .bz-start{gap:6px}
+.bar .bz-start>.btn.icon{min-width:44px;min-height:44px;border-radius:12px}
+.bar .bz-start>.btn.icon .ic{width:22px;height:22px}
+.bar .bz-end .pnav .btn,.bar .bz-end .pnav button{min-width:40px;min-height:40px}
+.crumbs{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.crumbs button{min-height:44px;padding:0 14px;border-radius:12px;font-size:16px;display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--line)}
+.crumbs button .ic{width:20px;height:20px}
+.libhead>.btn.icon{min-width:48px;min-height:48px;font-size:22px;border-radius:12px}
+/* 3. size and font menu */
+.aab{font-weight:700;font-size:15px;letter-spacing:-.5px}
+.pop.fmpop{min-width:260px;padding:8px}
+.fmbox{display:flex;flex-direction:column;gap:8px}
+.fmrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.fmrow .fmbig{min-width:64px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:inherit;font:inherit;font-size:16px;font-weight:700}
+.fmcur{font-size:18px;font-variant-numeric:tabular-nums}
+.fmsizes{display:flex;flex-wrap:wrap;gap:6px}
+.fmsizes button{min-width:40px;min-height:40px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font-family:inherit}
+.fmfonts{display:flex;flex-direction:column;gap:4px;max-height:42vh;overflow:auto}
+.fmfonts button{display:flex;justify-content:space-between;align-items:center;min-height:42px;padding:0 12px;border:0;border-radius:10px;background:none;color:inherit;font-size:16px;text-align:start}
+.fmfonts button:hover,.fmfonts button:active{background:var(--hover)}
+.fmfonts button span{opacity:.6}
+.fmclear{min-height:42px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font:inherit}
+/* 4. the end of a notebook: keep scrolling for a new page */
+.pgtail.pfpull{min-height:55vh;margin:22px auto 30px;max-width:var(--pw,900px);border:2px dashed color-mix(in srgb,var(--muted) 40%,transparent);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;padding:34px 16px;color:var(--muted);text-align:center;box-sizing:border-box}
+.pgtail.pfpull .pfarrow{font-size:30px;opacity:.7}
+.pgtail.pfpull b{font-size:17px;color:var(--ink)}
+.pgtail.pfpull .btn{margin-top:8px;min-height:44px}
+/* 6. calm line icons in the top bar */
+header.top #remBtn,header.top #syncBtn,header.top #setBtn{position:relative}
+header.top .tbi{width:21px;height:21px}
+#remBadge{position:absolute;top:1px;inset-inline-end:1px;min-width:16px;height:16px;line-height:16px;padding:0 4px;border-radius:8px;font-size:10px}
+/* 7. picture tools for the finger */
+.fltools button{min-width:42px;min-height:42px}
+.flframe i{min-width:22px;min-height:22px}
+.flframe.locked{pointer-events:none}
+.flframe.locked i,.flframe.locked b,.flframe.locked .flmove{display:none}
+.flframe.locked{outline:2px dashed var(--muted)}
+.fltools button.on{background:var(--accent-soft)}
+.cropwrap{position:relative;overflow:hidden;border-radius:8px;background:#0001;margin-bottom:10px;max-height:46vh;display:flex;justify-content:center}
+.cropwrap img{max-width:100%;max-height:46vh;display:block}
+.cropmask{position:absolute;inset:0;border:2px solid var(--accent);box-shadow:0 0 0 9999px rgba(0,0,0,.45);pointer-events:none}
+.crrow{display:flex;align-items:center;gap:10px;margin:6px 0}.crrow span{min-width:70px}.crrow input{flex:1}
+/* 8. clock */
+.txclock{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-variant-numeric:tabular-nums;font-weight:700;font-size:20px;letter-spacing:.5px;padding:0 10px;color:var(--ink);white-space:nowrap}
+/* 9. colours */
+header.top,.bar-main{background:var(--topbar,var(--bar,var(--panel)))}
+aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
+.colpre{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin-bottom:8px}
+.colp{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px;border:2px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;font:inherit;font-size:13px}
+.colp.on{border-color:var(--accent)}
+.colp i{width:100%;height:30px;border-radius:8px;background:linear-gradient(180deg,var(--b) 0 34%,var(--a) 34% 100%);box-shadow:inset -14px -8px 0 -6px var(--c)}
+.colcustom{margin:4px 0 8px}.colcustom summary{cursor:pointer;min-height:36px;display:flex;align-items:center}
+.colrow{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.colrow input{width:56px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:none}
+.colreset{min-height:40px}
 </style>
 
 <div class="app" id="app">
@@ -1439,9 +1496,9 @@ header.top #status{min-height:0;padding-top:2px;padding-bottom:2px}
     <div class="grow"></div>
     <div class="topx" id="topx"></div>
     <span class="pill" id="status"></span>
-    <button class="btn icon" id="remBtn" aria-label="reminders">⏰ <span class="badge hide" id="remBadge">0</span></button>
-    <button class="btn icon" id="syncBtn" aria-label="account">☁️</button>
-    <button class="btn icon" id="setBtn" aria-label="settings">⚙</button>
+    <button class="btn icon" id="remBtn" aria-label="reminders"><svg class="ic tbi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"/><path d="M12 9.5V13l2.5 2M4.5 4.5L2.5 6.5M19.5 4.5l2 2"/></svg><span class="badge hide" id="remBadge">0</span></button>
+    <button class="btn icon" id="syncBtn" aria-label="account"><svg class="ic tbi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10.5a4 4 0 0 0 .4-7.98A5.5 5.5 0 0 0 7.3 8.6 4.7 4.7 0 0 0 7 18z"/></svg></button>
+    <button class="btn icon" id="setBtn" aria-label="settings"><svg class="ic tbi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     <button class="btn primary" id="newBtn">＋ <span class="hide-m" id="newBtnLabel"></span></button>
   </header>
   <div class="body">
@@ -1673,7 +1730,7 @@ function fmtDate(iso, withTime = true) {
 const ALLOWED_TAGS = new Set(["A","B","BLOCKQUOTE","BR","CODE","DIV","EM","H2","H3","H4","H5","H6","I","LI","MARK","OL","P","PRE","S","SMALL","SPAN","STRONG","SUB","SUP","U","UL","IMG","HR","STRIKE","TABLE","THEAD","TBODY","TR","TD","TH"]);
 const DROP_WITH_CONTENT = "script,style,iframe,object,embed,link,meta,template,svg,math,form,input,button,textarea,select,noscript,base,title,head";
 const ALLOWED_ATTR = new Set(["class","dir","lang","title","style","href","target","rel","alt","src"]);
-const ALLOWED_DATA = /^data-(anchor-x|anchor-pct|top-pct|list|manual-align|manual-direction|immutable|comment|symbol|checked|asset|fk|fx|fy|fw|fr|fs)$/;
+const ALLOWED_DATA = /^data-(anchor-x|anchor-pct|top-pct|list|manual-align|manual-direction|immutable|comment|symbol|checked|asset|fk|fx|fy|fw|fr|fs|flock)$/;
 const ALLOWED_STYLE = new Set(["color","background-color","font-family","font-size","font-weight","font-style","text-decoration","text-align","width","max-width","height","border-color","border-width","border-style","vertical-align"]);
 function cleanStyle(v) {
   return v.split(";").map((r) => r.trim()).filter((r) => {
@@ -2257,6 +2314,7 @@ function applyLangTheme() {
   document.title = T("appName");
   $("#newBtnLabel").textContent = T("newNote"); $("#search").placeholder = T("search");
   $("#newFolderBtn").title = T("newFolder"); $("#newFolderLabel").textContent = T("newFolder"); $("#remBtn").title = T("reminders"); $("#setBtn").title = T("settings"); $("#syncBtn").title = T("syncTitle");
+  try { colApply(); } catch {}
 }
 function storageText() { return S.home ? T("storageServer") : S.mode === "local" ? T("storageLocal") : S.mode === "server" ? T("storageServer") : T("storageCloud"); }
 function renderStatus() {
@@ -2690,7 +2748,7 @@ function insertFloatImage(id) {
   const midY = Math.max(0, (sr.top + sr.height * 0.3) - cr.top);
   const el = document.createElement("div"); el.className = "fl"; el.dataset.fk = "img";
   el.innerHTML = `<img src="/_blob/${esc(id)}" data-asset="${esc(id)}" alt="">`;
-  c.append(el); flSet(el, { x: 0.25, y: midY / W_, w: 0.5, r: 0, k: "img" });
+  const spot = flTapSpot(0.5); c.append(el); flSet(el, { x: spot ? spot.x : 0.25, y: spot ? spot.y : midY / W_, w: 0.5, r: 0, k: "img" });
   hydrate(el); flSave();
   S.tool.mode = "type"; applyMode();
   const img = el.querySelector("img"), sel = () => selectFloat(el);
@@ -2723,7 +2781,7 @@ function drawFrame() {
   const a = flA(el), img = a.k === "img";
   let f = $("#flframe");
   if (!f) { f = document.createElement("div"); f.id = "flframe"; paper.append(f); f.addEventListener("pointerdown", frameDown); }
-  f.className = "flframe " + (img ? "img" : "text");
+  f.className = "flframe " + (img ? "img" : "text") + (el.dataset.flock ? " locked" : "");
   if (!f.dataset.k || f.dataset.k !== a.k) {
     f.dataset.k = a.k;
     f.innerHTML = (img ? `<div class="flmove" data-flh="move"></div><b data-flh="rot" title="${esc(T("rotate"))}"></b>` : `<span class="flgrip" data-flh="move" title="${esc(T("moveBox"))}">${ic("move")}</span>`) +
@@ -2739,6 +2797,9 @@ function drawFrame() {
   tb.innerHTML = `<button type="button" data-fla="exact">${ic("ruler")}<span>${esc(T("exactPlace"))}</span></button>
     ${img ? `<button type="button" data-fla="rot90" title="${esc(T("rotate90"))}">${ic("rotate")}</button>` : ""}
     <button type="button" data-fla="front" title="${esc(T("toFront"))}">${ic("front")}</button>
+    <button type="button" data-fla="back" title="${esc(T("toBack"))}" style="transform:scale(-1,-1)">${ic("front")}</button>
+    ${img ? `<button type="button" data-fla="crop" title="${esc(T("flCrop"))}">✂</button>` : ""}
+    <button type="button" data-fla="lock" class="${el.dataset.flock ? "on" : ""}" title="${esc(T(el.dataset.flock ? "flUnlock" : "flLock"))}">${ic(el.dataset.flock ? "lock" : "unlock")}</button>
     <button type="button" data-fla="del" class="del" title="${esc(T("delete"))}">${ic("trash")}</button>`;
   const pr = paper.getBoundingClientRect(), er = el.getBoundingClientRect();
   const tw = tb.offsetWidth, below = er.bottom - pr.top + 14;
@@ -2747,6 +2808,7 @@ function drawFrame() {
 }
 function frameDown(e) {
   const h = e.target.closest("[data-flh]"); if (!h || !flSel) return;
+  if (flSel.dataset.flock) { e.preventDefault(); return; }
   e.preventDefault(); e.stopPropagation();
   startFloatDrag(e, h.dataset.flh, e.currentTarget);
 }
@@ -2779,6 +2841,9 @@ async function floatAction(act) {
   if (act === "del") { flSel = null; $("#flframe")?.remove(); $("#fltools")?.remove(); el.remove(); flSave(); toast(T("objDeleted")); return; }
   if (act === "rot90") { a.r = (((a.r + 90) + 540) % 360) - 180; flSet(el, a); flSave(); return drawFrame(); }
   if (act === "front") { el.parentElement.append(el); flSave(); return drawFrame(); }
+  if (act === "back") { const first = [...el.parentElement.children].find((x) => x.classList.contains("fl")); if (first && first !== el) el.parentElement.insertBefore(el, first); flSave(); return drawFrame(); }
+  if (act === "lock") { if (el.dataset.flock) delete el.dataset.flock; else el.dataset.flock = "1"; flSave(); toast(T(el.dataset.flock ? "flLocked" : "flUnlocked")); return drawFrame(); }
+  if (act === "crop") return cropFloat(el);
   if (act === "exact") return exactPlace(el);
 }
 /** Exact size and place in percent of the page, plus one-tap alignment. */
@@ -2830,7 +2895,7 @@ function setupFloats(content) {
   content.addEventListener("pointerdown", (e) => {
     if (S.tool.mode !== "type" || content.getAttribute("contenteditable") !== "true") return;
     const fl = e.target.closest(".fl"), img = e.target.closest("img");
-    if (fl && fl.parentElement === content && fl.dataset.fk !== "text") { e.preventDefault(); selectFloat(fl); startFloatDrag(e, "move", fl); return; }
+    if (fl && fl.parentElement === content && fl.dataset.fk !== "text") { e.preventDefault(); const p = flPick(e, content) || fl; selectFloat(p); if (!p.dataset.flock) startFloatDrag(e, "move", p); return; }
     if (!fl && img && content.contains(img)) { e.preventDefault(); const f = floatFromInline(img); selectFloat(f); startFloatDrag(e, "move", f); return; }
     if (fl && fl.dataset.fk === "text") { selectFloat(fl); return; }
     if (flSel) deselectFloat();
@@ -3657,6 +3722,7 @@ function renderMain() {
       <button class="btn icon ghost" data-cmd="italic" title="${esc(T("italic"))}"><i>I</i></button>
       <button class="btn icon ghost" data-cmd="underline" title="${esc(T("underline"))}"><u>U</u></button>
       <button class="btn icon ghost" data-cmd="strikeThrough" title="${esc(T("strike"))}"><s>S</s></button>
+      <button class="btn icon ghost" data-act="fontMenu" data-pop="1" title="${esc(T("fmTitle"))}"><span class="aab">Aa</span></button>
       <span class="sep"></span>
       <button class="btn icon ghost" data-block="h3" title="${esc(T("heading"))}"><b>H</b></button>
       <button class="btn icon ghost" data-block="div" title="${esc(T("normal"))}">¶</button>
@@ -4871,7 +4937,7 @@ function newNote(opt) {
   const now = new Date().toISOString(), like = opt.like && !(opt.like.bgs || []).length ? opt.like : null;
   const after = opt.after || null;
   const fc = normCover(S.meta.folders.find((f) => f.path === folder)?.cover);
-  const n = normNote({ id: uid(), title: nextPageTitle(folder), html: "", folder, color: like?.color || S.meta.folders.find((f) => f.path === folder)?.color || TAG_COLORS[0], pageStyle: like?.pageStyle || fc.paper || S.meta.settings.pageStyle, aspect: like?.aspect || LAYOUTS[fc.layout] || LAYOUTS[S.meta.settings.layout] || LAYOUTS.portrait, createdAt: now, updatedAt: now });
+  const n = normNote({ id: uid(), title: nextPageTitle(folder), html: "", folder, color: like?.color || S.meta.folders.find((f) => f.path === folder)?.color || TAG_COLORS[0], pageStyle: "blank", aspect: like?.aspect || LAYOUTS[fc.layout] || LAYOUTS[S.meta.settings.layout] || LAYOUTS.portrait, createdAt: now, updatedAt: now });
   if (after) n.order = orderAfter(after);
   S.notes.set(n.id, n); S.ink.set(n.id, []);
   if (S.view === "__trash") S.view = "__all";
@@ -6747,6 +6813,7 @@ async function settingsPanel() {
     <button type="button" class="acctcard" data-x="ai"><span class="ai">✨</span><span><b>${esc(T("aiTitle"))}</b><small>${esc(aiReady() ? AI_PROVIDERS[aiCfg().provider]?.name + " · " + (aiCfg().model || AI_PROVIDERS[aiCfg().provider]?.def) : T("aiSub"))}</small></span><span class="go">›</span></button>
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
+    ${colFieldHtml()}
     <div class="field"><label>${esc(T("txtScale"))}</label><div class="uisrow"><button type="button" class="btn" data-uis="-1" data-uisn="txtScale" aria-label="A−">A−</button><select name="txtScale">${[["0.9", "txS90"], ["1", "txS100"], ["1.15", "txS115"], ["1.3", "txS130"], ["1.5", "txS150"], ["1.75", "txS175"]].map(([v, k]) => `<option value="${v}" ${String(lsGet("babak-txtscale", "1")) === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select><button type="button" class="btn" data-uis="1" data-uisn="txtScale" aria-label="A+" style="font-size:19px">A+</button></div><small class="msg">${esc(T("txSHint"))}</small></div>
     <div class="field"><label>${esc(T("uiScale"))}</label><div class="uisrow"><button type="button" class="btn" data-uis="-1" aria-label="A−">A−</button><select name="uiScale">${[["0.75", "uiS75"], ["0.83", "uiS83"], ["0.9", "uiS90"], ["1", "uiS100"], ["1.15", "uiS115"], ["1.3", "uiS130"], ["1.5", "uiS150"]].map(([v, k]) => `<option value="${v}" ${String(lsGet("babak-uiscale", "0.83")) === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select><button type="button" class="btn" data-uis="1" aria-label="A+" style="font-size:19px">A+</button></div><small class="msg">${esc(T("uiSHint"))}</small></div>
     <div class="field"><label>${esc(T("skyBarSet"))}</label><select name="skyBar">${[["menu", "skyBarMenu"], ["tabs", "skyBarTabs"]].map(([v, k]) => `<option value="${v}" ${skyBar() === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
@@ -6924,6 +6991,7 @@ function doAct(act, el) {
     case "removeLock": return n && removeLock(n);
     case "addPage": if (n) { n.pages = Math.min(n.continuous ? 60 : 20, Math.max(n.pages, (n.bgs || []).length) + 1); touch(n); decoratePaper(n); saveNote(n.id, 0); } return;
     case "checklist": return makeChecklist();
+    case "fontMenu": return fontMenu(el);
     case "highlight": exec("hiliteColor", "#fff0a0"); return;
     case "dir": return toggleDir();
   }
@@ -7028,7 +7096,7 @@ document.addEventListener("paste", (e) => {
   if (files.length) return uploadFiles(files, true);
   const html = e.clipboardData.getData("text/html"), text = e.clipboardData.getData("text/plain");
   const rich = html && /<(b|strong|h[1-6]|table|li|img|em|i|u)[\s>]/i.test(html), fromPdf = !rich && text ? pdfTextToHtml(text) : null;
-  document.execCommand("insertHTML", false, fromPdf || (html ? sanitize(html) : plainToHtml(text).replace(/^<div>(.*)<\/div>$/s, "$1")));
+  document.execCommand("insertHTML", false, fromPdf || (html ? pasteClean(sanitize(html)) : plainToHtml(text).replace(/^<div>(.*)<\/div>$/s, "$1")));
   if (fromPdf) toast(T("pdfPasteFixed"));
   onContentInput();
 });
@@ -8047,6 +8115,9 @@ Object.assign(I18N.en, {pdfPasteFixed: "PDF text pasted with its paragraphs and 
 Object.assign(I18N.fa, {"xfHub": "کپی · ارسال · انتقال", "xfOut": "فرستادن به بیرون (ایمیل، واتس‌اپ، AirDrop، Files)", "xfClip": "کپی برای چسباندن در برنامهٔ دیگر", "xfIn": "داخل دفترچه", "xfMove": "انتقال به…", "xfCopyTo": "کپی به…", "xfDup": "یک نسخهٔ دیگر همین‌جا", "xfCopyText": "متن با قالب‌بندی", "xfCopyPic": "به شکل تصویر", "xfCopied": "کپی شد؛ حالا در برنامهٔ دیگر بچسبانید", "xfCopyFail": "کپی نشد؛ از «فرستادن به بیرون» استفاده کنید", "xfReady": "«{f}» آماده است", "xfSendBtn": "فرستادن", "xfPick": "مقصد (پوشه یا دفترچه)", "xfCopiedTo": "کپی شد در «{f}»", "xfOpen": "باز کردن", "xfCvSend": "انتخاب قالب: PDF به مقیاس، تصویر، اسکیچاپ…", "xfCvClip": "برای بوم و برداشت از «فرستادن» یا «کپی به…» استفاده کنید."});
 Object.assign(I18N.de, {"xfHub": "Kopieren · Senden · Verschieben", "xfOut": "Nach außen senden (Mail, WhatsApp, AirDrop, Dateien)", "xfClip": "Kopieren zum Einfügen in einer anderen App", "xfIn": "Im Notizbuch", "xfMove": "Verschieben nach…", "xfCopyTo": "Kopieren nach…", "xfDup": "Noch eine Kopie hier", "xfCopyText": "Text mit Formatierung", "xfCopyPic": "Als Bild", "xfCopied": "Kopiert – jetzt in der anderen App einfügen", "xfCopyFail": "Kopieren ging nicht; bitte „Senden“ nutzen", "xfReady": "„{f}“ ist bereit", "xfSendBtn": "Senden", "xfPick": "Ziel (Ordner oder Notizbuch)", "xfCopiedTo": "Kopiert nach „{f}“", "xfOpen": "Öffnen", "xfCvSend": "Format wählen: PDF maßstäblich, Bild, SketchUp…", "xfCvClip": "Für Zeichenflächen und Aufmaße „Senden“ oder „Kopieren nach…“ nutzen."});
 Object.assign(I18N.en, {"xfHub": "Copy · Send · Move", "xfOut": "Send out (Mail, WhatsApp, AirDrop, Files)", "xfClip": "Copy to paste in another app", "xfIn": "Inside the notebook", "xfMove": "Move to…", "xfCopyTo": "Copy to…", "xfDup": "Another copy here", "xfCopyText": "Text with formatting", "xfCopyPic": "As a picture", "xfCopied": "Copied – now paste it in the other app", "xfCopyFail": "Couldn't copy; use “Send out” instead", "xfReady": "“{f}” is ready", "xfSendBtn": "Send", "xfPick": "Destination (folder or notebook)", "xfCopiedTo": "Copied to “{f}”", "xfOpen": "Open", "xfCvSend": "Choose a format: PDF to scale, picture, SketchUp…", "xfCvClip": "For canvases and surveys use “Send out” or “Copy to…”."});
+Object.assign(I18N.fa, {"fmTitle": "اندازه و فونت نوشته", "fmDefault": "فونت معمولی دفترچه", "fmSans": "ساده", "fmSerif": "کتابی", "fmNaskh": "نسخ", "fmNastaliq": "نستعلیق", "fmHand": "دست‌نویس", "fmMono": "ماشین‌تحریر", "fmClear": "پاک کردن قالب", "pfPullAdd": "برای صفحهٔ تازه ادامه دهید", "pfPullHint": "همین‌طور به پایین بکشید تا یک صفحهٔ سفید اضافه شود", "toBack": "بفرست عقب", "flCrop": "برش عکس", "flLock": "قفل کردن (جابه‌جا نشود)", "flUnlock": "باز کردن قفل", "flLocked": "عکس قفل شد", "flUnlocked": "قفل عکس باز شد", "flCropFail": "برش انجام نشد", "crT": "بالا", "crB": "پایین", "crL": "چپ", "crR": "راست", "colTitle": "رنگ‌بندی", "colCustom": "رنگ دلخواه برای هر بخش", "colReset": "برگشت به رنگ‌های اولیه", "colBg": "پس‌زمینه (دسکتاپ)", "colTop": "نوار بالا", "colSide": "ستون کناری", "colPaper": "کاغذ دفترچه", "colAccent": "رنگ دکمه‌ها", "colInk": "رنگ نوشته‌ها", "colp_cream": "کاغذ کرم", "colp_white": "سفید آرام", "colp_sea": "آبی دریایی", "colp_olive": "سبز زیتونی", "colp_gray": "خاکستری", "colp_rose": "گل‌بهی", "colp_night": "شب تیره"});
+Object.assign(I18N.de, {"fmTitle": "Schriftgröße und Schrift", "fmDefault": "Normale Schrift", "fmSans": "Schlicht", "fmSerif": "Buchschrift", "fmNaskh": "Naskh", "fmNastaliq": "Nastaliq", "fmHand": "Handschrift", "fmMono": "Schreibmaschine", "fmClear": "Formatierung löschen", "pfPullAdd": "Weiter scrollen für eine neue Seite", "pfPullHint": "Einfach weiter nach unten ziehen – eine leere Seite kommt dazu", "toBack": "Nach hinten", "flCrop": "Bild zuschneiden", "flLock": "Sperren (nicht verschieben)", "flUnlock": "Entsperren", "flLocked": "Bild gesperrt", "flUnlocked": "Bild entsperrt", "flCropFail": "Zuschneiden ging nicht", "crT": "Oben", "crB": "Unten", "crL": "Links", "crR": "Rechts", "colTitle": "Farben", "colCustom": "Eigene Farbe je Bereich", "colReset": "Zurück zu den Grundfarben", "colBg": "Hintergrund (Desktop)", "colTop": "Obere Leiste", "colSide": "Seitenleiste", "colPaper": "Papier", "colAccent": "Tastenfarbe", "colInk": "Schriftfarbe", "colp_cream": "Cremepapier", "colp_white": "Ruhiges Weiß", "colp_sea": "Meeresblau", "colp_olive": "Olivgrün", "colp_gray": "Grau", "colp_rose": "Rosé", "colp_night": "Dunkle Nacht"});
+Object.assign(I18N.en, {"fmTitle": "Text size and font", "fmDefault": "Notebook font", "fmSans": "Plain", "fmSerif": "Book", "fmNaskh": "Naskh", "fmNastaliq": "Nastaliq", "fmHand": "Handwriting", "fmMono": "Typewriter", "fmClear": "Clear formatting", "pfPullAdd": "Keep scrolling for a new page", "pfPullHint": "Just keep pulling down – a blank page is added", "toBack": "Send to back", "flCrop": "Crop picture", "flLock": "Lock (don't move)", "flUnlock": "Unlock", "flLocked": "Picture locked", "flUnlocked": "Picture unlocked", "flCropFail": "Couldn't crop", "crT": "Top", "crB": "Bottom", "crL": "Left", "crR": "Right", "colTitle": "Colours", "colCustom": "Your own colour for each part", "colReset": "Back to the original colours", "colBg": "Background (desktop)", "colTop": "Top bar", "colSide": "Side panel", "colPaper": "Notebook paper", "colAccent": "Button colour", "colInk": "Text colour", "colp_cream": "Cream paper", "colp_white": "Calm white", "colp_sea": "Sea blue", "colp_olive": "Olive green", "colp_gray": "Grey", "colp_rose": "Rose", "colp_night": "Dark night"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -10415,15 +10486,15 @@ document.addEventListener("touchstart", (e) => {
   if (!sc || e.touches.length !== 1 || S.screen !== "editor") { pull = null; return; }
   if (fingerWrites() && e.target.closest("#paper")) { pull = null; return; } // that finger is writing, not scrolling
   const max = sc.scrollHeight - sc.clientHeight;
-  pull = { y0: e.touches[0].clientY, x0: e.touches[0].clientX, top: sc.scrollTop <= 2, bottom: sc.scrollTop >= max - 2, dir: 0, amt: 0, sc };
+  pull = { y0: e.touches[0].clientY, x0: e.touches[0].clientX, top: sc.scrollTop <= 8, bottom: sc.scrollTop >= max - 8, dir: 0, amt: 0, sc };
 }, { passive: true, capture: true });
 document.addEventListener("touchmove", (e) => {
   if (!pull || e.touches.length !== 1) return;
   const sc = pull.sc, max = sc.scrollHeight - sc.clientHeight, t = e.touches[0];
   if (paperState && paperState.cur) { pull = null; hidePull(); return; }
   // the start point counts from the moment the page reached its edge
-  if (!pull.bottom && sc.scrollTop >= max - 2) { pull.bottom = true; pull.y0 = t.clientY; }
-  if (!pull.top && sc.scrollTop <= 2) { pull.top = true; pull.y0 = t.clientY; }
+  if (!pull.bottom && sc.scrollTop >= max - 8) { pull.bottom = true; pull.y0 = t.clientY; }
+  if (!pull.top && sc.scrollTop <= 8) { pull.top = true; pull.y0 = t.clientY; }
   const dy = t.clientY - pull.y0;
   if (Math.abs(t.clientX - pull.x0) > Math.abs(dy) + 30) { pull.dir = 0; hidePull(); return; } // sideways: not a page turn
   if (pull.bottom && dy < -20) { pull.dir = 1; pull.amt = (-dy - 20) / PULL_PX; showPull(1, pull.amt); }
@@ -10441,7 +10512,7 @@ document.addEventListener("wheel", (e) => {
   if (e.ctrlKey || S.screen !== "editor") return;
   const sc = e.target.closest && e.target.closest("#scroll.studio-scroll"); if (!sc) return;
   const max = sc.scrollHeight - sc.clientHeight, dir = e.deltaY > 0 ? 1 : -1, now = Date.now();
-  const atEdge = dir > 0 ? sc.scrollTop >= max - 2 : sc.scrollTop <= 2;
+  const atEdge = dir > 0 ? sc.scrollTop >= max - 8 : sc.scrollTop <= 8;
   if (!atEdge) { wheelPull = { dir: 0, sum: 0, t: now }; hidePull(); return; }
   if (wheelPull.dir !== dir || now - wheelPull.t > 700) wheelPull = { dir, sum: 0, t: now };
   wheelPull.sum += Math.abs(e.deltaY); wheelPull.t = now;
@@ -13953,42 +14024,6 @@ async function pfPaint(el, n) {
   const x = cv.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0);
   for (const st of strokesOf(n)) paintStroke(x, st, W_, W_ * ASPECT);
 }
-function pfMount(n) {
-  const sc = $("#scroll.studio-scroll"), paper = $("#paper"); if (!sc || !paper || !pfOn(n)) return;
-  const pages = siblings(n), i = pages.findIndex((x) => x.id === n.id); if (i < 0) return;
-  const sheet = paper.parentElement, atts = $("#atts");
-  const prev = pages[i - 1], next = pages[i + 1];
-  if (prev) { const g = pfGhost(prev, "prev", i - 1, pages.length); sheet.insertBefore(g, paper); requestAnimationFrame(() => pfPaint(g, prev)); }
-  if (next) { const g = pfGhost(next, "next", i + 1, pages.length); (atts || paper).after(g); requestAnimationFrame(() => pfPaint(g, next)); }
-  else if (!S.readOnly && !isFrozen(n)) {
-    const t = document.createElement("div"); t.className = "pgtail"; t.innerHTML = `<button type="button" class="btn" data-act="newPageHere">＋ ${esc(T("newPageHere"))}</button><small>${esc(T("pfTailHint"))}</small>`;
-    (atts || paper).after(t);
-  }
-  // keep the page you were on where it was: opening a neighbour must not jump
-  if (pfMount.keep) { const k = pfMount.keep; pfMount.keep = null; requestAnimationFrame(() => { const top = paper.offsetTop; sc.scrollTop = k.side === "next" ? top - k.y : top + paper.offsetHeight - k.y; }); }
-  else if (prev) requestAnimationFrame(() => { if (sc.scrollTop < paper.offsetTop - 40) sc.scrollTop = paper.offsetTop - 16; }); // a page opens at its own top, the page before stays just above
-  pfLock = Math.max(pfLock, Date.now() + 450);
-  if (!sc.dataset.pf) { sc.dataset.pf = "1"; sc.addEventListener("scroll", pfScroll, { passive: true }); }
-}
-function pfGo(id, side, el) {
-  const sc = $("#scroll.studio-scroll"); if (!sc || !S.notes.get(id)) return;
-  const r = el.querySelector(".ghostp").getBoundingClientRect(), sr = sc.getBoundingClientRect();
-  pfMount.keep = { side, y: side === "next" ? r.top - sr.top : r.bottom - sr.top };
-  pfLock = Date.now() + 450; openNote(id);
-}
-function pfScroll() {
-  if (Date.now() < pfLock || pfScroll.raf) return;
-  pfScroll.raf = requestAnimationFrame(() => {
-    pfScroll.raf = 0;
-    const sc = $("#scroll.studio-scroll"); if (!sc || Date.now() < pfLock) return;
-    if (paperState && (paperState.cur || paperState.move || paperState.sel)) return; // writing or moving something: stay
-    if (typeof pinch !== "undefined" && pinch) return;
-    const sr = sc.getBoundingClientRect(), H = sc.clientHeight;
-    const nx = sc.querySelector(".pgghost.next"), pv = sc.querySelector(".pgghost.prev");
-    if (nx) { const r = nx.querySelector(".ghostp").getBoundingClientRect(); if (r.top - sr.top < H * 0.42) return pfGo(nx.dataset.ghost, "next", nx); }
-    if (pv) { const r = pv.querySelector(".ghostp").getBoundingClientRect(); if (r.bottom - sr.top > H * 0.58) return pfGo(pv.dataset.ghost, "prev", pv); }
-  });
-}
 function pfCanAdd() { const n = S.notes.get(S.activeId); return pfOn(n) && !S.readOnly && !isFrozen(n); }
 
 /* ---- home as a binder: coloured tabs along the top, one per kind of thing; inside each tab its own groups,
@@ -14077,7 +14112,7 @@ function renderTabHome() {
           <div class="thtools"><button class="btn icon" data-act="sortMenu" title="${esc(T("sort"))}" aria-label="${esc(T("sort"))}">⇅</button></div>
           ${["notes", "maps", "canvas"].includes(tab.k) ? `<div class="thview"><button type="button" data-th="view:grid" aria-pressed="${!list}" aria-label="grid">▦</button><button type="button" data-th="view:list" aria-pressed="${list}" aria-label="list">☰</button></div>` : ""}
           ${tab.k === "books" || tab.k === "files" ? `<button type="button" class="thnew2" data-th="pdf">${ic("image")}<span>${esc(T("importAsPages"))}</span></button>` : ""}
-          <button type="button" class="thnew" data-th="new">+ ${esc(T(tab.newLab))}</button></div>
+          ${tab.k === "files" ? `<button type="button" class="thnew" data-th="new">+ ${esc(T(tab.newLab))}</button>` : ""}</div>
         ${body}
         ${last && tab.k !== "files" ? `<div class="threcent" data-note="${esc(last.n.id)}"><span>🕘</span><span>${esc(T("thRecent", { t: titleOf(last.n), d: fmtDate(last.n.updatedAt, false) }))}</span><b>${esc(T("thGo"))}</b></div>` : ""}
       </section>
@@ -14122,7 +14157,7 @@ function txRender() {
   const box = $("#topx"); if (!box) return;
   const lib = S.screen !== "studio", tabs = S.meta.settings.tabHome !== false, sky = S.meta.settings.homeStyle !== "classic";
   let date = ""; try { date = new Date().toLocaleDateString(LOCALE[S.meta.settings.lang], { weekday: "long", day: "numeric", month: "long" }); } catch {}
-  box.innerHTML = `<button type="button" class="btn ${sky && lib ? "on" : ""}" data-tx="sky" aria-pressed="${sky}">✦ <span class="hide-m">${esc(T("skyName"))}</span></button>
+  box.innerHTML = `<span class="txclock" id="txClock" aria-label="clock">${esc(txTime())}</span><button type="button" class="btn ${sky && lib ? "on" : ""}" data-tx="sky" aria-pressed="${sky}">✦ <span class="hide-m">${esc(T("skyName"))}</span></button>
     <button type="button" class="btn" data-tx="classic"><span>${esc(T(sky || tabs ? "skyClassic" : "txTabs"))}</span></button>
     <button type="button" class="btn icon" data-tx="theme" title="${esc(T("txTheme"))}" aria-label="${esc(T("txTheme"))}">${txDark() ? "☀️" : "🌙"}</button>
     <button type="button" class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
@@ -14317,6 +14352,236 @@ async function xferHub(n) {
   if (a === "copyto") return xferCopyTo(n);
   if (a === "dup") return duplicatePage(n.id);
 }
+
+/* ===== r62 ===== */
+/* --- 3. text size and font for the selected words (or the whole line when nothing is selected) --- */
+let fmRange = null;
+document.addEventListener("selectionchange", () => {
+  const s = getSelection(), c = $("#content");
+  if (s && s.rangeCount && c && c.contains(s.getRangeAt(0).commonAncestorContainer)) fmRange = s.getRangeAt(0).cloneRange();
+});
+function fmRestore() {
+  const c = $("#content"); if (!c) return false;
+  c.focus({ preventScroll: true });
+  if (fmRange && c.contains(fmRange.commonAncestorContainer)) { const s = getSelection(); s.removeAllRanges(); s.addRange(fmRange); }
+  return true;
+}
+const FM_FONTS = [["", "fmDefault"], ["system-ui,-apple-system,'Helvetica Neue',Tahoma,sans-serif", "fmSans"], ["Georgia,'Times New Roman',serif", "fmSerif"],
+  ["'Geeza Pro','Damascus',Tahoma,serif", "fmNaskh"], ["'Noto Nastaliq Urdu','IranNastaliq',serif", "fmNastaliq"],
+  ["'Noteworthy','Bradley Hand','Segoe Print',cursive", "fmHand"], ["Menlo,'Courier New',monospace", "fmMono"]];
+const FM_SIZES = [12, 14, 16, 18, 22, 28, 36];
+function fmCurSize() {
+  const s = getSelection(); let n = s && s.rangeCount ? s.getRangeAt(0).startContainer : null;
+  if (n && n.nodeType === 3) n = n.parentElement;
+  return n && $("#content")?.contains(n) ? Math.round(parseFloat(getComputedStyle(n).fontSize)) : 16;
+}
+/** Give the selected words (or the whole line) a size or a font; an empty value takes that style away again. */
+function fmApply(style) {
+  if (!fmRestore()) return;
+  const s = getSelection(), c = $("#content"); if (!s.rangeCount) return;
+  let r = s.getRangeAt(0);
+  if (r.collapsed) { const b = currentBlock(); if (!b) return; r = document.createRange(); r.selectNodeContents(b); }
+  let anc = r.commonAncestorContainer; if (anc.nodeType === 3) anc = anc.parentElement;
+  const clear = (root) => root.querySelectorAll && root.querySelectorAll("[style]").forEach((d) => { for (const k of Object.keys(style)) d.style[k] = ""; if (!d.getAttribute("style")) d.removeAttribute("style"); });
+  let target;
+  if (anc && anc.tagName === "SPAN" && c.contains(anc) && anc !== c && r.toString() === anc.textContent) {
+    target = anc; clear(anc); for (const [k, v] of Object.entries(style)) anc.style[k] = v || "";
+    if (!anc.getAttribute("style")) { const kids = [...anc.childNodes]; anc.replaceWith(...kids); target = null; r = document.createRange(); if (kids.length) { r.setStartBefore(kids[0]); r.setEndAfter(kids[kids.length - 1]); } }
+  } else {
+    const frag = r.extractContents(); clear(frag);
+    const sp = document.createElement("span"); for (const [k, v] of Object.entries(style)) if (v) sp.style[k] = v;
+    if (sp.getAttribute("style")) { sp.append(frag); r.insertNode(sp); target = sp; }
+    else { const kids = [...frag.childNodes]; r.insertNode(frag); r = document.createRange(); if (kids.length) { r.setStartBefore(kids[0]); r.setEndAfter(kids[kids.length - 1]); } }
+  }
+  if (target) { r = document.createRange(); r.selectNodeContents(target); }
+  s.removeAllRanges(); s.addRange(r); fmRange = r.cloneRange();
+  c.querySelectorAll("span:empty").forEach((x) => x.remove());
+  onContentInput();
+}
+function fmClear() {
+  if (!fmRestore()) return;
+  try { document.execCommand("styleWithCSS", false, false); } catch {}
+  document.execCommand("removeFormat");
+  fmApply({ fontSize: "", fontFamily: "", color: "", backgroundColor: "" });
+}
+function fontMenu(anchor) {
+  const el = popover(anchor, `<div class="fmbox">
+    <div class="fmrow"><button type="button" data-fm="dec" class="fmbig">A−</button><b class="fmcur">${num(fmCurSize())}</b><button type="button" data-fm="inc" class="fmbig" style="font-size:20px">A+</button></div>
+    <div class="fmsizes">${FM_SIZES.map((z) => `<button type="button" data-fm="size:${z}" style="font-size:${Math.min(z, 24)}px">${num(z)}</button>`).join("")}</div>
+    <div class="fmfonts">${FM_FONTS.map(([f, k], i) => `<button type="button" data-fm="font:${i}" style="${f ? `font-family:${esc(f)}` : ""}">${esc(T(k))} <span>Aa آب</span></button>`).join("")}</div>
+    <button type="button" data-fm="clear" class="fmclear">⌫ ${esc(T("fmClear"))}</button></div>`, "fmpop");
+  if (!el) return;
+  el.addEventListener("pointerdown", (e) => e.preventDefault()); // keep the words selected
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-fm]"); if (!b) return;
+    const a = b.dataset.fm;
+    if (a === "dec" || a === "inc") fmApply({ fontSize: Math.max(10, Math.min(72, fmCurSize() + (a === "inc" ? 2 : -2))) + "px" });
+    else if (a.startsWith("size:")) fmApply({ fontSize: a.slice(5) === "16" ? "" : a.slice(5) + "px" });
+    else if (a.startsWith("font:")) fmApply({ fontFamily: FM_FONTS[+a.slice(5)][0] });
+    else if (a === "clear") fmClear();
+    const cur = el.querySelector(".fmcur"); if (cur) cur.textContent = num(fmCurSize());
+  });
+}
+/** Pasted text takes the notebook's own size and font; bold, lists and paragraphs stay. */
+function pasteClean(html) {
+  const d = new DOMParser().parseFromString(`<div>${html}</div>`, "text/html").body.firstElementChild; if (!d) return html;
+  d.querySelectorAll("[style]").forEach((x) => { x.style.fontSize = ""; x.style.fontFamily = ""; x.style.lineHeight = ""; if (!x.getAttribute("style")) x.removeAttribute("style"); });
+  return d.innerHTML;
+}
+
+/* --- 4. a notebook scrolls as one strip: two pages before and after the open one; the open page changes only
+   once the scrolling has come to rest, so nothing jumps under the finger; past the last page, keep scrolling
+   for a new blank page --- */
+const PF_N = 2;
+let pfTouch = 0;
+document.addEventListener("touchstart", (e) => { pfTouch = e.touches.length; }, { passive: true, capture: true });
+document.addEventListener("touchend", (e) => { pfTouch = e.touches.length; if (!pfTouch) pfKick(); }, { passive: true, capture: true });
+document.addEventListener("touchcancel", () => { pfTouch = 0; }, { passive: true, capture: true });
+function pfTopOf(el, sc) { return el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop; }
+function pfKick(ms = 160) { clearTimeout(pfKick.t); pfKick.t = setTimeout(pfSettle, ms); }
+function pfSettle() {
+  if (Date.now() < pfLock) return pfKick(pfLock - Date.now() + 30);
+  if (pfTouch) return; // the finger is still on the glass: the lift will ask again
+  if (paperState && (paperState.cur || paperState.move || paperState.sel)) return;
+  if (typeof pinch !== "undefined" && pinch) return;
+  const sc = $("#scroll.studio-scroll"), paper = $("#paper"); if (!sc || !paper || S.screen !== "editor") return;
+  const sr = sc.getBoundingClientRect(), mid = sr.top + sc.clientHeight * 0.45;
+  const tail = sc.querySelector(".pgtail.pfpull");
+  if (tail && tail.getBoundingClientRect().top < sr.top + sc.clientHeight * 0.5) return pfAddEnd(tail);
+  const pr = paper.getBoundingClientRect(); if (pr.top <= mid && pr.bottom >= mid) return;
+  for (const g of sc.querySelectorAll(".pgghost")) {
+    const r = g.querySelector(".ghostp").getBoundingClientRect();
+    if (r.top - 30 <= mid && r.bottom + 30 >= mid) return pfGo(g.dataset.ghost, "", g);
+  }
+}
+function pfAddEnd(tail) {
+  const n = S.notes.get(S.activeId); if (!n || !pfCanAdd()) return;
+  const pages = siblings(n), last = pages[pages.length - 1] || n, sc = $("#scroll.studio-scroll");
+  pfMount.keep = tail.getBoundingClientRect().top - sc.getBoundingClientRect().top;
+  pfLock = Date.now() + 400;
+  newNote({ folder: n.folder, like: last, after: last });
+}
+function pfMount(n) {
+  const sc = $("#scroll.studio-scroll"), paper = $("#paper"); if (!sc || !paper || !pfOn(n)) return;
+  const pages = siblings(n), i = pages.findIndex((x) => x.id === n.id); if (i < 0) return;
+  const sheet = paper.parentElement, atts = $("#atts");
+  let before = paper;
+  for (let k = 1; k <= PF_N && pages[i - k]; k++) { const p = pages[i - k], g = pfGhost(p, "prev", i - k, pages.length); sheet.insertBefore(g, before); before = g; requestAnimationFrame(() => pfPaint(g, p)); }
+  let after = atts || paper;
+  for (let k = 1; k <= PF_N && pages[i + k]; k++) { const p = pages[i + k], g = pfGhost(p, "next", i + k, pages.length); after.after(g); after = g; requestAnimationFrame(() => pfPaint(g, p)); }
+  // the pages around get their real width now (not later when their ink is drawn), so their height is right before we measure
+  sheet.querySelectorAll(".pgghost .ghostp").forEach((gp) => gp.style.setProperty("--w", gp.clientWidth + "px"));
+  if (i + PF_N >= pages.length - 1 && !S.readOnly && !isFrozen(n)) {
+    const t = document.createElement("div"); t.className = "pgtail pfpull";
+    t.innerHTML = `<span class="pfarrow">⬆</span><b>${esc(T("pfPullAdd"))}</b><small>${esc(T("pfPullHint"))}</small><button type="button" class="btn" data-act="pfAddEnd">＋ ${esc(T("newPageHere"))}</button>`;
+    t.querySelector("button").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); pfAddEnd(t); });
+    after.after(t);
+  }
+  // keep the page where the eye was: set the place before the screen is painted, so nothing jumps
+  if (pfMount.keep != null) { const y = pfMount.keep; pfMount.keep = null; sc.scrollTop = pfTopOf(paper, sc) - y; }
+  else if (pages[i - 1] && sc.scrollTop < pfTopOf(paper, sc) - 40) sc.scrollTop = pfTopOf(paper, sc) - 16;
+  pfLock = Math.max(pfLock, Date.now() + 350);
+  if (!sc.dataset.pf) { sc.dataset.pf = "1"; sc.addEventListener("scroll", pfScroll, { passive: true }); }
+}
+function pfGo(id, side, el) {
+  const sc = $("#scroll.studio-scroll"); if (!sc || !S.notes.get(id)) return;
+  const t = el.querySelector(".ghostp") || el;
+  pfMount.keep = t.getBoundingClientRect().top - sc.getBoundingClientRect().top;
+  pfLock = Date.now() + 350; openNote(id);
+}
+function pfScroll() { pfKick(); }
+
+/* --- 7. pictures on a page: they land where the finger last touched, can be sent back, locked and cropped --- */
+let flLastTap = null;
+document.addEventListener("pointerdown", (e) => {
+  const c = $("#content"); if (!c || !e.target.closest || !e.target.closest("#paper") || e.target.closest("#fltools,#flframe")) return;
+  const r = c.getBoundingClientRect(); flLastTap = { x: e.clientX - r.left, y: e.clientY - r.top, t: Date.now(), id: S.activeId };
+}, true);
+function flTapSpot(w) {
+  const p = flLastTap; if (!p || p.id !== S.activeId || Date.now() - p.t > 300000) return null;
+  const W_ = paperW(); p.x += 24; p.y += 24; // the next picture lands a little lower, so a stack stays visible
+  return { x: Math.min(Math.max(0, (p.x - 24) / W_ - w / 2), Math.max(0, 1 - w)), y: Math.max(0, (p.y - 24) / W_ - 0.04) };
+}
+function flPick(e, content) {
+  const all = document.elementsFromPoint(e.clientX, e.clientY).filter((x) => x.classList && x.classList.contains("fl") && x.parentElement === content && x.dataset.fk !== "text");
+  return all.find((x) => !x.dataset.flock) || all[0] || null;
+}
+async function cropFloat(el) {
+  const img = el.querySelector("img"); if (!img || !S.assets) return;
+  const src = img.currentSrc || img.src;
+  const r = await formBox("✂ " + T("flCrop"), `<div class="cropbox"><div class="cropwrap"><img src="${esc(src)}" alt=""><div class="cropmask"></div></div>
+    ${[["t", "crT"], ["b", "crB"], ["l", "crL"], ["r", "crR"]].map(([k, l]) => `<label class="crrow"><span>${esc(T(l))}</span><input type="range" name="${k}" min="0" max="45" value="0"></label>`).join("")}</div>`,
+    (f) => ({ t: +f.t.value, r: +f.r.value, b: +f.b.value, l: +f.l.value }), T("ok"),
+    (box) => { const m = box.querySelector(".cropmask"), f = box.querySelector("form"); box.addEventListener("input", () => { m.style.inset = `${f.t.value}% ${f.r.value}% ${f.b.value}% ${f.l.value}%`; }); });
+  if (!r || r.t + r.r + r.b + r.l === 0) return;
+  try {
+    const im = new Image(); im.src = src; await im.decode();
+    const nw = im.naturalWidth, nh = im.naturalHeight, sx = nw * r.l / 100, sy = nh * r.t / 100, sw = nw * (1 - (r.l + r.r) / 100), sh = nh * (1 - (r.t + r.b) / 100);
+    const c = document.createElement("canvas"); c.width = Math.max(1, Math.round(sw)); c.height = Math.max(1, Math.round(sh));
+    c.getContext("2d").drawImage(im, sx, sy, sw, sh, 0, 0, c.width, c.height);
+    const blob = await canvasBlob(c, "image/png");
+    const up = await S.assets.upload(new File([blob], "crop.png", { type: "image/png" }));
+    const a = flA(el), w0 = a.w;
+    a.x += w0 * r.l / 100; a.y += w0 * (nh / nw) * r.t / 100; a.w = w0 * (1 - (r.l + r.r) / 100);
+    img.dataset.asset = up.id; img.setAttribute("src", "/_blob/" + up.id); hydrate(el); flSet(el, a); flSave(); drawFrame();
+  } catch (e) { toast(T("flCropFail"), { kind: "err" }); }
+}
+
+/* --- 8. a live clock in the top bar --- */
+function txTime() { try { return new Date().toLocaleTimeString(LOCALE[S.meta.settings.lang], { hour: "2-digit", minute: "2-digit", hour12: false }); } catch { return ""; } }
+setInterval(() => { const c = $("#txClock"); if (c) { const t = txTime(); if (c.textContent !== t) c.textContent = t; } }, 5000);
+
+/* --- 9. colours for the whole app, chosen in the settings --- */
+const COL_PRESETS = {
+  cream: {},
+  white: { bg: "#f6f6f4", panel: "#ffffff", panel2: "#efefec", line: "#e2e2de", ink: "#1f2430", muted: "#6b6f78", accent: "#2f6fde", accentSoft: "#dde8fb", paper: "#ffffff", sel: "#e3ecfb", bar: "#fbfbfa" },
+  sea: { bg: "#e7eff4", panel: "#f5f9fc", panel2: "#dbe7ee", line: "#c8d7e2", ink: "#17324a", muted: "#5d7186", accent: "#1f7a9e", accentSoft: "#d3eaf3", paper: "#fbfdff", sel: "#d6e8f2", bar: "#dce9f1" },
+  olive: { bg: "#edefe2", panel: "#f8f9f1", panel2: "#e2e5d1", line: "#d1d5bb", ink: "#2e3a22", muted: "#687157", accent: "#6b8e23", accentSoft: "#e2ebcb", paper: "#fdfdf6", sel: "#e1e8cc", bar: "#e3e7d2" },
+  gray: { bg: "#ececec", panel: "#fafafa", panel2: "#e3e3e3", line: "#d3d3d3", ink: "#222222", muted: "#6e6e6e", accent: "#4a4a4a", accentSoft: "#e2e2e2", paper: "#ffffff", sel: "#e2e2e2", bar: "#f2f2f2" },
+  rose: { bg: "#f6ebee", panel: "#fdf7f8", panel2: "#efdee2", line: "#e2cad0", ink: "#3b2430", muted: "#7d6570", accent: "#b0476a", accentSoft: "#f3d9e1", paper: "#fffafb", sel: "#f1dbe1", bar: "#f1e1e5" },
+  night: {},
+};
+const COL_VARS = { bg: "--bg", panel: "--panel", panel2: "--panel2", line: "--line", ink: "--ink", muted: "--muted", accent: "--accent", accentSoft: "--accent-soft", paper: "--paper", sel: "--sel", bar: "--bar" };
+const COL_KEYS = [["bg", "colBg", "#f4efe6"], ["bar", "colTop", "#ece5d7"], ["side", "colSide", "#ece5d7"], ["paper", "colPaper", "#fffdf8"], ["accent", "colAccent", "#d97757"], ["ink", "colInk", "#25334a"]];
+const colCfg = () => ({ preset: "cream", c: {}, ...(S.meta.settings.colors || {}) });
+function colVal(k) { const g = colCfg(), p = COL_PRESETS[g.preset] || {}; return g.c[k] || (k === "side" ? p.bar : p[k]) || COL_KEYS.find((x) => x[0] === k)[2]; }
+function colApply() {
+  let st = $("#userTheme"); if (!st) { st = document.createElement("style"); st.id = "userTheme"; document.head.append(st); }
+  const g = colCfg(), v = { ...(COL_PRESETS[g.preset] || {}) };
+  for (const [k, val] of Object.entries(g.c || {})) if (/^#[0-9a-f]{6}$/i.test(val)) v[k] = val;
+  const decl = Object.entries(v).filter(([k]) => COL_VARS[k]).map(([k, val]) => `${COL_VARS[k]}:${val}`);
+  if (g.c?.accent) decl.push(`--accent-soft:color-mix(in srgb, ${g.c.accent} 22%, white)`, `--sel:color-mix(in srgb, ${g.c.accent} 18%, white)`);
+  if (decl.length || g.c?.side) decl.push(`--sidebar:${g.c?.side || COL_PRESETS[g.preset]?.bar || "#ece5d7"}`);
+  st.textContent = decl.length ? `:root:not([data-theme="dark"]){${decl.join(";")}}` : "";
+}
+function colSet(fn) { const g = colCfg(); fn(g); S.meta.settings.colors = g; saveMeta(); colApply(); colMark(); }
+function colMark() {
+  const g = colCfg();
+  $$("[data-colp]").forEach((b) => b.classList.toggle("on", b.dataset.colp === g.preset && !Object.keys(g.c || {}).length));
+  $$("[data-colk]").forEach((i) => { i.value = colVal(i.dataset.colk); });
+}
+function colFieldHtml() {
+  const sw = (p) => { const v = { ...COL_PRESETS.cream, ...COL_PRESETS[p] }; return p === "night" ? "--a:#15171c;--b:#262a33;--c:#e2896b" : `--a:${v.bg || "#f4efe6"};--b:${v.bar || "#ece5d7"};--c:${v.accent || "#d97757"}`; };
+  return `<div class="field colfield"><label>${esc(T("colTitle"))}</label>
+    <div class="colpre">${Object.keys(COL_PRESETS).map((p) => `<button type="button" class="colp ${colCfg().preset === p && !Object.keys(colCfg().c || {}).length ? "on" : ""}" data-colp="${p}" style="${sw(p)}"><i></i><span>${esc(T("colp_" + p))}</span></button>`).join("")}</div>
+    <details class="colcustom"><summary>🎨 ${esc(T("colCustom"))}</summary>
+      ${COL_KEYS.map(([k, l]) => `<label class="colrow"><span>${esc(T(l))}</span><input type="color" data-colk="${k}" value="${esc(colVal(k))}"></label>`).join("")}
+    </details>
+    <button type="button" class="btn colreset" data-colp="reset">↺ ${esc(T("colReset"))}</button></div>`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-colp]"); if (!b) return;
+  e.preventDefault(); const p = b.dataset.colp;
+  if (p === "night") { S.meta.settings.theme = "dark"; const sel = $('select[name="theme"]'); if (sel) sel.value = "dark"; applyLangTheme(); return colSet((g) => { g.preset = "cream"; g.c = {}; }); }
+  if (S.meta.settings.theme === "dark") { S.meta.settings.theme = "light"; const sel = $('select[name="theme"]'); if (sel) sel.value = "light"; applyLangTheme(); }
+  colSet((g) => { g.preset = p === "reset" ? "cream" : p; g.c = {}; });
+}, true);
+document.addEventListener("input", (e) => {
+  const i = e.target; if (!i.matches || !i.matches("[data-colk]")) return;
+  colSet((g) => { g.c = { ...(g.c || {}), [i.dataset.colk]: i.value }; });
+}, true);
+document.addEventListener("toggle", () => colMark(), true);
+setTimeout(() => { try { colApply(); } catch {} }, 0);
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
