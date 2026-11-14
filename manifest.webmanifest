@@ -86,5 +86,40 @@
  ],
  "launch_handler": {
   "client_mode": "focus-existing"
- }
+ },
+ "shortcuts": [
+  {
+   "name": "برداشت تازه",
+   "short_name": "برداشت",
+   "url": "./?new=survey",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "یادداشت تازه",
+   "short_name": "یادداشت",
+   "url": "./?new=note",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "اسکن سند",
+   "short_name": "اسکن",
+   "url": "./?new=scan",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  }
+ ]
 }

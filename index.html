@@ -1486,6 +1486,34 @@ aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
 .colrow{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
 .colrow input{width:56px;height:36px;border:1px solid var(--line);border-radius:8px;padding:2px;background:none}
 .colreset{min-height:40px}
+/* ===== r63 ===== */
+.pinvoice{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}
+.pinvoice .btn{min-height:44px}
+.pvrec{color:#d64545;font-weight:700}
+.pvplay audio{width:100%;margin:4px 0 8px}
+.cvhead .svhb{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.cvhead .svhb .btn{min-height:36px;font-size:13px;padding:0 10px}
+.svrooms{display:flex;flex-direction:column;gap:10px}
+.svrtabs{display:flex;gap:6px;flex-wrap:wrap}
+.svrt{min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:inherit;font:inherit}
+.svrt.on{border-color:var(--accent);background:var(--accent-soft)}
+.svrt small{opacity:.6;margin-inline-start:4px}
+.svrt.add{border-style:dashed;color:var(--accent)}
+.svck{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px;margin:6px 0 10px}
+.svci{display:flex;align-items:center;gap:8px;min-height:44px;padding:4px 8px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.svci.on{background:color-mix(in srgb,var(--ok) 12%,var(--panel));border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
+.svci input[type=checkbox]{width:22px;height:22px;flex:none}
+.svci span{flex:none;min-width:84px}
+.svci input[type=text]{flex:1;min-width:0;min-height:32px;border:0;border-bottom:1px dashed var(--line);background:none;color:inherit;font:inherit;font-size:13px}
+.trtab{width:100%;border-collapse:collapse;margin:6px 0}
+.trtab td{width:50%;vertical-align:top;padding:6px 10px;border:1px solid var(--line)}
+.trtab td:last-child{background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.dllist{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto;margin-bottom:8px}
+.dlrow{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:6px 8px;border:1px solid var(--line);border-radius:10px}
+.dlrow input{width:22px;height:22px;flex:none;margin-top:2px}
+.dlrow span{display:flex;flex-direction:column;gap:2px}.dlrow small{color:var(--muted)}
+.txbak{min-height:30px;height:30px;padding:0 10px;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--muted);font:inherit;font-size:12.5px;white-space:nowrap}
+.txbak.warn{color:#a8502f;border-color:#e2b4a2;background:#fbebe4}
 </style>
 
 <div class="app" id="app">
@@ -2425,7 +2453,7 @@ function renderLibrary() {
       ${isFold ? `<span class="hfold" style="color:${esc(folderPaths().find((f) => f.path === S.view)?.color || "#7b8597")}">${ic("folder")}</span>` : ""}
       <h2>${esc(viewTitle())} <small style="font-size:14px;color:var(--muted);font-weight:400">${num(arr.length + files.length + (isFold ? subs.length : 0))}</small>${isBook && normCover(folderRec(S.view)?.cover).sub ? `<small class="hsub">${esc(normCover(folderRec(S.view)?.cover).sub)}</small>` : ""}</h2>
       ${isBook ? `<button class="btn" data-act="editCover">🎨 ${esc(T("nbCoverBtn"))}</button>` : ""}
-      ${isBook && folderRecOf(S.view)?.vault ? (bookPages(S.view).some((n) => n.locked && S.unlocked.has(n.id)) ? `<button class="btn" data-act="vaultLockBook">${ic("lock")} ${esc(T("vaultLockAll"))}</button>` : `<button class="btn primary" data-act="vaultOpenBook">${ic("unlock")} ${esc(T("vaultOpenBook"))}</button>`) : ""}
+      ${isBook && folderRecOf(S.view)?.vault ? (bookPages(S.view).some((n) => n.locked && S.unlocked.has(n.id)) ? `<button class="btn" data-act="vaultLockBook">${ic("lock")} ${esc(T("vaultLockAll"))}</button>` : `<button class="btn primary" data-act="vaultOpenBook">${ic("unlock")} ${esc(T("vaultOpenBook"))}</button>`) : isBook && !S.readOnly ? `<button class="btn" data-act="vaultBookHere">🔐 ${esc(T("vaultBook"))}</button>` : ""}
       ${inFolder ? `<button class="btn icon" data-fmenu="${esc(S.view)}" title="${esc(T("more"))}">${ic("more")}</button>` : ""}
       ${home ? `<button class="btn" data-act="skyOn">✦ ${esc(T("skyName"))}</button>` : ""}
       <button class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
@@ -2578,7 +2606,7 @@ function insertMenu(anchor) {
   const n = S.notes.get(S.activeId); if (!n) return;
   const mic = S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder;
   const items = [["pdfHere", "page", T("pdfHere")], ["stickyNote", "sticky", T("stickyNote")], ["tableHere", "table", T("tableInsert")], ["signMenu", "sign", T("signTitle")], ["symbolsMenu", "star", T("symbols")], ["shapesMenu", "shapes", T("shapesTitle")], ["scanHere", "scan", T("scanDoc")], ["pasteImage", "image", T("pasteImg")], ["insertImage", "image", T("insertImage")], ["attach", "clip", T("attach")], ...(mic ? [["record", "mic", T("recordVoice")]] : []),
-    ["checklistHere", "check", T("checklist")], ["remindNote", "alarm", T("newReminder")], ["newPageHere", "newpage", T("newPageHere")], ["addPage", "extend", T("addPage")]];
+    ["checklistHere", "check", T("checklist")], ["letterDe", "page", T("ltTitle")], ["translateHere", "sparkle", T("trTitle")], ["findDeadlines", "alarm", T("dlTitle")], ["remindNote", "alarm", T("newReminder")], ["newPageHere", "newpage", T("newPageHere")], ["addPage", "extend", T("addPage")]];
   popover(anchor, `<h4>${ic("plus")} ${esc(T("insert"))}</h4><div class="ilist">${items.map(([a, i, l]) => `<button type="button" class="irow" data-act="${a}">${ic(i)}<span>${esc(l)}</span></button>`).join("")}</div>`, "inspop");
 }
 function pagesOverview(anchor) {
@@ -5528,7 +5556,7 @@ async function fullBackup() {
   captureActive(); flushAll();
   for (const n of S.notes.values()) if (n.locked && S.unlocked.has(n.id)) n.vault = await sealWithKey(toPlain(S.unlocked.get(n.id)), S.unlocked.get(n.id).vk);
   const { t, say } = sayToast(T("exporting"));
-  try { const stamp = new Date().toISOString().slice(0, 10); await saveFile(`babak-notebook-backup-${stamp}.babak.zip`, await buildBackupZip(Array.from(S.notes.values()), true, say)); }
+  try { const stamp = new Date().toISOString().slice(0, 10); await saveFile(`babak-notebook-backup-${stamp}.babak.zip`, await buildBackupZip(Array.from(S.notes.values()), true, say)); lsSet("babak-lastbackup", Date.now()); txRender(); }
   catch (e) { toast(T("exportFailed") + (e?.message || ""), { kind: "err" }); }
   finally { t.remove(); }
 }
@@ -6239,7 +6267,7 @@ function assetsOfDoc(d) {
   for (const a of d?.attachments || []) if (a && a.id) ids.add(a.id);
   for (const x of d?.sealed || []) ids.add(x);
   if (d?.file && d.file.id) ids.add(d.file.id);
-  if (d?.cv && Array.isArray(d.cv.items)) for (const x of d.cv.items) if (x && (x.t === "img" || x.t === "pin") && x.a) ids.add(x.a);
+  if (d?.cv && Array.isArray(d.cv.items)) for (const x of d.cv.items) { if (x && (x.t === "img" || x.t === "pin") && x.a) ids.add(x.a); if (x && x.au) ids.add(x.au); }
   if (d?.mm && d.mm.nodes) for (const x of Object.values(d.mm.nodes)) { if (x && x.img) ids.add(x.img); for (const q of (x && x.sym) || []) if (typeof q === "string" && q.startsWith("img:")) ids.add(q.slice(4)); }
   return [...ids];
 }
@@ -6814,6 +6842,8 @@ async function settingsPanel() {
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
     ${colFieldHtml()}
+    <div class="field"><label>${esc(T("startWith"))}</label><select name="startWith">${[["home", "sw_home"], ["survey", "sw_survey"], ["note", "sw_note"], ["scan", "sw_scan"]].map(([v, k]) => `<option value="${v}" ${(S.meta.settings.startWith || "home") === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
+    <div class="field"><label>${esc(T("trashAuto"))}</label><select name="trashAuto"><option value="1" ${S.meta.settings.trashAuto !== false ? "selected" : ""}>${esc(T("trashAutoOn"))}</option><option value="0" ${S.meta.settings.trashAuto === false ? "selected" : ""}>${esc(T("trashAutoOff"))}</option></select></div>
     <div class="field"><label>${esc(T("txtScale"))}</label><div class="uisrow"><button type="button" class="btn" data-uis="-1" data-uisn="txtScale" aria-label="A−">A−</button><select name="txtScale">${[["0.9", "txS90"], ["1", "txS100"], ["1.15", "txS115"], ["1.3", "txS130"], ["1.5", "txS150"], ["1.75", "txS175"]].map(([v, k]) => `<option value="${v}" ${String(lsGet("babak-txtscale", "1")) === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select><button type="button" class="btn" data-uis="1" data-uisn="txtScale" aria-label="A+" style="font-size:19px">A+</button></div><small class="msg">${esc(T("txSHint"))}</small></div>
     <div class="field"><label>${esc(T("uiScale"))}</label><div class="uisrow"><button type="button" class="btn" data-uis="-1" aria-label="A−">A−</button><select name="uiScale">${[["0.75", "uiS75"], ["0.83", "uiS83"], ["0.9", "uiS90"], ["1", "uiS100"], ["1.15", "uiS115"], ["1.3", "uiS130"], ["1.5", "uiS150"]].map(([v, k]) => `<option value="${v}" ${String(lsGet("babak-uiscale", "0.83")) === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select><button type="button" class="btn" data-uis="1" aria-label="A+" style="font-size:19px">A+</button></div><small class="msg">${esc(T("uiSHint"))}</small></div>
     <div class="field"><label>${esc(T("skyBarSet"))}</label><select name="skyBar">${[["menu", "skyBarMenu"], ["tabs", "skyBarTabs"]].map(([v, k]) => `<option value="${v}" ${skyBar() === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
@@ -6992,6 +7022,10 @@ function doAct(act, el) {
     case "addPage": if (n) { n.pages = Math.min(n.continuous ? 60 : 20, Math.max(n.pages, (n.bgs || []).length) + 1); touch(n); decoratePaper(n); saveNote(n.id, 0); } return;
     case "checklist": return makeChecklist();
     case "fontMenu": return fontMenu(el);
+    case "letterDe": return letterDe();
+    case "translateHere": return translateHere();
+    case "findDeadlines": return n && dlDialog(htmlToText($("#content")?.innerHTML || W(n).html || ""), n.id);
+    case "vaultBookHere": return lockBook(S.view);
     case "highlight": exec("hiliteColor", "#fff0a0"); return;
     case "dir": return toggleDir();
   }
@@ -7098,6 +7132,7 @@ document.addEventListener("paste", (e) => {
   const rich = html && /<(b|strong|h[1-6]|table|li|img|em|i|u)[\s>]/i.test(html), fromPdf = !rich && text ? pdfTextToHtml(text) : null;
   document.execCommand("insertHTML", false, fromPdf || (html ? pasteClean(sanitize(html)) : plainToHtml(text).replace(/^<div>(.*)<\/div>$/s, "$1")));
   if (fromPdf) toast(T("pdfPasteFixed"));
+  setTimeout(() => dlOffer(text || (html ? htmlToText(html) : "")), 400);
   onContentInput();
 });
 document.addEventListener("dragover", (e) => { if ($("#paper") && e.dataTransfer?.types?.includes("Files")) e.preventDefault(); });
@@ -8118,6 +8153,9 @@ Object.assign(I18N.en, {"xfHub": "Copy · Send · Move", "xfOut": "Send out (Mai
 Object.assign(I18N.fa, {"fmTitle": "اندازه و فونت نوشته", "fmDefault": "فونت معمولی دفترچه", "fmSans": "ساده", "fmSerif": "کتابی", "fmNaskh": "نسخ", "fmNastaliq": "نستعلیق", "fmHand": "دست‌نویس", "fmMono": "ماشین‌تحریر", "fmClear": "پاک کردن قالب", "pfPullAdd": "برای صفحهٔ تازه ادامه دهید", "pfPullHint": "همین‌طور به پایین بکشید تا یک صفحهٔ سفید اضافه شود", "toBack": "بفرست عقب", "flCrop": "برش عکس", "flLock": "قفل کردن (جابه‌جا نشود)", "flUnlock": "باز کردن قفل", "flLocked": "عکس قفل شد", "flUnlocked": "قفل عکس باز شد", "flCropFail": "برش انجام نشد", "crT": "بالا", "crB": "پایین", "crL": "چپ", "crR": "راست", "colTitle": "رنگ‌بندی", "colCustom": "رنگ دلخواه برای هر بخش", "colReset": "برگشت به رنگ‌های اولیه", "colBg": "پس‌زمینه (دسکتاپ)", "colTop": "نوار بالا", "colSide": "ستون کناری", "colPaper": "کاغذ دفترچه", "colAccent": "رنگ دکمه‌ها", "colInk": "رنگ نوشته‌ها", "colp_cream": "کاغذ کرم", "colp_white": "سفید آرام", "colp_sea": "آبی دریایی", "colp_olive": "سبز زیتونی", "colp_gray": "خاکستری", "colp_rose": "گل‌بهی", "colp_night": "شب تیره"});
 Object.assign(I18N.de, {"fmTitle": "Schriftgröße und Schrift", "fmDefault": "Normale Schrift", "fmSans": "Schlicht", "fmSerif": "Buchschrift", "fmNaskh": "Naskh", "fmNastaliq": "Nastaliq", "fmHand": "Handschrift", "fmMono": "Schreibmaschine", "fmClear": "Formatierung löschen", "pfPullAdd": "Weiter scrollen für eine neue Seite", "pfPullHint": "Einfach weiter nach unten ziehen – eine leere Seite kommt dazu", "toBack": "Nach hinten", "flCrop": "Bild zuschneiden", "flLock": "Sperren (nicht verschieben)", "flUnlock": "Entsperren", "flLocked": "Bild gesperrt", "flUnlocked": "Bild entsperrt", "flCropFail": "Zuschneiden ging nicht", "crT": "Oben", "crB": "Unten", "crL": "Links", "crR": "Rechts", "colTitle": "Farben", "colCustom": "Eigene Farbe je Bereich", "colReset": "Zurück zu den Grundfarben", "colBg": "Hintergrund (Desktop)", "colTop": "Obere Leiste", "colSide": "Seitenleiste", "colPaper": "Papier", "colAccent": "Tastenfarbe", "colInk": "Schriftfarbe", "colp_cream": "Cremepapier", "colp_white": "Ruhiges Weiß", "colp_sea": "Meeresblau", "colp_olive": "Olivgrün", "colp_gray": "Grau", "colp_rose": "Rosé", "colp_night": "Dunkle Nacht"});
 Object.assign(I18N.en, {"fmTitle": "Text size and font", "fmDefault": "Notebook font", "fmSans": "Plain", "fmSerif": "Book", "fmNaskh": "Naskh", "fmNastaliq": "Nastaliq", "fmHand": "Handwriting", "fmMono": "Typewriter", "fmClear": "Clear formatting", "pfPullAdd": "Keep scrolling for a new page", "pfPullHint": "Just keep pulling down – a blank page is added", "toBack": "Send to back", "flCrop": "Crop picture", "flLock": "Lock (don't move)", "flUnlock": "Unlock", "flLocked": "Picture locked", "flUnlocked": "Picture unlocked", "flCropFail": "Couldn't crop", "crT": "Top", "crB": "Bottom", "crL": "Left", "crR": "Right", "colTitle": "Colours", "colCustom": "Your own colour for each part", "colReset": "Back to the original colours", "colBg": "Background (desktop)", "colTop": "Top bar", "colSide": "Side panel", "colPaper": "Notebook paper", "colAccent": "Button colour", "colInk": "Text colour", "colp_cream": "Cream paper", "colp_white": "Calm white", "colp_sea": "Sea blue", "colp_olive": "Olive green", "colp_gray": "Grey", "colp_rose": "Rose", "colp_night": "Dark night"});
+Object.assign(I18N.fa, {"pvDictate": "گفتن به‌جای تایپ", "pvStop": "توقف", "pvRecord": "ضبط یادداشت صوتی", "pvReRecord": "ضبط دوباره", "pvSaved": "یادداشت صوتی ذخیره شد", "pvNoMic": "میکروفون در دسترس نیست — اجازهٔ میکروفون را در تنظیمات Safari بدهید", "pvDictFail": "تبدیل گفتار به متن اینجا کار نکرد؛ از میکروفون صفحه‌کلید آیپد استفاده کنید", "svRooms": "چک‌لیست اتاق‌ها", "svRoomN": "اتاق {n}", "svRoomAdd": "اتاق تازه", "svRoomNone": "هنوز اتاقی نیست — «＋ اتاق تازه» را بزنید.", "svRoomName": "نام اتاق", "svRoomPh": "مثلاً آشپزخانه", "svRoomNote": "یادداشت اتاق", "svRoomDel": "حذف این اتاق", "svRoomDelQ": "این اتاق و چک‌لیستش حذف شود؟", "svcPh": "تعداد / توضیح", "svc_sock": "پریزها", "svc_switch": "کلیدها", "svc_light": "چراغ‌ها", "svc_water": "لولهٔ آب", "svc_drain": "فاضلاب", "svc_heat": "شوفاژ / گرمایش", "svc_window": "پنجره‌ها", "svc_door": "درها", "svc_height": "ارتفاع سقف", "svc_north": "جهت شمال", "svc_gas": "گاز", "svc_net": "اینترنت / تلویزیون", "svc_damp": "رطوبت / خرابی", "svRepBtn": "گزارش PDF", "svRepSub": "نقشه، اندازه‌ها، اتاق‌ها و همهٔ عکس‌ها با توضیح", "svRepTitle": "گزارش برداشت", "svRepMaking": "در حال ساختن گزارش…", "svRepPlan": "نقشه…", "svRepDims": "اندازه‌ها", "svRepPhotos": "عکس‌ها", "svRepPhoto": "عکس {n} از {t}…", "svRepPdf": "ساختن PDF…", "svRepVoice": "یادداشت صوتی دارد", "svRepMissing": "بررسی نشده", "svShape": "شکل", "svGrid": "شبکه", "ltTitle": "نامهٔ آلمانی (DIN 5008)", "ltHint": "نامه با قالب رسمی آلمان ساخته می‌شود. نشانی شما ذخیره می‌شود تا دفعهٔ بعد خودش بیاید.", "ltFrom": "فرستنده (نام، خیابان، کد پستی و شهر — هر کدام یک خط)", "ltTo": "گیرنده", "ltRef": "شمارهٔ پرونده (اختیاری)", "ltSubj": "موضوع (Betreff)", "ltMake": "ساختن نامه", "ltDone": "نامه آماده است — متن را به‌جای «…» بنویسید", "trTitle": "ترجمه کنار متن", "trSel": "متن انتخاب‌شده ترجمه می‌شود و ترجمه در یک جدول دوستونه زیرش می‌آید.", "trAll": "کل این صفحه ترجمه می‌شود و جدول دوستونه (اصل و ترجمه) پایین صفحه می‌آید.", "trGo": "ترجمه کن", "trDone": "ترجمه اضافه شد", "trEmpty": "متنی برای ترجمه نیست", "dlTitle": "پیدا کردن مهلت‌ها", "dlHint": "این تاریخ‌ها در متن پیدا شد. برای هر کدام که تیک بزنید، یادآور ساعت ۹ صبح همان روز ساخته می‌شود.", "dlEarly": "۳ روز زودتر هم یادآوری کن", "dlMake": "ساختن یادآور", "dlNone": "تاریخ آینده‌ای در این صفحه پیدا نشد", "dlMade": "{n} یادآور ساخته شد", "dlSoon": "نزدیک است", "dlFound": "یک مهلت پیدا شد: {d}", "dlSet": "یادآور بگذار", "bakNever": "پشتیبان: هرگز", "bakToday": "پشتیبان: امروز", "bakDays": "پشتیبان: {n} روز پیش", "bakTip": "گرفتن پشتیبان کامل و ذخیره در Files یا گوگل‌درایو", "bakAsk": "{n} روز از آخرین پشتیبان گذشته. یک پشتیبان بگیرید تا یادداشت‌ها امن بمانند.", "bakAskNever": "هنوز هیچ پشتیبانی نگرفته‌اید. یک پشتیبان بگیرید تا یادداشت‌ها امن بمانند.", "bakNowBtn": "همین حالا", "bakLater": "فردا", "startWith": "وقتی برنامه باز می‌شود", "sw_home": "صفحهٔ اصلی", "sw_survey": "یک برداشت تازه", "sw_note": "یک یادداشت تازه", "sw_scan": "اسکن سند", "trashAuto": "سطل زباله", "trashAutoOn": "بعد از ۳۰ روز خودکار خالی شود", "trashAutoOff": "هرگز خودکار خالی نشود", "trashAutoDone": "{n} مورد قدیمی‌تر از ۳۰ روز از سطل زباله پاک شد"});
+Object.assign(I18N.de, {"pvDictate": "Diktieren", "pvStop": "Stopp", "pvRecord": "Sprachnotiz aufnehmen", "pvReRecord": "Neu aufnehmen", "pvSaved": "Sprachnotiz gespeichert", "pvNoMic": "Kein Mikrofon – bitte in den Safari-Einstellungen erlauben", "pvDictFail": "Diktieren geht hier nicht; bitte das Mikrofon der Tastatur nutzen", "svRooms": "Raum-Checklisten", "svRoomN": "Raum {n}", "svRoomAdd": "Neuer Raum", "svRoomNone": "Noch kein Raum – „＋ Neuer Raum“ tippen.", "svRoomName": "Raumname", "svRoomPh": "z. B. Küche", "svRoomNote": "Notiz zum Raum", "svRoomDel": "Raum löschen", "svRoomDelQ": "Diesen Raum mit Checkliste löschen?", "svcPh": "Anzahl / Hinweis", "svc_sock": "Steckdosen", "svc_switch": "Schalter", "svc_light": "Leuchten", "svc_water": "Wasserleitung", "svc_drain": "Abwasser", "svc_heat": "Heizkörper / Heizung", "svc_window": "Fenster", "svc_door": "Türen", "svc_height": "Raumhöhe", "svc_north": "Nordrichtung", "svc_gas": "Gas", "svc_net": "Internet / TV", "svc_damp": "Feuchte / Schäden", "svRepBtn": "Bericht als PDF", "svRepSub": "Plan, Maße, Räume und alle Fotos mit Notiz", "svRepTitle": "Aufmaßbericht", "svRepMaking": "Bericht wird erstellt…", "svRepPlan": "Plan…", "svRepDims": "Maße", "svRepPhotos": "Fotos", "svRepPhoto": "Foto {n} von {t}…", "svRepPdf": "PDF wird erstellt…", "svRepVoice": "mit Sprachnotiz", "svRepMissing": "Nicht geprüft", "svShape": "Form", "svGrid": "Raster", "ltTitle": "Deutscher Brief (DIN 5008)", "ltHint": "Der Brief wird nach DIN 5008 angelegt. Ihre Adresse wird gespeichert und kommt beim nächsten Mal von selbst.", "ltFrom": "Absender (Name, Straße, PLZ Ort – je eine Zeile)", "ltTo": "Empfänger", "ltRef": "Aktenzeichen (optional)", "ltSubj": "Betreff", "ltMake": "Brief anlegen", "ltDone": "Brief angelegt – Text statt „…“ schreiben", "trTitle": "Übersetzung daneben", "trSel": "Der markierte Text wird übersetzt; die Übersetzung kommt als zweispaltige Tabelle darunter.", "trAll": "Die ganze Seite wird übersetzt; eine zweispaltige Tabelle (Original und Übersetzung) kommt ans Ende.", "trGo": "Übersetzen", "trDone": "Übersetzung eingefügt", "trEmpty": "Kein Text zum Übersetzen", "dlTitle": "Fristen finden", "dlHint": "Diese Daten stehen im Text. Für jedes angekreuzte entsteht eine Erinnerung um 9 Uhr an diesem Tag.", "dlEarly": "Auch 3 Tage vorher erinnern", "dlMake": "Erinnerungen anlegen", "dlNone": "Kein künftiges Datum auf dieser Seite gefunden", "dlMade": "{n} Erinnerungen angelegt", "dlSoon": "Bald fällig", "dlFound": "Frist gefunden: {d}", "dlSet": "Erinnern", "bakNever": "Sicherung: nie", "bakToday": "Sicherung: heute", "bakDays": "Sicherung: vor {n} Tagen", "bakTip": "Vollständige Sicherung in Dateien oder Google Drive speichern", "bakAsk": "Die letzte Sicherung ist {n} Tage alt. Jetzt sichern, damit nichts verloren geht.", "bakAskNever": "Noch keine Sicherung. Jetzt sichern, damit nichts verloren geht.", "bakNowBtn": "Jetzt", "bakLater": "Morgen", "startWith": "Beim Öffnen der App", "sw_home": "Startseite", "sw_survey": "Neues Aufmaß", "sw_note": "Neue Notiz", "sw_scan": "Dokument scannen", "trashAuto": "Papierkorb", "trashAutoOn": "Nach 30 Tagen automatisch leeren", "trashAutoOff": "Nie automatisch leeren", "trashAutoDone": "{n} Einträge älter als 30 Tage aus dem Papierkorb gelöscht"});
+Object.assign(I18N.en, {"pvDictate": "Dictate", "pvStop": "Stop", "pvRecord": "Record a voice note", "pvReRecord": "Record again", "pvSaved": "Voice note saved", "pvNoMic": "No microphone – allow it in Safari settings", "pvDictFail": "Dictation doesn't work here; use the keyboard microphone", "svRooms": "Room checklists", "svRoomN": "Room {n}", "svRoomAdd": "New room", "svRoomNone": "No room yet – tap “＋ New room”.", "svRoomName": "Room name", "svRoomPh": "e.g. Kitchen", "svRoomNote": "Note for the room", "svRoomDel": "Delete this room", "svRoomDelQ": "Delete this room and its checklist?", "svcPh": "Count / note", "svc_sock": "Sockets", "svc_switch": "Switches", "svc_light": "Lights", "svc_water": "Water pipe", "svc_drain": "Drain", "svc_heat": "Radiator / heating", "svc_window": "Windows", "svc_door": "Doors", "svc_height": "Ceiling height", "svc_north": "North direction", "svc_gas": "Gas", "svc_net": "Internet / TV", "svc_damp": "Damp / damage", "svRepBtn": "PDF report", "svRepSub": "Plan, measurements, rooms and every photo with its note", "svRepTitle": "Survey report", "svRepMaking": "Making the report…", "svRepPlan": "Plan…", "svRepDims": "Measurements", "svRepPhotos": "Photos", "svRepPhoto": "Photo {n} of {t}…", "svRepPdf": "Making the PDF…", "svRepVoice": "has a voice note", "svRepMissing": "Not checked", "svShape": "Shape", "svGrid": "Grid", "ltTitle": "German letter (DIN 5008)", "ltHint": "The letter is laid out the official German way. Your address is saved and comes back next time.", "ltFrom": "Sender (name, street, postcode and town – one per line)", "ltTo": "Recipient", "ltRef": "File number (optional)", "ltSubj": "Subject (Betreff)", "ltMake": "Make the letter", "ltDone": "Letter ready – write your text instead of “…”", "trTitle": "Translation alongside", "trSel": "The selected text is translated; the translation comes in a two-column table below it.", "trAll": "The whole page is translated; a two-column table (original and translation) comes at the end.", "trGo": "Translate", "trDone": "Translation added", "trEmpty": "No text to translate", "dlTitle": "Find deadlines", "dlHint": "These dates are in the text. Each one you tick gets a reminder at 9 am that day.", "dlEarly": "Also remind me 3 days before", "dlMake": "Make reminders", "dlNone": "No future date found on this page", "dlMade": "{n} reminders made", "dlSoon": "Coming up", "dlFound": "Deadline found: {d}", "dlSet": "Remind me", "bakNever": "Backup: never", "bakToday": "Backup: today", "bakDays": "Backup: {n} days ago", "bakTip": "Make a full backup and save it in Files or Google Drive", "bakAsk": "Your last backup is {n} days old. Make one now so nothing gets lost.", "bakAskNever": "No backup yet. Make one now so nothing gets lost.", "bakNowBtn": "Now", "bakLater": "Tomorrow", "startWith": "When the app opens", "sw_home": "Home", "sw_survey": "A new survey", "sw_note": "A new note", "sw_scan": "Scan a document", "trashAuto": "Trash", "trashAutoOn": "Empty itself after 30 days", "trashAutoOff": "Never empty itself", "trashAutoDone": "{n} items older than 30 days removed from the trash"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -11098,6 +11136,7 @@ function cvNorm(d) {
     if (x.s != null) o.s = cvStr(x.s);
     if (x.k) o.k = cvStr(x.k, 20);
     if (x.a && /^[A-Za-z0-9_-]{8,64}$/.test(x.a)) o.a = x.a;
+    if (x.au && /^[A-Za-z0-9_-]{8,64}$/.test(x.au)) o.au = x.au;
     if (x.from) o.from = cvStr(x.from, 40); if (x.to) o.to = cvStr(x.to, 40);
     if (x.closed) o.closed = true;
     if (x.dash === "d" || x.dash === "o" || x.dash === "dd") o.dash = x.dash;
@@ -11117,7 +11156,7 @@ function cvNorm(d) {
   const v = d.view && isFinite(d.view.x) && isFinite(d.view.y) && isFinite(d.view.z) ? { x: d.view.x, y: d.view.y, z: d.view.z } : null;
   const meta = d.meta && typeof d.meta === "object" ? { addr: cvStr(d.meta.addr, 200), date: cvStr(d.meta.date, 40), people: cvStr(d.meta.people, 200) } : undefined;
   const ax = d.ax && typeof d.ax === "object" && isFinite(d.ax.x) && isFinite(d.ax.y) && isFinite(d.ax.a) ? { ax: { x: +d.ax.x, y: +d.ax.y, a: +d.ax.a } } : {};
-  return { v: 1, items, view: v, grid: d.grid !== false, plan: !!d.plan, ...ax, ...([10, 20, 25, 50, 100, 200, 500, 1000].includes(d.cell) ? { cell: d.cell } : {}), ...(d.survey ? { survey: true } : {}), ...(meta ? { meta } : {}), ...(d.mode === "note" && !d.plan && !d.survey ? { mode: "note" } : {}) };
+  return { v: 1, items, view: v, grid: d.grid !== false, plan: !!d.plan, ...ax, ...([10, 20, 25, 50, 100, 200, 500, 1000].includes(d.cell) ? { cell: d.cell } : {}), ...(d.survey ? { survey: true } : {}), ...(d.survey && Array.isArray(d.rooms) && d.rooms.length ? { rooms: svRoomsNorm(d.rooms) } : {}), ...(meta ? { meta } : {}), ...(d.mode === "note" && !d.plan && !d.survey ? { mode: "note" } : {}) };
 }
 function cvText(d) { const m = d.meta || {}; return [m.addr, m.people, ...(d.items || []).filter((x) => x.s).map((x) => x.s)].filter(Boolean).join(" · "); }
 function cvById(id) { return CV && CV.d.items.find((x) => x.id === id); }
@@ -12190,19 +12229,6 @@ function cvPinPhoto(p, existing) {
   };
   cvPinIn.click();
 }
-async function cvPinView(x) {
-  let u = x.a ? CV_IMG.get(x.a) : ""; if (x.a && !u) { try { u = await blobUrl(x.a); if (u) CV_IMG.set(x.a, u); } catch {} }
-  const n = CV.d.items.filter((q) => q.t === "pin").indexOf(x) + 1;
-  const r = await formBox("📷 " + T("cvPinN", { n: num(n) }), `${u ? `<img src="${esc(u)}" alt="" style="width:100%;max-height:58vh;object-fit:contain;border-radius:10px;background:#111">` : `<p class="msg">${esc(T("cvNoPhoto"))}</p>`}
-    <div class="field"><label>${esc(T("cvPinNote"))}</label><input name="s" dir="auto" maxlength="200" value="${esc(x.s || "")}"></div>
-    <button type="button" class="btn" data-retake>📷 ${esc(T("cvRetake"))}</button>`,
-    (f) => ({ s: f.s.value.trim() }), T("save"),
-    (el, close) => el.querySelector("[data-retake]").addEventListener("click", () => { close({ retake: true }); }));
-  if (!r) return;
-  if (r.retake) return cvPinPhoto(null, x);
-  if (r.s !== (x.s || "")) { cvPush(); x.s = r.s; cvSave(); cvDraw(); }
-}
-
 /* ---- survey mode («برداشت»): only the pencil draws, a finger moves the page; tap a line and type its length in millimetres ---- */
 const cvSv = () => !!(CV && CV.d && CV.d.survey);
 /** Numbers keep one size on screen while drawing; in a picture or print they follow the size of the drawing. */
@@ -12342,11 +12368,6 @@ function cvSvStroke(raw) {
   return cvAdd({ t: "pen", pts: raw, c: CV.color || "#1d1d1f", sw: 2 / Math.min(1, CV.view.z) }, false); // handwriting
 }
 /* ---- the sheet header: project, address, date, who was there ---- */
-function cvSvHead() {
-  const h = $("#cvHead"); if (!h || !cvSv()) return;
-  const m = CV.d.meta || {};
-  h.innerHTML = `<b dir="auto">📋 ${esc(CV.n.title || T("svNew"))}</b><span dir="auto">${esc(m.addr || T("svAddrPh"))}</span><span>${esc(m.date || "")}${m.people ? "، " + esc(m.people) : ""}</span>`;
-}
 async function cvSvHeadEdit() {
   const m = CV.d.meta || {};
   const r = await formBox("📋 " + T("svSheet"), `<div class="field"><label>${esc(T("svProj"))}</label><input name="t" dir="auto" maxlength="120" value="${esc(CV.n.title || "")}"></div>
@@ -13735,10 +13756,11 @@ const cvIoName = () => safeName(CV.n.title || T("cvNew"));
 async function cvExport() {
   if (!CV.d.items.some((x) => x.t !== "guide")) return toast(T("cvEmpty"));
   const card = (m, i, b, s) => `<button type="button" class="acctcard" data-m="${m}">${cvIoIcon(i, b, esc(s))}</button>`;
-  const a = await dialog({ title: "⇩ " + T("cvExport"), wide: true, body: `<div class="mailbtns cvio">${card("pdf", "📐", "PDF " + T("ioToScale"), T("ioPdfSub"))}${card("jpg", "🖼", "JPG", T("ioJpgSub"))}${card("png", "🖼", "PNG", T("cvPngSub"))}${card("dxf", "📏", "DXF", T("ioDxfSub"))}${card("svg", "✒️", "SVG", T("cvSvgSub"))}${card("backup", "💾", T("ioBackup"), T("ioBackupSub"))}${card("print", "🖨", T("cvPrint"), T("cvPrintSub"))}</div><p class="msg cviosync">☁️ ${esc(T("ioSyncNote"))}</p>`,
+  const a = await dialog({ title: "⇩ " + T("cvExport"), wide: true, body: `<div class="mailbtns cvio">${cvSv() ? card("report", "📋", T("svRepBtn"), T("svRepSub")) : ""}${card("pdf", "📐", "PDF " + T("ioToScale"), T("ioPdfSub"))}${card("jpg", "🖼", "JPG", T("ioJpgSub"))}${card("png", "🖼", "PNG", T("cvPngSub"))}${card("dxf", "📏", "DXF", T("ioDxfSub"))}${card("svg", "✒️", "SVG", T("cvSvgSub"))}${card("backup", "💾", T("ioBackup"), T("ioBackupSub"))}${card("print", "🖨", T("cvPrint"), T("cvPrintSub"))}</div><p class="msg cviosync">☁️ ${esc(T("ioSyncNote"))}</p>`,
     actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-m]"); if (b) close(b.dataset.m); }) });
   if (!a) return;
   try {
+    if (a === "report") return await svReport();
     if (a === "pdf") return await cvPdfScale();
     if (a === "dxf") return await cvDxfExport();
     if (a === "backup") return await cvBackupExport();
@@ -14161,7 +14183,7 @@ function txRender() {
     <button type="button" class="btn" data-tx="classic"><span>${esc(T(sky || tabs ? "skyClassic" : "txTabs"))}</span></button>
     <button type="button" class="btn icon" data-tx="theme" title="${esc(T("txTheme"))}" aria-label="${esc(T("txTheme"))}">${txDark() ? "☀️" : "🌙"}</button>
     <button type="button" class="btn icon" data-act="selectMode" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>
-    <span class="txdate hide-m">${esc(date)}</span>`;
+    <span class="txdate hide-m">${esc(date)}</span><button type="button" class="txbak hide-m ${bakAge() < 0 || bakAge() >= 7 ? "warn" : ""}" data-tx="backup" title="${esc(T("bakTip"))}">💾 ${esc(bakLabel())}</button>`;
   const sb = $("#sideBtn"); if (sb) sb.setAttribute("aria-pressed", String(!$("#app").classList.contains("sidehide")));
 }
 function txHome() { captureActive(); flushAll(); S.view = "__all"; S.query = ""; const s = $("#search"); if (s) s.value = ""; lsSet("babak-sa-view", S.view); S.screen = "library"; renderMain(); }
@@ -14583,6 +14605,346 @@ document.addEventListener("input", (e) => {
 document.addEventListener("toggle", () => colMark(), true);
 setTimeout(() => { try { colApply(); } catch {} }, 0);
 
+/* ===== r63 ===== */
+const r63Lang = () => S.meta.settings.lang || "fa";
+const r63Loc = () => LOCALE[r63Lang()] || "en-GB";
+
+/* --- 2. a pin: photo, a longer note, a spoken note and dictation --- */
+async function cvPinView(x) {
+  let u = x.a ? CV_IMG.get(x.a) : ""; if (x.a && !u) { try { u = await blobUrl(x.a); if (u) CV_IMG.set(x.a, u); } catch {} }
+  let au = ""; if (x.au) { try { au = await blobUrl(x.au); } catch {} }
+  const n = CV.d.items.filter((q) => q.t === "pin").indexOf(x) + 1;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition, canRec = !!(navigator.mediaDevices && window.MediaRecorder && S.assets);
+  let newAu = null, rec = null, sr = null;
+  const r = await formBox("📷 " + T("cvPinN", { n: num(n) }), `${u ? `<img src="${esc(u)}" alt="" style="width:100%;max-height:46vh;object-fit:contain;border-radius:10px;background:#111">` : `<p class="msg">${esc(T("cvNoPhoto"))}</p>`}
+    <div class="field"><label>${esc(T("cvPinNote"))}</label><textarea name="s" dir="auto" rows="3" maxlength="2000">${esc(x.s || "")}</textarea></div>
+    <div class="pinvoice">
+      ${SR ? `<button type="button" class="btn" data-dict>🗣 ${esc(T("pvDictate"))}</button>` : ""}
+      ${canRec ? `<button type="button" class="btn" data-rec>🎙 ${esc(T(x.au ? "pvReRecord" : "pvRecord"))}</button>` : ""}
+      <span class="pvrec hide">● <b class="pvt">0:00</b></span>
+    </div>
+    <div class="pvplay">${au ? `<audio controls preload="metadata" src="${esc(au)}"></audio>` : ""}</div>
+    <button type="button" class="btn" data-retake>📷 ${esc(T("cvRetake"))}</button>`,
+    (f) => ({ s: f.s.value.trim() }), T("save"),
+    (el, close) => {
+      const f = el.querySelector("form"), recB = el.querySelector("[data-rec]"), dict = el.querySelector("[data-dict]"), badge = el.querySelector(".pvrec"), tm = el.querySelector(".pvt");
+      el.querySelector("[data-retake]").addEventListener("click", () => close({ retake: true }));
+      dict?.addEventListener("click", () => {
+        if (sr) { sr.stop(); return; }
+        sr = new SR(); sr.lang = { fa: "fa-IR", de: "de-DE", en: "en-GB" }[r63Lang()] || "fa-IR"; sr.interimResults = false; sr.continuous = true;
+        const start = f.s.value;
+        sr.onresult = (e) => { let t = ""; for (const res of e.results) t += res[0].transcript + " "; f.s.value = (start ? start + " " : "") + t.trim(); };
+        sr.onend = () => { sr = null; dict.textContent = "🗣 " + T("pvDictate"); };
+        sr.onerror = () => { toast(T("pvDictFail"), { kind: "err" }); };
+        try { sr.start(); dict.textContent = "■ " + T("pvStop"); } catch { sr = null; toast(T("pvDictFail"), { kind: "err" }); }
+      });
+      recB?.addEventListener("click", async () => {
+        if (rec) { rec.stop(); return; }
+        let stream; try { stream = await navigator.mediaDevices.getUserMedia({ audio: true }); } catch { return toast(T("pvNoMic"), { kind: "err" }); }
+        const mime = ["audio/mp4", "audio/webm", "audio/ogg"].find((m) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || "";
+        const chunks = []; rec = new MediaRecorder(stream, mime ? { mimeType: mime } : {}); const t0 = Date.now();
+        const tick = setInterval(() => { const s = Math.round((Date.now() - t0) / 1000); tm.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }, 500);
+        rec.ondataavailable = (e) => e.data && e.data.size && chunks.push(e.data);
+        rec.onstop = async () => {
+          clearInterval(tick); stream.getTracks().forEach((t) => t.stop()); rec = null; badge.classList.add("hide"); recB.textContent = "🎙 " + T("pvReRecord");
+          const blob = new Blob(chunks, { type: chunks[0]?.type || mime || "audio/mp4" }); if (!blob.size) return;
+          try { const up = await S.assets.upload(new File([blob], "pin-note." + (/mp4/.test(blob.type) ? "m4a" : /ogg/.test(blob.type) ? "ogg" : "webm"), { type: blob.type })); newAu = up.id;
+            el.querySelector(".pvplay").innerHTML = `<audio controls src="${esc(URL.createObjectURL(blob))}"></audio>`; toast("🎙 " + T("pvSaved")); }
+          catch (e) { toast(String((e && e.message) || e), { kind: "err" }); }
+        };
+        rec.start(); badge.classList.remove("hide"); recB.textContent = "■ " + T("pvStop");
+      });
+    });
+  try { rec && rec.stop(); sr && sr.stop(); } catch {}
+  if (!r) { if (newAu) { cvPush(); x.au = newAu; cvSave(); cvDraw(); } return; }
+  if (r.retake) return cvPinPhoto(null, x);
+  if (r.s !== (x.s || "") || newAu) { cvPush(); x.s = r.s; if (newAu) x.au = newAu; cvSave(); cvDraw(); }
+}
+
+/* --- 3. a checklist for each room of a survey --- */
+const SV_CHECK = ["sock", "switch", "light", "water", "drain", "heat", "window", "door", "height", "north", "gas", "net", "damp"];
+function svRoomsNorm(a) {
+  return Array.isArray(a) ? a.slice(0, 40).map((r) => {
+    const c = {}; if (r && r.c && typeof r.c === "object") for (const k of SV_CHECK) { const v = r.c[k]; if (v && typeof v === "object") c[k] = { d: !!v.d, v: cvStr(v.v, 80) }; }
+    return { n: cvStr(r && r.n, 60), c, note: cvStr(r && r.note, 400) };
+  }) : [];
+}
+async function svRooms() {
+  if (!CV || !cvSv()) return;
+  CV.d.rooms = svRoomsNorm(CV.d.rooms); let cur = 0;
+  const save = () => { cvSave(); saveNote(CV.n.id, 0); };
+  await dialog({ title: "☑ " + T("svRooms"), wide: true, body: `<div class="svrooms"><div class="svrtabs"></div><div class="svrbody"></div></div>`,
+    actions: [{ label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el) => {
+      const tabs = el.querySelector(".svrtabs"), body = el.querySelector(".svrbody");
+      const draw = () => {
+        const R = CV.d.rooms;
+        tabs.innerHTML = R.map((r, i) => `<button type="button" class="svrt ${i === cur ? "on" : ""}" data-room="${i}">${esc(r.n || T("svRoomN", { n: num(i + 1) }))} <small>${num(Object.values(r.c).filter((v) => v.d).length)}/${num(SV_CHECK.length)}</small></button>`).join("") + `<button type="button" class="svrt add" data-room="new">＋ ${esc(T("svRoomAdd"))}</button>`;
+        const r = R[cur];
+        body.innerHTML = !r ? `<p class="msg">${esc(T("svRoomNone"))}</p>` : `<div class="field"><label>${esc(T("svRoomName"))}</label><input name="rn" dir="auto" maxlength="60" value="${esc(r.n)}" placeholder="${esc(T("svRoomPh"))}"></div>
+          <div class="svck">${SV_CHECK.map((k) => `<label class="svci ${r.c[k]?.d ? "on" : ""}"><input type="checkbox" data-ck="${k}" ${r.c[k]?.d ? "checked" : ""}><span>${esc(T("svc_" + k))}</span><input type="text" data-cv="${k}" dir="auto" maxlength="80" placeholder="${esc(T("svcPh"))}" value="${esc(r.c[k]?.v || "")}"></label>`).join("")}</div>
+          <div class="field"><label>${esc(T("svRoomNote"))}</label><textarea name="rnote" dir="auto" rows="2" maxlength="400">${esc(r.note)}</textarea></div>
+          <button type="button" class="btn danger" data-room="del">🗑 ${esc(T("svRoomDel"))}</button>`;
+      };
+      el.addEventListener("click", async (e) => {
+        const b = e.target.closest("[data-room]"); if (!b) return;
+        const a = b.dataset.room;
+        if (a === "new") { CV.d.rooms.push({ n: "", c: {}, note: "" }); cur = CV.d.rooms.length - 1; save(); draw(); body.querySelector("[name=rn]")?.focus(); return; }
+        if (a === "del") { if (!(await confirmBox(T("svRoomDelQ"), { danger: true }))) return; CV.d.rooms.splice(cur, 1); cur = Math.max(0, cur - 1); save(); return draw(); }
+        cur = +a; draw();
+      });
+      el.addEventListener("input", (e) => {
+        const r = CV.d.rooms[cur]; if (!r) return; const t = e.target;
+        if (t.name === "rn") { r.n = t.value; tabs.querySelector(".svrt.on")?.firstChild && (tabs.querySelector(".svrt.on").firstChild.textContent = (t.value || T("svRoomN", { n: num(cur + 1) })) + " "); }
+        else if (t.name === "rnote") r.note = t.value;
+        else if (t.dataset.ck) { r.c[t.dataset.ck] = { ...(r.c[t.dataset.ck] || { v: "" }), d: t.checked }; t.closest(".svci").classList.toggle("on", t.checked); }
+        else if (t.dataset.cv) { const k = t.dataset.cv; r.c[k] = { d: true, ...(r.c[k] || {}), v: t.value }; const cb = t.closest(".svci").querySelector("[data-ck]"); if (t.value && !cb.checked) { cb.checked = true; r.c[k].d = true; t.closest(".svci").classList.add("on"); } }
+        clearTimeout(svRooms.t); svRooms.t = setTimeout(save, 400);
+      });
+      draw();
+    } });
+  save();
+}
+
+/* --- 1. a survey report as a PDF: plan, measurements, rooms, every photo with its note --- */
+function r63Wrap(x, text, maxW) {
+  const out = []; for (const para of String(text || "").split("\n")) {
+    let line = ""; for (const w of para.split(/\s+/)) { const t = line ? line + " " + w : w; if (x.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; }
+    out.push(line);
+  } return out;
+}
+async function svReport() {
+  if (!CV || !cvSv()) return;
+  const { t, say } = sayToast(T("svRepMaking"));
+  try {
+    const PW = 1240, PH = 1754, M = 90, rtl = r63Lang() === "fa", font = (s, b) => `${b ? "700 " : ""}${s}px Vazirmatn, Tahoma, "Geeza Pro", system-ui, sans-serif`;
+    const pages = []; let c, x, y;
+    const page = () => { c = document.createElement("canvas"); c.width = PW; c.height = PH; x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, PW, PH); x.fillStyle = "#1d1d1f"; x.textBaseline = "top"; x.direction = rtl ? "rtl" : "ltr"; x.textAlign = rtl ? "right" : "left"; y = M; pages.push(c);
+      x.font = font(18); x.fillStyle = "#8a8276"; x.fillText(`${CV.n.title || T("svNew")} · ${num(pages.length)}`, rtl ? PW - M : M, PH - M + 30); x.fillStyle = "#1d1d1f"; };
+    const X0 = () => (rtl ? PW - M : M), room = (h) => { if (y + h > PH - M) page(); };
+    const text = (s, size = 26, bold = false, color = "#1d1d1f", gap = 10) => { x.font = font(size, bold); x.fillStyle = color; for (const l of r63Wrap(x, s, PW - 2 * M)) { room(size * 1.45); x.fillText(l, X0(), y); y += size * 1.45; } y += gap; x.fillStyle = "#1d1d1f"; };
+    const head = (s) => { room(90); y += 18; text(s, 32, true, "#a8502f", 4); x.fillStyle = "#e5ddd0"; x.fillRect(M, y, PW - 2 * M, 3); y += 20; x.fillStyle = "#1d1d1f"; };
+    const m = CV.d.meta || {};
+    page();
+    text(T("svRepTitle"), 46, true, "#1d1d1f", 6);
+    text(CV.n.title || T("svNew"), 32, true, "#a8502f", 18);
+    for (const [k, v] of [["svAddr", m.addr], ["svDate", m.date], ["svPeople", m.people]]) if (v) text(`${T(k)}: ${v}`, 26);
+    // the plan
+    say(T("svRepPlan"));
+    const o = await cvIoSvg({ bg: "#ffffff", pad: 30 });
+    if (o) {
+      const vbW = o.vb[2], vbH = o.vb[3], maxW = PW - 2 * M, maxH = PH - y - M - 20, k = Math.min(maxW / vbW, maxH / vbH);
+      const w = Math.max(1, Math.round(vbW * k)), h = Math.max(1, Math.round(vbH * k));
+      const img = await cvIoImage(cvIoStrokes(o.svg, Math.max(1, k * 0.6)), o.vb, w * 2, h * 2);
+      const ox = M + (maxW - w) / 2, oy = y + 10;
+      x.drawImage(img, ox, oy, w, h); x.strokeStyle = "#ddd2bf"; x.lineWidth = 2; x.strokeRect(ox, oy, w, h);
+      // the photo pins, numbered and big enough to read on paper
+      CV.d.items.filter((q) => q.t === "pin").forEach((q, i) => {
+        const px = ox + (q.x - o.vb[0]) * k, py = oy + (q.y - o.vb[1]) * k;
+        x.beginPath(); x.arc(px, py - 22, 20, 0, Math.PI * 2); x.fillStyle = "#d64545"; x.fill(); x.lineWidth = 3; x.strokeStyle = "#fff"; x.stroke();
+        x.fillStyle = "#fff"; x.font = font(22, true); x.textAlign = "center"; x.textBaseline = "middle"; x.fillText(num(i + 1), px, py - 21);
+        x.textAlign = rtl ? "right" : "left"; x.textBaseline = "top"; x.fillStyle = "#1d1d1f";
+      });
+      y += h + 30;
+    }
+    // the measurements
+    const shapes = CV.d.items.filter((q) => q.t === "pen" && q.k === "sharp" && q.dims && Object.keys(q.dims).length);
+    const grids = CV.d.items.filter((q) => q.t === "grid");
+    if (shapes.length || grids.length) {
+      page(); head("📏 " + T("svRepDims"));
+      shapes.forEach((q, i) => { const ds = Object.keys(q.dims).sort((a, b) => a - b).map((k2) => `${T("svSide")} ${num(+k2 + 1)}: ${cvMM(q.dims[k2])} mm`); text(`${T("svShape")} ${num(i + 1)}`, 26, true, "#1d1d1f", 2); text(ds.join("   ·   "), 24, false, "#333", 14); });
+      grids.forEach((g, i) => { text(`${T("svGrid")} ${num(i + 1)}`, 26, true, "#1d1d1f", 2); text(`↔ ${g.cols.map(cvMM).join(" + ")} mm   ↕ ${g.rows.map(cvMM).join(" + ")} mm`, 24, false, "#333", 14); });
+    }
+    // the rooms
+    const rooms = svRoomsNorm(CV.d.rooms).filter((r) => r.n || Object.keys(r.c).length || r.note);
+    if (rooms.length) {
+      if (!(shapes.length || grids.length)) page(); head("☑ " + T("svRooms"));
+      rooms.forEach((r, i) => {
+        text(r.n || T("svRoomN", { n: num(i + 1) }), 28, true, "#1d1d1f", 4);
+        for (const k of SV_CHECK) { const v = r.c[k]; if (!v || (!v.d && !v.v)) continue; text(`${v.d ? "☑" : "☐"} ${T("svc_" + k)}${v.v ? " — " + v.v : ""}`, 24, false, "#333", 0); }
+        const miss = SV_CHECK.filter((k) => !r.c[k]?.d); if (miss.length) text(`${T("svRepMissing")}: ${miss.map((k) => T("svc_" + k)).join("، ")}`, 20, false, "#a8502f", 4);
+        if (r.note) text(r.note, 22, false, "#555", 4);
+        y += 16;
+      });
+    }
+    // the photos, two on a page
+    const pins = CV.d.items.filter((q) => q.t === "pin");
+    if (pins.length) {
+      page(); head("📷 " + T("svRepPhotos"));
+      for (let i = 0; i < pins.length; i++) {
+        const p = pins[i]; say(T("svRepPhoto", { n: num(i + 1), t: num(pins.length) }));
+        let im = null; if (p.a) { try { const b = await assetBlob(p.a); im = await createImageBitmap(b); } catch {} }
+        const boxH = 620; room(boxH + 140);
+        text(`${T("cvPinN", { n: num(i + 1) })}${p.au ? "  🎙 " + T("svRepVoice") : ""}`, 28, true, "#d64545", 4);
+        if (im) { const k = Math.min((PW - 2 * M) / im.width, boxH / im.height), w = im.width * k, h = im.height * k; x.drawImage(im, M + (PW - 2 * M - w) / 2, y, w, h); y += h + 12; }
+        if (p.s) text(p.s, 24, false, "#333", 6);
+        y += 24;
+      }
+    }
+    say(T("svRepPdf"));
+    const blob = await jpegPdf(pages, 595, 842, CV.n.title || T("svRepTitle"));
+    await saveFile(safeName((CV.n.title || T("svNew")) + " – " + T("svRepTitle")) + ".pdf", blob);
+  } catch (e) { console.warn(e); toast(T("exportFailed") + (e?.message || ""), { kind: "err" }); }
+  finally { t.remove(); }
+}
+function cvSvHead() {
+  const h = $("#cvHead"); if (!h || !cvSv()) return;
+  const m = CV.d.meta || {};
+  h.innerHTML = `<b dir="auto">📋 ${esc(CV.n.title || T("svNew"))}</b><span dir="auto">${esc(m.addr || T("svAddrPh"))}</span><span>${esc(m.date || "")}${m.people ? "، " + esc(m.people) : ""}</span>
+    <span class="svhb"><button type="button" class="btn" data-svh="rooms">☑ ${esc(T("svRooms"))}</button><button type="button" class="btn" data-svh="report">📋 ${esc(T("svRepBtn"))}</button></span>`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-svh]"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  if (b.dataset.svh === "rooms") svRooms(); else svReport();
+}, true);
+document.addEventListener("pointerdown", (e) => { if (e.target.closest && e.target.closest("[data-svh]")) e.stopPropagation(); }, true);
+
+/* --- 4. a German letter laid out the usual way (DIN 5008) --- */
+async function letterDe() {
+  const n = S.notes.get(S.activeId); if (!n || S.readOnly) return;
+  const st = S.meta.settings, snd = st.sender || {};
+  const today = new Date().toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" });
+  const r = await formBox("✉️ " + T("ltTitle"), `<p class="msg">${esc(T("ltHint"))}</p>
+    <div class="field"><label>${esc(T("ltFrom"))}</label><textarea name="from" rows="3" dir="ltr" placeholder="Vorname Nachname&#10;Straße Nr.&#10;PLZ Ort">${esc(snd.lines || "")}</textarea></div>
+    <div class="field"><label>${esc(T("ltTo"))}</label><textarea name="to" rows="4" dir="ltr" placeholder="Jobcenter …&#10;Straße Nr.&#10;PLZ Ort">${esc(snd.lastTo || "")}</textarea></div>
+    <div class="field"><label>${esc(T("ltRef"))}</label><input name="ref" dir="ltr" maxlength="160" placeholder="BG-Nr. / Kundennummer …" value="${esc(snd.ref || "")}"></div>
+    <div class="field"><label>${esc(T("ltSubj"))}</label><input name="subj" dir="ltr" maxlength="200" placeholder="Antrag auf …"></div>`,
+    (f) => { if (!f.from.value.trim()) return T("ltFrom"); return { from: f.from.value.trim(), to: f.to.value.trim(), ref: f.ref.value.trim(), subj: f.subj.value.trim() }; }, T("ltMake"));
+  if (!r) return;
+  st.sender = { lines: r.from, lastTo: r.to, ref: r.ref }; saveMeta(0);
+  const fl = r.from.split("\n").map((s) => s.trim()).filter(Boolean), name = fl[0] || "", city = (fl[fl.length - 1] || "").replace(/^\d{4,5}\s*/, "") || "";
+  const L = (arr) => arr.map((s) => esc(s)).join("<br>");
+  const html = `${htmlToText($("#content")?.innerHTML || "").trim() ? '<div><br></div><div><br></div>' : ""}<div dir="ltr">${L(fl)}</div><div dir="ltr"><br></div>
+<div dir="ltr">${L(r.to ? r.to.split("\n").map((s) => s.trim()).filter(Boolean) : ["…"])}</div><div dir="ltr"><br></div>
+<div dir="ltr" style="text-align: right">${esc(city ? city + ", den " + today : today)}</div><div dir="ltr"><br></div>
+<div dir="ltr"><b>${esc(r.subj ? "Betreff: " + r.subj : "Betreff: …")}</b></div>${r.ref ? `<div dir="ltr"><b>${esc(r.ref)}</b></div>` : ""}<div dir="ltr"><br></div>
+<div dir="ltr">Sehr geehrte Damen und Herren,</div><div dir="ltr"><br></div>
+<div dir="ltr">…</div><div dir="ltr"><br></div>
+<div dir="ltr">Mit freundlichen Grüßen</div><div dir="ltr"><br></div><div dir="ltr"><br></div>
+<div dir="ltr">${esc(name)}</div>`;
+  S.tool.mode = "type"; applyMode();
+  const c = $("#content"); if (!c) return;
+  c.focus(); const s = getSelection(); const rg = document.createRange(); rg.selectNodeContents(c); rg.collapse(false); s.removeAllRanges(); s.addRange(rg);
+  document.execCommand("insertHTML", false, html); onContentInput();
+  toast("✉️ " + T("ltDone"));
+}
+
+/* --- 5. a translation next to the original, paragraph by paragraph --- */
+async function translateHere() {
+  const n = S.notes.get(S.activeId), c = $("#content"); if (!n || !c) return;
+  const sel = getSelection(), picked = sel && sel.rangeCount && c.contains(sel.getRangeAt(0).commonAncestorContainer) ? sel.toString().trim() : "";
+  const src = picked || htmlToText(c.innerHTML);
+  if (!src.trim()) return toast(T("trEmpty"));
+  const r = await formBox("🌐 " + T("trTitle"), `<p class="msg">${esc(T(picked ? "trSel" : "trAll"))}</p>
+    <div class="field"><label>${esc(T("aiTo"))}</label><select name="l">${[["fa", "فارسی"], ["de", "Deutsch"], ["en", "English"]].map(([k, l]) => `<option value="${k}" ${k === (/[؀-ۿ]/.test(src.slice(0, 200)) ? "de" : "fa") ? "selected" : ""}>${l}</option>`).join("")}</select></div>`,
+    (f) => ({ l: f.l.value }), T("trGo"));
+  if (!r) return;
+  const lang = { fa: "Persian (Farsi)", de: "German", en: "English" }[r.l];
+  return aiRun(async () => {
+    const out = await aiChat({ max: 6000, system: `You translate text for a person who reads ${lang} well. Split the text into its paragraphs (lines that belong together stay together; address lines stay one paragraph each). Return only JSON: {"pairs":[{"o":"original paragraph","t":"translation"}]}. Keep names, numbers, dates, addresses, reference numbers and e-mail addresses exactly as they are. Translate into ${lang}; a paragraph already in ${lang} is copied unchanged.`,
+      messages: [{ role: "user", content: src.slice(0, 12000) }] });
+    const j = aiJson(out), pairs = (j && Array.isArray(j.pairs) ? j.pairs : []).filter((p) => p && (p.o || p.t)).slice(0, 200);
+    if (!pairs.length) return toast(T("aiNothing"));
+    const html = `<div><br></div><table class="trtab"><tbody>${pairs.map((p) => `<tr><td dir="auto">${esc(String(p.o || ""))}</td><td dir="auto">${esc(String(p.t || ""))}</td></tr>`).join("")}</tbody></table><div><br></div>`;
+    S.tool.mode = "type"; applyMode();
+    c.focus(); const s = getSelection(), rg = document.createRange();
+    let after = null; if (picked && sel.rangeCount) { let b = sel.getRangeAt(0).endContainer; while (b && b.parentElement !== c) b = b.parentElement; after = b; }
+    if (after) rg.setStartAfter(after); else { rg.selectNodeContents(c); rg.collapse(false); }
+    rg.collapse(true); s.removeAllRanges(); s.addRange(rg);
+    document.execCommand("insertHTML", false, html); onContentInput();
+    toast("🌐 " + T("trDone"));
+  });
+}
+
+/* --- 6. dates in a letter become reminders --- */
+const DL_MONTHS = { januar: 1, jan: 1, january: 1, februar: 2, feb: 2, february: 2, märz: 3, maerz: 3, march: 3, mär: 3, april: 4, apr: 4, mai: 5, may: 5, juni: 6, june: 6, jun: 6, juli: 7, july: 7, jul: 7, august: 8, aug: 8, september: 9, sept: 9, sep: 9, oktober: 10, october: 10, okt: 10, oct: 10, november: 11, nov: 11, dezember: 12, december: 12, dez: 12, dec: 12 };
+const DL_KEY = /(frist|bis\s+(zum|spätestens)?|spätestens|termin|deadline|until|due|einzureichen|vorzulegen|zahlbar|fällig|مهلت|تا\s+تاریخ|موعد)/i;
+function dlFind(text) {
+  const now = new Date(); now.setHours(0, 0, 0, 0); const out = [], seen = new Set();
+  const add = (d, idx) => {
+    if (isNaN(d) || d < now || d.getFullYear() > now.getFullYear() + 3) return;
+    const key = d.toDateString(); if (seen.has(key)) return; seen.add(key);
+    const a = Math.max(0, text.lastIndexOf("\n", idx) + 1), b0 = text.indexOf("\n", idx), b = b0 < 0 ? text.length : b0;
+    const line = text.slice(Math.max(a, idx - 120), Math.min(b, idx + 120)).trim();
+    out.push({ d, line, strong: DL_KEY.test(text.slice(Math.max(0, idx - 80), idx + 40)) });
+  };
+  for (const m of text.matchAll(/\b(\d{1,2})\.\s?(\d{1,2})\.\s?(\d{4}|\d{2})\b/g)) { let y = +m[3]; if (y < 100) y += 2000; add(new Date(y, +m[2] - 1, +m[1]), m.index); }
+  for (const m of text.matchAll(/\b(\d{4})-(\d{2})-(\d{2})\b/g)) add(new Date(+m[1], +m[2] - 1, +m[3]), m.index);
+  for (const m of text.matchAll(/\b(\d{1,2})\.?\s+([A-Za-zÄÖÜäöü]{3,10})\.?\s+(\d{4})\b/g)) { const mo = DL_MONTHS[m[2].toLowerCase()]; if (mo) add(new Date(+m[3], mo - 1, +m[1]), m.index); }
+  return out.sort((p, q) => (q.strong - p.strong) || (p.d - q.d)).slice(0, 12);
+}
+async function dlDialog(text, noteId) {
+  const found = dlFind(text);
+  if (!found.length) return toast("⏰ " + T("dlNone"));
+  const r = await formBox("⏰ " + T("dlTitle"), `<p class="msg">${esc(T("dlHint"))}</p>
+    <div class="dllist">${found.map((f, i) => `<label class="dlrow"><input type="checkbox" name="d${i}" ${f.strong ? "checked" : ""}><span><b>${esc(f.d.toLocaleDateString(r63Loc(), { weekday: "short", day: "numeric", month: "long", year: "numeric" }))}</b><small dir="auto">${esc(f.line)}</small></span></label>`).join("")}</div>
+    <label class="dlrow"><input type="checkbox" name="early" checked><span>${esc(T("dlEarly"))}</span></label>`,
+    (f) => ({ pick: found.filter((_, i) => f["d" + i].checked), early: f.early.checked }), T("dlMake"));
+  if (!r || !r.pick.length) return;
+  const n = noteId && S.notes.get(noteId), base = n && !sealedLocked(n) ? titleOf(n) : T("reminders");
+  let made = 0;
+  for (const f of r.pick) {
+    const at = new Date(f.d); at.setHours(9, 0, 0, 0);
+    const mk = (when, pre) => { if (when <= new Date()) return; S.meta.reminders.push({ id: uid("r"), noteId: noteId || null, done: false, ackAt: null, createdAt: new Date().toISOString(), title: `${pre}${base} — ${f.d.toLocaleDateString(r63Loc())}`, at: when.toISOString(), repeat: "none" }); made++; };
+    mk(at, "⏰ ");
+    if (r.early) { const e = new Date(at); e.setDate(e.getDate() - 3); mk(e, "🔔 " + T("dlSoon") + ": "); }
+  }
+  saveMeta(0); checkReminders(); toast("⏰ " + T("dlMade", { n: num(made) }));
+}
+function dlOffer(text) {
+  try { const f = dlFind(String(text || "")).filter((x) => x.strong); if (!f.length) return;
+    const id = S.activeId; skyToast("⏰ " + T("dlFound", { d: f[0].d.toLocaleDateString(r63Loc()) }), [{ label: T("dlSet"), run: () => dlDialog(String(text), id) }]); } catch {}
+}
+
+/* --- 7. a backup every week: how old the last one is, always in sight --- */
+const bakLast = () => +(lsGet("babak-lastbackup", 0) || 0);
+function bakAge() { const t = bakLast(); return t ? Math.floor((Date.now() - t) / 864e5) : -1; }
+function bakLabel() { const d = bakAge(); return d < 0 ? T("bakNever") : d === 0 ? T("bakToday") : T("bakDays", { n: num(d) }); }
+async function bakNow() { xferShareUntil = Date.now() + 120e3; await fullBackup(); }
+let bakAsked = false;
+function bakCheck() {
+  if (bakAsked || S.readOnly || ![...S.notes.values()].some((n) => !n.trashed)) return;
+  const d = bakAge(); if (d >= 0 && d < 7) return;
+  if (+(sessionStorage.getItem("babak-bak-snooze") || 0) > Date.now()) return;
+  bakAsked = true;
+  toast(`💾 ${esc(T(d < 0 ? "bakAskNever" : "bakAsk", { n: num(d) }))}`, { html: true, sticky: true, actions: [{ label: T("bakNowBtn"), run: bakNow }, { label: T("bakLater"), run: () => sessionStorage.setItem("babak-bak-snooze", String(Date.now() + 864e5)) }] });
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest('[data-tx="backup"]'); if (!b) return;
+  e.preventDefault(); e.stopPropagation(); bakNow();
+}, true);
+
+/* --- 9 + 10. what opens when the app starts; the trash empties itself after 30 days --- */
+async function r63Start() {
+  await whenLoaded();
+  setTimeout(async () => {
+    try {
+      const st = S.meta.settings;
+      if (st.trashAuto !== false && !S.readOnly) {
+        const old = [...S.notes.values()].filter((n) => n.trashed && Date.now() - new Date(n.updatedAt).getTime() > 30 * 864e5);
+        for (const n of old) await deleteForever(n, false);
+        if (old.length) toast("🗑 " + T("trashAutoDone", { n: num(old.length) }));
+      }
+    } catch (e) { console.warn(e); }
+    try {
+      const q = new URLSearchParams(location.search).get("new"), first = !sessionStorage.getItem("babak-started");
+      sessionStorage.setItem("babak-started", "1");
+      const what = q || (first ? S.meta.settings.startWith || "home" : "home");
+      if (q) history.replaceState(null, "", location.pathname + location.hash);
+      if (what === "survey") newCanvas({ survey: true });
+      else if (what === "note") newNote({ folder: "" });
+      else if (what === "scan" && typeof scanDoc === "function") scanDoc();
+    } catch (e) { console.warn(e); }
+    setTimeout(bakCheck, 4000);
+  }, 600);
+}
+r63Start();
+window.__r63 = { cvPinView: (x) => cvPinView(x), svReport, svRooms, dlFind, dlDialog, letterDe, translateHere, bakAge };
+
+document.addEventListener("change", (e) => { const t = e.target; if (!t.matches) return;
+  if (t.matches('select[name="startWith"]')) { S.meta.settings.startWith = t.value; saveMeta(0); }
+  if (t.matches('select[name="trashAuto"]')) { S.meta.settings.trashAuto = t.value === "1"; saveMeta(0); } }, true);
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
