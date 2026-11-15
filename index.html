@@ -11224,7 +11224,7 @@ function cvHit(p, tol) {
   const items = CV.d.items;
   for (let i = items.length - 1; i >= 0; i--) {
     const x = items[i];
-    if (x.t === "pen") { const pts = x.pts || []; for (let k = 1; k < pts.length; k++) if (cvSegD(p, pts[k - 1], pts[k]) < tol + (x.sw || 3) / 2) return x; if (pts.length === 1 && cvLen(p, pts[0]) < tol + 4) return x; continue; }
+    if (x.t === "pen") { const pts = x.closed && (x.pts || []).length > 2 ? [...x.pts, x.pts[0]] : (x.pts || []); for (let k = 1; k < pts.length; k++) if (cvSegD(p, pts[k - 1], pts[k]) < tol + (x.sw || 3) / 2) return x; if (pts.length === 1 && cvLen(p, pts[0]) < tol + 4) return x; continue; }
     if (x.t === "wall") { const pts = x.pts || [], seg = x.closed ? [...pts, pts[0]] : pts; for (let k = 1; k < seg.length; k++) if (cvSegD(p, seg[k - 1], seg[k]) < tol + (x.th || 15) / 2) return x; continue; }
     if (x.t === "line" || x.t === "arrow" || x.t === "dim") { const o = x.t === "dim" && x.ox != null ? [x.ox, x.oy] : [0, 0]; if (cvSegD(p, [x.x1 + o[0], x.y1 + o[1]], [x.x2 + o[0], x.y2 + o[1]]) < tol + 4) return x; continue; }
     if (x.t === "grid") { const h = cvGridAt(p, tol); if (h && h.g === x && !h.lab) return x; continue; }
@@ -11714,6 +11714,7 @@ function cvDown(e) {
     if (penLike) { CV.g = { kind: "draw", pts: [sp], sv: true }; return; }
     const hit = CV.sel && cvHit(sp, stol);
     if (hit && hit.id === CV.sel && hit.t !== "pen") { CV.g = { kind: "move", id: hit.id, p0: sp, x0: JSON.parse(JSON.stringify(hit)), pushed: false, again: false }; return; }
+    if (CV.sel && cvById(CV.sel)) { const sb = cvSetBox([CV.sel]); if (sb && sp[0] > sb.x - stol && sp[0] < sb.x + sb.w + stol && sp[1] > sb.y - stol && sp[1] < sb.y + sb.h + stol) { CV.g = { kind: "tap", p: sp, sx: e.clientX, sy: e.clientY, tool: "svtap", mvOk: true }; return; } }
     CV.g = { kind: "tap", p: sp, sx: e.clientX, sy: e.clientY, tool: "svtap" }; return;
   }
   const p = cvWorld(e), tol = (e.pointerType === "touch" ? 16 : 7) / CV.view.z, tool = CV.ro ? "sel" : CV.tool;
@@ -11737,6 +11738,7 @@ function cvDown(e) {
       if (!CV.ro && hit.t !== "link") CV.g = { kind: "move", id: hit.id, p0: p, x0: JSON.parse(JSON.stringify(hit)), pushed: false, again };
       return;
     }
+    if (CV.sel && !CV.ro && cvById(CV.sel)) { const sb = cvSetBox([CV.sel]); if (sb && p[0] > sb.x - tol && p[0] < sb.x + sb.w + tol && p[1] > sb.y - tol && p[1] < sb.y + sb.h + tol) { cvXformStart("mv", p); return; } }
     if (CV.sel || CV.ms) { CV.sel = null; CV.ms = null; cvDrawSel(); }
     if (e.pointerType === "touch") { CV.g = { kind: "tap", p, sx: e.clientX, sy: e.clientY, tool: "noop" }; return; } // a finger moves the page
     CV.g = { kind: "marq", a: p, b: p }; return; // the pen frames several things
@@ -11755,6 +11757,7 @@ function cvMove(e) {
   const g = CV.g; const p = CV.view ? cvWorld(e) : [0, 0];
   if (CV.wall && (!g || g.kind === "walltap")) cvWallPreview(cvAngleSnap(CV.wall.pts[CV.wall.pts.length - 1], cvSnap(p)));
   if (!g) { if (cvSkTool(CV.tool) && e.pointerType !== "touch" && !CV.ro) cvSkHover(e, p); else if (CV.tool === "pen" && !cvNoteMode() && e.pointerType !== "touch" && !CV.ro) { const inf = cvPenSnap(p, e); $("#cvLive").innerHTML = inf ? cvInfSvg(inf) : ""; } return; }
+  if (g.kind === "tap" && g.mvOk && Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) { cvXformStart("mv", g.p); return cvMove(e); }
   if ((g.kind === "tap" || g.kind === "walltap") && !g.act && Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 10) { CV.g = { kind: "pan", sx: g.sx, sy: g.sy, v: { ...CV.view }, moved: true }; return cvMove(e); }
   if (g.kind === "pinch" && CV.ptr.size >= 2) {
     const [a, b] = [...CV.ptr.values()], d = Math.hypot(a.x - b.x, a.y - b.y), m = [(a.x + b.x) / 2, (a.y + b.y) / 2], r = $("#cvStage").getBoundingClientRect();
@@ -13115,9 +13118,9 @@ function cvSelLayer(z) {
   const rotOk = !one || !["grid", "link", "wall", "pin", "text", "note", "idea", "img"].includes(one.t);
   if (rotOk && !CV.ro) {
     const hx = b.x + b.w / 2, hy = top - 62 / z; // above the size box
-    s += `<line x1="${hx}" y1="${top}" x2="${hx}" y2="${hy + r}" stroke="#4f7fe0" stroke-width="${1.5 / z}"/><g data-cvh="rot"><circle cx="${hx}" cy="${hy}" r="${r * 1.35}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/><text x="${hx}" y="${hy}" font-size="${14 / z}" text-anchor="middle" dominant-baseline="central" fill="#4f7fe0">⟳</text></g>`;
-    const mx = Math.min(b.x - 6 / z, hx - 46 / z), my = hy; // move grip next to the rotate handle
-    s += `<g data-cvh="mv"><circle cx="${mx}" cy="${my}" r="${r * 1.35}" fill="#4f7fe0" stroke="#fff" stroke-width="${2 / z}"/><text x="${mx}" y="${my}" font-size="${14 / z}" text-anchor="middle" dominant-baseline="central" fill="#fff">✥</text></g>`;
+    s += `<line x1="${hx}" y1="${top}" x2="${hx}" y2="${hy + r}" stroke="#4f7fe0" stroke-width="${1.5 / z}"/><g data-cvh="rot"><circle cx="${hx}" cy="${hy}" r="${24 / z}" fill="#000" fill-opacity="0.001"/><circle cx="${hx}" cy="${hy}" r="${r * 1.6}" fill="#fff" stroke="#4f7fe0" stroke-width="${2 / z}"/><text x="${hx}" y="${hy}" font-size="${14 / z}" text-anchor="middle" dominant-baseline="central" fill="#4f7fe0">⟳</text></g>`;
+    const mx = Math.min(b.x - 6 / z, hx - 60 / z), my = hy; // move grip next to the rotate handle
+    s += `<g data-cvh="mv"><circle cx="${mx}" cy="${my}" r="${24 / z}" fill="#000" fill-opacity="0.001"/><circle cx="${mx}" cy="${my}" r="${r * 1.6}" fill="#4f7fe0" stroke="#fff" stroke-width="${2 / z}"/><text x="${mx}" y="${my}" font-size="${14 / z}" text-anchor="middle" dominant-baseline="central" fill="#fff">✥</text></g>`;
   }
   if (one) s += cvShapeDimsSvg(one, z, true);
   return s;
