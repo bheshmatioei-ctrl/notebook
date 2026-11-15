@@ -1514,6 +1514,9 @@ aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
 .dlrow span{display:flex;flex-direction:column;gap:2px}.dlrow small{color:var(--muted)}
 .txbak{min-height:30px;height:30px;padding:0 10px;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--muted);font:inherit;font-size:12.5px;white-space:nowrap}
 .txbak.warn{color:#a8502f;border-color:#e2b4a2;background:#fbebe4}
+.pgghost{contain:layout paint}
+.fview ~ .overlay{z-index:80}
+.fvbar .fvwrite{min-height:44px;font-weight:700;padding:0 16px}
 </style>
 
 <div class="app" id="app">
@@ -7883,7 +7886,7 @@ async function openFile(id) {
   const ov = document.createElement("div"); ov.className = "fview"; ov.setAttribute("role", "dialog");
   const [lab, col] = fileKind(n.file);
   ov.innerHTML = `<div class="fvbar"><button type="button" class="btn icon ghost" data-fv="close" aria-label="${esc(T("close"))}">✕</button><span class="fbadge sm" style="--fc:${col}">${esc(lab)}</span><b dir="auto">${esc(n.title || n.file.name)}</b>
-    <span class="fvsp"></span><button type="button" class="btn" data-fv="save">⤓ ${esc(T("fileSave"))}</button><button type="button" class="btn" data-fv="pages">📄 ${esc(T("importAsPages"))}</button></div><div class="fvbody"><div class="spinner"></div><div class="empty">${esc(T("fileLoading"))}</div></div>`;
+    <span class="fvsp"></span><button type="button" class="btn" data-fv="save">⤓ ${esc(T("fileSave"))}</button><button type="button" class="btn primary fvwrite" data-fv="pages">✏️ ${esc(T(lab === "PDF" ? "fvWritePdf" : "fvWrite"))}</button></div><div class="fvbody"><div class="spinner"></div><div class="empty">${esc(T("fileLoading"))}</div></div>`;
   document.body.append(ov);
   const urls = [];
   const close = () => { ov.remove(); urls.forEach((u) => URL.revokeObjectURL(u)); document.removeEventListener("keydown", key, true); };
@@ -7895,6 +7898,13 @@ async function openFile(id) {
     if (b.dataset.fv === "save") return fileSaveShare(n);
     if (b.dataset.fv === "pages") { close(); return fileToPages(n); }
   });
+  // writing with the pencil on a file that is only shown: offer to turn it into pages that take ink
+  let asked = false;
+  ov.addEventListener("pointerdown", async (e) => {
+    if (e.pointerType !== "pen" || asked || !e.target.closest(".fvbody")) return;
+    asked = true; e.preventDefault();
+    if (await confirmBox(T("fvPenQ"), { ok: "✏️ " + T("fvPenOk") })) { close(); fileToPages(n); } else asked = false;
+  }, true);
   const body = ov.querySelector(".fvbody"), blob = await storedBlob(n);
   if (!blob) { body.innerHTML = `<div class="empty">${esc(T("fileMissing"))}</div>`; return; }
   const file = new File([blob], n.file.name || "file", { type: n.file.type || blob.type || "" }), ext = extOf(file.name);
@@ -7927,12 +7937,16 @@ async function fileSaveShare(n) {
 async function fileToPages(n) {
   const f = await storedFile(n); if (!f) return toast(T("fileMissing"), { kind: "err" });
   S.view = n.folder || "__all"; lsSet("babak-sa-view", S.view); S.query = "";
+  const before = new Set(S.notes.keys());
   await importAny([f]);
+  // open the first new page, ready for the pencil
+  const fresh = [...S.notes.values()].filter((x) => !before.has(x.id) && !x.trashed && !x.file && !x.cv && !x.mm);
+  if (fresh.length) { fresh.sort((a, b) => (a.order ?? 0) - (b.order ?? 0)); openNote(fresh[0].id); setTimeout(() => { try { S.tool.mode = "pen"; applyMode(); } catch {} toast("✏️ " + T("fvReady")); }, 500); }
 }
 async function fileMenu(id) {
   const n = S.notes.get(id); if (!isStored(n)) return;
   const items = n.trashed ? [["restore", "↩ " + T("restore")], ["forever", T("deleteForever"), "danger"]]
-    : [["open", "👁 " + T("fileOpen")], ["save", "⤓ " + T("fileSave")], ["pages", "📄 " + T("fileToPages")], ["rename", "✏️ " + T("fileRename")], ["move", "📂 " + T("fileMove")], ["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "ctxUnstar" : "ctxStar")], ["del", "🗑 " + T("delete"), "danger"]];
+    : [["pages", "✏️ " + T("fileToPages")], ["open", "👁 " + T("fileOpen")], ["save", "⤓ " + T("fileSave")], ["rename", "✏️ " + T("fileRename")], ["move", "📂 " + T("fileMove")], ["pin", (n.pinned ? "☆ " : "⭐ ") + T(n.pinned ? "ctxUnstar" : "ctxStar")], ["del", "🗑 " + T("delete"), "danger"]];
   const a = await menuBox(n.title || n.file.name, items);
   if (a === "open") return openFile(id);
   if (a === "save") return fileSaveShare(n);
@@ -8156,6 +8170,9 @@ Object.assign(I18N.en, {"fmTitle": "Text size and font", "fmDefault": "Notebook 
 Object.assign(I18N.fa, {"pvDictate": "گفتن به‌جای تایپ", "pvStop": "توقف", "pvRecord": "ضبط یادداشت صوتی", "pvReRecord": "ضبط دوباره", "pvSaved": "یادداشت صوتی ذخیره شد", "pvNoMic": "میکروفون در دسترس نیست — اجازهٔ میکروفون را در تنظیمات Safari بدهید", "pvDictFail": "تبدیل گفتار به متن اینجا کار نکرد؛ از میکروفون صفحه‌کلید آیپد استفاده کنید", "svRooms": "چک‌لیست اتاق‌ها", "svRoomN": "اتاق {n}", "svRoomAdd": "اتاق تازه", "svRoomNone": "هنوز اتاقی نیست — «＋ اتاق تازه» را بزنید.", "svRoomName": "نام اتاق", "svRoomPh": "مثلاً آشپزخانه", "svRoomNote": "یادداشت اتاق", "svRoomDel": "حذف این اتاق", "svRoomDelQ": "این اتاق و چک‌لیستش حذف شود؟", "svcPh": "تعداد / توضیح", "svc_sock": "پریزها", "svc_switch": "کلیدها", "svc_light": "چراغ‌ها", "svc_water": "لولهٔ آب", "svc_drain": "فاضلاب", "svc_heat": "شوفاژ / گرمایش", "svc_window": "پنجره‌ها", "svc_door": "درها", "svc_height": "ارتفاع سقف", "svc_north": "جهت شمال", "svc_gas": "گاز", "svc_net": "اینترنت / تلویزیون", "svc_damp": "رطوبت / خرابی", "svRepBtn": "گزارش PDF", "svRepSub": "نقشه، اندازه‌ها، اتاق‌ها و همهٔ عکس‌ها با توضیح", "svRepTitle": "گزارش برداشت", "svRepMaking": "در حال ساختن گزارش…", "svRepPlan": "نقشه…", "svRepDims": "اندازه‌ها", "svRepPhotos": "عکس‌ها", "svRepPhoto": "عکس {n} از {t}…", "svRepPdf": "ساختن PDF…", "svRepVoice": "یادداشت صوتی دارد", "svRepMissing": "بررسی نشده", "svShape": "شکل", "svGrid": "شبکه", "ltTitle": "نامهٔ آلمانی (DIN 5008)", "ltHint": "نامه با قالب رسمی آلمان ساخته می‌شود. نشانی شما ذخیره می‌شود تا دفعهٔ بعد خودش بیاید.", "ltFrom": "فرستنده (نام، خیابان، کد پستی و شهر — هر کدام یک خط)", "ltTo": "گیرنده", "ltRef": "شمارهٔ پرونده (اختیاری)", "ltSubj": "موضوع (Betreff)", "ltMake": "ساختن نامه", "ltDone": "نامه آماده است — متن را به‌جای «…» بنویسید", "trTitle": "ترجمه کنار متن", "trSel": "متن انتخاب‌شده ترجمه می‌شود و ترجمه در یک جدول دوستونه زیرش می‌آید.", "trAll": "کل این صفحه ترجمه می‌شود و جدول دوستونه (اصل و ترجمه) پایین صفحه می‌آید.", "trGo": "ترجمه کن", "trDone": "ترجمه اضافه شد", "trEmpty": "متنی برای ترجمه نیست", "dlTitle": "پیدا کردن مهلت‌ها", "dlHint": "این تاریخ‌ها در متن پیدا شد. برای هر کدام که تیک بزنید، یادآور ساعت ۹ صبح همان روز ساخته می‌شود.", "dlEarly": "۳ روز زودتر هم یادآوری کن", "dlMake": "ساختن یادآور", "dlNone": "تاریخ آینده‌ای در این صفحه پیدا نشد", "dlMade": "{n} یادآور ساخته شد", "dlSoon": "نزدیک است", "dlFound": "یک مهلت پیدا شد: {d}", "dlSet": "یادآور بگذار", "bakNever": "پشتیبان: هرگز", "bakToday": "پشتیبان: امروز", "bakDays": "پشتیبان: {n} روز پیش", "bakTip": "گرفتن پشتیبان کامل و ذخیره در Files یا گوگل‌درایو", "bakAsk": "{n} روز از آخرین پشتیبان گذشته. یک پشتیبان بگیرید تا یادداشت‌ها امن بمانند.", "bakAskNever": "هنوز هیچ پشتیبانی نگرفته‌اید. یک پشتیبان بگیرید تا یادداشت‌ها امن بمانند.", "bakNowBtn": "همین حالا", "bakLater": "فردا", "startWith": "وقتی برنامه باز می‌شود", "sw_home": "صفحهٔ اصلی", "sw_survey": "یک برداشت تازه", "sw_note": "یک یادداشت تازه", "sw_scan": "اسکن سند", "trashAuto": "سطل زباله", "trashAutoOn": "بعد از ۳۰ روز خودکار خالی شود", "trashAutoOff": "هرگز خودکار خالی نشود", "trashAutoDone": "{n} مورد قدیمی‌تر از ۳۰ روز از سطل زباله پاک شد"});
 Object.assign(I18N.de, {"pvDictate": "Diktieren", "pvStop": "Stopp", "pvRecord": "Sprachnotiz aufnehmen", "pvReRecord": "Neu aufnehmen", "pvSaved": "Sprachnotiz gespeichert", "pvNoMic": "Kein Mikrofon – bitte in den Safari-Einstellungen erlauben", "pvDictFail": "Diktieren geht hier nicht; bitte das Mikrofon der Tastatur nutzen", "svRooms": "Raum-Checklisten", "svRoomN": "Raum {n}", "svRoomAdd": "Neuer Raum", "svRoomNone": "Noch kein Raum – „＋ Neuer Raum“ tippen.", "svRoomName": "Raumname", "svRoomPh": "z. B. Küche", "svRoomNote": "Notiz zum Raum", "svRoomDel": "Raum löschen", "svRoomDelQ": "Diesen Raum mit Checkliste löschen?", "svcPh": "Anzahl / Hinweis", "svc_sock": "Steckdosen", "svc_switch": "Schalter", "svc_light": "Leuchten", "svc_water": "Wasserleitung", "svc_drain": "Abwasser", "svc_heat": "Heizkörper / Heizung", "svc_window": "Fenster", "svc_door": "Türen", "svc_height": "Raumhöhe", "svc_north": "Nordrichtung", "svc_gas": "Gas", "svc_net": "Internet / TV", "svc_damp": "Feuchte / Schäden", "svRepBtn": "Bericht als PDF", "svRepSub": "Plan, Maße, Räume und alle Fotos mit Notiz", "svRepTitle": "Aufmaßbericht", "svRepMaking": "Bericht wird erstellt…", "svRepPlan": "Plan…", "svRepDims": "Maße", "svRepPhotos": "Fotos", "svRepPhoto": "Foto {n} von {t}…", "svRepPdf": "PDF wird erstellt…", "svRepVoice": "mit Sprachnotiz", "svRepMissing": "Nicht geprüft", "svShape": "Form", "svGrid": "Raster", "ltTitle": "Deutscher Brief (DIN 5008)", "ltHint": "Der Brief wird nach DIN 5008 angelegt. Ihre Adresse wird gespeichert und kommt beim nächsten Mal von selbst.", "ltFrom": "Absender (Name, Straße, PLZ Ort – je eine Zeile)", "ltTo": "Empfänger", "ltRef": "Aktenzeichen (optional)", "ltSubj": "Betreff", "ltMake": "Brief anlegen", "ltDone": "Brief angelegt – Text statt „…“ schreiben", "trTitle": "Übersetzung daneben", "trSel": "Der markierte Text wird übersetzt; die Übersetzung kommt als zweispaltige Tabelle darunter.", "trAll": "Die ganze Seite wird übersetzt; eine zweispaltige Tabelle (Original und Übersetzung) kommt ans Ende.", "trGo": "Übersetzen", "trDone": "Übersetzung eingefügt", "trEmpty": "Kein Text zum Übersetzen", "dlTitle": "Fristen finden", "dlHint": "Diese Daten stehen im Text. Für jedes angekreuzte entsteht eine Erinnerung um 9 Uhr an diesem Tag.", "dlEarly": "Auch 3 Tage vorher erinnern", "dlMake": "Erinnerungen anlegen", "dlNone": "Kein künftiges Datum auf dieser Seite gefunden", "dlMade": "{n} Erinnerungen angelegt", "dlSoon": "Bald fällig", "dlFound": "Frist gefunden: {d}", "dlSet": "Erinnern", "bakNever": "Sicherung: nie", "bakToday": "Sicherung: heute", "bakDays": "Sicherung: vor {n} Tagen", "bakTip": "Vollständige Sicherung in Dateien oder Google Drive speichern", "bakAsk": "Die letzte Sicherung ist {n} Tage alt. Jetzt sichern, damit nichts verloren geht.", "bakAskNever": "Noch keine Sicherung. Jetzt sichern, damit nichts verloren geht.", "bakNowBtn": "Jetzt", "bakLater": "Morgen", "startWith": "Beim Öffnen der App", "sw_home": "Startseite", "sw_survey": "Neues Aufmaß", "sw_note": "Neue Notiz", "sw_scan": "Dokument scannen", "trashAuto": "Papierkorb", "trashAutoOn": "Nach 30 Tagen automatisch leeren", "trashAutoOff": "Nie automatisch leeren", "trashAutoDone": "{n} Einträge älter als 30 Tage aus dem Papierkorb gelöscht"});
 Object.assign(I18N.en, {"pvDictate": "Dictate", "pvStop": "Stop", "pvRecord": "Record a voice note", "pvReRecord": "Record again", "pvSaved": "Voice note saved", "pvNoMic": "No microphone – allow it in Safari settings", "pvDictFail": "Dictation doesn't work here; use the keyboard microphone", "svRooms": "Room checklists", "svRoomN": "Room {n}", "svRoomAdd": "New room", "svRoomNone": "No room yet – tap “＋ New room”.", "svRoomName": "Room name", "svRoomPh": "e.g. Kitchen", "svRoomNote": "Note for the room", "svRoomDel": "Delete this room", "svRoomDelQ": "Delete this room and its checklist?", "svcPh": "Count / note", "svc_sock": "Sockets", "svc_switch": "Switches", "svc_light": "Lights", "svc_water": "Water pipe", "svc_drain": "Drain", "svc_heat": "Radiator / heating", "svc_window": "Windows", "svc_door": "Doors", "svc_height": "Ceiling height", "svc_north": "North direction", "svc_gas": "Gas", "svc_net": "Internet / TV", "svc_damp": "Damp / damage", "svRepBtn": "PDF report", "svRepSub": "Plan, measurements, rooms and every photo with its note", "svRepTitle": "Survey report", "svRepMaking": "Making the report…", "svRepPlan": "Plan…", "svRepDims": "Measurements", "svRepPhotos": "Photos", "svRepPhoto": "Photo {n} of {t}…", "svRepPdf": "Making the PDF…", "svRepVoice": "has a voice note", "svRepMissing": "Not checked", "svShape": "Shape", "svGrid": "Grid", "ltTitle": "German letter (DIN 5008)", "ltHint": "The letter is laid out the official German way. Your address is saved and comes back next time.", "ltFrom": "Sender (name, street, postcode and town – one per line)", "ltTo": "Recipient", "ltRef": "File number (optional)", "ltSubj": "Subject (Betreff)", "ltMake": "Make the letter", "ltDone": "Letter ready – write your text instead of “…”", "trTitle": "Translation alongside", "trSel": "The selected text is translated; the translation comes in a two-column table below it.", "trAll": "The whole page is translated; a two-column table (original and translation) comes at the end.", "trGo": "Translate", "trDone": "Translation added", "trEmpty": "No text to translate", "dlTitle": "Find deadlines", "dlHint": "These dates are in the text. Each one you tick gets a reminder at 9 am that day.", "dlEarly": "Also remind me 3 days before", "dlMake": "Make reminders", "dlNone": "No future date found on this page", "dlMade": "{n} reminders made", "dlSoon": "Coming up", "dlFound": "Deadline found: {d}", "dlSet": "Remind me", "bakNever": "Backup: never", "bakToday": "Backup: today", "bakDays": "Backup: {n} days ago", "bakTip": "Make a full backup and save it in Files or Google Drive", "bakAsk": "Your last backup is {n} days old. Make one now so nothing gets lost.", "bakAskNever": "No backup yet. Make one now so nothing gets lost.", "bakNowBtn": "Now", "bakLater": "Tomorrow", "startWith": "When the app opens", "sw_home": "Home", "sw_survey": "A new survey", "sw_note": "A new note", "sw_scan": "Scan a document", "trashAuto": "Trash", "trashAutoOn": "Empty itself after 30 days", "trashAutoOff": "Never empty itself", "trashAutoDone": "{n} items older than 30 days removed from the trash"});
+Object.assign(I18N.fa, {"fvWritePdf": "نوشتن روی این PDF", "fvWrite": "نوشتن روی این فایل", "fvPenQ": "این فایل فقط برای دیدن است. برای نوشتن با قلم، به صفحه‌های دفترچه تبدیل شود؟ (فایل اصلی دست‌نخورده می‌ماند)", "fvPenOk": "بله، تبدیل کن", "fvReady": "حالا با قلم روی صفحه بنویسید — با اسکرول به صفحه‌های بعد بروید", "fileToPages": "نوشتن روی این فایل (تبدیل به صفحه‌های دفترچه)"});
+Object.assign(I18N.de, {"fvWritePdf": "Auf diesem PDF schreiben", "fvWrite": "Auf dieser Datei schreiben", "fvPenQ": "Diese Datei ist nur zum Ansehen. Zum Schreiben mit dem Stift in Notizbuchseiten umwandeln? (Die Originaldatei bleibt unverändert)", "fvPenOk": "Ja, umwandeln", "fvReady": "Jetzt mit dem Stift schreiben – zum Weiterblättern scrollen", "fileToPages": "Darauf schreiben (in Notizbuchseiten umwandeln)"});
+Object.assign(I18N.en, {"fvWritePdf": "Write on this PDF", "fvWrite": "Write on this file", "fvPenQ": "This file is only for viewing. Turn it into notebook pages to write on it with the pencil? (The original file stays as it is)", "fvPenOk": "Yes, turn it into pages", "fvReady": "Now write with the pencil – scroll for the next pages", "fileToPages": "Write on it (turn into notebook pages)"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -14454,13 +14471,23 @@ function pasteClean(html) {
 /* --- 4. a notebook scrolls as one strip: two pages before and after the open one; the open page changes only
    once the scrolling has come to rest, so nothing jumps under the finger; past the last page, keep scrolling
    for a new blank page --- */
-const PF_N = 2;
+const PF_N = 3;
+const PF_CACHE = new Map();
+function pfGhostCached(p, side, idx, total, W_) {
+  const c = PF_CACHE.get(p.id);
+  if (c && c.u === p.updatedAt && c.w === W_ && c.idx === idx && c.total === total) { c.el.className = "pgghost " + side; c.t = Date.now(); return { el: c.el, fresh: false }; }
+  const el = pfGhost(p, side, idx, total); el.querySelectorAll("img").forEach((i) => { i.decoding = "async"; });
+  el.addEventListener("pointerdown", (e) => { if (e.pointerType === "pen") { e.preventDefault(); pfGo(p.id, "", el); } });
+  PF_CACHE.set(p.id, { el, u: p.updatedAt, w: W_, idx, total, t: Date.now() });
+  if (PF_CACHE.size > 14) { const old = [...PF_CACHE.entries()].sort((a, b) => a[1].t - b[1].t)[0]; PF_CACHE.delete(old[0]); }
+  return { el, fresh: true };
+}
 let pfTouch = 0;
 document.addEventListener("touchstart", (e) => { pfTouch = e.touches.length; }, { passive: true, capture: true });
 document.addEventListener("touchend", (e) => { pfTouch = e.touches.length; if (!pfTouch) pfKick(); }, { passive: true, capture: true });
 document.addEventListener("touchcancel", () => { pfTouch = 0; }, { passive: true, capture: true });
 function pfTopOf(el, sc) { return el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop; }
-function pfKick(ms = 160) { clearTimeout(pfKick.t); pfKick.t = setTimeout(pfSettle, ms); }
+function pfKick(ms = 450) { clearTimeout(pfKick.t); pfKick.t = setTimeout(pfSettle, ms); }
 function pfSettle() {
   if (Date.now() < pfLock) return pfKick(pfLock - Date.now() + 30);
   if (pfTouch) return; // the finger is still on the glass: the lift will ask again
@@ -14488,9 +14515,10 @@ function pfMount(n) {
   const pages = siblings(n), i = pages.findIndex((x) => x.id === n.id); if (i < 0) return;
   const sheet = paper.parentElement, atts = $("#atts");
   let before = paper;
-  for (let k = 1; k <= PF_N && pages[i - k]; k++) { const p = pages[i - k], g = pfGhost(p, "prev", i - k, pages.length); sheet.insertBefore(g, before); before = g; requestAnimationFrame(() => pfPaint(g, p)); }
+  const W0 = paper.clientWidth; PF_CACHE.delete(n.id);
+  for (let k = 1; k <= PF_N && pages[i - k]; k++) { const p = pages[i - k], { el: g, fresh } = pfGhostCached(p, "prev", i - k, pages.length, W0); sheet.insertBefore(g, before); before = g; if (fresh) requestAnimationFrame(() => pfPaint(g, p)); }
   let after = atts || paper;
-  for (let k = 1; k <= PF_N && pages[i + k]; k++) { const p = pages[i + k], g = pfGhost(p, "next", i + k, pages.length); after.after(g); after = g; requestAnimationFrame(() => pfPaint(g, p)); }
+  for (let k = 1; k <= PF_N && pages[i + k]; k++) { const p = pages[i + k], { el: g, fresh } = pfGhostCached(p, "next", i + k, pages.length, W0); after.after(g); after = g; if (fresh) requestAnimationFrame(() => pfPaint(g, p)); }
   // the pages around get their real width now (not later when their ink is drawn), so their height is right before we measure
   sheet.querySelectorAll(".pgghost .ghostp").forEach((gp) => gp.style.setProperty("--w", gp.clientWidth + "px"));
   if (i + PF_N >= pages.length - 1 && !S.readOnly && !isFrozen(n)) {
