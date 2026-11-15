@@ -1517,6 +1517,10 @@ aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
 .pgghost{contain:layout paint}
 .fview ~ .overlay{z-index:80}
 .fvbar .fvwrite{min-height:44px;font-weight:700;padding:0 16px}
+.cvdimc{gap:5px;min-height:36px}.cvdimc i{width:14px;height:14px;border-radius:50%;display:inline-block;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line)}
+.dimcpop{display:flex;flex-direction:column;gap:8px;padding:4px;min-width:220px}.dimcrow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.dimcrow button{display:flex;align-items:center;gap:8px;min-height:42px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font:inherit;font-size:14px}
+.dimcrow button.on{border-color:var(--accent);background:var(--accent-soft)}.dimcrow i{width:18px;height:18px;border-radius:50%;flex:none}
 </style>
 
 <div class="app" id="app">
@@ -8173,6 +8177,9 @@ Object.assign(I18N.en, {"pvDictate": "Dictate", "pvStop": "Stop", "pvRecord": "R
 Object.assign(I18N.fa, {"fvWritePdf": "نوشتن روی این PDF", "fvWrite": "نوشتن روی این فایل", "fvPenQ": "این فایل فقط برای دیدن است. برای نوشتن با قلم، به صفحه‌های دفترچه تبدیل شود؟ (فایل اصلی دست‌نخورده می‌ماند)", "fvPenOk": "بله، تبدیل کن", "fvReady": "حالا با قلم روی صفحه بنویسید — با اسکرول به صفحه‌های بعد بروید", "fileToPages": "نوشتن روی این فایل (تبدیل به صفحه‌های دفترچه)"});
 Object.assign(I18N.de, {"fvWritePdf": "Auf diesem PDF schreiben", "fvWrite": "Auf dieser Datei schreiben", "fvPenQ": "Diese Datei ist nur zum Ansehen. Zum Schreiben mit dem Stift in Notizbuchseiten umwandeln? (Die Originaldatei bleibt unverändert)", "fvPenOk": "Ja, umwandeln", "fvReady": "Jetzt mit dem Stift schreiben – zum Weiterblättern scrollen", "fileToPages": "Darauf schreiben (in Notizbuchseiten umwandeln)"});
 Object.assign(I18N.en, {"fvWritePdf": "Write on this PDF", "fvWrite": "Write on this file", "fvPenQ": "This file is only for viewing. Turn it into notebook pages to write on it with the pencil? (The original file stays as it is)", "fvPenOk": "Yes, turn it into pages", "fvReady": "Now write with the pencil – scroll for the next pages", "fileToPages": "Write on it (turn into notebook pages)"});
+Object.assign(I18N.fa, {"dimcTitle": "رنگ اندازه‌ها", "dc_blue": "آبی", "dc_red": "قرمز", "dc_green": "سبز", "dc_orange": "نارنجی", "dc_purple": "بنفش", "dc_teal": "فیروزه‌ای", "dc_grey": "خاکستری", "dc_same": "مثل خط‌ها"});
+Object.assign(I18N.de, {"dimcTitle": "Farbe der Maße", "dc_blue": "Blau", "dc_red": "Rot", "dc_green": "Grün", "dc_orange": "Orange", "dc_purple": "Lila", "dc_teal": "Türkis", "dc_grey": "Grau", "dc_same": "Wie die Linien"});
+Object.assign(I18N.en, {"dimcTitle": "Colour of measurements", "dc_blue": "Blue", "dc_red": "Red", "dc_green": "Green", "dc_orange": "Orange", "dc_purple": "Purple", "dc_teal": "Teal", "dc_grey": "Grey", "dc_same": "Same as lines"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -11297,7 +11304,7 @@ function cvItemSvg0(x, opt = {}) {
     case "window": { const w = x.w || 120; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-8" width="${w}" height="16" fill="#fff" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/><line x1="${-w / 2}" y1="0" x2="${w / 2}" y2="0" stroke="${c === "#1d1d1f" ? "#4f7fe0" : c}" stroke-width="2"/></g>`; }
     case "furn": { const w = x.w || 100, h = x.h || 60; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" fill="transparent"/>${cvFurnSym(x.k || "table", w, h)}</g>`; }
     case "sym": case "north": case "pin": return cvSiteSvg(x, id, opt);
-    case "dim": if (x.k === "mm") return cvDimMmSvg(x, id); { const L = cvLen([x.x1, x.y1], [x.x2, x.y2]), mx = (x.x1 + x.x2) / 2, my = (x.y1 + x.y2) / 2; let ang = Math.atan2(x.y2 - x.y1, x.x2 - x.x1) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; return `<g${id} style="color:${c === "#1d1d1f" ? "#d97757" : c}"><line x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="currentColor" stroke-width="2" marker-start="url(#cvTick)" marker-end="url(#cvTick)"/><text x="${mx}" y="${my - 14}" transform="rotate(${cvR(ang, 10)} ${mx} ${my})" font-size="16" fill="currentColor" text-anchor="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif" font-weight="700">${esc(cvM(L))}</text></g>`; }
+    case "dim": if (x.k === "mm") return cvDimMmSvg(x, id); { const L = cvLen([x.x1, x.y1], [x.x2, x.y2]), mx = (x.x1 + x.x2) / 2, my = (x.y1 + x.y2) / 2; let ang = Math.atan2(x.y2 - x.y1, x.x2 - x.x1) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; return `<g${id} style="color:${c === "#1d1d1f" ? cvDimC() : c}"><line x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="currentColor" stroke-width="2" marker-start="url(#cvTick)" marker-end="url(#cvTick)"/><text x="${mx}" y="${my - 14}" transform="rotate(${cvR(ang, 10)} ${mx} ${my})" font-size="16" fill="currentColor" text-anchor="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif" font-weight="700">${esc(cvM(L))}</text></g>`; }
   }
   return "";
 }
@@ -11356,6 +11363,7 @@ function renderCanvas(n) {
       ${!d.plan && !d.survey ? cvModeBtns() : ""}<span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-cvb="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-cvb="redo" title="${esc(T("redo"))}">${ic("redo")}</button><button class="btn ghost" data-cvb="cell" title="${esc(T("skCell"))}"></button><button class="btn ghost hide" data-cvb="paste" title="${esc(T("cvPaste"))}">📋<span class="mmlab keep">${esc(T("cvPaste"))}</span></button>
       ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey || !d.plan ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
+      <button class="btn ghost cvdimc" data-cvb="dimc" title="${esc(T("dimcTitle"))}"><i style="background:${cvDimC()}"></i>📏</button>
       <button class="btn icon ghost" data-cvb="grid" aria-pressed="${d.grid}" title="${esc(T("cvGrid"))}">#</button>
       <button class="btn icon ghost" data-cvb="fit" title="${esc(T("mmFit"))}">⤢</button>
       ${ro ? "" : `<button class="btn icon ghost" data-cvb="import" title="${esc(T("ioImport"))}">📂</button>`}<button class="btn icon ghost" data-cvb="export" title="${esc(T("cvExport"))}">⇩</button>
@@ -13493,7 +13501,7 @@ function cvSkTapeLabel(a, b) { const z = CV.view.z, m = [(a[0] + b[0]) / 2, (a[1
 function cvDimFrom(a, b, c) { const L = cvLen(a, b) || 1, n = [-(b[1] - a[1]) / L, (b[0] - a[0]) / L], t = (c[0] - a[0]) * n[0] + (c[1] - a[1]) * n[1]; return [n[0] * t, n[1] * t]; }
 function cvDimCommit() { const sk = CV.sk; if (!sk || !sk.c) return; const d = cvDimFrom(sk.a, sk.b, sk.c); cvSkEnd(); return cvAdd({ t: "dim", k: "mm", x1: sk.a[0], y1: sk.a[1], x2: sk.b[0], y2: sk.b[1], ox: d[0], oy: d[1], c: CV.color }, false); }
 function cvDimMmSvg(x, id) {
-  const c = x.c && x.c !== "#1d1d1f" ? x.c : "#333", a = [x.x1, x.y1], b = [x.x2, x.y2], o = [x.ox || 0, x.oy || 0], A = [a[0] + o[0], a[1] + o[1]], B = [b[0] + o[0], b[1] + o[1]], ol = Math.hypot(o[0], o[1]) || 1, u = [o[0] / ol, o[1] / ol];
+  const c = x.c && x.c !== "#1d1d1f" ? x.c : cvDimC(), a = [x.x1, x.y1], b = [x.x2, x.y2], o = [x.ox || 0, x.oy || 0], A = [a[0] + o[0], a[1] + o[1]], B = [b[0] + o[0], b[1] + o[1]], ol = Math.hypot(o[0], o[1]) || 1, u = [o[0] / ol, o[1] / ol];
   const L = cvLen(a, b), tk = Math.max(2.5, L * 0.012), ext = Math.max(3, tk), gap = Math.min(ol * 0.15, 4), mm = cvMM(L / cvK()), fs = Math.max(7, Math.min(16, L / 9));
   const dir = [(b[0] - a[0]) / (L || 1), (b[1] - a[1]) / (L || 1)], tick = (P) => `<line x1="${P[0] - (dir[0] + u[0]) * tk}" y1="${P[1] - (dir[1] + u[1]) * tk}" x2="${P[0] + (dir[0] + u[0]) * tk}" y2="${P[1] + (dir[1] + u[1]) * tk}" stroke="${c}" stroke-width="1.6"/>`;
   let ang = (Math.atan2(dir[1], dir[0]) * 180) / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180;
@@ -14976,6 +14984,21 @@ window.__r63 = { cvPinView: (x) => cvPinView(x), svReport, svRooms, dlFind, dlDi
 document.addEventListener("change", (e) => { const t = e.target; if (!t.matches) return;
   if (t.matches('select[name="startWith"]')) { S.meta.settings.startWith = t.value; saveMeta(0); }
   if (t.matches('select[name="trashAuto"]')) { S.meta.settings.trashAuto = t.value === "1"; saveMeta(0); } }, true);
+
+/* ---- one colour for all measurements, so they stand apart from the drawing ---- */
+const DIM_COLS = [["#2f6fde", "dc_blue"], ["#d64545", "dc_red"], ["#2e9e5b", "dc_green"], ["#d97757", "dc_orange"], ["#8e5bd6", "dc_purple"], ["#1b9aaa", "dc_teal"], ["#8a8276", "dc_grey"], ["#333333", "dc_same"]];
+function cvDimC() { const c = S.meta?.settings?.dimc; return /^#[0-9a-f]{6}$/i.test(c || "") ? c : "#2f6fde"; }
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest('[data-cvb="dimc"]'); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const el = popover(b, `<div class="dimcpop"><b>${esc(T("dimcTitle"))}</b><div class="dimcrow">${DIM_COLS.map(([c, k]) => `<button type="button" data-dimc="${c}" class="${cvDimC() === c ? "on" : ""}"><i style="background:${c}"></i><span>${esc(T(k))}</span></button>`).join("")}</div></div>`, "dimcp");
+  el?.addEventListener("click", (ev) => {
+    const q = ev.target.closest("[data-dimc]"); if (!q) return;
+    S.meta.settings.dimc = q.dataset.dimc; saveMeta(0); closePop();
+    const dot = $('[data-cvb="dimc"] i'); if (dot) dot.style.background = cvDimC();
+    if (CV) { cvDraw(); cvDrawSel?.(); }
+  });
+}, true);
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
