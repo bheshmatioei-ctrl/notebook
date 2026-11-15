@@ -1521,6 +1521,10 @@ aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
 .dimcpop{display:flex;flex-direction:column;gap:8px;padding:4px;min-width:220px}.dimcrow{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .dimcrow button{display:flex;align-items:center;gap:8px;min-height:42px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:inherit;font:inherit;font-size:14px}
 .dimcrow button.on{border-color:var(--accent);background:var(--accent-soft)}.dimcrow i{width:18px;height:18px;border-radius:50%;flex:none}
+.safebox{display:flex;flex-direction:column;gap:10px}.saferow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:12px;border:1px solid var(--line)}
+.saferow.ok{background:color-mix(in srgb,var(--ok) 10%,var(--panel))}.saferow.warn{background:color-mix(in srgb,#e2896b 18%,var(--panel));border-color:#c9643f;color:var(--ink)}
+.safelist{display:flex;flex-direction:column;gap:6px}.safeitem{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.safeitem span{display:flex;flex-direction:column}.safeitem small{color:var(--muted)}.safeitem .btn,.safeacts .btn{min-height:44px}.safeacts{display:flex;gap:8px;flex-wrap:wrap}
 </style>
 
 <div class="app" id="app">
@@ -6848,6 +6852,7 @@ async function settingsPanel() {
     <button type="button" class="acctcard" data-x="ai"><span class="ai">✨</span><span><b>${esc(T("aiTitle"))}</b><small>${esc(aiReady() ? AI_PROVIDERS[aiCfg().provider]?.name + " · " + (aiCfg().model || AI_PROVIDERS[aiCfg().provider]?.def) : T("aiSub"))}</small></span><span class="go">›</span></button>
     ${S.mode === "cloud" && S.mcp ? `<button type="button" class="acctcard" data-x="gdrive"><span class="ai">📁</span><span><b>${esc(T("gdTitle"))}</b><small>${esc(gdStatus())}</small></span><span class="go">›</span></button>` : ""}
     <div class="field"><label>${esc(T("language"))}</label><select name="lang"><option value="fa" ${st.lang === "fa" ? "selected" : ""}>فارسی</option><option value="de" ${st.lang === "de" ? "selected" : ""}>Deutsch</option><option value="en" ${st.lang === "en" ? "selected" : ""}>English</option></select></div>
+    <div class="field"><label>${esc(T("safeTitle"))}</label><button type="button" class="btn" data-act="safeDialog">🛟 ${esc(T("safeOpenLong"))}</button></div>
     ${colFieldHtml()}
     <div class="field"><label>${esc(T("startWith"))}</label><select name="startWith">${[["home", "sw_home"], ["survey", "sw_survey"], ["note", "sw_note"], ["scan", "sw_scan"]].map(([v, k]) => `<option value="${v}" ${(S.meta.settings.startWith || "home") === v ? "selected" : ""}>${esc(T(k))}</option>`).join("")}</select></div>
     <div class="field"><label>${esc(T("trashAuto"))}</label><select name="trashAuto"><option value="1" ${S.meta.settings.trashAuto !== false ? "selected" : ""}>${esc(T("trashAutoOn"))}</option><option value="0" ${S.meta.settings.trashAuto === false ? "selected" : ""}>${esc(T("trashAutoOff"))}</option></select></div>
@@ -8180,6 +8185,9 @@ Object.assign(I18N.en, {"fvWritePdf": "Write on this PDF", "fvWrite": "Write on 
 Object.assign(I18N.fa, {"dimcTitle": "رنگ اندازه‌ها", "dc_blue": "آبی", "dc_red": "قرمز", "dc_green": "سبز", "dc_orange": "نارنجی", "dc_purple": "بنفش", "dc_teal": "فیروزه‌ای", "dc_grey": "خاکستری", "dc_same": "مثل خط‌ها"});
 Object.assign(I18N.de, {"dimcTitle": "Farbe der Maße", "dc_blue": "Blau", "dc_red": "Rot", "dc_green": "Grün", "dc_orange": "Orange", "dc_purple": "Lila", "dc_teal": "Türkis", "dc_grey": "Grau", "dc_same": "Wie die Linien"});
 Object.assign(I18N.en, {"dimcTitle": "Colour of measurements", "dc_blue": "Blue", "dc_red": "Red", "dc_green": "Green", "dc_orange": "Orange", "dc_purple": "Purple", "dc_teal": "Teal", "dc_grey": "Grey", "dc_same": "Same as lines"});
+Object.assign(I18N.fa, {"safeTitle": "ایمنی داده‌ها", "safeOpenLong": "نسخه‌های ایمنی و بازگردانی", "safePersist": "نگه‌داری دائمی", "safePersistYes": "آیپد قول داده داده‌های این برنامه را خودش پاک نکند.", "safePersistNo": "آیپد هنوز اجازهٔ نگه‌داری دائمی نداده. برنامه را از آیکون صفحهٔ اصلی باز کنید و پشتیبان هفتگی را فراموش نکنید.", "safePersistNa": "این مرورگر نگه‌داری دائمی را پشتیبانی نمی‌کند؛ پشتیبان هفتگی مهم‌تر است.", "safeHint": "برنامه هر روز یک نسخهٔ ایمنی از همهٔ یادداشت‌ها و دست‌نوشته‌ها داخل خودش نگه می‌دارد (سه نسخهٔ آخر). بازگرداندن فقط چیزهای گم‌شده را برمی‌گرداند و به بقیه دست نمی‌زند.", "safeNotes": "یادداشت", "safeRestoreBtn": "بازگرداندن", "safeNone": "هنوز نسخهٔ ایمنی‌ای ساخته نشده — چند ثانیه بعد از باز شدن برنامه خودش ساخته می‌شود.", "safeNow": "همین حالا یک نسخهٔ ایمنی بساز", "safeFile": "پشتیبان کامل در Files / گوگل‌درایو", "safeMade": "نسخهٔ ایمنی ساخته شد", "safeGone": "این نسخه دیگر پیدا نشد", "safeRestoreQ": "یادداشت‌های گم‌شده از نسخهٔ {d} ({n} یادداشت) برگردانده شوند؟ یادداشت‌های فعلی دست نمی‌خورند.", "safeRestoreOk": "بله، برگردان", "safeRestored": "{n} یادداشت برگشت", "safeDrop": "تعداد یادداشت‌ها ناگهان از {a} به {b} رسیده. اگر عمداً پاک نکرده‌اید، از نسخهٔ ایمنی برگردانید.", "safeOpen": "بازگرداندن", "safeIgnore": "عمدی بود"});
+Object.assign(I18N.de, {"safeTitle": "Datensicherheit", "safeOpenLong": "Sicherheitskopien und Wiederherstellen", "safePersist": "Dauerhaft speichern", "safePersistYes": "Das iPad löscht die Daten dieser App nicht von selbst.", "safePersistNo": "Das iPad hat dauerhaftes Speichern noch nicht erlaubt. Die App über das Symbol auf dem Home-Bildschirm öffnen und wöchentlich sichern.", "safePersistNa": "Dieser Browser kennt kein dauerhaftes Speichern; die wöchentliche Sicherung ist umso wichtiger.", "safeHint": "Die App hebt jeden Tag eine Sicherheitskopie aller Notizen und Handschrift bei sich auf (die letzten drei). Wiederherstellen holt nur Fehlendes zurück und ändert nichts anderes.", "safeNotes": "Notizen", "safeRestoreBtn": "Wiederherstellen", "safeNone": "Noch keine Sicherheitskopie – sie entsteht ein paar Sekunden nach dem Start von selbst.", "safeNow": "Jetzt eine Sicherheitskopie machen", "safeFile": "Vollständige Sicherung in Dateien / Google Drive", "safeMade": "Sicherheitskopie gemacht", "safeGone": "Diese Kopie ist nicht mehr da", "safeRestoreQ": "Fehlende Notizen aus der Kopie vom {d} ({n} Notizen) zurückholen? Die aktuellen Notizen bleiben unverändert.", "safeRestoreOk": "Ja, zurückholen", "safeRestored": "{n} Notizen zurückgeholt", "safeDrop": "Die Zahl der Notizen ist plötzlich von {a} auf {b} gefallen. Falls nicht gewollt: aus der Sicherheitskopie zurückholen.", "safeOpen": "Zurückholen", "safeIgnore": "War gewollt"});
+Object.assign(I18N.en, {"safeTitle": "Data safety", "safeOpenLong": "Safety copies and restore", "safePersist": "Keep for good", "safePersistYes": "The iPad has agreed not to clear this app's data by itself.", "safePersistNo": "The iPad hasn't allowed keeping data for good yet. Open the app from its Home Screen icon and keep making weekly backups.", "safePersistNa": "This browser can't keep data for good; the weekly backup matters even more.", "safeHint": "Every day the app keeps a safety copy of all notes and handwriting inside itself (the last three). Restoring brings back only what is missing and leaves everything else alone.", "safeNotes": "notes", "safeRestoreBtn": "Restore", "safeNone": "No safety copy yet – one is made by itself a few seconds after the app starts.", "safeNow": "Make a safety copy now", "safeFile": "Full backup to Files / Google Drive", "safeMade": "Safety copy made", "safeGone": "This copy can no longer be found", "safeRestoreQ": "Bring back missing notes from the copy of {d} ({n} notes)? Your current notes stay as they are.", "safeRestoreOk": "Yes, bring them back", "safeRestored": "{n} notes brought back", "safeDrop": "The number of notes suddenly fell from {a} to {b}. If you didn't mean to delete them, restore from a safety copy.", "safeOpen": "Restore", "safeIgnore": "I meant to"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -14999,6 +15007,85 @@ document.addEventListener("click", (e) => {
     if (CV) { cvDraw(); cvDrawSel?.(); }
   });
 }, true);
+/* ===== r67: keeping the data safe ===== */
+/* 1. ask the iPad to keep this app's data for good (not to clear it when space runs low or after weeks unused) */
+async function safePersist() {
+  try { if (!navigator.storage?.persist) return "na"; if (await navigator.storage.persisted()) return "yes"; return (await navigator.storage.persist()) ? "yes" : "no"; } catch { return "na"; }
+}
+/* 2. safety copies inside the app: one a day, the last three kept, each restores the notes that went missing */
+function safeDb() { return new Promise((res, rej) => { try { const r = indexedDB.open("babak-safety", 1); r.onupgradeneeded = () => r.result.createObjectStore("snap"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
+async function safeTx(mode, fn) { const db = await safeDb(); return new Promise((res, rej) => { const tx = db.transaction("snap", mode), st = tx.objectStore("snap"); let out; Promise.resolve(fn(st)).then((v) => { out = v; }); tx.oncomplete = () => res(out); tx.onerror = () => rej(tx.error); }); }
+async function safeList() {
+  const db = await safeDb();
+  return new Promise((res) => { const out = [], tx = db.transaction("snap"), c = tx.objectStore("snap").openCursor(); c.onsuccess = () => { const cur = c.result; if (cur) { out.push({ key: cur.key, at: cur.value.at, count: cur.value.count, size: cur.value.blob?.size || 0 }); cur.continue(); } else res(out.sort((a, b) => b.at - a.at)); }; c.onerror = () => res(out); });
+}
+async function safeGet(key) { const db = await safeDb(); return new Promise((res) => { const r = db.transaction("snap").objectStore("snap").get(key); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }); }
+async function safeMake(force = false) {
+  if (S.readOnly) return;
+  const live = [...S.notes.values()].filter((n) => !n.trashed);
+  if (!live.length) return; // never save an empty notebook over good copies
+  const list = await safeList().catch(() => []);
+  if (!force && list[0] && Date.now() - list[0].at < 20 * 3600e3) return;
+  if (!force && list[0] && live.length < list[0].count * 0.7) return; // a sudden drop: keep the older copies as they are
+  captureActive?.(); flushAll?.();
+  const blob = await buildBackupZip([...S.notes.values()].filter((n) => !n.locked || n.vault), false, null, true);
+  const key = new Date().toISOString();
+  const db = await safeDb();
+  await new Promise((res, rej) => { const tx = db.transaction("snap", "readwrite"); tx.objectStore("snap").put({ at: Date.now(), count: live.length, blob }, key); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+  const all = await safeList(); for (const old of all.slice(3)) await new Promise((res) => { const tx = db.transaction("snap", "readwrite"); tx.objectStore("snap").delete(old.key); tx.oncomplete = res; tx.onerror = res; });
+  lsSet("babak-safe-last", Date.now());
+}
+async function safeRestore(key) {
+  const v = await safeGet(key); if (!v || !v.blob) return toast(T("safeGone"), { kind: "err" });
+  if (!(await confirmBox(T("safeRestoreQ", { d: new Date(v.at).toLocaleString(LOCALE[S.meta.settings.lang]), n: num(v.count) }), { ok: T("safeRestoreOk") }))) return;
+  const JSZip = await loadLib("JSZip", CDN.jszip), zip = await JSZip.loadAsync(v.blob);
+  const data = JSON.parse(await zip.file("backup.json").async("string"));
+  const before = [...S.notes.values()].filter((n) => !n.trashed).length;
+  // notes that were thrown away since then come back out of the trash too
+  for (const d of data.notes || []) { const cur = S.notes.get(d.id); if (cur && cur.trashed && !d.trashed) { cur.trashed = false; touch?.(cur); saveNote(cur.id, 0); } }
+  await mergeSyncZip(zip, data);
+  renderSide(); renderMain();
+  const after = [...S.notes.values()].filter((n) => !n.trashed).length;
+  lsSet("babak-health-count", after);
+  toast("🛟 " + T("safeRestored", { n: num(Math.max(0, after - before)) }), { sticky: false });
+}
+async function safeDialog() {
+  const [list, per] = await Promise.all([safeList().catch(() => []), safePersist()]);
+  const lc = LOCALE[S.meta.settings.lang];
+  await dialog({ title: "🛟 " + T("safeTitle"), wide: true, body: `<div class="safebox">
+    <div class="saferow ${per === "yes" ? "ok" : "warn"}"><b>${per === "yes" ? "✅" : "⚠️"} ${esc(T("safePersist"))}</b><span>${esc(T(per === "yes" ? "safePersistYes" : per === "no" ? "safePersistNo" : "safePersistNa"))}</span></div>
+    <p class="msg">${esc(T("safeHint"))}</p>
+    <div class="safelist">${list.length ? list.map((s) => `<div class="safeitem"><span><b>${esc(new Date(s.at).toLocaleString(lc, { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }))}</b><small>${num(s.count)} ${esc(T("safeNotes"))} · ${num(Math.max(1, Math.round(s.size / 1024)))} KB</small></span><button type="button" class="btn" data-safe="${esc(s.key)}">↺ ${esc(T("safeRestoreBtn"))}</button></div>`).join("") : `<p class="msg">${esc(T("safeNone"))}</p>`}</div>
+    <div class="safeacts"><button type="button" class="btn" data-safe="now">＋ ${esc(T("safeNow"))}</button><button type="button" class="btn primary" data-safe="file">💾 ${esc(T("safeFile"))}</button></div></div>`,
+    actions: [{ label: T("close"), value: null }],
+    onOpen: (el, close) => el.addEventListener("click", async (e) => {
+      const b = e.target.closest("[data-safe]"); if (!b) return;
+      const k = b.dataset.safe;
+      if (k === "now") { b.disabled = true; await safeMake(true); toast("🛟 " + T("safeMade")); close(null); return safeDialog(); }
+      if (k === "file") { close(null); return bakNow(); }
+      close(null); safeRestore(k);
+    }) });
+}
+/* 3. a health check: if many notes are suddenly missing, say so at once and offer the way back */
+function safeHealth() {
+  const live = [...S.notes.values()].filter((n) => !n.trashed).length, prev = +(lsGet("babak-health-count", 0) || 0);
+  if (prev >= 5 && live < prev * 0.7) {
+    toast(`⚠️ ${esc(T("safeDrop", { a: num(prev), b: num(live) }))}`, { html: true, sticky: true, actions: [{ label: "🛟 " + T("safeOpen"), run: safeDialog }, { label: T("safeIgnore"), run: () => lsSet("babak-health-count", live) }] });
+    return false;
+  }
+  lsSet("babak-health-count", live); return true;
+}
+document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest('[data-act="safeDialog"]'); if (!b) return; e.preventDefault(); e.stopPropagation(); safeDialog(); }, true);
+(async () => {
+  await whenLoaded();
+  setTimeout(async () => {
+    try { await safePersist(); } catch {}
+    let healthy = true; try { healthy = safeHealth(); } catch {}
+    if (healthy) setTimeout(() => safeMake().catch((e) => console.warn("safety copy", e)), 15000);
+  }, 1500);
+})();
+window.__r67 = { safeMake, safeList, safeRestore, safeHealth, safePersist, deleteForever: (n, a) => deleteForever(n, a) };
+
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
