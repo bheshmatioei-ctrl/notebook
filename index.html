@@ -1525,6 +1525,69 @@ aside.side{background:var(--sidebar,var(--bar,var(--panel)))}
 .saferow.ok{background:color-mix(in srgb,var(--ok) 10%,var(--panel))}.saferow.warn{background:color-mix(in srgb,#e2896b 18%,var(--panel));border-color:#c9643f;color:var(--ink)}
 .safelist{display:flex;flex-direction:column;gap:6px}.safeitem{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
 .safeitem span{display:flex;flex-direction:column}.safeitem small{color:var(--muted)}.safeitem .btn,.safeacts .btn{min-height:44px}.safeacts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* r69: the fuller top bar */
+header.top>.grow{display:none}
+header.top #status,header.top #remBtn,header.top #syncBtn{display:none!important}
+header.top .topx{flex:1 1 auto;min-width:0;justify-content:flex-end}
+.topx .tbof{display:none!important}
+.tbsearch{flex:1 1 240px;min-width:120px;max-width:440px;display:flex;align-items:center;gap:6px;height:34px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--muted);cursor:text}
+.tbsearch input{flex:1;min-width:0;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:0;height:100%}
+.tbsearch:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.tbsearch.wide{width:100%;max-width:none;height:44px}
+header.top .topx .btn{min-height:34px;height:34px}
+header.top .topx .btn.icon{min-width:36px;justify-content:center}
+.topx .tbnew{font-weight:700;padding:0 12px;gap:4px}
+.topx .tbnew .tbl{font-size:13px}
+.topx .btn.on{background:var(--accent-soft);border-color:var(--accent)}
+.tbclock{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;padding:0 6px;white-space:nowrap}
+.tbclock .txclock{font-size:18px;padding:0}
+.tbclock small{font-size:11px;color:var(--muted);margin-top:1px}
+.topx.nodate .tbclock small{display:none}
+.tbdot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#3aa35b;box-shadow:0 0 0 3px color-mix(in srgb,#3aa35b 22%,transparent);flex:none}
+.tbdot.warn{background:#e0a000;box-shadow:0 0 0 3px color-mix(in srgb,#e0a000 25%,transparent)}
+.tbdot.err{background:#d64545;box-shadow:0 0 0 3px color-mix(in srgb,#d64545 25%,transparent)}
+.tbdot.busy{background:#3b7ddd;animation:tbpulse 1s ease-in-out infinite alternate}
+@keyframes tbpulse{from{opacity:.45}to{opacity:1}}
+.topx .tbtasks{gap:4px;padding:0 8px}
+.topx .tbtasks b{min-width:18px;height:18px;line-height:18px;border-radius:9px;font-size:11px;background:var(--accent);color:#fff;padding:0 5px}
+.topx .tbtasks b.zero{background:var(--panel2);color:var(--muted)}
+.topx .tbhelp,.tbhelp2{font-weight:800;font-size:16px}
+.topx .tbrem{position:relative}.topx .tbrem .badge{position:absolute;top:1px;inset-inline-end:1px;min-width:16px;height:16px;line-height:16px;padding:0 4px;border-radius:8px;font-size:10px}
+.tbpop{display:flex;flex-direction:column;gap:8px}
+.tbpop h4{margin:6px 2px 0;font-size:13px;color:var(--muted)}
+.tbprow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;font-size:14px}
+.tbprow .btn{min-height:40px;flex:none}
+.tbprow.warn{background:color-mix(in srgb,#e0a000 14%,var(--panel));color:var(--ink)}
+.tbprow:first-child{justify-content:flex-start}
+.tbpbtns{display:flex;flex-wrap:wrap;gap:8px}.tbpbtns .btn{min-height:44px;flex:1 1 auto;justify-content:center}
+.tbtrow{display:flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid var(--line);border-radius:12px}
+.tbtrow .w{flex:1;min-width:0;display:flex;flex-direction:column}.tbtrow small{color:var(--muted)}
+.tbtrow.over{border-color:#d6454566;background:color-mix(in srgb,#d64545 7%,var(--panel))}
+.tbtrow .btn{min-width:44px;min-height:44px;justify-content:center}
+.tbempty{color:var(--muted);margin:4px 2px;font-size:14px}
+.tbhelp-pop ul{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.55}
+.tbhelp-pop details{border-top:1px solid var(--line);padding-top:8px}.tbhelp-pop summary{cursor:pointer;font-weight:600;margin-bottom:6px}
+.tbmore-pop{gap:2px}
+.tbmi{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 10px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:15px;text-align:start;cursor:pointer}
+.tbmi:hover,.tbmi:focus-visible{background:var(--panel2)}
+.tbmi .i,.tbcrow .i{width:24px;text-align:center}
+.tbmi.sep{border-top:1px solid var(--line);border-radius:0 0 10px 10px;margin-top:4px}
+.tbres{position:fixed;z-index:65;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:8px;display:flex;flex-direction:column;gap:2px}
+.tbres h4{margin:6px 8px 2px;font-size:12px;color:var(--muted)}
+.tbr{display:flex;align-items:flex-start;gap:10px;min-height:48px;padding:6px 10px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;text-align:start;cursor:pointer;width:100%}
+.tbr:hover,.tbr.sel{background:var(--accent-soft)}
+.tbr .i{font-size:18px;width:24px;text-align:center;flex:none;padding-top:2px}
+.tbr .w{display:flex;flex-direction:column;min-width:0;gap:1px}
+.tbr b{font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbr small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tbr em{font-style:normal;font-size:12.5px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tbr mark{background:#ffe27a;color:#222;border-radius:3px;padding:0 1px}
+.tbr.tball{border-top:1px solid var(--line);border-radius:0 0 10px 10px;margin-top:4px}
+.tbcrow{justify-content:space-between}.tbcrow label{flex:1;display:flex;align-items:center;gap:6px;min-height:40px}
+.tbcrow .btn{min-width:40px;min-height:40px}
+.tbjal{display:flex;align-items:center;gap:8px;margin-top:12px;min-height:44px}
+@media (max-width:860px){.tbsearch{flex-basis:140px}}
 </style>
 
 <div class="app" id="app">
@@ -3732,7 +3795,7 @@ function renderMain() {
     </div>
     <div class="bz bz-end">
       <span class="pnav" id="pnav"></span><span class="bsep"></span>
-      <span class="sdot" id="status2"></span>
+      <button type="button" class="btn icon ghost tbhelp2" data-tb="help" title="${esc(T("tb_help"))}" aria-label="${esc(T("tb_help"))}">?</button><span class="sdot" id="status2"></span>
       ${ro_ ? "" : `<button class="btn icon ghost" id="undoBtn" data-act="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" id="redoBtn" data-act="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn icon ghost" data-act="insertMenu" data-pop="1" title="${esc(T("insert"))}">${ic("plus")}</button>
       <button class="btn icon ghost" data-act="pageMenu" data-pop="1" title="${esc(T("pageSettings"))}">${ic("page")}</button>`}
@@ -8188,6 +8251,9 @@ Object.assign(I18N.en, {"dimcTitle": "Colour of measurements", "dc_blue": "Blue"
 Object.assign(I18N.fa, {"safeTitle": "ایمنی داده‌ها", "safeOpenLong": "نسخه‌های ایمنی و بازگردانی", "safePersist": "نگه‌داری دائمی", "safePersistYes": "آیپد قول داده داده‌های این برنامه را خودش پاک نکند.", "safePersistNo": "آیپد هنوز اجازهٔ نگه‌داری دائمی نداده. پشتیبان هفتگی را فراموش نکنید؛ داده‌ها فقط داخل همین مرورگر (Chrome) روی همین آیپد هستند.", "safePersistNa": "این مرورگر نگه‌داری دائمی را پشتیبانی نمی‌کند؛ پشتیبان هفتگی مهم‌تر است.", "safeHint": "برنامه هر روز یک نسخهٔ ایمنی از همهٔ یادداشت‌ها و دست‌نوشته‌ها داخل خودش نگه می‌دارد (سه نسخهٔ آخر). بازگرداندن فقط چیزهای گم‌شده را برمی‌گرداند و به بقیه دست نمی‌زند.", "safeNotes": "یادداشت", "safeRestoreBtn": "بازگرداندن", "safeNone": "هنوز نسخهٔ ایمنی‌ای ساخته نشده — چند ثانیه بعد از باز شدن برنامه خودش ساخته می‌شود.", "safeNow": "همین حالا یک نسخهٔ ایمنی بساز", "safeFile": "پشتیبان کامل در Files / گوگل‌درایو", "safeMade": "نسخهٔ ایمنی ساخته شد", "safeGone": "این نسخه دیگر پیدا نشد", "safeRestoreQ": "یادداشت‌های گم‌شده از نسخهٔ {d} ({n} یادداشت) برگردانده شوند؟ یادداشت‌های فعلی دست نمی‌خورند.", "safeRestoreOk": "بله، برگردان", "safeRestored": "{n} یادداشت برگشت", "safeDrop": "تعداد یادداشت‌ها ناگهان از {a} به {b} رسیده. اگر عمداً پاک نکرده‌اید، از نسخهٔ ایمنی برگردانید.", "safeOpen": "بازگرداندن", "safeIgnore": "عمدی بود"});
 Object.assign(I18N.de, {"safeTitle": "Datensicherheit", "safeOpenLong": "Sicherheitskopien und Wiederherstellen", "safePersist": "Dauerhaft speichern", "safePersistYes": "Das iPad löscht die Daten dieser App nicht von selbst.", "safePersistNo": "Das iPad hat dauerhaftes Speichern noch nicht erlaubt. Bitte wöchentlich sichern; die Daten liegen nur in diesem Browser (Chrome) auf diesem iPad.", "safePersistNa": "Dieser Browser kennt kein dauerhaftes Speichern; die wöchentliche Sicherung ist umso wichtiger.", "safeHint": "Die App hebt jeden Tag eine Sicherheitskopie aller Notizen und Handschrift bei sich auf (die letzten drei). Wiederherstellen holt nur Fehlendes zurück und ändert nichts anderes.", "safeNotes": "Notizen", "safeRestoreBtn": "Wiederherstellen", "safeNone": "Noch keine Sicherheitskopie – sie entsteht ein paar Sekunden nach dem Start von selbst.", "safeNow": "Jetzt eine Sicherheitskopie machen", "safeFile": "Vollständige Sicherung in Dateien / Google Drive", "safeMade": "Sicherheitskopie gemacht", "safeGone": "Diese Kopie ist nicht mehr da", "safeRestoreQ": "Fehlende Notizen aus der Kopie vom {d} ({n} Notizen) zurückholen? Die aktuellen Notizen bleiben unverändert.", "safeRestoreOk": "Ja, zurückholen", "safeRestored": "{n} Notizen zurückgeholt", "safeDrop": "Die Zahl der Notizen ist plötzlich von {a} auf {b} gefallen. Falls nicht gewollt: aus der Sicherheitskopie zurückholen.", "safeOpen": "Zurückholen", "safeIgnore": "War gewollt"});
 Object.assign(I18N.en, {"safeTitle": "Data safety", "safeOpenLong": "Safety copies and restore", "safePersist": "Keep for good", "safePersistYes": "The iPad has agreed not to clear this app's data by itself.", "safePersistNo": "The iPad hasn't allowed keeping data for good yet. Keep making weekly backups; the data lives only in this browser (Chrome) on this iPad.", "safePersistNa": "This browser can't keep data for good; the weekly backup matters even more.", "safeHint": "Every day the app keeps a safety copy of all notes and handwriting inside itself (the last three). Restoring brings back only what is missing and leaves everything else alone.", "safeNotes": "notes", "safeRestoreBtn": "Restore", "safeNone": "No safety copy yet – one is made by itself a few seconds after the app starts.", "safeNow": "Make a safety copy now", "safeFile": "Full backup to Files / Google Drive", "safeMade": "Safety copy made", "safeGone": "This copy can no longer be found", "safeRestoreQ": "Bring back missing notes from the copy of {d} ({n} notes)? Your current notes stay as they are.", "safeRestoreOk": "Yes, bring them back", "safeRestored": "{n} notes brought back", "safeDrop": "The number of notes suddenly fell from {a} to {b}. If you didn't mean to delete them, restore from a safety copy.", "safeOpen": "Restore", "safeIgnore": "I meant to"});
+Object.assign(I18N.fa, {"tb_search": "جستجو در همه‌چیز", "tb_new": "ساختن (＋ جدید)", "tb_mic": "یادداشت صوتی فوری", "tb_cam": "عکس فوری با دوربین", "tb_undo": "برگشت (Undo)", "tb_clock": "ساعت و تاریخ", "tb_status": "وضعیت ذخیره و پشتیبان", "tb_tasks": "کارهای امروز", "tb_help": "راهنما", "tb_sky": "Idea sky", "tb_classic": "نمای کلاسیک / زبانه‌ای", "tb_theme": "حالت شب / روز", "tb_select": "انتخاب چندتایی", "tb_rem": "یادآورها", "tb_cloud": "حساب و همگام‌سازی", "tb_more": "بیشتر", "tbSearchPh": "جستجو در همه‌چیز…", "tbNewShort": "جدید", "tbFolders": "پوشه‌ها و دفترها", "tbNotes": "یادداشت‌ها", "tbNoRes": "چیزی پیدا نشد", "tbAllList": "نمایش همهٔ نتایج در فهرست", "tbInbox": "ورودی", "tbUndone": "↶ {n} تغییر برگشت داده شد", "tbNothingUndo": "چیزی برای برگشت نیست", "tbSt_ok": "همه‌چیز ذخیره شده", "tbSt_busy": "در حال ذخیره…", "tbSt_warn": "ذخیره شده — ولی پشتیبان قدیمی است", "tbSt_err": "ذخیره ناموفق بود", "tbBakLast": "آخرین پشتیبان", "tbBakNow": "پشتیبان بگیر", "tbSafe": "نسخه‌های ایمنی", "tbRetry": "دوباره امتحان کن", "tbToday": "امروز و عقب‌افتاده", "tbNext": "بعدی", "tbNoTasks": "برای امروز کاری ثبت نشده.", "tbAllRem": "همهٔ یادآورها", "tbCustom": "تنظیم نوار ابزار", "tbCustHint": "تیک بزنید کدام دکمه روی نوار بماند؛ بقیه در «⋯» هستند. با ↑ ↓ ترتیب را عوض کنید. اگر جا کم بیاید، دکمه‌ها خودشان به «⋯» می‌روند.", "tbJalali": "تاریخ شمسی کنار تاریخ میلادی", "tbReset": "حالت اول", "tbHelpTLib": "کتابخانه", "tbHelpLib": "برای ساختن صفحه، دفتر، بوم، برداشت ساختمانی یا نقشهٔ ذهنی، «＋ جدید» را بزنید.|روی هر کارت بزنید تا باز شود؛ دکمهٔ ⋯ کنار هر پوشه منوی همان پوشه است.|در جعبهٔ جستجوی بالا بنویسید تا عنوان و متن همه‌چیز گشته شود.|🎙 و 📷 بالا: یادداشت صوتی یا عکس فوری. اگر داخل پوشه‌ای باشید همان‌جا می‌رود، وگرنه در دفتر «ورودی».|↶ آخرین حذف، جابه‌جایی، تغییر نام یا ستاره را برمی‌گرداند.", "tbHelpTPage": "صفحهٔ دفتر", "tbHelpPage": "با قلم بنویسید؛ ابزارها (قلم، ماژیک، پاک‌کن، شکل…) در نوار بالای صفحه‌اند.|برای صفحهٔ تازه، در انتهای صفحه پایین‌تر بکشید یا دکمهٔ «صفحهٔ تازه» را بزنید.|عکس، PDF و فایل را از منوی درج اضافه کنید.|↶ آخرین خط یا تغییر همین صفحه را برمی‌گرداند.", "tbHelpTCv": "بوم بی‌پایان", "tbHelpCv": "با ابزار انتخاب روی چیزی بزنید؛ داخل کادرش بکشید تا جابه‌جا شود.|با دو انگشت بزرگ و کوچک و جابه‌جا کنید.|دکمهٔ رنگ اندازه‌ها در بالا رنگ خطوط اندازه را جدا از خطوط نقشه عوض می‌کند.|↶ آخرین تغییر بوم را برمی‌گرداند.", "tbHelpTSv": "برداشت ساختمانی", "tbHelpSv": "دیوارها را با انگشت یا قلم بکشید و اندازه‌ها را بنویسید.|نشانه‌ها (پین) را برای عکس، یادداشت و صدا روی نقشه بگذارید.|سربرگ بالای برگه (نشانی، تاریخ، افراد) را پر کنید.|گزارش PDF را از دکمهٔ «⇩ خروجی» بسازید.|↶ آخرین تغییر را برمی‌گرداند.", "tbHelpTMm": "نقشهٔ ذهنی", "tbHelpMm": "روی یک گره بزنید تا انتخاب شود؛ با دکمه‌های نوار شاخهٔ تازه بسازید.|گره‌ها را بکشید تا جابه‌جا شوند؛ با دو انگشت بزرگ و کوچک کنید.|↶ آخرین تغییر نقشه را برمی‌گرداند.", "tbHelpBarT": "دکمه‌های نوار بالا", "tbHelpBar": "🔍 جستجو در همه‌چیز (عنوان‌ها، متن صفحه‌ها، بوم‌ها، نقشه‌ها و نام پوشه‌ها).|＋ جدید: ساختن هر چیز تازه.|🎙 یادداشت صوتی فوری؛ دوباره بزنید تا ضبط تمام شود.|📷 عکس فوری با دوربین.|↶ برگشت.|ساعت، و زیرش تاریخ شمسی و میلادی.|● چراغ وضعیت: سبز یعنی همه‌چیز امن است، زرد یعنی پشتیبان قدیمی است، قرمز یعنی ذخیره مشکل دارد. با لمس آن پشتیبان و نسخه‌های ایمنی باز می‌شود.|✅ کارهای امروز: یادآورهای امروز و عقب‌افتاده.|⋯ بقیهٔ دکمه‌ها و «تنظیم نوار ابزار»."});
+Object.assign(I18N.en, {"tb_search": "Search everything", "tb_new": "Create (＋ New)", "tb_mic": "Quick voice note", "tb_cam": "Quick photo", "tb_undo": "Undo", "tb_clock": "Clock and date", "tb_status": "Saving and backup status", "tb_tasks": "Today's tasks", "tb_help": "Help", "tb_sky": "Idea sky", "tb_classic": "Classic / tab view", "tb_theme": "Dark / light", "tb_select": "Select several", "tb_rem": "Reminders", "tb_cloud": "Account and sync", "tb_more": "More", "tbSearchPh": "Search everything…", "tbNewShort": "New", "tbFolders": "Folders and notebooks", "tbNotes": "Notes", "tbNoRes": "Nothing found", "tbAllList": "Show all results as a list", "tbInbox": "Inbox", "tbUndone": "↶ {n} change(s) undone", "tbNothingUndo": "Nothing to undo", "tbSt_ok": "Everything is saved", "tbSt_busy": "Saving…", "tbSt_warn": "Saved — but the backup is old", "tbSt_err": "Saving failed", "tbBakLast": "Last backup", "tbBakNow": "Back up", "tbSafe": "Safety copies", "tbRetry": "Try again", "tbToday": "Today and overdue", "tbNext": "Next", "tbNoTasks": "Nothing set for today.", "tbAllRem": "All reminders", "tbCustom": "Arrange the toolbar", "tbCustHint": "Tick the buttons that stay on the bar; the rest are under “⋯”. Use ↑ ↓ to change the order. When space runs out, buttons move into “⋯” by themselves.", "tbJalali": "Persian (Jalali) date next to the date", "tbReset": "Default", "tbHelpTLib": "Library", "tbHelpLib": "Tap “＋ New” to make a page, notebook, canvas, building survey or mind map.|Tap a card to open it; the ⋯ button next to a folder is that folder's menu.|Type in the search box at the top to search titles and text of everything.|🎙 and 📷 at the top: quick voice note or photo. Inside a folder it goes there, otherwise into the “Inbox” notebook.|↶ brings back the last delete, move, rename or star.", "tbHelpTPage": "Notebook page", "tbHelpPage": "Write with the pencil; the tools (pen, marker, eraser, shapes…) are in the bar above the page.|For a new page, pull further at the end of the page or tap “New page”.|Add pictures, PDFs and files from the insert menu.|↶ undoes the last stroke or change on this page.", "tbHelpTCv": "Endless canvas", "tbHelpCv": "With the select tool, tap something; drag inside its box to move it.|Use two fingers to zoom and pan.|The dimension colour button at the top colours dimension lines apart from the plan lines.|↶ undoes the last canvas change.", "tbHelpTSv": "Building survey", "tbHelpSv": "Draw walls with finger or pencil and write the sizes.|Put pins on the plan for photos, notes and voice.|Fill in the sheet header (address, date, people).|Make the PDF report from the “⇩ Export” button.|↶ undoes the last change.", "tbHelpTMm": "Mind map", "tbHelpMm": "Tap a node to select it; make new branches with the bar buttons.|Drag nodes to move them; zoom with two fingers.|↶ undoes the last map change.", "tbHelpBarT": "The top bar buttons", "tbHelpBar": "🔍 Search everything (titles, page text, canvases, maps and folder names).|＋ New: make anything new.|🎙 Quick voice note; tap again to stop.|📷 Quick photo with the camera.|↶ Undo.|Clock, with the Persian and Gregorian date under it.|● Status light: green = all safe, yellow = backup is old, red = saving has a problem. Tap it for backup and safety copies.|✅ Today's tasks: today's and overdue reminders.|⋯ The other buttons and “Arrange the toolbar”."});
+Object.assign(I18N.de, {"tb_search": "Alles durchsuchen", "tb_new": "Erstellen (＋ Neu)", "tb_mic": "Schnelle Sprachnotiz", "tb_cam": "Schnelles Foto", "tb_undo": "Rückgängig", "tb_clock": "Uhr und Datum", "tb_status": "Speicher- und Sicherungsstatus", "tb_tasks": "Heutige Aufgaben", "tb_help": "Hilfe", "tb_classic": "Klassisch / Reiter", "tb_theme": "Dunkel / hell", "tb_select": "Mehrere auswählen", "tb_rem": "Erinnerungen", "tb_cloud": "Konto und Sync", "tb_more": "Mehr", "tbSearchPh": "Alles durchsuchen…", "tbNewShort": "Neu", "tbFolders": "Ordner und Hefte", "tbNotes": "Notizen", "tbNoRes": "Nichts gefunden", "tbAllList": "Alle Treffer als Liste", "tbInbox": "Eingang", "tbUndone": "↶ {n} Änderung(en) rückgängig", "tbNothingUndo": "Nichts rückgängig zu machen", "tbSt_ok": "Alles gespeichert", "tbSt_busy": "Speichert…", "tbSt_warn": "Gespeichert – aber die Sicherung ist alt", "tbSt_err": "Speichern fehlgeschlagen", "tbBakLast": "Letzte Sicherung", "tbBakNow": "Sichern", "tbSafe": "Sicherheitskopien", "tbRetry": "Erneut versuchen", "tbToday": "Heute und überfällig", "tbNext": "Als Nächstes", "tbNoTasks": "Für heute ist nichts eingetragen.", "tbAllRem": "Alle Erinnerungen", "tbCustom": "Werkzeugleiste anordnen", "tbCustHint": "Anhaken, welche Knöpfe auf der Leiste bleiben; der Rest steht unter „⋯“. Mit ↑ ↓ die Reihenfolge ändern.", "tbJalali": "Persisches Datum neben dem Datum", "tbReset": "Standard"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -8267,7 +8333,7 @@ function renderMap(n) {
       <button class="btn icon ghost" id="fsBtn" data-act="focusMode" aria-pressed="${document.body.classList.contains("focusmode")}" title="${esc(T("fullScreen"))}">${ic("expand")}</button>
     </div>
     <div class="bz bz-end">
-      <span class="sdot" id="status2"></span>
+      <button type="button" class="btn icon ghost tbhelp2" data-tb="help" title="${esc(T("tb_help"))}" aria-label="${esc(T("tb_help"))}">?</button><span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-mm="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-mm="redo" title="${esc(T("redo"))}">${ic("redo")}</button>
       <button class="btn ghost" data-mm="free" title="${esc(T("mmFree"))}">${ic("plus")}<span class="mmlab">${esc(T("mmFree"))}</span></button>
       <button class="btn ghost" data-mm="think" title="${esc(T("netThink"))}">▶<span class="mmlab keep">${esc(T("netThink"))}</span></button>
@@ -11368,7 +11434,7 @@ function renderCanvas(n) {
       <input id="titleIn" class="ttl" value="${esc(n.title)}" placeholder="${esc(T("cvNew"))}" maxlength="200" dir="auto">
     </div>
     <div class="bz bz-end">
-      ${!d.plan && !d.survey ? cvModeBtns() : ""}<span class="sdot" id="status2"></span>
+      ${!d.plan && !d.survey ? cvModeBtns() : ""}<button type="button" class="btn icon ghost tbhelp2" data-tb="help" title="${esc(T("tb_help"))}" aria-label="${esc(T("tb_help"))}">?</button><span class="sdot" id="status2"></span>
       <button class="btn icon ghost" data-cvb="undo" title="${esc(T("undo"))}">${ic("undo")}</button><button class="btn icon ghost" data-cvb="redo" title="${esc(T("redo"))}">${ic("redo")}</button><button class="btn ghost" data-cvb="cell" title="${esc(T("skCell"))}"></button><button class="btn ghost hide" data-cvb="paste" title="${esc(T("cvPaste"))}">📋<span class="mmlab keep">${esc(T("cvPaste"))}</span></button>
       ${d.survey ? `<button class="btn ghost" data-cvb="head" title="${esc(T("svSheet"))}">📋<span class="mmlab keep">${esc(T("svSheet"))}</span></button>` : ""}<button class="btn ghost ${d.survey || !d.plan ? "hide" : ""}" data-cvb="plan" aria-pressed="${d.plan}" title="${esc(T("cvPlan"))}">📐<span class="mmlab keep">${esc(T("cvPlan"))}</span></button>
       <button class="btn ghost cvdimc" data-cvb="dimc" title="${esc(T("dimcTitle"))}"><i style="background:${cvDimC()}"></i>📏</button>
@@ -15085,6 +15151,323 @@ document.addEventListener("click", (e) => { const b = e.target.closest && e.targ
   }, 1500);
 })();
 window.__r67 = { safeMake, safeList, safeRestore, safeHealth, safePersist, deleteForever: (n, a) => deleteForever(n, a) };
+
+/* ---- r69: a fuller top bar — search everywhere, new, quick voice and photo, undo, clock with date, one status light, today's tasks, help, ⋯ and a bar you arrange yourself ---- */
+const TB_KEYS = ["search", "new", "mic", "cam", "undo", "clock", "status", "tasks", "help", "sky", "classic", "theme", "select", "rem", "cloud"];
+const TB_ON = new Set(["search", "new", "mic", "cam", "undo", "clock", "status", "tasks", "help"]);
+const TB_HIDE_ORDER = ["help", "cam", "mic", "undo", "classic", "sky", "select", "theme", "rem", "cloud", "tasks", "status", "clock", "new"];
+const TB_SVG = {
+  search: '<svg class="ic" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>',
+  tasks: '<svg class="ic tbi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5l1.6 1.6L8.5 5M4 12.5l1.6 1.6 2.9-3.1M4 18.5l1.6 1.6 2.9-3.1"/><path d="M11.5 7h8.5M11.5 13h8.5M11.5 19h8.5"/></svg>',
+  cloud: '<svg class="ic tbi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10.5a4 4 0 0 0 .4-7.98A5.5 5.5 0 0 0 7.3 8.6 4.7 4.7 0 0 0 7 18z"/></svg>',
+};
+let TB_OF = new Set();
+function tbCfg() {
+  let a = null; try { a = JSON.parse(lsGet("babak-tb", "") || "null"); } catch {}
+  if (!Array.isArray(a)) a = TB_KEYS.map((k) => ({ k, on: TB_ON.has(k) }));
+  a = a.filter((x) => x && TB_KEYS.includes(x.k));
+  for (const k of TB_KEYS) if (!a.some((x) => x.k === k)) a.push({ k, on: false });
+  return a;
+}
+const tbJalali = () => lsGet("babak-tb-jalali", "1") !== "0";
+const tbLabel = (k) => T("tb_" + k);
+function tbDateText() {
+  const d = new Date(), lang = S.meta.settings.lang; let g = "", j = "";
+  try { g = d.toLocaleDateString((LOCALE[lang] || "en-GB") + "-u-ca-gregory", { day: "numeric", month: lang === "fa" ? "long" : "short" }); } catch {}
+  if (tbJalali()) { try { j = new Intl.DateTimeFormat(lang === "fa" ? "fa-IR-u-ca-persian" : (LOCALE[lang] || "en-GB") + "-u-ca-persian", { day: "numeric", month: "long" }).format(d); } catch {} }
+  return j && j !== g ? j + " · " + g : g;
+}
+function tbDateFull() { try { return new Date().toLocaleDateString(LOCALE[S.meta.settings.lang], { weekday: "long", day: "numeric", month: "long", year: "numeric" }); } catch { return ""; } }
+function tbTodayList() {
+  const end = new Date(); end.setHours(23, 59, 59, 999); const e = end.getTime();
+  return [...(S.meta.reminders || [])].filter((r) => !r.done && new Date(r.at).getTime() <= e).sort((a, b) => (a.at < b.at ? -1 : 1));
+}
+function tbItem(k) {
+  const lib = S.screen !== "studio", tabs = S.meta.settings.tabHome !== false, sky = S.meta.settings.homeStyle !== "classic", t = esc(tbLabel(k));
+  switch (k) {
+    case "search": return `<label class="tbsearch" data-tbk="search">${TB_SVG.search}<input id="tbQ" type="search" autocomplete="off" enterkeyhint="search" placeholder="${esc(T("tbSearchPh"))}" aria-label="${t}"></label>`;
+    case "new": return `<button type="button" class="btn primary tbnew" data-tb="new" data-tbk="new" title="${t}">＋<span class="tbl">${esc(T("tbNewShort"))}</span></button>`;
+    case "mic": return `<button type="button" class="btn icon ${typeof recorder !== "undefined" && recorder ? "on" : ""}" data-tb="mic" data-tbk="mic" title="${t}" aria-label="${t}">${ic("mic")}</button>`;
+    case "cam": return `<button type="button" class="btn icon" data-tb="cam" data-tbk="cam" title="${t}" aria-label="${t}">${ic("camera")}</button>`;
+    case "undo": return `<button type="button" class="btn icon" data-tb="undo" data-tbk="undo" title="${t}" aria-label="${t}">${ic("undo")}</button>`;
+    case "clock": return `<span class="tbclock" data-tbk="clock" title="${esc(tbDateFull())}"><span class="txclock" id="txClock" aria-label="clock">${esc(txTime())}</span><small id="tbDate">${esc(tbDateText())}</small></span>`;
+    case "status": return `<button type="button" class="btn icon tbst" data-tb="status" data-tbk="status" title="${t}" aria-label="${t}"><i class="tbdot" id="tbDot"></i></button>`;
+    case "tasks": { const n = tbTodayList().length; return `<button type="button" class="btn tbtasks" data-tb="tasks" data-tbk="tasks" title="${t}" aria-label="${t}">${TB_SVG.tasks}<b id="tbTaskN" class="${n ? "" : "zero"}">${esc(num(n))}</b></button>`; }
+    case "help": return `<button type="button" class="btn icon tbhelp" data-tb="help" data-tbk="help" title="${t}" aria-label="${t}">?</button>`;
+    case "sky": return `<button type="button" class="btn ${sky && lib ? "on" : ""}" data-tx="sky" data-tbk="sky" aria-pressed="${sky}">✦ <span class="hide-m">${esc(T("skyName"))}</span></button>`;
+    case "classic": return `<button type="button" class="btn" data-tx="classic" data-tbk="classic"><span>${esc(T(sky || tabs ? "skyClassic" : "txTabs"))}</span></button>`;
+    case "theme": return `<button type="button" class="btn icon" data-tx="theme" data-tbk="theme" title="${esc(T("txTheme"))}" aria-label="${esc(T("txTheme"))}">${txDark() ? "☀️" : "🌙"}</button>`;
+    case "select": return `<button type="button" class="btn icon" data-act="selectMode" data-tbk="select" title="${esc(T("selectMany"))}" aria-pressed="${!!S.sel}">${ic("check")}</button>`;
+    case "rem": { const n = dueReminders().length; return `<button type="button" class="btn icon tbrem" data-tb="rem" data-tbk="rem" title="${t}" aria-label="${t}">${ic("alarm")}${n ? `<span class="badge">${esc(num(n))}</span>` : ""}</button>`; }
+    case "cloud": return `<button type="button" class="btn icon" data-tb="cloud" data-tbk="cloud" title="${t}" aria-label="${t}">${TB_SVG.cloud}</button>`;
+  }
+  return "";
+}
+function txRender() {
+  const box = $("#topx"); if (!box) return;
+  const q = $("#tbQ"), keep = q ? { v: q.value, f: document.activeElement === q, s: q.selectionStart } : null;
+  box.innerHTML = tbCfg().filter((x) => x.on).map((x) => tbItem(x.k)).join("") + `<button type="button" class="btn icon tbmore" data-tb="more" title="${esc(T("tb_more"))}" aria-label="${esc(T("tb_more"))}">${ic("more")}</button>`;
+  const q2 = $("#tbQ"); if (q2 && keep) { q2.value = keep.v; if (keep.f) { q2.focus(); try { q2.setSelectionRange(keep.s, keep.s); } catch {} } }
+  const sb = $("#sideBtn"); if (sb) sb.setAttribute("aria-pressed", String(!$("#app").classList.contains("sidehide")));
+  tbStatusPaint(); tbFit();
+}
+/* a narrow screen: put buttons into ⋯ instead of cutting them off */
+let tbFitRaf = 0;
+function tbFit() {
+  cancelAnimationFrame(tbFitRaf);
+  tbFitRaf = requestAnimationFrame(() => {
+    const h = $("header.top"), box = $("#topx"); if (!h || !box) return;
+    box.querySelectorAll(".tbof").forEach((e) => e.classList.remove("tbof")); box.classList.remove("nodate"); TB_OF = new Set();
+    const over = () => { if (h.scrollWidth > h.clientWidth + 1) return true; const hr = h.getBoundingClientRect(); for (const e of [...h.children, ...box.children]) { if (!e.offsetWidth) continue; const r = e.getBoundingClientRect(); if (r.left < hr.left - 1 || r.right > hr.right + 1) return true; } const q = box.querySelector(".tbsearch"); return !!(q && q.offsetWidth && q.offsetWidth < 110); };
+    if (!over()) return;
+    box.classList.add("nodate"); if (!over()) return;
+    for (const k of TB_HIDE_ORDER) {
+      const e = box.querySelector(`[data-tbk="${k}"]`); if (!e) continue;
+      e.classList.add("tbof"); TB_OF.add(k); if (!over()) return;
+    }
+  });
+}
+addEventListener("resize", tbFit);
+setInterval(() => {
+  const d = $("#tbDate"); if (d) { const t = tbDateText(); if (d.textContent !== t) d.textContent = t; }
+  const c = $(".tbclock"); if (c) c.title = tbDateFull();
+  tbTaskPaint();
+}, 30000);
+
+/* ---- 6. one status light for saving, backup and where the data lives ---- */
+function tbState() {
+  const busy = Array.from(writers.values()).some((w) => w.running || w.dirty), age = bakAge();
+  return S.error ? "err" : !S.loaded || busy ? "busy" : age < 0 || age >= 7 ? "warn" : "ok";
+}
+function tbStatusPaint() {
+  const d = $("#tbDot"); if (!d) return;
+  const st = tbState(); d.className = "tbdot " + st;
+  const b = d.closest("button"); if (b) b.title = T("tbSt_" + st) + " · 💾 " + bakLabel();
+}
+const tbRenderStatus0 = renderStatus;
+renderStatus = function () { tbRenderStatus0(); try { tbStatusPaint(); } catch {} };
+function tbStatusPop(anchor) {
+  const st = tbState(), age = bakAge();
+  const el = popover(anchor, `<div class="tbpop">
+    <div class="tbprow"><i class="tbdot ${st}"></i><b>${esc(T("tbSt_" + st))}</b></div>
+    <div class="tbprow ${age < 0 || age >= 7 ? "warn" : ""}"><span>💾 <b>${esc(bakLabel())}</b></span><button type="button" class="btn" data-tx="backup">${esc(T("tbBakNow"))}</button></div>
+    <div class="tbprow"><span>📍 ${esc(storageText())}</span></div>
+    <div class="tbpbtns">${S.error ? `<button type="button" class="btn primary" data-tb="retry">${esc(T("tbRetry"))}</button>` : ""}<button type="button" class="btn" data-act="safeDialog">🛟 ${esc(T("tbSafe"))}</button><button type="button" class="btn" data-tb="cloud">☁️ ${esc(T("tb_cloud"))}</button></div>
+  </div>`, "tbstpop");
+  if (el) el.addEventListener("click", (e) => { if (e.target.closest("button")) setTimeout(closePop, 0); });
+}
+
+/* ---- 7. today's tasks ---- */
+function tbTaskPaint() {
+  const b = $("#tbTaskN"); if (b) { const n = tbTodayList().length; b.textContent = num(n); b.classList.toggle("zero", !n); }
+  const r = $(".tbrem"); if (r) { const n = dueReminders().length; let s = r.querySelector(".badge"); if (n && !s) { s = document.createElement("span"); s.className = "badge"; r.append(s); } if (s) { if (n) s.textContent = num(n); else s.remove(); } }
+}
+const tbBadge0 = renderReminderBadge;
+renderReminderBadge = function () { tbBadge0(); try { tbTaskPaint(); } catch {} };
+function tbTasksPop(anchor) {
+  const now = Date.now(), today = tbTodayList();
+  const next = [...(S.meta.reminders || [])].filter((r) => !r.done && !today.includes(r)).sort((a, b) => (a.at < b.at ? -1 : 1)).slice(0, 3);
+  const time = (r) => { const d = new Date(r.at); try { return d.toDateString() === new Date().toDateString() ? d.toLocaleTimeString(LOCALE[S.meta.settings.lang], { hour: "2-digit", minute: "2-digit", hour12: false }) : fmtDate(r.at); } catch { return ""; } };
+  const row = (r, done) => `<div class="tbtrow ${new Date(r.at).getTime() <= now ? "over" : ""}"><span class="w"><b>${esc(remTitle(r))}</b><small>${esc(time(r))}</small></span>
+    ${r.noteId && S.notes.has(r.noteId) ? `<button type="button" class="btn icon" data-tbopen="${esc(r.noteId)}" title="${esc(T("openNote"))}">↗</button>` : ""}${done ? `<button type="button" class="btn icon" data-tbdone="${esc(r.id)}" title="${esc(T("done"))}">✓</button>` : ""}</div>`;
+  const draw = () => `<div class="tbpop tbtasks-pop"><h4>${esc(T("tbToday"))}</h4>${today.length ? today.map((r) => row(r, true)).join("") : `<p class="tbempty">${esc(T("tbNoTasks"))}</p>`}
+    ${next.length ? `<h4>${esc(T("tbNext"))}</h4>${next.map((r) => row(r, false)).join("")}` : ""}
+    <div class="tbpbtns"><button type="button" class="btn" data-tb="remnew">＋ ${esc(T("newReminder"))}</button><button type="button" class="btn" data-tb="rem">${esc(T("tbAllRem"))}</button></div></div>`;
+  const el = popover(anchor, draw(), "tbtaskpop"); if (!el) return;
+  el.addEventListener("click", (e) => {
+    const d = e.target.closest("[data-tbdone]"); if (d) { reminderAction(d.dataset.tbdone, "done"); closePop(); return tbTasksPop(anchor); }
+    const o = e.target.closest("[data-tbopen]"); if (o) { closePop(); return openNote(o.dataset.tbopen); }
+    if (e.target.closest("button")) setTimeout(closePop, 0);
+  });
+}
+
+/* ---- 3. quick voice note and photo: into the folder you are in, otherwise into "Inbox" ---- */
+function tbInbox() {
+  if (S.view && !S.view.startsWith("__") && S.screen !== "editor") return S.view;
+  const n = S.screen === "editor" && S.notes.get(S.activeId); if (n && n.folder) return n.folder;
+  const name = T("tbInbox");
+  if (!S.meta.folders.some((f) => f.path === name)) { S.meta.folders.push({ path: name, color: TAG_COLORS[0], kind: "book" }); saveMeta(0); renderSide(); }
+  return name;
+}
+function tbMic() {
+  if (typeof recorder !== "undefined" && recorder) return toggleRecording();
+  if (S.readOnly) return;
+  if (!(S.assets && S.mode !== "cloud" && navigator.mediaDevices && window.MediaRecorder)) return toast(T("pvNoMic"), { kind: "err" });
+  captureActive(); const folder = tbInbox(); S.view = folder;
+  newNote({ folder }); setTimeout(() => { toggleRecording(); setTimeout(txRender, 400); }, 300);
+}
+function tbCam() {
+  if (S.readOnly) return;
+  if (!S.assets) return toast(T("syncCloudOnly"));
+  captureActive(); const folder = tbInbox(); S.view = folder;
+  const i = $("#camIn"); if (!i) return; i.value = ""; i.click();
+}
+
+/* ---- 4. undo: inside a page it undoes the page; in the library it brings back the last delete, move, rename or star ---- */
+const TBU = { last: new Map(), stack: [], ready: false, busy: false };
+const tbuSnap = (n) => ({ trashed: !!n.trashed, folder: n.folder || "", title: n.title || "", pinned: !!n.pinned });
+const tbuSame = (a, b) => a.trashed === b.trashed && a.folder === b.folder && a.title === b.title && a.pinned === b.pinned;
+const tbSave0 = saveNote;
+saveNote = function (id, delay) {
+  try {
+    const n = S.notes.get(id);
+    if (n && TBU.ready && !TBU.busy) {
+      const prev = TBU.last.get(id), cur = tbuSnap(n), now = Date.now();
+      if (prev && !tbuSame(prev, cur)) {
+        const top = TBU.stack[TBU.stack.length - 1];
+        if (top && now - top.t < 700 && !top.list.some((x) => x.id === id)) { top.list.push({ id, prev }); top.t = now; }
+        else if (top && top.list.length === 1 && top.list[0].id === id && now - top.t < 4000 && prev.title !== cur.title && top.kind === "title") top.t = now;
+        else { TBU.stack.push({ t: now, kind: prev.title !== cur.title && prev.trashed === cur.trashed && prev.folder === cur.folder ? "title" : "x", list: [{ id, prev }] }); if (TBU.stack.length > 60) TBU.stack.shift(); }
+      }
+      TBU.last.set(id, cur);
+    }
+  } catch {}
+  return tbSave0(id, delay);
+};
+(async () => { await whenLoaded(); for (const n of S.notes.values()) TBU.last.set(n.id, tbuSnap(n)); TBU.ready = true; })();
+function tbUndo() {
+  const n = S.screen === "editor" && S.notes.get(S.activeId);
+  if (n && !n.trashed) {
+    if (n.cv && typeof CV !== "undefined" && CV && $("#cvStage")) return CV.undo && CV.undo.length ? cvUndo(true) : toast(T("tbNothingUndo"));
+    if (n.mm && typeof MM !== "undefined" && MM && MM.n === n) return MM.undo.length ? mmUndo(false) : toast(T("tbNothingUndo"));
+    if (S.hist && S.hist.id === n.id && S.hist.undo.length) return undoInk();
+    const c = $("#content"); if (c && c.isContentEditable) { c.focus(); if (document.execCommand("undo")) return; }
+  }
+  const g = TBU.stack.pop(); if (!g) return toast(T("tbNothingUndo"));
+  TBU.busy = true;
+  try {
+    for (const { id, prev } of g.list.slice().reverse()) {
+      const x = S.notes.get(id); if (!x) continue;
+      x.trashed = prev.trashed; x.folder = prev.folder; x.title = prev.title; x.pinned = prev.pinned; touch(x);
+      if (x.folder && !x.trashed && !folderPaths().some((f) => f.path === x.folder)) { S.meta.folders.push({ path: x.folder, color: x.color }); saveMeta(); }
+      saveNote(id, 0); TBU.last.set(id, prev);
+    }
+  } finally { TBU.busy = false; }
+  renderSide(); renderMain();
+  toast(T("tbUndone", { n: num(g.list.length) }));
+}
+
+/* ---- 1. search everything ---- */
+let tbResEl = null, tbSelI = 0;
+function tbResClose() { if (tbResEl) { tbResEl.remove(); tbResEl = null; document.removeEventListener("pointerdown", tbResOut, true); } }
+function tbResOut(e) { if (tbResEl && !tbResEl.contains(e.target) && !e.target.closest(".tbsearch")) tbResClose(); }
+function tbKindIcon(n) { return n.mm ? "🧠" : n.cv && n.cv.survey ? "📋" : n.cv ? "🎨" : n.file ? "📎" : (n.bgs || []).length ? "📄" : "📝"; }
+function tbMark(t, q) { const i = t.toLowerCase().indexOf(q); return i < 0 ? esc(t) : esc(t.slice(0, i)) + "<mark>" + esc(t.slice(i, i + q.length)) + "</mark>" + esc(t.slice(i + q.length)); }
+function tbFind(q0) {
+  const q = q0.trim().toLowerCase(); if (!q) return { notes: [], folders: [] };
+  const notes = [];
+  for (const n of S.notes.values()) {
+    if (n.trashed) continue;
+    const ti = titleOf(n), inT = ti.toLowerCase().includes(q); let tx = "", inX = false;
+    if (!inT) { try { tx = textOf(n) || ""; } catch {} inX = tx.toLowerCase().includes(q); }
+    const inF = !inT && !inX && (n.folder || "").toLowerCase().includes(q);
+    if (!inT && !inX && !inF) continue;
+    let snip = "";
+    if (inX) { const t = tx.replace(/\s+/g, " "), i = t.toLowerCase().indexOf(q); snip = (i > 30 ? "…" : "") + t.slice(Math.max(0, i - 30), i + 70); }
+    notes.push({ n, score: (inT ? 3 : inX ? 2 : 1) + (n.updatedAt || "") , snip, ti });
+  }
+  notes.sort((a, b) => (a.score < b.score ? 1 : -1));
+  const folders = folderPaths().filter((f) => f.path.toLowerCase().includes(q)).slice(0, 6);
+  return { notes, folders };
+}
+function tbSearchShow(input) {
+  const q = input.value; if (!q.trim()) return tbResClose();
+  const { notes, folders } = tbFind(q), ql = q.trim().toLowerCase();
+  if (!tbResEl) { tbResEl = document.createElement("div"); tbResEl.className = "tbres"; tbResEl.setAttribute("role", "listbox"); document.body.append(tbResEl); setTimeout(() => document.addEventListener("pointerdown", tbResOut, true), 0); }
+  const anchor = input.closest(".tbsearch") || input, r = anchor.getBoundingClientRect(), w = Math.min(innerWidth - 16, Math.max(r.width, 380));
+  tbResEl.style.width = w + "px"; tbResEl.style.top = (r.bottom + 6) + "px"; tbResEl.style.maxHeight = (innerHeight - r.bottom - 20) + "px";
+  tbResEl.style.left = Math.min(innerWidth - w - 8, Math.max(8, r.left)) + "px";
+  let h = "";
+  if (folders.length) h += `<h4>${esc(T("tbFolders"))}</h4>` + folders.map((f) => `<button type="button" class="tbr" data-tbview="${esc(f.path)}"><span class="i">${folderKind(f.path) === "folder" ? "📁" : "📗"}</span><span class="w"><b>${tbMark(f.path.split(SEP).pop(), ql)}</b><small>${esc(f.path)}</small></span></button>`).join("");
+  if (notes.length) h += `<h4>${esc(T("tbNotes"))} · ${esc(num(notes.length))}</h4>` + notes.slice(0, 30).map(({ n, snip, ti }) => `<button type="button" class="tbr" data-tbnote="${esc(n.id)}"><span class="i">${tbKindIcon(n)}</span><span class="w"><b>${tbMark(ti || "—", ql)}</b><small>${n.folder ? "📁 " + esc(n.folder) + " · " : ""}${esc(fmtDate(n.updatedAt, false))}</small>${snip ? `<em>${tbMark(snip, ql)}</em>` : ""}</span></button>`).join("");
+  if (!h) h = `<p class="tbempty">${esc(T("tbNoRes"))}</p>`;
+  else h += `<button type="button" class="tbr tball" data-tball="1"><span class="i">☰</span><span class="w"><b>${esc(T("tbAllList"))}</b></span></button>`;
+  tbResEl.innerHTML = h; tbSelI = 0; tbResSel();
+  tbResEl.onclick = (e) => {
+    const b = e.target.closest(".tbr"); if (!b) return;
+    tbResGo(b, q);
+  };
+}
+function tbResSel() { if (!tbResEl) return; const all = [...tbResEl.querySelectorAll(".tbr")]; all.forEach((b, i) => b.classList.toggle("sel", i === tbSelI)); all[tbSelI]?.scrollIntoView({ block: "nearest" }); }
+function tbResGo(b, q) {
+  tbResClose(); closePop();
+  const inp = $("#tbQ"); if (inp) inp.blur();
+  if (b.dataset.tbnote) { captureActive(); return openNote(b.dataset.tbnote); }
+  if (b.dataset.tbview) return skyGo(b.dataset.tbview);
+  if (b.dataset.tball) { captureActive(); flushAll(); S.query = q; const s = $("#search"); if (s) s.value = q; S.screen = "library"; renderTree(); return renderMain(); }
+}
+document.addEventListener("input", (e) => { if (e.target && (e.target.id === "tbQ" || e.target.id === "tbQ2")) tbSearchShow(e.target); });
+document.addEventListener("focusin", (e) => { if (e.target && e.target.id === "tbQ" && e.target.value.trim()) tbSearchShow(e.target); });
+document.addEventListener("keydown", (e) => {
+  const t = e.target;
+  if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === "k") { const q = $("#tbQ"); if (q && !q.closest(".tbof")) { e.preventDefault(); q.focus(); q.select(); } return; }
+  if (!t || (t.id !== "tbQ" && t.id !== "tbQ2")) return;
+  if (e.key === "Escape") { t.value = ""; tbResClose(); closePop(); t.blur(); return; }
+  if (!tbResEl) return;
+  const all = [...tbResEl.querySelectorAll(".tbr")]; if (!all.length) return;
+  if (e.key === "ArrowDown") { e.preventDefault(); tbSelI = Math.min(all.length - 1, tbSelI + 1); tbResSel(); }
+  else if (e.key === "ArrowUp") { e.preventDefault(); tbSelI = Math.max(0, tbSelI - 1); tbResSel(); }
+  else if (e.key === "Enter") { e.preventDefault(); tbResGo(all[tbSelI] || all[0], t.value); }
+}, true);
+function tbSearchPop(anchor) {
+  const el = popover(anchor, `<div class="tbpop"><label class="tbsearch wide">${TB_SVG.search}<input id="tbQ2" type="search" autocomplete="off" enterkeyhint="search" placeholder="${esc(T("tbSearchPh"))}"></label></div>`, "tbsrchpop");
+  if (el) setTimeout(() => el.querySelector("input")?.focus(), 30);
+}
+
+/* ---- 8. help for the screen you are on ---- */
+function tbHelpPop(anchor) {
+  const n = S.screen === "editor" && S.notes.get(S.activeId);
+  const ctx = !n ? "Lib" : n.mm ? "Mm" : n.cv && n.cv.survey ? "Sv" : n.cv ? "Cv" : "Page";
+  const li = (k) => T(k).split("|").map((x) => `<li>${esc(x)}</li>`).join("");
+  const el = popover(anchor, `<div class="tbpop tbhelp-pop"><h4>${esc(T("tbHelpT" + ctx))}</h4><ul>${li("tbHelp" + ctx)}</ul>
+    <details><summary>${esc(T("tbHelpBarT"))}</summary><ul>${li("tbHelpBar")}</ul></details>
+    <div class="tbpbtns"><button type="button" class="btn" data-tb="custom">⚙ ${esc(T("tbCustom"))}</button></div></div>`, "tbhelppop");
+  if (el) el.addEventListener("click", (e) => { if (e.target.closest("button")) setTimeout(closePop, 0); });
+}
+
+/* ---- 9. ⋯ : everything not on the bar, and arranging the bar ---- */
+const TB_MENU_IC = { search: "🔍", new: "＋", mic: "🎙", cam: "📷", undo: "↶", clock: "🕒", status: "🟢", tasks: "✅", help: "?", sky: "✦", classic: "▦", theme: "🌓", select: "☑︎", rem: "⏰", cloud: "☁️" };
+function tbMorePop(anchor) {
+  const list = tbCfg().filter((x) => !x.on || TB_OF.has(x.k)).map((x) => x.k).filter((k) => k !== "clock");
+  const attr = (k) => k === "sky" || k === "classic" || k === "theme" ? `data-tx="${k}"` : k === "select" ? `data-act="selectMode"` : `data-tb="${k}"`;
+  const el = popover(anchor, `<div class="tbpop tbmore-pop">${list.map((k) => `<button type="button" class="tbmi" ${attr(k)}><span class="i">${TB_MENU_IC[k]}</span><span>${esc(tbLabel(k))}</span></button>`).join("")}
+    <button type="button" class="tbmi sep" data-tb="custom"><span class="i">⚙</span><span>${esc(T("tbCustom"))}</span></button></div>`, "tbmorepop");
+  if (!el) return;
+  el.addEventListener("click", (e) => { if (e.target.closest(".tbmi")) setTimeout(closePop, 0); });
+}
+async function tbCustom() {
+  const row = (x) => `<div class="thtrow tbcrow" data-k="${x.k}"><label><input type="checkbox" ${x.on ? "checked" : ""}> <span class="i">${TB_MENU_IC[x.k]}</span> ${esc(tbLabel(x.k))}</label><button type="button" class="btn icon" data-mv="-1" aria-label="up">↑</button><button type="button" class="btn icon" data-mv="1" aria-label="down">↓</button></div>`;
+  const r = await dialog({ title: "⚙ " + T("tbCustom"), body: `<p class="msg">${esc(T("tbCustHint"))}</p><div class="thtlist">${tbCfg().map(row).join("")}</div>
+    <label class="tbjal"><input type="checkbox" name="jal" ${tbJalali() ? "checked" : ""}> ${esc(T("tbJalali"))}</label>`,
+    actions: [{ label: T("tbReset"), value: "reset" }, { label: T("cancel"), value: null }, { label: T("ok"), kind: "primary", run: (el) => ({ list: Array.from(el.querySelectorAll(".tbcrow")).map((d) => ({ k: d.dataset.k, on: d.querySelector("input").checked })), jal: el.querySelector("[name=jal]").checked }) }],
+    onOpen: (el) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-mv]"); if (!b) return; const d = b.closest(".tbcrow"), sib = +b.dataset.mv < 0 ? d.previousElementSibling : d.nextElementSibling; if (sib) (+b.dataset.mv < 0 ? sib.before(d) : sib.after(d)); }) });
+  if (r === "reset") { lsSet("babak-tb", ""); lsSet("babak-tb-jalali", "1"); return txRender(); }
+  if (!r || !r.list) return;
+  lsSet("babak-tb", JSON.stringify(r.list)); lsSet("babak-tb-jalali", r.jal ? "1" : "0"); txRender();
+}
+function tbAct(k, anchor) {
+  if (k === "search") { const q = $("#tbQ"); if (q && !q.closest(".tbof")) { q.focus(); return; } return tbSearchPop(anchor); }
+  if (k === "new") return plusMenu();
+  if (k === "mic") return tbMic();
+  if (k === "cam") return tbCam();
+  if (k === "undo") return tbUndo();
+  if (k === "status") return tbStatusPop(anchor);
+  if (k === "tasks") return tbTasksPop(anchor);
+  if (k === "help") return tbHelpPop(anchor);
+  if (k === "more") return tbMorePop(anchor);
+  if (k === "custom") return tbCustom();
+  if (k === "rem") return remindersPanel();
+  if (k === "remnew") return reminderForm(S.activeId && S.screen === "editor" && !S.notes.get(S.activeId)?.trashed ? { noteId: null } : {}).then(() => tbTaskPaint());
+  if (k === "cloud") return $("#syncBtn")?.click();
+  if (k === "retry") return retryFailed();
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-tb]"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const inPop = b.closest(".pop"), a = inPop ? $(".tbmore:not(.tbof)") || $("#setBtn") || b : b;
+  if (inPop) closePop();
+  tbAct(b.dataset.tb, a);
+}, true);
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
