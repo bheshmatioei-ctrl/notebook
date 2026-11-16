@@ -1588,6 +1588,39 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .tbcrow .btn{min-width:40px;min-height:40px}
 .tbjal{display:flex;align-items:center;gap:8px;margin-top:12px;min-height:44px}
 @media (max-width:860px){.tbsearch{flex-basis:140px}}
+
+/* r70: the drafting bar */
+.cvrail .rgh{display:none!important}
+.cvrail .rgrp{position:relative}
+.cvrail .rgrp::after{content:"";position:absolute;inset-inline-end:3px;bottom:3px;border-inline-start:5px solid transparent;border-bottom:5px solid var(--muted);opacity:.8}
+.cvrail .rrecent{position:relative}.cvrail .rrecent i{position:absolute;inset-inline-end:1px;top:0;font-size:10px;font-style:normal;color:var(--accent)}
+.cvrail .rminb span{font-size:17px;font-weight:700;color:var(--muted)}
+.cvrail.rend{inset-inline-start:auto;inset-inline-end:8px}
+.cvrail.rmin{grid-template-columns:36px!important}
+.cvrail.rmin button:not([aria-pressed="true"]):not(.rminb),.cvrail.rmin .rsep,.cvrail.rmin .rph{display:none!important}
+.cvrail .skm2{font-size:12px;font-weight:800;letter-spacing:-.3px}
+.rgfly{display:flex;flex-direction:column;gap:2px;min-width:190px}
+.rgfly button{display:flex;align-items:center;gap:10px;min-height:44px;padding:4px 10px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:15px;text-align:start;cursor:pointer}
+.rgfly button[aria-pressed="true"]{background:var(--accent-soft)}
+.rgfly button span{width:26px;display:flex;justify-content:center;font-size:18px}.rgfly .skic{width:22px;height:22px}
+.cvopts{position:absolute;top:8px;left:0;right:0;margin-inline:auto;width:max-content;z-index:6;display:flex;align-items:center;gap:3px;padding:4px 6px;border-radius:14px;background:var(--panel);border:1px solid var(--line);box-shadow:0 3px 10px rgba(0,0,0,.08);max-width:calc(100% - 150px);overflow-x:auto;scrollbar-width:none;white-space:nowrap}
+.cvopts button{min-width:36px;height:36px;padding:0 8px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:14px;cursor:pointer;flex:none}
+.cvopts button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink)}
+.cvopts [data-cvo^="sn:"][aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.cvopts .sep{width:1px;align-self:stretch;background:var(--line);margin:4px 3px;flex:none}
+.cvopts .lb{font-size:12px;color:var(--muted);padding:0 2px;flex:none}.cvopts .u{font-size:11px;color:var(--muted);flex:none}
+#cvStage:has(.cvopts:not(.hide)) .cvhint{top:58px;bottom:auto}
+.lypop h4{margin:2px 4px 8px;font-size:14px}
+.lyrow{display:flex;align-items:center;gap:4px;border-radius:12px;padding:2px}
+.lyrow.cur{background:var(--accent-soft)}
+.lyrow button{min-width:44px;height:44px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:16px;cursor:pointer}
+.lyrow .lyname{flex:1;display:flex;align-items:center;gap:6px;text-align:start;font-size:15px;padding:0 8px}
+.lyrow .lyname small{color:var(--muted);margin-inline-start:auto}.lyrow .r{color:var(--accent)}
+.lyhint{font-size:12.5px;color:var(--muted);margin:8px 4px 2px;max-width:290px}
+.arres{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.arres div{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:8px 12px;border:1px solid var(--line);border-radius:12px}
+.arres span{color:var(--muted);font-size:13.5px}.arres b{font-size:18px;white-space:nowrap}
+.dsh4{margin:12px 2px 8px;font-size:14px;color:var(--muted)}.dsh4:first-child{margin-top:0}
 </style>
 
 <div class="app" id="app">
@@ -8254,6 +8287,9 @@ Object.assign(I18N.en, {"safeTitle": "Data safety", "safeOpenLong": "Safety copi
 Object.assign(I18N.fa, {"tb_search": "جستجو در همه‌چیز", "tb_new": "ساختن (＋ جدید)", "tb_mic": "یادداشت صوتی فوری", "tb_cam": "عکس فوری با دوربین", "tb_undo": "برگشت (Undo)", "tb_clock": "ساعت و تاریخ", "tb_status": "وضعیت ذخیره و پشتیبان", "tb_tasks": "کارهای امروز", "tb_help": "راهنما", "tb_sky": "Idea sky", "tb_classic": "نمای کلاسیک / زبانه‌ای", "tb_theme": "حالت شب / روز", "tb_select": "انتخاب چندتایی", "tb_rem": "یادآورها", "tb_cloud": "حساب و همگام‌سازی", "tb_more": "بیشتر", "tbSearchPh": "جستجو در همه‌چیز…", "tbNewShort": "جدید", "tbFolders": "پوشه‌ها و دفترها", "tbNotes": "یادداشت‌ها", "tbNoRes": "چیزی پیدا نشد", "tbAllList": "نمایش همهٔ نتایج در فهرست", "tbInbox": "ورودی", "tbUndone": "↶ {n} تغییر برگشت داده شد", "tbNothingUndo": "چیزی برای برگشت نیست", "tbSt_ok": "همه‌چیز ذخیره شده", "tbSt_busy": "در حال ذخیره…", "tbSt_warn": "ذخیره شده — ولی پشتیبان قدیمی است", "tbSt_err": "ذخیره ناموفق بود", "tbBakLast": "آخرین پشتیبان", "tbBakNow": "پشتیبان بگیر", "tbSafe": "نسخه‌های ایمنی", "tbRetry": "دوباره امتحان کن", "tbToday": "امروز و عقب‌افتاده", "tbNext": "بعدی", "tbNoTasks": "برای امروز کاری ثبت نشده.", "tbAllRem": "همهٔ یادآورها", "tbCustom": "تنظیم نوار ابزار", "tbCustHint": "تیک بزنید کدام دکمه روی نوار بماند؛ بقیه در «⋯» هستند. با ↑ ↓ ترتیب را عوض کنید. اگر جا کم بیاید، دکمه‌ها خودشان به «⋯» می‌روند.", "tbJalali": "تاریخ شمسی کنار تاریخ میلادی", "tbReset": "حالت اول", "tbHelpTLib": "کتابخانه", "tbHelpLib": "برای ساختن صفحه، دفتر، بوم، برداشت ساختمانی یا نقشهٔ ذهنی، «＋ جدید» را بزنید.|روی هر کارت بزنید تا باز شود؛ دکمهٔ ⋯ کنار هر پوشه منوی همان پوشه است.|در جعبهٔ جستجوی بالا بنویسید تا عنوان و متن همه‌چیز گشته شود.|🎙 و 📷 بالا: یادداشت صوتی یا عکس فوری. اگر داخل پوشه‌ای باشید همان‌جا می‌رود، وگرنه در دفتر «ورودی».|↶ آخرین حذف، جابه‌جایی، تغییر نام یا ستاره را برمی‌گرداند.", "tbHelpTPage": "صفحهٔ دفتر", "tbHelpPage": "با قلم بنویسید؛ ابزارها (قلم، ماژیک، پاک‌کن، شکل…) در نوار بالای صفحه‌اند.|برای صفحهٔ تازه، در انتهای صفحه پایین‌تر بکشید یا دکمهٔ «صفحهٔ تازه» را بزنید.|عکس، PDF و فایل را از منوی درج اضافه کنید.|↶ آخرین خط یا تغییر همین صفحه را برمی‌گرداند.", "tbHelpTCv": "بوم بی‌پایان", "tbHelpCv": "با ابزار انتخاب روی چیزی بزنید؛ داخل کادرش بکشید تا جابه‌جا شود.|با دو انگشت بزرگ و کوچک و جابه‌جا کنید.|دکمهٔ رنگ اندازه‌ها در بالا رنگ خطوط اندازه را جدا از خطوط نقشه عوض می‌کند.|↶ آخرین تغییر بوم را برمی‌گرداند.", "tbHelpTSv": "برداشت ساختمانی", "tbHelpSv": "دیوارها را با انگشت یا قلم بکشید و اندازه‌ها را بنویسید.|نشانه‌ها (پین) را برای عکس، یادداشت و صدا روی نقشه بگذارید.|سربرگ بالای برگه (نشانی، تاریخ، افراد) را پر کنید.|گزارش PDF را از دکمهٔ «⇩ خروجی» بسازید.|↶ آخرین تغییر را برمی‌گرداند.", "tbHelpTMm": "نقشهٔ ذهنی", "tbHelpMm": "روی یک گره بزنید تا انتخاب شود؛ با دکمه‌های نوار شاخهٔ تازه بسازید.|گره‌ها را بکشید تا جابه‌جا شوند؛ با دو انگشت بزرگ و کوچک کنید.|↶ آخرین تغییر نقشه را برمی‌گرداند.", "tbHelpBarT": "دکمه‌های نوار بالا", "tbHelpBar": "🔍 جستجو در همه‌چیز (عنوان‌ها، متن صفحه‌ها، بوم‌ها، نقشه‌ها و نام پوشه‌ها).|＋ جدید: ساختن هر چیز تازه.|🎙 یادداشت صوتی فوری؛ دوباره بزنید تا ضبط تمام شود.|📷 عکس فوری با دوربین.|↶ برگشت.|ساعت، و زیرش تاریخ شمسی و میلادی.|● چراغ وضعیت: سبز یعنی همه‌چیز امن است، زرد یعنی پشتیبان قدیمی است، قرمز یعنی ذخیره مشکل دارد. با لمس آن پشتیبان و نسخه‌های ایمنی باز می‌شود.|✅ کارهای امروز: یادآورهای امروز و عقب‌افتاده.|⋯ بقیهٔ دکمه‌ها و «تنظیم نوار ابزار»."});
 Object.assign(I18N.en, {"tb_search": "Search everything", "tb_new": "Create (＋ New)", "tb_mic": "Quick voice note", "tb_cam": "Quick photo", "tb_undo": "Undo", "tb_clock": "Clock and date", "tb_status": "Saving and backup status", "tb_tasks": "Today's tasks", "tb_help": "Help", "tb_sky": "Idea sky", "tb_classic": "Classic / tab view", "tb_theme": "Dark / light", "tb_select": "Select several", "tb_rem": "Reminders", "tb_cloud": "Account and sync", "tb_more": "More", "tbSearchPh": "Search everything…", "tbNewShort": "New", "tbFolders": "Folders and notebooks", "tbNotes": "Notes", "tbNoRes": "Nothing found", "tbAllList": "Show all results as a list", "tbInbox": "Inbox", "tbUndone": "↶ {n} change(s) undone", "tbNothingUndo": "Nothing to undo", "tbSt_ok": "Everything is saved", "tbSt_busy": "Saving…", "tbSt_warn": "Saved — but the backup is old", "tbSt_err": "Saving failed", "tbBakLast": "Last backup", "tbBakNow": "Back up", "tbSafe": "Safety copies", "tbRetry": "Try again", "tbToday": "Today and overdue", "tbNext": "Next", "tbNoTasks": "Nothing set for today.", "tbAllRem": "All reminders", "tbCustom": "Arrange the toolbar", "tbCustHint": "Tick the buttons that stay on the bar; the rest are under “⋯”. Use ↑ ↓ to change the order. When space runs out, buttons move into “⋯” by themselves.", "tbJalali": "Persian (Jalali) date next to the date", "tbReset": "Default", "tbHelpTLib": "Library", "tbHelpLib": "Tap “＋ New” to make a page, notebook, canvas, building survey or mind map.|Tap a card to open it; the ⋯ button next to a folder is that folder's menu.|Type in the search box at the top to search titles and text of everything.|🎙 and 📷 at the top: quick voice note or photo. Inside a folder it goes there, otherwise into the “Inbox” notebook.|↶ brings back the last delete, move, rename or star.", "tbHelpTPage": "Notebook page", "tbHelpPage": "Write with the pencil; the tools (pen, marker, eraser, shapes…) are in the bar above the page.|For a new page, pull further at the end of the page or tap “New page”.|Add pictures, PDFs and files from the insert menu.|↶ undoes the last stroke or change on this page.", "tbHelpTCv": "Endless canvas", "tbHelpCv": "With the select tool, tap something; drag inside its box to move it.|Use two fingers to zoom and pan.|The dimension colour button at the top colours dimension lines apart from the plan lines.|↶ undoes the last canvas change.", "tbHelpTSv": "Building survey", "tbHelpSv": "Draw walls with finger or pencil and write the sizes.|Put pins on the plan for photos, notes and voice.|Fill in the sheet header (address, date, people).|Make the PDF report from the “⇩ Export” button.|↶ undoes the last change.", "tbHelpTMm": "Mind map", "tbHelpMm": "Tap a node to select it; make new branches with the bar buttons.|Drag nodes to move them; zoom with two fingers.|↶ undoes the last map change.", "tbHelpBarT": "The top bar buttons", "tbHelpBar": "🔍 Search everything (titles, page text, canvases, maps and folder names).|＋ New: make anything new.|🎙 Quick voice note; tap again to stop.|📷 Quick photo with the camera.|↶ Undo.|Clock, with the Persian and Gregorian date under it.|● Status light: green = all safe, yellow = backup is old, red = saving has a problem. Tap it for backup and safety copies.|✅ Today's tasks: today's and overdue reminders.|⋯ The other buttons and “Arrange the toolbar”."});
 Object.assign(I18N.de, {"tb_search": "Alles durchsuchen", "tb_new": "Erstellen (＋ Neu)", "tb_mic": "Schnelle Sprachnotiz", "tb_cam": "Schnelles Foto", "tb_undo": "Rückgängig", "tb_clock": "Uhr und Datum", "tb_status": "Speicher- und Sicherungsstatus", "tb_tasks": "Heutige Aufgaben", "tb_help": "Hilfe", "tb_classic": "Klassisch / Reiter", "tb_theme": "Dunkel / hell", "tb_select": "Mehrere auswählen", "tb_rem": "Erinnerungen", "tb_cloud": "Konto und Sync", "tb_more": "Mehr", "tbSearchPh": "Alles durchsuchen…", "tbNewShort": "Neu", "tbFolders": "Ordner und Hefte", "tbNotes": "Notizen", "tbNoRes": "Nichts gefunden", "tbAllList": "Alle Treffer als Liste", "tbInbox": "Eingang", "tbUndone": "↶ {n} Änderung(en) rückgängig", "tbNothingUndo": "Nichts rückgängig zu machen", "tbSt_ok": "Alles gespeichert", "tbSt_busy": "Speichert…", "tbSt_warn": "Gespeichert – aber die Sicherung ist alt", "tbSt_err": "Speichern fehlgeschlagen", "tbBakLast": "Letzte Sicherung", "tbBakNow": "Sichern", "tbSafe": "Sicherheitskopien", "tbRetry": "Erneut versuchen", "tbToday": "Heute und überfällig", "tbNext": "Als Nächstes", "tbNoTasks": "Für heute ist nichts eingetragen.", "tbAllRem": "Alle Erinnerungen", "tbCustom": "Werkzeugleiste anordnen", "tbCustHint": "Anhaken, welche Knöpfe auf der Leiste bleiben; der Rest steht unter „⋯“. Mit ↑ ↓ die Reihenfolge ändern.", "tbJalali": "Persisches Datum neben dem Datum", "tbReset": "Standard"});
+Object.assign(I18N.fa, {"tCorner": "گوشه و برش", "tDwall": "دیوار دوخطی", "tCdim": "اندازهٔ زنجیره‌ای", "tAdim": "اندازهٔ زاویه", "tRdim": "اندازهٔ شعاع", "tArea": "متراژ اتاق (m²)", "tDsym": "در، پنجره و نمادها", "tLayers": "لایه‌ها", "tRecent": "ابزار قبلی", "tRailMenu": "جمع کردن یا جابه‌جایی نوار", "tRailMin": "جمع کردن نوار", "tRailOpen": "باز کردن نوار", "tRailSide": "بردن نوار به سمت دیگر", "tThick": "ضخامت", "tThickOwn": "ضخامت دلخواه", "tAlC": "وسط", "tAlL": "به یک سو", "tAlR": "به سوی دیگر", "tCTrim": "بریدن", "tCExt": "رساندن", "tCFil": "گرد کردن", "tCCha": "پخ زدن", "tRoomH": "ارتفاع اتاق", "tChainEnd": "پایان زنجیره", "tCopyN": "تعداد دلخواه کپی", "tExact": "عدد دقیق", "tExactT": "طول یا زاویهٔ دقیق را با صفحهٔ عدد وارد کنید", "tExactFirst": "اول نقطهٔ شروع را بزنید و جهت را نشان دهید، بعد «عدد دقیق» را بزنید.", "tLx": "قفل افقی (محور قرمز)", "tLy": "قفل عمودی (محور سبز)", "tL45": "قفل ۴۵ درجه", "tL135": "قفل ۱۳۵ درجه", "tLpar": "موازی با یک خط", "tLperp": "عمود بر یک خط", "tPickLine": "روی خطی بزنید که می‌خواهید با آن موازی یا عمود بکشید.", "tSnEnd": "چسبیدن به سر خط", "tSnMid": "چسبیدن به وسط خط", "tSnInt": "چسبیدن به تقاطع", "tSnCen": "چسبیدن به مرکز", "tSnGrid": "چسبیدن به خانه‌های شطرنجی", "tBadNum": "یک عدد درست بنویسید.", "skH_dwall": "دیوار دوخطی: مثل خط بکشید؛ هر لمس یک گوشه. ضخامت را از نوار بالا انتخاب کنید. برای تمام کردن دوباره روی آخرین نقطه بزنید یا به نقطهٔ شروع برگردید.", "tH_c_trim": "بریدن: روی تکه‌ای از خط بزنید که می‌خواهید بین دو تقاطع برداشته شود.", "tH_c_ext": "رساندن: نزدیک سرِ یک خط بزنید تا تا اولین خط روبه‌رو امتداد پیدا کند.", "tH_c_fil": "گرد کردن: روی گوشه‌ای بزنید که دو خط به هم رسیده‌اند. شعاع را از نوار بالا عوض کنید.", "tH_c_cha": "پخ زدن: روی گوشه بزنید. اندازهٔ پخ را از نوار بالا عوض کنید.", "tH_area": "داخل یک اتاق یا شکل بسته بزنید تا متراژ کف، محیط و مساحت دیوارها را ببینید.", "tH_dsym": "جایی بزنید تا در، پنجره، پریز، لوله یا وسایل بهداشتی را انتخاب کنید. کنار دیوار که باشد، خودش به دیوار می‌چسبد.", "tH_cdim": "اندازهٔ زنجیره‌ای: نقطهٔ اول را بزنید.", "tH_cdim2": "نقطهٔ دوم را بزنید، بعد جای خط اندازه را.", "tH_cdim3": "نقطه‌های بعدی را بزنید؛ اندازه‌ها پشت هم می‌آیند. برای پایان دوباره روی آخرین نقطه بزنید.", "tH_adim": "اندازهٔ زاویه: اول رأس گوشه را بزنید.", "tH_adim2": "حالا یک نقطه روی خط اول بزنید.", "tH_adim3": "حالا یک نقطه روی خط دوم بزنید.", "tH_rdim": "اندازهٔ شعاع: اول مرکز دایره یا کمان را بزنید.", "tH_rdim2": "حالا یک نقطه روی خود دایره یا کمان بزنید.", "tExtNone": "خطی پیدا نشد که این خط به آن برسد.", "tCornerNone": "اینجا گوشه‌ای از دو خط پیدا نشد.", "tCornerBig": "این اندازه برای این گوشه بزرگ است؛ کوچک‌ترش کنید.", "tAFloor": "مساحت کف", "tAPer": "محیط", "tAWall": "مساحت دیوارها", "tAOps": "در/پنجره", "tAPerS": "محیط", "tAWallS": "دیوار", "tRoomName": "نام اتاق (اختیاری)", "tRoomPh": "مثلاً حمام", "tAddLabel": "گذاشتن برچسب روی نقشه", "tApprox": "این محدوده از روی خط‌های دور آن پیدا شد؛ عددها تقریبی‌اند. برای عدد دقیق، دور اتاق را با یک شکل بسته بکشید.", "tDsOps": "در و پنجره (عرض به میلی‌متر)", "tDsSan": "بهداشتی و آشپزخانه", "tLyPlan": "نقشه", "tLyDim": "اندازه‌ها", "tLyElec": "برق", "tLyWater": "آب و گاز", "tLyNote": "یادداشت‌ها", "tLyShow": "نمایش / پنهان", "tLyLock": "قفل", "tLyMove": "بردن انتخاب‌شده‌ها به این لایه", "tLyHint": "لایهٔ علامت‌خورده جایی است که چیزهای تازه می‌روند. 👁 پنهان می‌کند، 🔒 قفل می‌کند تا چیزی اشتباهی جابه‌جا یا پاک نشود.", "tLyHintSel": "با ⇢ چیزهای انتخاب‌شده را به آن لایه ببرید.", "tLyMoved": "به لایهٔ «{l}» رفت", "tbHelpCv": "ابزارهای هم‌خانواده زیر یک دکمه‌اند (گوشهٔ کوچک)؛ نگه دارید یا دوباره بزنید تا باز شوند.|هنگام کشیدن، نوار بالا: «عدد دقیق»، قفل جهت (افقی، عمودی، ۴۵°، موازی، عمود) و چسبیدن‌ها.|دیوار دوخطی، متراژ m²، در و پنجره و نمادها، گوشه و برش، و لایه‌ها در نوار کنار هستند.|با دو انگشت بزرگ و کوچک و جابه‌جا کنید.|↶ آخرین تغییر بوم را برمی‌گرداند."});
+Object.assign(I18N.en, {"tCorner": "Corners and cuts", "tDwall": "Double-line wall", "tCdim": "Chain dimension", "tAdim": "Angle dimension", "tRdim": "Radius dimension", "tArea": "Room area (m²)", "tDsym": "Doors, windows and symbols", "tLayers": "Layers", "tRecent": "Previous tool", "tRailMenu": "Fold or move the bar", "tRailMin": "Fold the bar", "tRailOpen": "Open the bar", "tRailSide": "Move the bar to the other side", "tThick": "Thickness", "tThickOwn": "Own thickness", "tAlC": "Centre", "tAlL": "One side", "tAlR": "Other side", "tCTrim": "Trim", "tCExt": "Extend", "tCFil": "Round", "tCCha": "Bevel", "tRoomH": "Room height", "tChainEnd": "End chain", "tCopyN": "Own number of copies", "tExact": "Exact value", "tExactT": "Type an exact length or angle on the number pad", "tExactFirst": "Tap the start point and show the direction first, then tap “Exact value”.", "tLx": "Lock horizontal (red axis)", "tLy": "Lock vertical (green axis)", "tL45": "Lock 45°", "tL135": "Lock 135°", "tLpar": "Parallel to a line", "tLperp": "Perpendicular to a line", "tPickLine": "Tap the line to draw parallel or perpendicular to.", "tSnEnd": "Snap to line ends", "tSnMid": "Snap to midpoints", "tSnInt": "Snap to crossings", "tSnCen": "Snap to centres", "tSnGrid": "Snap to grid", "tBadNum": "Enter a valid number.", "skH_dwall": "Double-line wall: draw like a line; every tap is a corner. Pick the thickness in the top bar. Tap the last point again, or go back to the start, to finish.", "tH_c_trim": "Trim: tap the piece of line to remove between two crossings.", "tH_c_ext": "Extend: tap near the end of a line to reach the next line ahead.", "tH_c_fil": "Round: tap a corner where two lines meet. Change the radius in the top bar.", "tH_c_cha": "Bevel: tap a corner. Change the size in the top bar.", "tH_area": "Tap inside a room or closed shape for floor area, perimeter and wall area.", "tH_dsym": "Tap where a door, window, outlet, pipe or bathroom piece should go. Near a wall it lines up with it.", "tH_cdim": "Chain dimension: tap the first point.", "tH_cdim2": "Tap the second point, then where the dimension line goes.", "tH_cdim3": "Tap the next points; dimensions follow one after another. Tap the last point again to finish.", "tH_adim": "Angle: tap the corner first.", "tH_adim2": "Now tap a point on the first line.", "tH_adim3": "Now tap a point on the second line.", "tH_rdim": "Radius: tap the centre of the circle or arc first.", "tH_rdim2": "Now tap a point on the circle or arc.", "tExtNone": "No line found for this line to reach.", "tCornerNone": "No corner of two lines found here.", "tCornerBig": "That size is too big for this corner; make it smaller.", "tAFloor": "Floor area", "tAPer": "Perimeter", "tAWall": "Wall area", "tAOps": "doors/windows", "tAPerS": "Perimeter", "tAWallS": "Walls", "tRoomName": "Room name (optional)", "tRoomPh": "e.g. Bathroom", "tAddLabel": "Put a label on the plan", "tApprox": "This area was found from the lines around it, so the numbers are approximate. For exact numbers, draw the room as one closed shape.", "tDsOps": "Doors and windows (width in mm)", "tDsSan": "Bathroom and kitchen", "tLyPlan": "Plan", "tLyDim": "Dimensions", "tLyElec": "Electrical", "tLyWater": "Water and gas", "tLyNote": "Notes", "tLyShow": "Show / hide", "tLyLock": "Lock", "tLyMove": "Move the selection to this layer", "tLyHint": "New things go to the marked layer. 👁 hides a layer, 🔒 locks it so nothing moves or gets erased by mistake.", "tLyHintSel": "Use ⇢ to move the selected things to that layer.", "tLyMoved": "Moved to “{l}”", "tbHelpCv": "Related tools share one button (small corner); hold it or tap it again to open them.|While drawing, the top bar has Exact value, direction locks (horizontal, vertical, 45°, parallel, perpendicular) and snapping.|Double-line wall, m² area, doors and symbols, corners and cuts, and layers are on the side bar.|Use two fingers to zoom and pan.|↶ undoes the last canvas change."});
+Object.assign(I18N.de, {"tCorner": "Ecken und Schnitte", "tDwall": "Doppellinien-Wand", "tCdim": "Kettenmaß", "tAdim": "Winkelmaß", "tRdim": "Radiusmaß", "tArea": "Raumfläche (m²)", "tDsym": "Türen, Fenster und Symbole", "tLayers": "Ebenen", "tRecent": "Vorheriges Werkzeug", "tRailMenu": "Leiste einklappen oder verschieben", "tRailMin": "Leiste einklappen", "tRailOpen": "Leiste öffnen", "tRailSide": "Leiste auf die andere Seite", "tThick": "Dicke", "tThickOwn": "Eigene Dicke", "tAlC": "Mitte", "tAlL": "Eine Seite", "tAlR": "Andere Seite", "tCTrim": "Stutzen", "tCExt": "Verlängern", "tCFil": "Abrunden", "tCCha": "Fasen", "tRoomH": "Raumhöhe", "tChainEnd": "Kette beenden", "tCopyN": "Eigene Anzahl Kopien", "tExact": "Genauer Wert", "tExactFirst": "Erst Startpunkt tippen und Richtung zeigen, dann „Genauer Wert“.", "tLx": "Waagerecht sperren", "tLy": "Senkrecht sperren", "tL45": "45° sperren", "tL135": "135° sperren", "tLpar": "Parallel zu einer Linie", "tLperp": "Senkrecht zu einer Linie", "tPickLine": "Tippen Sie auf die Bezugslinie.", "tSnEnd": "An Enden fangen", "tSnMid": "An Mitten fangen", "tSnInt": "An Schnittpunkten fangen", "tSnCen": "An Mittelpunkten fangen", "tSnGrid": "Am Raster fangen", "tBadNum": "Bitte eine gültige Zahl eingeben.", "tAFloor": "Bodenfläche", "tAPer": "Umfang", "tAWall": "Wandfläche", "tAOps": "Türen/Fenster", "tAPerS": "Umfang", "tAWallS": "Wände", "tRoomName": "Raumname (optional)", "tRoomPh": "z. B. Bad", "tAddLabel": "Beschriftung setzen", "tDsOps": "Türen und Fenster (Breite in mm)", "tDsSan": "Bad und Küche", "tLyPlan": "Plan", "tLyDim": "Maße", "tLyElec": "Elektro", "tLyWater": "Wasser und Gas", "tLyNote": "Notizen", "tLyShow": "Zeigen / verbergen", "tLyLock": "Sperren", "tLyMove": "Auswahl auf diese Ebene", "tLyMoved": "Auf „{l}“ verschoben"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -11374,8 +11410,8 @@ function cvItemSvg0(x, opt = {}) {
       if (x.closed && pts.length > 2) { const [cx, cy] = cvCentroid(pts); s += cvTextSvg([...(x.s ? [x.s] : []), num((cvArea(pts) / CV_U / CV_U).toFixed(1)) + " m²", ...(x.hg ? ["↕ " + num(x.hg.toFixed(2)) + " m"] : [])], cx, cy, 18, "#3b3f4a", 600); }
       return s + "</g>";
     }
-    case "door": { const w = x.w || 90; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-9" width="${w}" height="18" fill="#fff"/><path d="M${-w / 2} 0 L${-w / 2} ${-w} M${-w / 2} ${-w} A${w} ${w} 0 0 1 ${w / 2} 0" fill="none" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/></g>`; }
-    case "window": { const w = x.w || 120; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="-8" width="${w}" height="16" fill="#fff" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/><line x1="${-w / 2}" y1="0" x2="${w / 2}" y2="0" stroke="${c === "#1d1d1f" ? "#4f7fe0" : c}" stroke-width="2"/></g>`; }
+    case "door": { const w = x.w || 90; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-(x.th || 18) / 2}" width="${w}" height="${x.th || 18}" fill="#fff"/><path d="M${-w / 2} 0 L${-w / 2} ${-w} M${-w / 2} ${-w} A${w} ${w} 0 0 1 ${w / 2} 0" fill="none" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/></g>`; }
+    case "window": { const w = x.w || 120; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-(x.th || 16) / 2}" width="${w}" height="${x.th || 16}" fill="#fff" stroke="${c === "#1d1d1f" ? "#3b3f4a" : c}" stroke-width="2"/><line x1="${-w / 2}" y1="0" x2="${w / 2}" y2="0" stroke="${c === "#1d1d1f" ? "#4f7fe0" : c}" stroke-width="2"/></g>`; }
     case "furn": { const w = x.w || 100, h = x.h || 60; return `<g${id} transform="translate(${x.x} ${x.y}) rotate(${x.rot || 0})"><rect x="${-w / 2}" y="${-h / 2}" width="${w}" height="${h}" fill="transparent"/>${cvFurnSym(x.k || "table", w, h)}</g>`; }
     case "sym": case "north": case "pin": return cvSiteSvg(x, id, opt);
     case "dim": if (x.k === "mm") return cvDimMmSvg(x, id); { const L = cvLen([x.x1, x.y1], [x.x2, x.y2]), mx = (x.x1 + x.x2) / 2, my = (x.y1 + x.y2) / 2; let ang = Math.atan2(x.y2 - x.y1, x.x2 - x.x1) * 180 / Math.PI; if (ang > 90) ang -= 180; if (ang < -90) ang += 180; return `<g${id} style="color:${c === "#1d1d1f" ? cvDimC() : c}"><line x1="${x.x1}" y1="${x.y1}" x2="${x.x2}" y2="${x.y2}" stroke="currentColor" stroke-width="2" marker-start="url(#cvTick)" marker-end="url(#cvTick)"/><text x="${mx}" y="${my - 14}" transform="rotate(${cvR(ang, 10)} ${mx} ${my})" font-size="16" fill="currentColor" text-anchor="middle" direction="ltr" font-family="Vazirmatn, system-ui, sans-serif" font-weight="700">${esc(cvM(L))}</text></g>`; }
@@ -13272,7 +13308,7 @@ function cvFoot(p, a, b) { const dx = b[0] - a[0], dy = b[1] - a[1], l2 = dx * d
 /** Snap p like SketchUp: endpoint > intersection > midpoint > centre > on edge; otherwise red/green axis, perpendicular and alignment from other points. */
 function cvInfer(p, o = {}) {
   const z = CV.view.z, tol = (o.touch ? 18 : 12) / z, tolE = (o.touch ? 30 : 22) / z, G = cvGeo(o.skip);
-  let best = null; const cand = (q, kind, pr) => { const d = cvNear(p, q); if (d < (kind === "end" ? tolE : tol) && (!best || pr < best.pr || (pr === best.pr && d < best.d))) best = { p: q.slice(), kind, pr, d }; };
+  let best = null; const cand = (q, kind, pr) => { if (CV_SNAPOFF.has(kind)) return; const d = cvNear(p, q); if (d < (kind === "end" ? tolE : tol) && (!best || pr < best.pr || (pr === best.pr && d < best.d))) best = { p: q.slice(), kind, pr, d }; };
   for (const v of G.verts) cand(v, "end", 0);
   const near = G.segs.filter((s) => cvSegD(p, s[0], s[1]) < tol);
   for (let i = 0; i < near.length; i++) for (let j = i + 1; j < near.length; j++) { const t = cvSegX(near[i][0], near[i][1], near[j][0], near[j][1], 0); if (t != null) cand([near[i][0][0] + (near[i][1][0] - near[i][0][0]) * t, near[i][0][1] + (near[i][1][1] - near[i][0][1]) * t], "int", 1); }
@@ -15468,6 +15504,404 @@ document.addEventListener("click", (e) => {
   if (inPop) closePop();
   tbAct(b.dataset.tb, a);
 }, true);
+
+/* ---- r70: the drafting bar — grouped tools, an options strip, and tools for building work ---- */
+(() => {
+  const ic = {
+    corner: ski(`<path d="M4 20V11a7 7 0 0 1 7-7h9"/><path d="M14 14l6 6M20 14l-6 6" stroke="${SKR}"/>`),
+    dwall: ski(`<path d="M3 8h18M3 14h18"/><path d="M3 8v6M21 8v6" stroke-width="1"/><path d="M6 8l-2 6M10 8l-2 6M14 8l-2 6M18 8l-2 6" stroke-width=".7"/>`),
+    cdim: ski(`<path d="M3 15h18M3 11v8M10 11v8M21 11v8" stroke="#4f7fe0"/><path d="M3 6h7M12 6h9" stroke-dasharray="1 2"/>`),
+    adim: ski(`<path d="M4 20L20 20M4 20L16 6"/><path d="M12 20a8 8 0 0 0-2.4-5.7" stroke="#4f7fe0"/>`),
+    rdim: ski(`<circle cx="11" cy="13" r="7"/><path d="M11 13l5-5" stroke="#4f7fe0"/>${dot(11, 13)}`),
+    area: `<span class="skm2">m²</span>`,
+    dsym: ski(`<path d="M3 20V6h8v14"/><path d="M11 20a8 8 0 0 0-8-8" stroke-dasharray="2 2"/><circle cx="17" cy="9" r="3.2"/><path d="M15.6 9h2.8M17 7.6v2.8M17 15v5M15 18h4"/>`),
+    layers: ski(`<path d="M12 4l9 4.5-9 4.5-9-4.5z"/><path d="M3 12.5l9 4.5 9-4.5" /><path d="M3 16.5l9 4.5 9-4.5" stroke="${SKR}"/>`),
+  };
+  Object.assign(CV_SKIC, ic);
+  CV_SKRAIL.splice(0, CV_SKRAIL.length,
+    ["sel", "cvTSel"], ["lasso", "skLasso"], ["bucket", "skBucket"], ["erase", "cvTErase"], ["corner", "tCorner"], ["-"],
+    ["line", "skLine"], ["dwall", "tDwall"], ["srect", "skRect"], ["rrect", "skRRect"], ["circle", "skCircle"], ["poly", "skPoly"], ["carc", "skCArc"], ["arc", "skArc"], ["arc3", "skArc3"], ["pie", "skPie"], ["pen", "skFree"], ["-"],
+    ["move", "skMove"], ["rotate", "skRotate"], ["scale", "skScale"], ["mirror", "skMirror"], ["offset", "skOffset"], ["group", "cvGroup"], ["-"],
+    ["sdim", "skDim"], ["cdim", "tCdim"], ["adim", "tAdim"], ["rdim", "tRdim"], ["tape", "skTape"], ["proto", "skProto"], ["area", "tArea"], ["dsym", "tDsym"],
+    ["text", "cvTText"], ["note", "cvTNote"], ["idea", "cvTIdea"], ["arrow", "cvTArrow"], ["link", "cvTLink"], ["-"],
+    ["img", "cvTImg"], ["axes", "skAxes"], ["pan", "skPan"], ["layers", "tLayers"]);
+  CV_SK.push("dwall");
+  CV_FINGERLESS.push("dwall");
+})();
+const CV_RG = { sel: ["sel", "lasso"], rect: ["srect", "rrect"], circ: ["circle", "poly"], arc: ["carc", "arc", "arc3", "pie"], xf: ["move", "rotate", "scale", "mirror", "offset"], meas: ["sdim", "cdim", "adim", "rdim", "tape", "proto"], ann: ["text", "note", "idea", "arrow", "link"], view: ["axes", "pan"] };
+const cvRgOf = (k) => Object.keys(CV_RG).find((g) => CV_RG[g].includes(k));
+const cvSkOn = () => CV && CV.d && !CV.d.plan && !CV.d.survey && !cvNoteMode();
+
+/* ---- 1–3. the rail: groups, collapse, side, names, the last tool ---- */
+const cvRail70 = cvRail;
+cvRail = function () { cvRail70(); try { cvRailPost(); cvOptsRender(); } catch (e) { console.warn(e); } };
+function cvRailPost() {
+  const r = $("#cvRail"); if (!r || !CV) return;
+  r.classList.remove("rmin", "rend"); r.classList.toggle("rend", lsGet("babak-sa-railend", false) === true);
+  if (!cvSkOn()) return;
+  for (const [g, mem] of Object.entries(CV_RG)) {
+    const saved = lsGet("babak-sa-rg-" + g, ""), cur = mem.includes(CV.tool) ? CV.tool : mem.includes(saved) ? saved : mem[0];
+    for (const k of mem) { const b = r.querySelector(`[data-cvt="${k}"]`); if (!b) continue; if (k === cur) { b.classList.add("rgrp"); b.dataset.rg = g; } else b.classList.add("rgh"); }
+  }
+  const prev = CV.prevTool && CV.prevTool !== CV.tool && r.querySelector(`[data-cvt="${CV.prevTool}"]`);
+  r.insertAdjacentHTML("beforeend", `<span class="rsep"></span>` + (prev ? `<button type="button" class="rrecent" data-cvt="${esc(CV.prevTool)}" title="${esc(T("tRecent"))}: ${esc(prev.title)}"><span>${prev.querySelector("span").innerHTML}</span><i>↺</i></button>` : `<span class="rph"></span>`)
+    + `<button type="button" class="rminb" data-rmin title="${esc(T("tRailMenu"))}"><span>${lsGet("babak-sa-railmin", false) ? "»" : "«"}</span></button>`);
+  r.classList.toggle("rmin", lsGet("babak-sa-railmin", false) === true);
+}
+const cvSetTool70 = cvSetTool;
+cvSetTool = function (k) {
+  if (k === "layers") return cvLayersPop($('#cvRail [data-cvt="layers"]'));
+  if (CV && k !== CV.tool && k !== "group" && k !== "img") { CV.prevTool = CV.tool; CV.dt = null; CV.pickDir = null; if (CV.lockKind) { CV.lockKind = null; CV.lockDir = null; } }
+  const g = cvRgOf(k); if (g) lsSet("babak-sa-rg-" + g, k);
+  const r = cvSetTool70(k);
+  if (CV && ["corner", "area", "dsym", "cdim", "adim", "rdim"].includes(k)) { cvHint(T("tH_" + (k === "corner" ? "c_" + cvCMode() : k))); clearTimeout(cvSetTool.h); }
+  return r;
+};
+function cvRailFly(b) {
+  const g = b.dataset.rg; if (!g) return;
+  const el = popover(b, `<div class="rgfly">${CV_RG[g].map((k) => { const ent = CV_SKRAIL.find((x) => x[0] === k) || [k, k]; return `<button type="button" data-rgk="${k}" aria-pressed="${CV.tool === k}"><span>${CV_SKIC[k] || ""}</span><b>${esc(T(ent[1]))}</b></button>`; }).join("")}</div>`, "rgflypop");
+  if (el) el.addEventListener("click", (e) => { const x = e.target.closest("[data-rgk]"); if (!x) return; closePop(); cvSetTool(x.dataset.rgk); });
+}
+function cvRailMenu(b) {
+  const min = lsGet("babak-sa-railmin", false) === true, end = lsGet("babak-sa-railend", false) === true;
+  const el = popover(b, `<div class="rgfly"><button type="button" data-rm="min"><span>${min ? "»" : "«"}</span><b>${esc(T(min ? "tRailOpen" : "tRailMin"))}</b></button><button type="button" data-rm="side"><span>⇄</span><b>${esc(T("tRailSide"))}</b></button></div>`, "rminpop");
+  if (el) el.addEventListener("click", (e) => { const x = e.target.closest("[data-rm]"); if (!x) return; closePop(); if (x.dataset.rm === "min") lsSet("babak-sa-railmin", !min); else lsSet("babak-sa-railend", !end); cvRail(); });
+}
+let cvRlp = null;
+document.addEventListener("pointerdown", (e) => {
+  const b = e.target.closest && e.target.closest(".cvrail button[data-cvt]"); if (!b) return;
+  clearTimeout(cvRlp && cvRlp.t); const x0 = e.clientX, y0 = e.clientY;
+  cvRlp = { b, x0, y0, fired: false, t: setTimeout(() => { cvRlp.fired = true; if (b.dataset.rg) cvRailFly(b); else { cvHint(b.title); clearTimeout(cvSetTool.h); cvSetTool.h = setTimeout(() => cvHint(""), 1800); } }, 480) };
+}, true);
+document.addEventListener("pointermove", (e) => { if (cvRlp && !cvRlp.fired && Math.hypot(e.clientX - cvRlp.x0, e.clientY - cvRlp.y0) > 10) clearTimeout(cvRlp.t); }, true);
+document.addEventListener("pointerup", () => { if (cvRlp && !cvRlp.fired) clearTimeout(cvRlp.t); }, true);
+document.addEventListener("pointercancel", () => { if (cvRlp) clearTimeout(cvRlp.t); }, true);
+document.addEventListener("click", (e) => {
+  const m = e.target.closest && e.target.closest(".cvrail [data-rmin]"); if (m) { e.preventDefault(); e.stopPropagation(); return cvRailMenu(m); }
+  const b = e.target.closest && e.target.closest(".cvrail button[data-cvt]"); if (!b) return;
+  if (cvRlp && cvRlp.b === b && cvRlp.fired) { e.preventDefault(); e.stopPropagation(); cvRlp = null; return; }
+  if (b.dataset.rg && CV && b.dataset.cvt === CV.tool) { e.preventDefault(); e.stopPropagation(); return cvRailFly(b); }
+}, true);
+
+/* ---- 4–7. the options strip while drawing ---- */
+const CV_OPT_TOOLS = ["line", "dwall", "srect", "rrect", "circle", "poly", "arc", "carc", "arc3", "pie", "move", "rotate", "scale", "offset", "tape", "sdim", "cdim", "adim", "rdim", "corner", "area", "dsym"];
+const CV_LOCK_TOOLS = ["line", "dwall", "move", "tape", "sdim", "arc", "srect"];
+const CV_PAD_TOOLS = ["line", "dwall", "srect", "circle", "poly", "arc", "move", "rotate", "scale", "offset"];
+const CV_SNAPS = [["end", "●", "tSnEnd"], ["mid", "◐", "tSnMid"], ["int", "✕", "tSnInt"], ["cen", "⊙", "tSnCen"], ["grid", "#", "tSnGrid"]];
+let CV_SNAPOFF = new Set(Array.isArray(lsGet("babak-sa-snapoff", [])) ? lsGet("babak-sa-snapoff", []) : []);
+const cvCMode = () => lsGet("babak-sa-cmode", "trim");
+const cvDwTh = () => +lsGet("babak-sa-dwth", 175) || 175;
+const cvDwAl = () => lsGet("babak-sa-dwal", "c");
+function cvOptsRender() {
+  const st = $("#cvStage"); if (!st || !CV) return;
+  let el = $("#cvOpts"); if (!el) { el = document.createElement("div"); el.id = "cvOpts"; el.className = "cvopts hide"; st.append(el); }
+  const k = CV.tool; if (!cvSkOn() || !CV_OPT_TOOLS.includes(k) || CV.ro) { el.classList.add("hide"); el.innerHTML = ""; return; }
+  const B = (a, label, on, title) => `<button type="button" data-cvo="${a}" aria-pressed="${!!on}"${title ? ` title="${esc(title)}"` : ""}>${label}</button>`, sep = `<span class="sep"></span>`;
+  let h = "";
+  if (k === "dwall") h += `<span class="lb">${esc(T("tThick"))}</span>` + [115, 175, 240, 365].map((t) => B("th:" + t, num(t), cvDwTh() === t)).join("") + B("th:x", ![115, 175, 240, 365].includes(cvDwTh()) ? num(cvDwTh()) + " ✎" : "✎", ![115, 175, 240, 365].includes(cvDwTh()), T("tThickOwn")) + `<span class="u">mm</span>` + sep
+    + [["c", "tAlC", "═"], ["l", "tAlL", "⫠"], ["r", "tAlR", "⫟"]].map(([a, l, i]) => B("al:" + a, i + " " + esc(T(l)), cvDwAl() === a)).join("") + sep;
+  if (k === "corner") h += [["trim", "✂︎", "tCTrim"], ["ext", "⟼", "tCExt"], ["fil", "◜", "tCFil"], ["cha", "◺", "tCCha"]].map(([m, i, l]) => B("cm:" + m, i + " " + esc(T(l)), cvCMode() === m)).join("")
+    + (cvCMode() === "fil" ? sep + `<span class="lb">R</span>` + B("crad", num(+lsGet("babak-sa-crad", 100) || 100) + " mm ✎", false) : cvCMode() === "cha" ? sep + B("ccha", num(+lsGet("babak-sa-ccha", 100) || 100) + " mm ✎", false) : "");
+  if (k === "area") h += `<span class="lb">${esc(T("tRoomH"))}</span>` + B("roomh", num((+lsGet("babak-sa-roomh", 2.5) || 2.5).toFixed(2)) + " m ✎", false);
+  if (k === "cdim" && CV.dt && CV.dt.chain) h += B("chainend", "✓ " + esc(T("tChainEnd")), false);
+  if (["move", "rotate"].includes(k)) h += B("ncust", "⧉ ×… " + esc(T("tCopyN")), false);
+  if (CV_PAD_TOOLS.includes(k)) h += (h && !h.endsWith(sep) ? sep : "") + B("pad", "⌨ " + esc(T("tExact")), false, T("tExactT")) + sep;
+  if (CV_LOCK_TOOLS.includes(k)) h += `<span class="lb">🔒</span>` + [["lx", "—", "tLx"], ["ly", "|", "tLy"], ["l45", "↗", "tL45"], ["l135", "↖", "tL135"], ["par", "∥", "tLpar"], ["perp", "⟂", "tLperp"]].map(([a, i, l]) => B(a, i, CV.lockKind === a || (CV.pickDir === a), T(l))).join("") + sep;
+  h += `<span class="lb">🧲</span>` + CV_SNAPS.map(([a, i, l]) => B("sn:" + a, i, !CV_SNAPOFF.has(a), T(l))).join("");
+  el.innerHTML = h.replace(new RegExp(sep + "$"), ""); el.classList.remove("hide");
+}
+function cvLockVec(kind) {
+  const A = cvAxA(); const d = { lx: A, ly: A + Math.PI / 2, l45: A - Math.PI / 4, l135: A - (3 * Math.PI) / 4 }[kind];
+  return [Math.cos(d), Math.sin(d)];
+}
+function cvLockApply() { if (CV && CV.sk) CV.sk.lock = CV.lockDir ? CV.lockDir.slice() : null; }
+async function cvAskNum(title, cur, unit, min, max) {
+  const r = await formBox(title, `<div class="field"><label>${esc(unit)}</label><input name="v" inputmode="decimal" value="${esc(String(cur))}" dir="ltr"></div>`, (f) => { const v = parseFloat(String(f.v.value).replace(",", ".").replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))); return isFinite(v) && v >= min && v <= max ? v : T("tBadNum"); }, null, (el) => setTimeout(() => { const i = el.querySelector("input"); i.focus(); i.select(); }, 50));
+  return r == null ? null : r;
+}
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest && e.target.closest("[data-cvo]"); if (!b || !CV) return;
+  e.preventDefault(); e.stopPropagation();
+  const a = b.dataset.cvo;
+  if (a === "pad") { if (CV.sk && !$("#cvVcb").classList.contains("hide")) return cvVcbOpen(); return toast(T("tExactFirst")); }
+  if (["lx", "ly", "l45", "l135"].includes(a)) { if (CV.lockKind === a) { CV.lockKind = null; CV.lockDir = null; } else { CV.lockKind = a; CV.lockDir = cvLockVec(a); } CV.pickDir = null; cvLockApply(); return cvOptsRender(); }
+  if (a === "par" || a === "perp") { if (CV.lockKind === a || CV.pickDir === a) { CV.lockKind = null; CV.lockDir = null; CV.pickDir = null; cvLockApply(); } else { CV.pickDir = a; cvHint(T("tPickLine")); } return cvOptsRender(); }
+  if (a.startsWith("sn:")) { const k = a.slice(3); CV_SNAPOFF.has(k) ? CV_SNAPOFF.delete(k) : CV_SNAPOFF.add(k); lsSet("babak-sa-snapoff", [...CV_SNAPOFF]); cvGeoRev = -1; return cvOptsRender(); }
+  if (a.startsWith("th:")) { let v = a.slice(3); if (v === "x") { v = await cvAskNum("🧱 " + T("tThickOwn"), cvDwTh(), "mm", 10, 2000); if (v == null) return; } lsSet("babak-sa-dwth", +v); return cvOptsRender(); }
+  if (a.startsWith("al:")) { lsSet("babak-sa-dwal", a.slice(3)); return cvOptsRender(); }
+  if (a.startsWith("cm:")) { lsSet("babak-sa-cmode", a.slice(3)); CV.dt = null; cvHint(T("tH_c_" + a.slice(3))); return cvOptsRender(); }
+  if (a === "crad") { const v = await cvAskNum("◜ " + T("tCFil"), +lsGet("babak-sa-crad", 100) || 100, "R (mm)", 1, 100000); if (v != null) lsSet("babak-sa-crad", v); return cvOptsRender(); }
+  if (a === "ccha") { const v = await cvAskNum("◺ " + T("tCCha"), +lsGet("babak-sa-ccha", 100) || 100, "mm", 1, 100000); if (v != null) lsSet("babak-sa-ccha", v); return cvOptsRender(); }
+  if (a === "roomh") { const v = await cvAskNum("m² " + T("tRoomH"), +lsGet("babak-sa-roomh", 2.5) || 2.5, "m", 0.5, 30); if (v != null) lsSet("babak-sa-roomh", v); return cvOptsRender(); }
+  if (a === "ncust") { const v = await cvAskNum("⧉ " + T("tCopyN"), +(lsGet("babak-sa-skn", 1)) || 1, "×", 1, 200); if (v == null) return; lsSet("babak-sa-skn", Math.round(v)); lsSet("babak-sa-skcopy", true); return cvRail(); }
+  if (a === "chainend") { CV.dt = null; cvSkLive(""); cvHint(T("tH_cdim")); return cvOptsRender(); }
+}, true);
+/* snapping: switch kinds off */
+const cvGeo70 = cvGeo;
+cvGeo = function (skip) {
+  if (!CV || !CV.d || !cvLyAny()) return cvGeo70(skip);
+  const all = CV.d.items; CV.d.items = all.filter((x) => !cvLyHidden(x));
+  try { return cvGeo70(skip); } finally { CV.d.items = all; }
+};
+/* direction lock and "parallel / perpendicular to a line you tap" */
+const cvDown70 = cvDown;
+cvDown = function (e) {
+  if (CV && CV.pickDir && CV.ptr && CV.ptr.size === 0 && !(e.target.closest && e.target.closest("button,input,.cvrail,.cvstyle,.cvopts,.cvzoom,.cvvcb"))) {
+    e.preventDefault(); const p = cvWorld(e), tol = (e.pointerType === "touch" ? 22 : 12) / CV.view.z;
+    let best = null; for (const s of cvGeo().segs) { const d = cvSegD(p, s[0], s[1]); if (d < tol && (!best || d < best.d)) best = { s, d }; }
+    if (!best) { cvHint(T("tPickLine")); return; }
+    const L = cvLen(best.s[0], best.s[1]) || 1; let u = [(best.s[1][0] - best.s[0][0]) / L, (best.s[1][1] - best.s[0][1]) / L]; if (CV.pickDir === "perp") u = [-u[1], u[0]];
+    CV.lockKind = CV.pickDir; CV.lockDir = u; CV.pickDir = null; cvLockApply(); cvHint(""); toast("🔒 " + T(CV.lockKind === "par" ? "tLpar" : "tLperp")); return cvOptsRender();
+  }
+  return cvDown70(e);
+};
+
+/* ---- 8. double-line walls (drawn with the line tool's snapping, typed lengths and locks) ---- */
+const cvSkDown70 = cvSkDown;
+cvSkDown = function (e, p) {
+  if (CV.tool === "dwall") { CV.tool = "line"; try { cvSkDown70(e, p); } finally { CV.tool = "dwall"; } if (CV.sk && CV.sk.tool === "line") CV.sk.dw = true; }
+  else cvSkDown70(e, p);
+  if (CV.sk && CV.lockDir && !CV.sk.lock) cvLockApply();
+};
+const cvSkUp70 = cvSkUp;
+cvSkUp = function (e, p, g) { if (CV.tool !== "dwall") return cvSkUp70(e, p, g); CV.tool = "line"; try { return cvSkUp70(e, p, g); } finally { if (CV) CV.tool = "dwall"; } };
+const cvLineTo70 = cvLineTo;
+cvLineTo = function (b) { const sk = CV.sk; const r = cvLineTo70(b); const it = sk && sk.dw && sk.item && cvById(sk.item.id); if (it && !it.dw) { it.dw = cvDwTh() * cvK(); it.dwa = cvDwAl(); cvDraw(); } return r; };
+const cvSkEnd70 = cvSkEnd;
+cvSkEnd = function (cancel) { const sk = CV && CV.sk; const r = cvSkEnd70(cancel); if (sk && sk.dw && sk.item) cvDwFinish(sk.item.id); return r; };
+function cvDwSides(x) {
+  const t = x.dw, a = x.dwa || "c", [d1, d2] = a === "l" ? [0, t] : a === "r" ? [-t, 0] : [-t / 2, t / 2], cl = !!x.closed && x.pts.length > 2;
+  const A = d1 ? cvOffPoly(x.pts, cl, d1) : x.pts.map((q) => q.slice()), B = d2 ? cvOffPoly(x.pts, cl, d2) : x.pts.map((q) => q.slice());
+  return cl ? [A, B] : [[...A, ...B.slice().reverse()]];
+}
+function cvDwFinish(id) {
+  const x = cvById(id); if (!x || !x.dw || !x.pts || x.pts.length < 2) return;
+  const base = { t: "pen", k: "sharp", c: x.c, sw: x.sw, ...(x.dash ? { dash: x.dash } : {}), ly: x.ly }, gp = x.closed ? ["g" + uid().slice(0, 8)] : null;
+  const out = cvDwSides(x).map((pts) => ({ ...base, id: uid(), pts, closed: true, ...(gp ? { gp: gp.slice() } : {}) }));
+  const i = CV.d.items.indexOf(x); CV.d.items.splice(i, 1, ...out); cvSave(); cvDraw();
+}
+
+/* ---- 13. layers ---- */
+const CV_LY = [["plan", "🏠", "tLyPlan"], ["dim", "📏", "tLyDim"], ["elec", "⚡", "tLyElec"], ["water", "💧", "tLyWater"], ["note", "📝", "tLyNote"]];
+const CV_SYM_ELEC = ["outlet", "outlet2", "switch", "light", "fuse", "meter", "tv", "net", "ac"], CV_SYM_WATER = ["cold", "hot", "drain", "gas", "heater", "vent"];
+function cvLyDerive(x, dflt) {
+  if (x.t === "dim" || x.t === "guide") return "dim";
+  if (x.t === "sym") return CV_SYM_ELEC.includes(x.k) ? "elec" : CV_SYM_WATER.includes(x.k) ? "water" : "plan";
+  if (["text", "note", "idea", "link", "img", "pin"].includes(x.t)) return "note";
+  return dflt || "plan";
+}
+const cvLyOf = (x) => x.ly || cvLyDerive(x, "plan");
+const cvLyAny = () => !!(CV && CV.d && CV.d.lyr && Object.values(CV.d.lyr).some((v) => v && (v.h || v.l)));
+const cvLyHidden = (x) => !!(CV && CV.d && CV.d.lyr && (CV.d.lyr[cvLyOf(x)] || {}).h);
+const cvLyLocked = (x) => !!(CV && CV.d && CV.d.lyr && ((CV.d.lyr[cvLyOf(x)] || {}).h || (CV.d.lyr[cvLyOf(x)] || {}).l));
+const cvSave70 = cvSave;
+cvSave = function () { try { if (CV && CV.d && cvSkOn()) for (const x of CV.d.items) if (!x.ly) x.ly = cvLyDerive(x, CV.d.lcur || "plan"); } catch {} return cvSave70(); };
+const renderCanvas70 = renderCanvas;
+renderCanvas = function (n) { const r = renderCanvas70(n); try { if (CV && CV.d && !CV.d.plan && !CV.d.survey) for (const x of CV.d.items) if (!x.ly) x.ly = cvLyDerive(x, "plan"); } catch {} return r; };
+const cvItemSvg70 = cvItemSvg;
+cvItemSvg = function (x, opt = {}) {
+  if (x && x.id && x.id !== "_" && cvLyHidden(x)) return "";
+  if (x && x.t === "pen" && x.dw && x.pts && x.pts.length > 1) return cvDwSides(x).map((pts) => cvItemSvg70({ ...x, dw: 0, pts, closed: true }, opt)).join("");
+  return cvItemSvg70(x, opt);
+};
+const cvHit70 = cvHit;
+cvHit = function (p, tol) {
+  if (!CV || !CV.d || !cvLyAny()) return cvHit70(p, tol);
+  const all = CV.d.items; CV.d.items = all.filter((x) => !cvLyLocked(x));
+  try { return cvHit70(p, tol); } finally { CV.d.items = all; }
+};
+const cvSelect70 = cvSelect;
+cvSelect = function (ids) { if (cvLyAny()) ids = (ids || []).filter((id) => { const x = cvById(id); return x && !cvLyLocked(x); }); return cvSelect70(ids); };
+function cvLayersPop(anchor) {
+  if (!CV) return; const lyr = CV.d.lyr || {}, cur = CV.d.lcur || "plan", sel = cvIds();
+  const cnt = (k) => CV.d.items.filter((x) => cvLyOf(x) === k).length;
+  const html = `<div class="lypop"><h4>${esc(T("tLayers"))}</h4>${CV_LY.map(([k, i, l]) => `<div class="lyrow ${cur === k ? "cur" : ""}">
+      <button type="button" class="lyname" data-ly="cur:${k}" aria-pressed="${cur === k}"><span class="r">${cur === k ? "◉" : "○"}</span>${i} ${esc(T(l))} <small>${num(cnt(k))}</small></button>
+      <button type="button" data-ly="h:${k}" aria-pressed="${!(lyr[k] || {}).h}" title="${esc(T("tLyShow"))}">${(lyr[k] || {}).h ? "🙈" : "👁"}</button>
+      <button type="button" data-ly="l:${k}" aria-pressed="${!!(lyr[k] || {}).l}" title="${esc(T("tLyLock"))}">${(lyr[k] || {}).l ? "🔒" : "🔓"}</button>
+      ${sel.length ? `<button type="button" data-ly="mv:${k}" title="${esc(T("tLyMove"))}">⇢</button>` : ""}</div>`).join("")}
+    <p class="lyhint">${esc(T(sel.length ? "tLyHintSel" : "tLyHint"))}</p></div>`;
+  const el = popover(anchor || $("#cvRail"), html, "lypop"); if (!el) return;
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-ly]"); if (!b) return; const [a, k] = b.dataset.ly.split(":");
+    CV.d.lyr = CV.d.lyr || {}; const L = (CV.d.lyr[k] = CV.d.lyr[k] || {});
+    if (a === "cur") { CV.d.lcur = k; if (L.h) L.h = false; if (L.l) L.l = false; }
+    if (a === "h") L.h = !L.h;
+    if (a === "l") L.l = !L.l;
+    if (a === "mv") { cvPush(); for (const id of cvIds()) { const x = cvById(id); if (x) x.ly = k; } toast(T("tLyMoved", { l: T(CV_LY.find((q) => q[0] === k)[2]) })); }
+    if (a === "h" || a === "l") { const ids = cvIds().filter((id) => { const x = cvById(id); return x && !cvLyLocked(x); }); CV.sel = null; CV.ms = null; if (ids.length) cvSelect70(ids); }
+    cvGeoRev = -1; cvSave(); cvDraw(); closePop(); cvLayersPop(anchor);
+  });
+}
+
+/* ---- tap tools: corners, m², symbols, chain / angle / radius dimensions ---- */
+const cvPlace70 = cvPlace;
+cvPlace = async function (tool, p) {
+  if (!cvSkOn()) return cvPlace70(tool, p);
+  if (tool === "corner") return cvCorner(p);
+  if (tool === "area") return cvAreaTap(p);
+  if (tool === "dsym") return cvDsym(p);
+  if (tool === "cdim" || tool === "adim" || tool === "rdim") return cvDimTap(tool, p);
+  return cvPlace70(tool, p);
+};
+const cvSnapTap = (p) => { try { const inf = cvInfer(p, { touch: true }); return inf && inf.p ? inf.p.slice() : p; } catch { return p; } };
+
+/* 11. corners: trim, extend, round, bevel */
+function cvCorner(p) {
+  const m = cvCMode(), z = CV.view.z, tol = 18 / z;
+  if (m === "trim") { const g = cvTrimAt(p, tol); if (g) cvGapOffer(g); return; }
+  if (m === "ext") return cvExtend(p, tol * 1.3);
+  return cvFillet(p, tol * 1.3, m === "cha");
+}
+function cvPenEnds(p, tol) {
+  const out = [];
+  for (const x of CV.d.items) { if (x.t !== "pen" || !x.pts || x.pts.length < 2 || cvLyLocked(x)) continue;
+    x.pts.forEach((q, i) => { if (cvLen(q, p) < tol) out.push({ x, i, d: cvLen(q, p) }); }); }
+  return out.sort((a, b) => a.d - b.d);
+}
+function cvExtend(p, tol) {
+  const c = cvPenEnds(p, tol).find((h) => !h.x.closed && (h.i === 0 || h.i === h.x.pts.length - 1)); if (!c) return cvHint(T("tH_c_ext"));
+  const pts = c.x.pts, E = pts[c.i], N = pts[c.i === 0 ? 1 : c.i - 1], L = cvLen(N, E) || 1, u = [(E[0] - N[0]) / L, (E[1] - N[1]) / L];
+  let best = null;
+  for (const s of cvGeo().segs) {
+    const a = s[0], b = s[1], r = [b[0] - a[0], b[1] - a[1]], den = u[0] * r[1] - u[1] * r[0]; if (Math.abs(den) < 1e-9) continue;
+    const t = ((a[0] - E[0]) * r[1] - (a[1] - E[1]) * r[0]) / den, w = ((a[0] - E[0]) * u[1] - (a[1] - E[1]) * u[0]) / den;
+    if (t > 1e-3 && w >= -1e-6 && w <= 1 + 1e-6 && (!best || t < best)) best = t;
+  }
+  if (!best) return toast(T("tExtNone"));
+  cvPush(); pts[c.i] = [cvR(E[0] + u[0] * best, 100), cvR(E[1] + u[1] * best, 100)]; delete c.x.dims; cvSave(); cvDraw();
+}
+function cvFillet(p, tol, bevel) {
+  const hs = cvPenEnds(p, tol); if (!hs.length) return cvHint(T(bevel ? "tH_c_cha" : "tH_c_fil"));
+  const C = hs[0].x.pts[hs[0].i].slice(), at = hs.filter((h) => cvLen(h.x.pts[h.i], C) < 1e-3);
+  let mode = null, A = null, Bn = null;
+  const inner = at.find((h) => h.x.closed ? h.x.pts.length > 2 : h.i > 0 && h.i < h.x.pts.length - 1);
+  if (inner) { const n = inner.x.pts.length, i = inner.i; mode = { one: inner.x, i }; A = inner.x.pts[(i - 1 + n) % n]; Bn = inner.x.pts[(i + 1) % n]; }
+  else { const ends = at.filter((h) => !h.x.closed); if (ends.length < 2 || ends[0].x === ends[1].x) return toast(T("tCornerNone"));
+    const e1 = ends[0], e2 = ends[1]; mode = { e1, e2 }; A = e1.x.pts[e1.i === 0 ? 1 : e1.i - 1]; Bn = e2.x.pts[e2.i === 0 ? 1 : e2.i - 1]; }
+  const l1 = cvLen(C, A), l2 = cvLen(C, Bn); if (!l1 || !l2) return;
+  const u1 = [(A[0] - C[0]) / l1, (A[1] - C[1]) / l1], u2 = [(Bn[0] - C[0]) / l2, (Bn[1] - C[1]) / l2], th = Math.acos(Math.max(-1, Math.min(1, u1[0] * u2[0] + u1[1] * u2[1])));
+  if (th < 0.02 || th > Math.PI - 0.02) return toast(T("tCornerNone"));
+  const K = cvK(), R = (+lsGet(bevel ? "babak-sa-ccha" : "babak-sa-crad", 100) || 100) * K, d = bevel ? R : R / Math.tan(th / 2);
+  if (d >= l1 - 1e-6 || d >= l2 - 1e-6) return toast(T("tCornerBig"));
+  const P1 = [C[0] + u1[0] * d, C[1] + u1[1] * d], P2 = [C[0] + u2[0] * d, C[1] + u2[1] * d];
+  let seq = [P1, P2];
+  if (!bevel) { const bi = [u1[0] + u2[0], u1[1] + u2[1]], bl = Math.hypot(bi[0], bi[1]) || 1, cd = R / Math.sin(th / 2), O = [C[0] + (bi[0] / bl) * cd, C[1] + (bi[1] / bl) * cd];
+    const a1 = Math.atan2(P1[1] - O[1], P1[0] - O[0]); let da = Math.atan2(P2[1] - O[1], P2[0] - O[0]) - a1; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+    const N = Math.max(6, Math.ceil(Math.abs(da) / (Math.PI / 24))); seq = []; for (let k = 0; k <= N; k++) { const a = a1 + (da * k) / N; seq.push([O[0] + R * Math.cos(a), O[1] + R * Math.sin(a)]); } }
+  seq = seq.map((q) => [cvR(q[0], 100), cvR(q[1], 100)]);
+  cvPush();
+  if (mode.one) { const x = mode.one; x.pts.splice(mode.i, 1, ...seq); delete x.dims; }
+  else { const { e1, e2 } = mode; e1.x.pts[e1.i] = seq[0].slice(); e2.x.pts[e2.i] = seq[seq.length - 1].slice(); delete e1.x.dims; delete e2.x.dims;
+    CV.d.items.push({ id: uid(), t: "pen", k: "sharp", pts: seq, c: e1.x.c, sw: e1.x.sw, ly: e1.x.ly }); }
+  cvSave(); cvDraw();
+}
+
+/* 10. m²: floor area, perimeter and wall area of the room you tap */
+async function cvAreaTap(p) {
+  let best = null;
+  for (const x of CV.d.items) {
+    if (cvLyHidden(x)) continue;
+    const pts = x.t === "pen" && x.closed && x.pts && x.pts.length > 2 ? x.pts : x.t === "rect" ? cvRectCorners(x) : x.t === "ellipse" ? cvPolys(x)[0].pts : null;
+    if (pts && cvInPoly(p, pts)) { const a = cvArea(pts); if (!best || a < best.a) best = { pts, a, exact: true }; }
+  }
+  if (!best) {
+    const u0 = CV.undo.length, h = cvHatchAt(p, "diag"); if (!h) return;
+    CV.d.items = CV.d.items.filter((q) => q !== h); if (CV.undo.length > u0) CV.undo.pop(); cvSave(); cvDraw();
+    best = { pts: h.pts, a: cvArea(h.pts), exact: false };
+  }
+  const K = cvK(), pts = best.pts, m2 = best.a / K / K / 1e6, ring = [...pts, pts[0]];
+  let per = 0; for (let i = 1; i < ring.length; i++) per += cvLen(ring[i - 1], ring[i]); per = per / K / 1000;
+  const near = (q, tol) => { for (let i = 1; i < ring.length; i++) if (cvSegD(q, ring[i - 1], ring[i]) < tol) return true; return false; };
+  const ops = CV.d.items.filter((x) => (x.t === "door" || x.t === "window") && near([x.x, x.y], (x.th || 18) / 2 + 60 * K));
+  const H = +lsGet("babak-sa-roomh", 2.5) || 2.5, opA = ops.reduce((s, x) => s + ((x.w || 0) / K / 1000) * (x.t === "door" ? 2.0 : 1.25), 0), wall = Math.max(0, per * H - opA);
+  const ap = best.exact ? "" : "≈ ", f2 = (v) => num(v.toFixed(2));
+  const r = await formBox("m² " + T("tArea"), `<div class="arres"><div><span>${esc(T("tAFloor"))}</span><b>${ap}${f2(m2)} m²</b></div><div><span>${esc(T("tAPer"))}</span><b>${ap}${f2(per)} m</b></div><div><span>${esc(T("tAWall"))} (${esc(T("tRoomH"))} ${f2(H)} m${ops.length ? " − " + num(ops.length) + " " + esc(T("tAOps")) : ""})</span><b>${ap}${f2(wall)} m²</b></div></div>
+    <div class="field"><label>${esc(T("tRoomName"))}</label><input name="nm" placeholder="${esc(T("tRoomPh"))}"></div>${best.exact ? "" : `<p class="msg">${esc(T("tApprox"))}</p>`}`,
+    (f) => ({ nm: f.nm.value.trim() }), T("tAddLabel"));
+  if (!r) return;
+  const c = cvCentroid(pts), fs = Math.max(10, Math.min(30, Math.sqrt(best.a) / 9));
+  const s = [r.nm, `${ap}${f2(m2)} m²`, `${T("tAPerS")} ${ap}${f2(per)} m`, `${T("tAWallS")} ${ap}${f2(wall)} m²`].filter(Boolean).join("\n");
+  const x = cvAdd({ t: "text", x: cvR(c[0] - fs * 3, 10), y: cvR(c[1] - fs, 10), s, c: cvDimC(), fs: cvR(fs, 10), ly: "note" }, false);
+  return x;
+}
+
+/* 9. doors, windows, outlets, pipes and sanitary pieces, at real size */
+const CV_DS_OPS = [["door", 760], ["door", 885], ["door", 1010], ["window", 600], ["window", 1010], ["window", 1260], ["window", 1510]];
+const CV_DS_FURN = ["wc", "sink", "shower", "bath", "washer", "kitchen", "fridge"];
+async function cvDsym(p) {
+  const opBtn = ([t, w]) => `<button type="button" class="plusbtn" data-ds="${t}:${w}"><svg viewBox="-60 -70 120 90" width="44" height="40">${t === "door" ? `<rect x="-45" y="-6" width="90" height="12" fill="#fff"/><path d="M-45 0 L-45 -60 A60 60 0 0 1 45 0" fill="none" stroke="#3b3f4a" stroke-width="4"/>` : `<rect x="-50" y="-7" width="100" height="14" fill="#fff" stroke="#3b3f4a" stroke-width="4"/><line x1="-50" y1="0" x2="50" y2="0" stroke="#4f7fe0" stroke-width="4"/>`}</svg><b>${esc(T(t === "door" ? "cvTDoor" : "cvTWin"))} ${num(w)}</b></button>`;
+  const k = await dialog({ title: "🔌 " + T("tDsym"), body: `<h4 class="dsh4">${esc(T("tDsOps"))}</h4><div class="plusgrid cvsyms">${CV_DS_OPS.map(opBtn).join("")}</div>
+    <h4 class="dsh4">⚡ ${esc(T("tLyElec"))} · 💧 ${esc(T("tLyWater"))}</h4><div class="plusgrid cvsyms">${CV_SYMS.map((k) => `<button type="button" class="plusbtn" data-ds="sym:${k}"><svg viewBox="-30 -30 60 60" width="44" height="44">${cvSymSvg(k, 40)}</svg><b>${esc(T("cvS_" + k))}</b></button>`).join("")}</div>
+    <h4 class="dsh4">🚿 ${esc(T("tDsSan"))}</h4><div class="plusgrid cvsyms">${CV_DS_FURN.map((k) => `<button type="button" class="plusbtn" data-ds="furn:${k}"><svg viewBox="-40 -40 80 80" width="44" height="44">${cvFurnSym(k, 60, 60 * CV_FURN[k][1] / CV_FURN[k][0])}</svg><b>${esc(T("cvF_" + k))}</b></button>`).join("")}</div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-ds]"); if (b) close(b.dataset.ds); }) });
+  if (!k) return;
+  const [t, v] = k.split(":"), K = cvK(), q = cvSnapTap(p);
+  const seg = cvNearSeg(q, 40 / CV.view.z);
+  if (t === "door" || t === "window") {
+    const x = { t, x: q[0], y: q[1], w: cvR(+v * K, 100), rot: 0, th: cvR(120 * K, 100), ly: "plan" };
+    if (seg) { x.rot = cvR(seg.ang, 10); let c = seg.q, th = 120 * K; const twin = cvTwinSeg(seg, 600 * K); if (twin) { c = [(seg.q[0] + twin.q[0]) / 2, (seg.q[1] + twin.q[1]) / 2]; th = twin.d + 2 / CV.view.z; } x.x = cvR(c[0], 100); x.y = cvR(c[1], 100); x.th = cvR(th, 100); }
+    return cvAdd(x);
+  }
+  if (t === "sym") { const x = { t: "sym", k: v, x: q[0], y: q[1], rot: seg ? cvR(seg.ang, 10) : 0 }; x.ly = cvLyDerive(x); return cvAdd(x); }
+  if (t === "furn") { const [w, h] = CV_FURN[v]; return cvAdd({ t: "furn", k: v, x: q[0], y: q[1], w: cvR(w * 1000 * K, 100), h: cvR(h * 1000 * K, 100), rot: seg ? cvR(seg.ang, 10) : 0, ly: "plan" }); }
+}
+function cvNearSeg(p, tol) {
+  let best = null;
+  for (const s of cvGeo().segs) { const d = cvSegD(p, s[0], s[1]); if (d < tol && (!best || d < best.d)) best = { s, d }; }
+  if (!best) return null; const [a, b] = best.s;
+  return { a, b, d: best.d, q: cvFoot(p, a, b), ang: (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI };
+}
+function cvTwinSeg(seg, maxD) { // the other face of a double wall
+  const L = cvLen(seg.a, seg.b) || 1, u = [(seg.b[0] - seg.a[0]) / L, (seg.b[1] - seg.a[1]) / L]; let best = null;
+  for (const s of cvGeo().segs) {
+    const l = cvLen(s[0], s[1]) || 1, v = [(s[1][0] - s[0][0]) / l, (s[1][1] - s[0][1]) / l]; if (Math.abs(u[0] * v[1] - u[1] * v[0]) > 0.02) continue;
+    const f = cvFoot(seg.q, s[0], s[1]), d = cvLen(f, seg.q); if (d < 1e-3 || d > maxD || cvSegD(f, s[0], s[1]) > 1e-3) continue;
+    if (!best || d < best.d) best = { q: f, d };
+  }
+  return best;
+}
+
+/* 12. chain, angle and radius dimensions */
+function cvDimMarks(pts) { cvSkLive(pts.map((q) => cvAnchor(q)).join("")); }
+function cvDimTap(tool, p0) {
+  const p = cvSnapTap(p0), K = cvK(), col = cvDimC();
+  if (!CV.dt || CV.dt.tool !== tool) CV.dt = { tool, pts: [] };
+  const dt = CV.dt;
+  if (tool === "cdim") {
+    if (dt.chain) { if (cvLen(p, dt.last) * CV.view.z < 6) { CV.dt = null; cvSkLive(""); cvOptsRender(); return cvHint(T("tH_cdim")); }
+      cvAdd({ t: "dim", k: "mm", x1: dt.last[0], y1: dt.last[1], x2: p[0], y2: p[1], ox: dt.off[0], oy: dt.off[1], c: col, ly: "dim" }, false); dt.last = p; cvDimMarks([p]); return; }
+    dt.pts.push(p); cvDimMarks(dt.pts);
+    if (dt.pts.length === 2) cvHint(T("tH_cdim2"));
+    if (dt.pts.length === 3) { const [a, b, c] = dt.pts, d = cvDimFrom(a, b, c); cvAdd({ t: "dim", k: "mm", x1: a[0], y1: a[1], x2: b[0], y2: b[1], ox: d[0], oy: d[1], c: col, ly: "dim" }, false);
+      CV.dt = { tool, chain: true, last: b, off: d }; cvDimMarks([b]); cvHint(T("tH_cdim3")); cvOptsRender(); }
+    return;
+  }
+  dt.pts.push(p); cvDimMarks(dt.pts);
+  const g = ["g" + uid().slice(0, 8)], fsz = (r) => cvR(Math.max(8, Math.min(18, r / 4)), 10);
+  if (tool === "rdim" && dt.pts.length === 2) {
+    const [c, q] = dt.pts, r = cvLen(c, q); CV.dt = null; cvSkLive(""); if (r * CV.view.z < 4) return;
+    const fs = fsz(r), u = [(q[0] - c[0]) / r, (q[1] - c[1]) / r], ah = Math.min(r * 0.25, fs * 0.9), n = [-u[1], u[0]], tip = q, bk = [q[0] - u[0] * ah, q[1] - u[1] * ah];
+    cvPush();
+    CV.d.items.push({ id: uid(), t: "pen", k: "sharp", pts: [c, q], c: col, sw: 1, gp: g.slice(), ly: "dim" },
+      { id: uid(), t: "pen", k: "sharp", pts: [[bk[0] + n[0] * ah * 0.35, bk[1] + n[1] * ah * 0.35], tip, [bk[0] - n[0] * ah * 0.35, bk[1] - n[1] * ah * 0.35]], c: col, sw: 1, gp: g.slice(), ly: "dim" },
+      { id: uid(), t: "text", x: cvR((c[0] + q[0]) / 2 + n[0] * fs * 1.3 - fs, 10), y: cvR((c[1] + q[1]) / 2 + n[1] * fs * 1.3 - fs / 2, 10), s: "R " + cvMM(r / K), c: col, fs, gp: g.slice(), ly: "dim" });
+    cvSave(); cvDraw(); return cvHint(T("tH_rdim"));
+  }
+  if (tool === "adim" && dt.pts.length === 3) {
+    const [v, a, b] = dt.pts; CV.dt = null; cvSkLive("");
+    const la = cvLen(v, a), lb = cvLen(v, b); if (!la || !lb) return;
+    const a1 = Math.atan2(a[1] - v[1], a[0] - v[0]); let da = Math.atan2(b[1] - v[1], b[0] - v[0]) - a1; while (da > Math.PI) da -= 2 * Math.PI; while (da < -Math.PI) da += 2 * Math.PI;
+    const R = Math.min(la, lb) * 0.55, N = Math.max(8, Math.ceil(Math.abs(da) / (Math.PI / 36))), arc = []; for (let k = 0; k <= N; k++) { const t = a1 + (da * k) / N; arc.push([cvR(v[0] + R * Math.cos(t), 100), cvR(v[1] + R * Math.sin(t), 100)]); }
+    const deg = Math.abs((da * 180) / Math.PI), mid = a1 + da / 2, fs = fsz(R), tp = [v[0] + (R + fs * 0.9) * Math.cos(mid), v[1] + (R + fs * 0.9) * Math.sin(mid)];
+    cvPush();
+    CV.d.items.push({ id: uid(), t: "pen", k: "sharp", pts: arc, c: col, sw: 1, gp: g.slice(), ly: "dim" },
+      { id: uid(), t: "text", x: cvR(tp[0] - fs, 10), y: cvR(tp[1] - fs / 2, 10), s: num(Math.round(deg * 10) / 10) + "°", c: col, fs, gp: g.slice(), ly: "dim" });
+    cvSave(); cvDraw(); return cvHint(T("tH_adim"));
+  }
+  if (tool === "adim") cvHint(T(dt.pts.length === 1 ? "tH_adim2" : "tH_adim3"));
+  if (tool === "rdim") cvHint(T("tH_rdim2"));
+}
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
