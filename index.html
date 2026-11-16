@@ -1714,6 +1714,13 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .setsaved{position:absolute;top:0;inset-inline-end:14px;font-size:13px;font-weight:700;color:#2e9e5b;background:var(--panel);padding:4px 10px;border-radius:10px;opacity:0;transition:opacity .2s;pointer-events:none}.setsaved.on{opacity:1}
 .setdlg .acts{border-top:1px solid var(--line);padding-top:10px}
 @media (max-width:760px){.setwrap{grid-template-columns:1fr;height:auto}.setnav{flex-direction:row;overflow-x:auto;border:0;padding:0 0 6px;border-bottom:1px solid var(--line)}.setnav button{flex:none}.setq{min-width:160px}.dlg.setdlg .dbody{overflow:auto}.setpane{overflow:visible}}
+
+/* r73: Google Drive backups */
+.gbsteps{margin:8px 0 14px;padding-inline-start:4px;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;line-height:1.7}
+.gbsteps li{padding:8px 10px;border:1px solid var(--line);border-radius:12px}
+.gbcopy{display:flex;align-items:center;gap:6px;margin-top:4px}.gbcopy code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:6px 8px;border-radius:8px;background:var(--panel2);font-size:12.5px}.gbcopy .btn{min-width:44px;min-height:40px}
+.gbbody .setcard a.btn{align-self:flex-start;min-height:44px;text-decoration:none}
+.setcard.gbset{flex-direction:column}
 </style>
 
 <div class="app" id="app">
@@ -6650,7 +6657,7 @@ async function accountSyncPanel() {
 }
 
 /* ---------------- sync through your own Google Drive (no Claude, no server): every device keeps a full copy ---------------- */
-const GSI_SRC = "https://accounts.google.com/gsi/client", GD_SCOPE = "https://www.googleapis.com/auth/drive.appdata";
+const GSI_SRC = "https://accounts.google.com/gsi/client", GD_SCOPE = "https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file";
 const GAPI = "https://www.googleapis.com/drive/v3", GUP = "https://www.googleapis.com/upload/drive/v3", GTOKEN = "https://oauth2.googleapis.com/token";
 const GAUTH_KEY = "babak-gauth", GCLIENT_KEY = "babak-gclient";
 const GDS = { tok: "", exp: 0 };
@@ -8389,6 +8396,9 @@ Object.assign(I18N.de, {"tb_proj": "Projekte", "tb_shop": "Einkaufsliste", "pjSh
 Object.assign(I18N.fa, {"setT_gen": "عمومی", "setT_look": "ظاهر", "setT_pen": "نوشتن و قلم", "setT_draft": "نقشه‌کشی", "setT_proj": "پروژه و قیمت‌نامه", "setT_rem": "یادآورها", "setT_data": "داده‌ها و امنیت", "setT_ai": "هوش مصنوعی", "setT_about": "درباره", "setSearch": "جستجو در تنظیمات", "setResetTab": "حالت اول همین بخش", "setResetQ": "تنظیم‌های «{t}» به حالت اول برگردد؟", "setLangHint": "زبان همهٔ نوشته‌های برنامه.", "setMode": "حالت روز و شب", "setModeHint": "«خودکار» از تنظیم خود آیپد پیروی می‌کند. دکمهٔ 🌙 نوار بالا هم همین را عوض می‌کند.", "setTextSize": "اندازهٔ نوشته‌ها", "setAdvanced": "پیشرفته: اندازهٔ کل صفحه (نوشته و تصویر با هم)", "setTbHint": "انتخاب کنید کدام دکمه‌ها روی نوار بالا باشند.", "setPenMode": "قلم و انگشت", "setPenPen": "فقط قلم می‌نویسد", "setPenPenH": "انگشت فقط صفحه را جابه‌جا می‌کند. برای نوشتن با Apple Pencil بهترین است.", "setPenAuto": "خودکار", "setPenAutoH": "قلم می‌نویسد؛ انگشت تایپ می‌کند و جابه‌جا می‌کند.", "setPenFinger": "انگشت هم می‌نویسد", "setPenFingerH": "بدون قلم؛ با انگشت هم می‌شود نوشت و کشید.", "setBeautyLight": "کم", "setBeautyStrong": "زیاد", "setBeautyHint": "خط‌های دست‌نویس را کمی صاف‌تر و تمیزتر می‌کند.", "setPaperHint": "صفحه‌های تازه با این کاغذ شروع می‌شوند.", "setWallTh": "ضخامت دیوار دوخطی (میلی‌متر)", "setOwn": "دلخواه", "setRoomHHint": "برای مساحت دیوار در ابزار m² و قیمت‌نامه.", "setDimC": "رنگ اندازه‌ها", "setSnaps": "چسبیدن هنگام کشیدن", "setCoNone": "هنوز سربرگ ندارید", "setOfNo": "شمارهٔ قیمت‌نامهٔ بعدی", "setOfNoHint": "هر سال از ۰۰۱ شروع می‌شود. در هر قیمت‌نامه می‌شود دستی عوضش کرد.", "setNotifyHint": "وقتی برنامه باز نیست هم یادآور را نشان می‌دهد، اگر مرورگر اجازه بدهد.", "setWhere": "داده‌های شما کجاست", "setPersistYes": "مرورگر قول داده داده‌ها را خودش پاک نکند.", "setPersistNo": "مرورگر برای نگه‌داری دائمی قول نداده؛ پشتیبان منظم مهم است.", "setNotesN": "{n} یادداشت", "setTrash0": "هیچ‌وقت خودکار خالی نشود (امن‌تر)", "setTrashN": "بعد از {d} روز خودکار خالی شود", "setTrashHint": "چیزی که از سطل زباله خالی شود، برای همیشه پاک می‌شود. قبل از هر خالی‌شدن خودکار، یک نسخهٔ ایمنی گرفته می‌شود.", "trashAutoDoneD": "{n} مورد قدیمی‌تر از {d} روز از سطل زباله پاک شد (یک نسخهٔ ایمنی قبلش گرفته شد)", "setAiHint": "اگر هوش مصنوعی را وصل نکنید، بقیهٔ برنامه کاملاً کار می‌کند.", "setCheckUpd": "بررسی نسخهٔ تازه", "setChecking": "در حال بررسی…", "setUpToDate": "این آخرین نسخه است.", "setUpdFail": "بررسی نشد؛ اینترنت را نگاه کنید."});
 Object.assign(I18N.en, {"setT_gen": "General", "setT_look": "Appearance", "setT_pen": "Writing and pen", "setT_draft": "Drawing", "setT_proj": "Projects and quotes", "setT_rem": "Reminders", "setT_data": "Data and safety", "setT_ai": "AI", "setT_about": "About", "setSearch": "Search settings", "setResetTab": "Reset this section", "setResetQ": "Reset the “{t}” settings?", "setLangHint": "The language of everything in the app.", "setMode": "Day and night", "setModeHint": "“Auto” follows the iPad. The 🌙 button in the top bar changes the same thing.", "setTextSize": "Text size", "setAdvanced": "Advanced: size of the whole page (text and pictures)", "setTbHint": "Choose which buttons are on the top bar.", "setPenMode": "Pen and finger", "setPenPen": "Only the pen writes", "setPenPenH": "A finger only moves the page. Best for Apple Pencil.", "setPenAuto": "Automatic", "setPenAutoH": "The pen writes; a finger types and scrolls.", "setPenFinger": "A finger writes too", "setPenFingerH": "No pen needed; a finger can write and draw.", "setBeautyLight": "A little", "setBeautyStrong": "A lot", "setBeautyHint": "Makes handwritten strokes a little smoother and neater.", "setPaperHint": "New pages start with this paper.", "setWallTh": "Double-line wall thickness (mm)", "setOwn": "Own", "setRoomHHint": "Used for wall area in the m² tool and quotes.", "setDimC": "Dimension colour", "setSnaps": "Snapping while drawing", "setCoNone": "No letterhead yet", "setOfNo": "Next quote number", "setOfNoHint": "Starts again at 001 each year. You can change it in each quote.", "setNotifyHint": "Shows reminders even when the app isn't open, if the browser allows it.", "setWhere": "Where your data is", "setPersistYes": "The browser promised not to clear the data by itself.", "setPersistNo": "The browser didn't promise to keep the data; regular backups matter.", "setNotesN": "{n} notes", "setTrash0": "Never empty itself (safer)", "setTrashN": "Empty itself after {d} days", "setTrashHint": "Anything emptied from the trash is gone for good. A safety copy is made before every automatic emptying.", "trashAutoDoneD": "{n} items older than {d} days removed from the trash (a safety copy was made first)", "setAiHint": "Without AI connected, the rest of the app works fully.", "setCheckUpd": "Check for a new version", "setChecking": "Checking…", "setUpToDate": "This is the latest version.", "setUpdFail": "Couldn't check; check the internet."});
 Object.assign(I18N.de, {"setT_gen": "Allgemein", "setT_look": "Aussehen", "setT_pen": "Schreiben und Stift", "setT_draft": "Zeichnen", "setT_proj": "Projekte und Angebote", "setT_rem": "Erinnerungen", "setT_data": "Daten und Sicherheit", "setT_ai": "KI", "setT_about": "Über", "setSearch": "Einstellungen durchsuchen", "setTrash0": "Nie automatisch leeren (sicherer)", "setTrashN": "Nach {d} Tagen automatisch leeren", "setCheckUpd": "Nach neuer Version suchen", "setUpToDate": "Dies ist die neueste Version."});
+Object.assign(I18N.fa, {"gbTitle": "پشتیبان خودکار در گوگل درایو", "gbOn": "روشن کردن", "gbOff": "خاموش کردن پشتیبان خودکار", "gbOffQ": "پشتیبان خودکار در گوگل درایو خاموش شود؟ فایل‌های قبلی در درایو می‌مانند.", "gbManage": "مدیریت", "gbHow": "یک پوشه به نام «Babak Notebook – Backup» در گوگل درایو شما ساخته می‌شود و یک نسخهٔ کامل از همهٔ دفترها (متن، دست‌خط، عکس، PDF، پروژه‌ها و قیمت‌نامه‌ها) خودکار در آن ذخیره می‌شود. برنامه فقط به همین پوشه و فایل‌هایی که خودش ساخته دسترسی دارد، نه به بقیهٔ درایو.", "gbOffS": "خاموش", "gbToday": "امروز", "gbDaysAgo": "{n} روز پیش", "gbNoneYet": "هنوز پشتیبانی گرفته نشده", "gbLastS": "آخرین پشتیبان در درایو: {w} {s}", "gbWorking": "پشتیبان به گوگل درایو می‌رود…", "gbDone": "پشتیبان در گوگل درایو ذخیره شد.", "gbOpen": "باز کردن پوشه در درایو", "gbNeedLogin": "برای ادامهٔ پشتیبان خودکار، یک بار دوباره با Google وارد شوید.", "gbFull": "فضای گوگل درایو پر است.", "gbFail": "پشتیبان به درایو نرسید؛ بعداً خودش دوباره امتحان می‌کند.", "gbSignIn": "ورود با Google", "gbEvery": "چند وقت یک بار", "gbEvOpen": "هر بار که برنامه باز می‌شود (حداکثر هر ۶ ساعت)", "gbEvDay": "روزی یک بار", "gbEvWeek": "هفته‌ای یک بار", "gbKeep": "چند نسخهٔ آخر نگه داشته شود", "gbKeepHint": "نسخه‌های قدیمی‌تر به سطل زبالهٔ درایو می‌روند و گوگل آن‌ها را ۳۰ روز نگه می‌دارد.", "gbNow": "الان پشتیبان بگیر", "gbRestore": "بازگرداندن از درایو", "gbRestoreHint": "یک نسخه را انتخاب کنید. محتوای آن با دفترچه ادغام می‌شود؛ چیزی پاک نمی‌شود و از هر یادداشت نسخهٔ جدیدتر می‌ماند.", "gbNoFiles": "هنوز پشتیبانی در درایو نیست.", "gbAutoHint": "پشتیبان فقط وقتی گرفته می‌شود که برنامه باز است و چیزی عوض شده باشد. اگر چیزی عوض نشده باشد، هفته‌ای یک بار.", "gbTokenOnly": "ورود ساده است و چند ساعت بعد منقضی می‌شود؛ برای پشتیبان کاملاً خودکار، Client secret را هم بگذارید.", "gbKeyTitle": "یک بار: کلید گوگل برای این صفحه", "gbKeyChange": "کلید گوگل", "gbKeyWhy": "گوگل اجازه می‌دهد یک صفحهٔ وب با درایو شما کار کند، فقط اگر یک «کلید» (Client ID) برای همان صفحه داشته باشد. این کلید را یک بار خودتان رایگان می‌سازید؛ حدود ۱۰ دقیقه طول می‌کشد. هر جا دکمهٔ 📋 هست، با آن کپی کنید.", "gbS1": "یک پروژه بسازید: این صفحه را باز کنید، نام «Babak Notebook» را بنویسید و Create را بزنید.", "gbS2": "درایو را فعال کنید: این صفحه را باز کنید و Enable را بزنید.", "gbS3": "معرفی برنامه: این صفحه را باز کنید و Get started را بزنید. App name: Babak Notebook، ایمیل خودتان، Audience: External، دوباره ایمیل خودتان، تیک قبول، Create.", "gbS4": "در همان بخش به Audience بروید و Publish app ← Confirm را بزنید. (بدون این کار، گوگل هر ۷ روز شما را بیرون می‌کند. برای این نوع دسترسی بررسی گوگل لازم نیست.)", "gbS5": "کلید را بسازید: این صفحه را باز کنید. Application type: Web application. زیر Authorized JavaScript origins روی Add URI بزنید و این را بگذارید:", "gbS5b": "(همین نشانی پایین)", "gbS6": "Create را بزنید. Client ID و Client secret را کپی کنید و در دو جای پایین بگذارید.", "gbSecHint": "Client secret فقط روی همین دستگاه ذخیره می‌شود و جایی فرستاده نمی‌شود، جز خود گوگل. با آن پشتیبان کاملاً خودکار می‌شود و لازم نیست هر بار وارد شوید.", "gbBadId": "Client ID باید به .apps.googleusercontent.com تمام شود."});
+Object.assign(I18N.en, {"gbTitle": "Automatic backup to Google Drive", "gbOn": "Turn on", "gbOff": "Turn off automatic backup", "gbOffQ": "Turn off automatic backup to Google Drive? Earlier files stay in Drive.", "gbManage": "Manage", "gbHow": "A folder called “Babak Notebook – Backup” is made in your Google Drive, and a full copy of all notebooks (text, handwriting, pictures, PDFs, projects and quotes) is saved there automatically. The notebook can only reach this folder and the files it made itself, not the rest of your Drive.", "gbOffS": "Off", "gbToday": "today", "gbDaysAgo": "{n} days ago", "gbNoneYet": "No backup yet", "gbLastS": "Last backup in Drive: {w} {s}", "gbWorking": "Backing up to Google Drive…", "gbDone": "Backup saved in Google Drive.", "gbOpen": "Open the folder in Drive", "gbNeedLogin": "Sign in with Google once more to keep the automatic backup going.", "gbFull": "Your Google Drive is full.", "gbFail": "The backup didn't reach Drive; it will try again by itself.", "gbSignIn": "Sign in with Google", "gbEvery": "How often", "gbEvOpen": "Every time the app opens (at most every 6 hours)", "gbEvDay": "Once a day", "gbEvWeek": "Once a week", "gbKeep": "How many recent copies to keep", "gbKeepHint": "Older copies go to the Drive trash, which Google keeps for 30 days.", "gbNow": "Back up now", "gbRestore": "Restore from Drive", "gbRestoreHint": "Pick a copy. It's merged into the notebook; nothing is deleted and the newer version of each note stays.", "gbNoFiles": "No backups in Drive yet.", "gbAutoHint": "Backups are made only while the app is open and something has changed; if nothing changed, once a week.", "gbTokenOnly": "Simple sign-in expires after a few hours; add the Client secret for fully automatic backups.", "gbKeyTitle": "One time: a Google key for this page", "gbKeyChange": "Google key", "gbKeyWhy": "Google lets a web page work with your Drive only if it has a “key” (Client ID) for that page. You make it yourself once, for free; it takes about 10 minutes. Use the 📋 buttons to copy.", "gbS1": "Make a project: open this page, type the name “Babak Notebook” and tap Create.", "gbS2": "Turn on Drive: open this page and tap Enable.", "gbS3": "Introduce the app: open this page and tap Get started. App name: Babak Notebook, your email, Audience: External, your email again, tick to agree, Create.", "gbS4": "In the same section go to Audience and tap Publish app → Confirm. (Otherwise Google signs you out every 7 days. This kind of access needs no review by Google.)", "gbS5": "Make the key: open this page. Application type: Web application. Under Authorized JavaScript origins tap Add URI and put:", "gbS5b": "(the address below)", "gbS6": "Tap Create. Copy the Client ID and Client secret into the two fields below.", "gbSecHint": "The Client secret is stored on this device only and sent nowhere but to Google. With it the backup is fully automatic and you don't need to sign in each time.", "gbBadId": "The Client ID must end with .apps.googleusercontent.com."});
+Object.assign(I18N.de, {"gbTitle": "Automatische Sicherung in Google Drive", "gbOn": "Einschalten", "gbNow": "Jetzt sichern", "gbRestore": "Aus Drive wiederherstellen", "gbOpen": "Ordner in Drive öffnen", "gbManage": "Verwalten", "gbOffS": "Aus"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -16571,6 +16581,211 @@ async function setCheckUpdate(pane) {
     if (m) m.textContent = "✅ " + T("setUpToDate");
   } catch { if (m) m.textContent = T("setUpdFail"); }
 }
+
+/* ---- r73: automatic backups into a folder of your own Google Drive ---- */
+const GB_KEY = "babak-gbackup", GB_FOLDER = "Babak Notebook – Backup";
+const GB_EVERY = { open: 6 * 3600e3, day: 20 * 3600e3, week: 6.5 * 864e5 };
+const gbCfg = () => lsGet(GB_KEY, null) || {};
+const gbSet = (o) => lsSet(GB_KEY, { ...gbCfg(), ...o });
+let gbRunning = false;
+const gbOrigin = () => location.origin;
+function gbStatus() {
+  const c = gbCfg();
+  if (!c.on) return T("gbOffS");
+  if (c.err) return "⚠️ " + c.err;
+  if (!c.last) return T("gbNoneYet");
+  const d = Math.floor((Date.now() - Date.parse(c.last)) / 864e5);
+  return "✅ " + T("gbLastS", { w: d <= 0 ? T("gbToday") : T("gbDaysAgo", { n: num(d) }), s: c.size ? fmtBytes(c.size) : "" });
+}
+function fmtBytes(n) { return n > 1048576 ? num((n / 1048576).toFixed(1)) + " MB" : num(Math.max(1, Math.round(n / 1024))) + " KB"; }
+async function gbFolder() {
+  const c = gbCfg();
+  if (c.folderId) {
+    try { const j = await (await gfetch(`${GAPI}/files/${c.folderId}?fields=id,trashed,webViewLink`)).json(); if (j && j.id && !j.trashed) return j.id; } catch (e) { if (!(e && e.code === "notfound")) throw e; }
+  }
+  const r = await gfetch(`${GAPI}/files?fields=id,webViewLink`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: GB_FOLDER, mimeType: "application/vnd.google-apps.folder", description: "Automatic backups of Babak's Notebook" }) });
+  const f = await r.json(); gbSet({ folderId: f.id, folderUrl: f.webViewLink || "" }); return f.id;
+}
+async function gbUpload(folderId, name, blob) {
+  const init = await gfetch(`${GUP}/files?uploadType=resumable&fields=id,name,size,webViewLink`, { method: "POST", headers: { "content-type": "application/json; charset=UTF-8", "X-Upload-Content-Type": "application/zip", "X-Upload-Content-Length": String(blob.size) }, body: JSON.stringify({ name, parents: [folderId], mimeType: "application/zip" }) });
+  const loc = init.headers.get("Location") || init.headers.get("location");
+  if (!loc) { // the browser hid the upload address: send it in one piece instead
+    const fd = new FormData(); fd.append("metadata", new Blob([JSON.stringify({ name, parents: [folderId], mimeType: "application/zip" })], { type: "application/json" })); fd.append("file", blob);
+    return (await gfetch(`${GUP}/files?uploadType=multipart&fields=id,name,size,webViewLink`, { method: "POST", body: fd })).json();
+  }
+  const r = await fetch(loc, { method: "PUT", headers: { "content-type": "application/zip" }, body: blob });
+  if (!r.ok) throw { code: r.status >= 500 || r.status === 429 ? "gbusy" : "http", message: String(r.status) };
+  return r.json();
+}
+async function gbList(folderId) {
+  const u = new URL(GAPI + "/files");
+  u.searchParams.set("q", `'${folderId}' in parents and trashed = false and name contains 'babak-backup-'`);
+  u.searchParams.set("orderBy", "createdTime desc"); u.searchParams.set("pageSize", "100"); u.searchParams.set("fields", "files(id,name,size,createdTime,webViewLink)");
+  return ((await (await gfetch(u.href)).json()).files || []);
+}
+async function gbTidy(folderId) {
+  try { const keep = +(gbCfg().keep || 10); const old = (await gbList(folderId)).slice(keep);
+    for (const f of old) await gfetch(`${GAPI}/files/${f.id}`, { method: "PATCH", headers: { "content-type": "application/json" }, body: JSON.stringify({ trashed: true }) }).catch(() => {}); } catch {}
+}
+async function gbBackup(quiet = false) {
+  if (gbRunning || S.readOnly) return false;
+  gbRunning = true;
+  const tt = quiet ? null : sayToast("☁️ " + T("gbWorking"));
+  try {
+    captureActive(); flushAll();
+    for (const n of S.notes.values()) if (n.locked && S.unlocked && S.unlocked.has(n.id)) n.vault = await sealWithKey(toPlain(S.unlocked.get(n.id)), S.unlocked.get(n.id).vk);
+    const folderId = await gbFolder();
+    const stamp = new Date().toISOString().slice(0, 16).replace("T", "_").replace(":", "-");
+    const zip = await buildBackupZip(Array.from(S.notes.values()), true, tt ? tt.say : null);
+    const f = await gbUpload(folderId, `babak-backup-${stamp}.babak.zip`, zip);
+    const now = new Date().toISOString();
+    gbSet({ on: true, last: now, size: zip.size, lastUrl: (f && f.webViewLink) || "", err: "", errAt: "" });
+    lsSet("babak-lastbackup", Date.now()); try { renderStatus(); } catch {}
+    await gbTidy(folderId);
+    if (!quiet) toast("☁️ " + T("gbDone"), { actions: gbCfg().folderUrl ? [{ label: T("gbOpen"), run: () => window.open(gbCfg().folderUrl, "_blank", "noopener") }] : [] });
+    return true;
+  } catch (e) {
+    console.warn("drive backup", e);
+    const login = e && (e.code === "login" || e.code === "gauth");
+    const m = login ? T("gbNeedLogin") : e && e.code === "gfull" ? T("gbFull") : (e && e.message) || T("gbFail");
+    gbSet({ err: m, errAt: new Date().toISOString(), needLogin: !!login });
+    if (!quiet || (login && gbNagOk())) toast("☁️ " + m, { kind: "err", sticky: login, actions: [{ label: login ? T("gbSignIn") : T("gbTitle"), run: () => (login ? gbConnect() : gbPanel()) }] });
+    return false;
+  } finally { gbRunning = false; tt && tt.t.remove(); }
+}
+function gbNagOk() { const c = gbCfg(), t = c.nagAt ? Date.parse(c.nagAt) : 0; if (Date.now() - t < 20 * 3600e3) return false; gbSet({ nagAt: new Date().toISOString() }); return true; }
+async function gbAuto() {
+  const c = gbCfg();
+  if (!c.on || !S.loaded || S.readOnly || gbRunning || navigator.onLine === false) return;
+  const last = c.last ? Date.parse(c.last) : 0, every = GB_EVERY[c.every || "day"] || GB_EVERY.day;
+  if (Date.now() - last < every) return;
+  if (c.errAt && Date.now() - Date.parse(c.errAt) < 3600e3) return; // after a failure, wait an hour
+  const newest = Math.max(0, ...Array.from(S.notes.values()).map((n) => Date.parse(n.updatedAt) || 0), +(lsGet("babak-metaat", 0) || 0));
+  if (last && newest <= last && Date.now() - last < 7 * 864e5) return; // nothing changed (still one copy a week)
+  await gbBackup(true);
+}
+(async () => { try { await whenLoaded(); } catch {} setTimeout(gbAuto, 20e3); setInterval(gbAuto, 30 * 60e3); document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") setTimeout(gbAuto, 5e3); }); })();
+
+/* sign in with Google just for backups (the sync stays as it is) */
+async function gbConnect() {
+  let c = await gClientCfg();
+  if (!c) { c = await gbKeyGuide(); if (!c) return; }
+  let flow = null, prepErr = null;
+  const prep = (async () => {
+    try {
+      await loadScriptOnce(GSI_SRC);
+      let ok, no; const done = new Promise((a, b) => { ok = a; no = b; });
+      const useCode = !!c.clientSecret && !lsGet("babak-gtokenonly", false);
+      const fail = (e) => no({ code: "login", message: (e && (e.type || e.error)) || "popup" });
+      const cl = useCode
+        ? google.accounts.oauth2.initCodeClient({ client_id: c.clientId, scope: GD_SCOPE, ux_mode: "popup", callback: (r) => (r.error ? fail(r) : ok({ code: r.code })), error_callback: fail })
+        : google.accounts.oauth2.initTokenClient({ client_id: c.clientId, scope: GD_SCOPE, callback: (r) => (r.error ? fail(r) : ok({ token: r })), error_callback: fail });
+      flow = { go: () => (useCode ? cl.requestCode() : cl.requestAccessToken({ prompt: "" })), done };
+    } catch (e) { prepErr = e; }
+  })();
+  const go = await dialog({ title: "☁️ " + T("gbTitle"), body: `<p class="msg">${esc(T("gbHow"))}</p><button type="button" class="acctcard" data-g="go" id="gbGo" disabled><span class="ai">G</span><span><b>${esc(T("gdsSignIn"))}</b><small id="gbWait">${esc(T("loading"))}</small></span><span class="go">›</span></button>`,
+    actions: [{ label: "🔑 " + T("gbKeyChange"), value: "key" }, { label: T("cancel"), value: null }],
+    onOpen: (el, close) => {
+      prep.then(() => { const b = el.querySelector("#gbGo"), w = el.querySelector("#gbWait"); if (prepErr) { if (w) w.textContent = gdsErr(prepErr); return; } if (b) b.disabled = false; if (w) w.textContent = "Google Drive"; });
+      el.addEventListener("click", (e) => { if (e.target.closest("[data-g=go]") && flow) { flow.go(); close("go"); } });
+    } });
+  if (go === "key") { const k = await gbKeyGuide(); return k ? gbConnect() : null; }
+  if (go !== "go" || !flow) return;
+  const t = toast(T("gdsConnecting"), { sticky: true });
+  try {
+    const res = await flow.done;
+    if (res.code) {
+      try { const j = await gTokenEndpoint({ code: res.code, client_id: c.clientId, client_secret: c.clientSecret, redirect_uri: "postmessage", grant_type: "authorization_code" });
+        gKeep(j); const a = lsGet(GAUTH_KEY, null) || {}; lsSet(GAUTH_KEY, { mode: "code", refresh: j.refresh_token || a.refresh || "" }); }
+      catch (e) { if (e instanceof TypeError) { lsSet("babak-gtokenonly", true); t.remove(); toast(T("gdsAgain"), { kind: "err" }); return; } throw e; }
+    } else { gKeep(res.token); lsSet(GAUTH_KEY, { ...(lsGet(GAUTH_KEY, null) || {}), mode: "token" }); }
+    let email = ""; try { email = (await (await gfetch(GAPI + "/about?fields=user(emailAddress)")).json()).user.emailAddress || ""; } catch {}
+    gbSet({ on: true, email, err: "", errAt: "", needLogin: false, every: gbCfg().every || "day", keep: gbCfg().keep || 10, tokenOnly: !res.code });
+    t.remove();
+    await gbBackup(false);
+  } catch (e) { t.remove(); toast("☁️ " + gdsErr(e), { kind: "err" }); }
+}
+/* one time: the Google key for this page, with the steps in plain words */
+async function gbKeyGuide() {
+  const own = lsGet(GCLIENT_KEY, null) || {}, o = gbOrigin();
+  const step = (n, html) => `<li><b>${num(n)}.</b> ${html}</li>`;
+  const cp = (v) => `<span class="gbcopy"><code dir="ltr">${esc(v)}</code><button type="button" class="btn" data-gbcp="${esc(v)}">📋</button></span>`;
+  const r = await formBox("🔑 " + T("gbKeyTitle"), `<p class="msg">${esc(T("gbKeyWhy"))}</p>
+    <ol class="gbsteps">
+      ${step(1, esc(T("gbS1")) + cp("https://console.cloud.google.com/projectcreate"))}
+      ${step(2, esc(T("gbS2")) + cp("https://console.cloud.google.com/apis/library/drive.googleapis.com"))}
+      ${step(3, esc(T("gbS3")) + cp("https://console.cloud.google.com/auth/overview"))}
+      ${step(4, esc(T("gbS4")))}
+      ${step(5, esc(T("gbS5")) + cp("https://console.cloud.google.com/auth/clients/create") + `<br>${esc(T("gbS5b"))}` + cp(o))}
+      ${step(6, esc(T("gbS6")))}
+    </ol>
+    <div class="field"><label>Client ID</label><input name="cid" dir="ltr" autocomplete="off" value="${esc(own.clientId || "")}" placeholder="…apps.googleusercontent.com"></div>
+    <div class="field"><label>Client secret</label><input name="sec" dir="ltr" autocomplete="off" value="${esc(own.clientSecret || "")}" placeholder="GOCSPX-…"><small class="msg">${esc(T("gbSecHint"))}</small></div>`,
+    (f) => (/\.apps\.googleusercontent\.com$/.test(f.cid.value.trim()) ? { clientId: f.cid.value.trim(), clientSecret: f.sec.value.trim() } : T("gbBadId")), T("save"),
+    (el) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-gbcp]"); if (!b) return; e.preventDefault(); try { navigator.clipboard.writeText(b.dataset.gbcp); toast(T("copied")); } catch {} }));
+  if (!r) return null;
+  lsSet(GCLIENT_KEY, r); lsSet("babak-gtokenonly", false); gcfgP = null;
+  return r;
+}
+/* the panel */
+async function gbPanel() {
+  const draw = (el) => {
+    const c = gbCfg();
+    el.querySelector(".gbbody").innerHTML = `<div class="setcard big"><b>📁 ${esc(GB_FOLDER)}</b><span>${esc(gbStatus())}</span>${c.email ? `<span class="msg">👤 ${esc(c.email)}</span>` : ""}${c.tokenOnly && c.on ? `<span class="msg">${esc(T("gbTokenOnly"))}</span>` : ""}
+      ${c.folderUrl ? `<a class="btn" href="${esc(c.folderUrl)}" target="_blank" rel="noopener">📂 ${esc(T("gbOpen"))}</a>` : ""}</div>
+      ${c.on ? `<div class="field"><label>${esc(T("gbEvery"))}</label><select name="every">${[["open", T("gbEvOpen")], ["day", T("gbEvDay")], ["week", T("gbEvWeek")]].map(([v, l]) => `<option value="${v}" ${(c.every || "day") === v ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></div>
+      <div class="field"><label>${esc(T("gbKeep"))}</label><select name="keep">${[5, 10, 20, 30].map((v) => `<option value="${v}" ${+(c.keep || 10) === v ? "selected" : ""}>${num(v)}</option>`).join("")}</select><small class="msg">${esc(T("gbKeepHint"))}</small></div>
+      <div class="setbtns"><button type="button" class="btn primary" data-gb="now">☁️ ${esc(T("gbNow"))}</button><button type="button" class="btn" data-gb="restore">⤒ ${esc(T("gbRestore"))}</button>${c.needLogin || c.tokenOnly ? `<button type="button" class="btn" data-gb="login">🔑 ${esc(T("gbSignIn"))}</button>` : ""}</div>
+      <p class="msg">${esc(T("gbAutoHint"))}</p>
+      <button type="button" class="btn ghost danger" data-gb="off">${esc(T("gbOff"))}</button>`
+      : `<p class="msg">${esc(T("gbHow"))}</p><button type="button" class="btn primary" data-gb="on">☁️ ${esc(T("gbOn"))}</button>`}`;
+  };
+  return dialog({ title: "☁️ " + T("gbTitle"), body: `<div class="gbbody"></div>`, actions: [{ label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el, close) => {
+      draw(el);
+      el.addEventListener("change", (e) => { const t = e.target; if (t.name === "every") gbSet({ every: t.value }); if (t.name === "keep") gbSet({ keep: +t.value }); toast("✓ " + T("saved")); });
+      el.addEventListener("click", async (e) => {
+        const a = e.target.closest("[data-gb]")?.dataset.gb; if (!a) return;
+        if (a === "on" || a === "login") { close(null); return gbConnect(); }
+        if (a === "now") { await gbBackup(false); return draw(el); }
+        if (a === "restore") { close(null); return gbRestore(); }
+        if (a === "off") { if (await confirmBox(T("gbOffQ"))) { gbSet({ on: false }); draw(el); } }
+      });
+    } });
+}
+async function gbRestore() {
+  const c = gbCfg(); let files = [];
+  const t = sayToast("☁️ " + T("loading"));
+  try { files = await gbList(c.folderId || (await gbFolder())); } catch (e) { t.t.remove(); return toast("☁️ " + ((e && e.code === "login") ? T("gbNeedLogin") : (e && e.message) || T("gbFail")), { kind: "err" }); }
+  t.t.remove();
+  if (!files.length) return toast(T("gbNoFiles"));
+  const id = await dialog({ title: "⤒ " + T("gbRestore"), body: `<p class="msg">${esc(T("gbRestoreHint"))}</p><div class="pjrows">${files.map((f) => `<button type="button" class="pjrow w" data-gbf="${esc(f.id)}"><b>${esc(new Date(f.createdTime).toLocaleString(LOCALE[S.meta.settings.lang] || "de-DE", { dateStyle: "medium", timeStyle: "short" }))}</b><small>${esc(f.size ? fmtBytes(+f.size) : "")}</small></button>`).join("")}</div>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-gbf]"); if (b) close(b.dataset.gbf); }) });
+  if (!id) return;
+  const f = files.find((x) => x.id === id), tt = sayToast("☁️ " + T("loading"));
+  try { const blob = await (await gfetch(`${GAPI}/files/${id}?alt=media`)).blob(); tt.t.remove(); await importAny([new File([blob], f.name, { type: "application/zip" })]); }
+  catch (e) { tt.t.remove(); toast("☁️ " + ((e && e.message) || T("gbFail")), { kind: "err" }); }
+}
+/* in the settings (Data and safety) and in the status light */
+const setTabHtml73 = setTabHtml;
+setTabHtml = function (k) {
+  const h = setTabHtml73(k);
+  if (k !== "data") return h;
+  const c = gbCfg();
+  const card = `<div class="setcard gbset"><b>☁️ ${esc(T("gbTitle"))}</b><span>${esc(gbStatus())}</span><button type="button" class="btn ${c.on ? "" : "primary"}" data-gbopen="1">${esc(c.on ? T("gbManage") : T("gbOn"))}</button></div>`;
+  const i = h.indexOf('<div class="setbtns">'); return i < 0 ? h + card : h.slice(0, i) + card + h.slice(i);
+};
+document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-gbopen]"); if (!b) return; e.preventDefault(); e.stopPropagation(); closePop(); const ov = b.closest(".overlay"); if (ov && ov.querySelector(".setdlg")) ov.querySelector(".acts .primary")?.click(); gbPanel(); }, true);
+const tbStatusPop73 = tbStatusPop;
+tbStatusPop = function (anchor) {
+  tbStatusPop73(anchor);
+  const box = document.querySelector(".tbstpop .tbpop"); if (!box) return;
+  const c = gbCfg(), row = document.createElement("div"); row.className = "tbprow" + (c.err ? " warn" : "");
+  row.innerHTML = `<span>☁️ ${esc(c.on ? gbStatus() : T("gbOffS"))}</span><button type="button" class="btn" data-gbopen="1">${esc(c.on ? T("gbManage") : T("gbOn"))}</button>`;
+  box.children[1] ? box.children[1].after(row) : box.append(row);
+};
+const tbState73 = tbState;
+tbState = function () { const s = tbState73(); const c = gbCfg(); return s === "ok" && c.on && c.needLogin ? "warn" : s; };
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
