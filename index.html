@@ -1721,6 +1721,12 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .gbcopy{display:flex;align-items:center;gap:6px;margin-top:4px}.gbcopy code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:6px 8px;border-radius:8px;background:var(--panel2);font-size:12.5px}.gbcopy .btn{min-width:44px;min-height:40px}
 .gbbody .setcard a.btn{align-self:flex-start;min-height:44px;text-decoration:none}
 .setcard.gbset{flex-direction:column}
+
+/* r74: what moves when a side changes */
+#cvPad .pdmode{display:flex;flex-wrap:wrap;gap:4px;margin:2px 0 6px}
+#cvPad .pdmode button{flex:1 1 auto;min-height:40px;padding:0 8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+#cvPad .pdmode button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
+#cvPad .pdinfo{font-size:12.5px;line-height:1.5;color:var(--muted);min-height:18px;margin-bottom:6px}
 </style>
 
 <div class="app" id="app">
@@ -8399,6 +8405,9 @@ Object.assign(I18N.de, {"setT_gen": "Allgemein", "setT_look": "Aussehen", "setT_
 Object.assign(I18N.fa, {"gbTitle": "پشتیبان خودکار در گوگل درایو", "gbOn": "روشن کردن", "gbOff": "خاموش کردن پشتیبان خودکار", "gbOffQ": "پشتیبان خودکار در گوگل درایو خاموش شود؟ فایل‌های قبلی در درایو می‌مانند.", "gbManage": "مدیریت", "gbHow": "یک پوشه به نام «Babak Notebook – Backup» در گوگل درایو شما ساخته می‌شود و یک نسخهٔ کامل از همهٔ دفترها (متن، دست‌خط، عکس، PDF، پروژه‌ها و قیمت‌نامه‌ها) خودکار در آن ذخیره می‌شود. برنامه فقط به همین پوشه و فایل‌هایی که خودش ساخته دسترسی دارد، نه به بقیهٔ درایو.", "gbOffS": "خاموش", "gbToday": "امروز", "gbDaysAgo": "{n} روز پیش", "gbNoneYet": "هنوز پشتیبانی گرفته نشده", "gbLastS": "آخرین پشتیبان در درایو: {w} {s}", "gbWorking": "پشتیبان به گوگل درایو می‌رود…", "gbDone": "پشتیبان در گوگل درایو ذخیره شد.", "gbOpen": "باز کردن پوشه در درایو", "gbNeedLogin": "برای ادامهٔ پشتیبان خودکار، یک بار دوباره با Google وارد شوید.", "gbFull": "فضای گوگل درایو پر است.", "gbFail": "پشتیبان به درایو نرسید؛ بعداً خودش دوباره امتحان می‌کند.", "gbSignIn": "ورود با Google", "gbEvery": "چند وقت یک بار", "gbEvOpen": "هر بار که برنامه باز می‌شود (حداکثر هر ۶ ساعت)", "gbEvDay": "روزی یک بار", "gbEvWeek": "هفته‌ای یک بار", "gbKeep": "چند نسخهٔ آخر نگه داشته شود", "gbKeepHint": "نسخه‌های قدیمی‌تر به سطل زبالهٔ درایو می‌روند و گوگل آن‌ها را ۳۰ روز نگه می‌دارد.", "gbNow": "الان پشتیبان بگیر", "gbRestore": "بازگرداندن از درایو", "gbRestoreHint": "یک نسخه را انتخاب کنید. محتوای آن با دفترچه ادغام می‌شود؛ چیزی پاک نمی‌شود و از هر یادداشت نسخهٔ جدیدتر می‌ماند.", "gbNoFiles": "هنوز پشتیبانی در درایو نیست.", "gbAutoHint": "پشتیبان فقط وقتی گرفته می‌شود که برنامه باز است و چیزی عوض شده باشد. اگر چیزی عوض نشده باشد، هفته‌ای یک بار.", "gbTokenOnly": "ورود ساده است و چند ساعت بعد منقضی می‌شود؛ برای پشتیبان کاملاً خودکار، Client secret را هم بگذارید.", "gbKeyTitle": "یک بار: کلید گوگل برای این صفحه", "gbKeyChange": "کلید گوگل", "gbKeyWhy": "گوگل اجازه می‌دهد یک صفحهٔ وب با درایو شما کار کند، فقط اگر یک «کلید» (Client ID) برای همان صفحه داشته باشد. این کلید را یک بار خودتان رایگان می‌سازید؛ حدود ۱۰ دقیقه طول می‌کشد. هر جا دکمهٔ 📋 هست، با آن کپی کنید.", "gbS1": "یک پروژه بسازید: این صفحه را باز کنید، نام «Babak Notebook» را بنویسید و Create را بزنید.", "gbS2": "درایو را فعال کنید: این صفحه را باز کنید و Enable را بزنید.", "gbS3": "معرفی برنامه: این صفحه را باز کنید و Get started را بزنید. App name: Babak Notebook، ایمیل خودتان، Audience: External، دوباره ایمیل خودتان، تیک قبول، Create.", "gbS4": "در همان بخش به Audience بروید و Publish app ← Confirm را بزنید. (بدون این کار، گوگل هر ۷ روز شما را بیرون می‌کند. برای این نوع دسترسی بررسی گوگل لازم نیست.)", "gbS5": "کلید را بسازید: این صفحه را باز کنید. Application type: Web application. زیر Authorized JavaScript origins روی Add URI بزنید و این را بگذارید:", "gbS5b": "(همین نشانی پایین)", "gbS6": "Create را بزنید. Client ID و Client secret را کپی کنید و در دو جای پایین بگذارید.", "gbSecHint": "Client secret فقط روی همین دستگاه ذخیره می‌شود و جایی فرستاده نمی‌شود، جز خود گوگل. با آن پشتیبان کاملاً خودکار می‌شود و لازم نیست هر بار وارد شوید.", "gbBadId": "Client ID باید به .apps.googleusercontent.com تمام شود."});
 Object.assign(I18N.en, {"gbTitle": "Automatic backup to Google Drive", "gbOn": "Turn on", "gbOff": "Turn off automatic backup", "gbOffQ": "Turn off automatic backup to Google Drive? Earlier files stay in Drive.", "gbManage": "Manage", "gbHow": "A folder called “Babak Notebook – Backup” is made in your Google Drive, and a full copy of all notebooks (text, handwriting, pictures, PDFs, projects and quotes) is saved there automatically. The notebook can only reach this folder and the files it made itself, not the rest of your Drive.", "gbOffS": "Off", "gbToday": "today", "gbDaysAgo": "{n} days ago", "gbNoneYet": "No backup yet", "gbLastS": "Last backup in Drive: {w} {s}", "gbWorking": "Backing up to Google Drive…", "gbDone": "Backup saved in Google Drive.", "gbOpen": "Open the folder in Drive", "gbNeedLogin": "Sign in with Google once more to keep the automatic backup going.", "gbFull": "Your Google Drive is full.", "gbFail": "The backup didn't reach Drive; it will try again by itself.", "gbSignIn": "Sign in with Google", "gbEvery": "How often", "gbEvOpen": "Every time the app opens (at most every 6 hours)", "gbEvDay": "Once a day", "gbEvWeek": "Once a week", "gbKeep": "How many recent copies to keep", "gbKeepHint": "Older copies go to the Drive trash, which Google keeps for 30 days.", "gbNow": "Back up now", "gbRestore": "Restore from Drive", "gbRestoreHint": "Pick a copy. It's merged into the notebook; nothing is deleted and the newer version of each note stays.", "gbNoFiles": "No backups in Drive yet.", "gbAutoHint": "Backups are made only while the app is open and something has changed; if nothing changed, once a week.", "gbTokenOnly": "Simple sign-in expires after a few hours; add the Client secret for fully automatic backups.", "gbKeyTitle": "One time: a Google key for this page", "gbKeyChange": "Google key", "gbKeyWhy": "Google lets a web page work with your Drive only if it has a “key” (Client ID) for that page. You make it yourself once, for free; it takes about 10 minutes. Use the 📋 buttons to copy.", "gbS1": "Make a project: open this page, type the name “Babak Notebook” and tap Create.", "gbS2": "Turn on Drive: open this page and tap Enable.", "gbS3": "Introduce the app: open this page and tap Get started. App name: Babak Notebook, your email, Audience: External, your email again, tick to agree, Create.", "gbS4": "In the same section go to Audience and tap Publish app → Confirm. (Otherwise Google signs you out every 7 days. This kind of access needs no review by Google.)", "gbS5": "Make the key: open this page. Application type: Web application. Under Authorized JavaScript origins tap Add URI and put:", "gbS5b": "(the address below)", "gbS6": "Tap Create. Copy the Client ID and Client secret into the two fields below.", "gbSecHint": "The Client secret is stored on this device only and sent nowhere but to Google. With it the backup is fully automatic and you don't need to sign in each time.", "gbBadId": "The Client ID must end with .apps.googleusercontent.com."});
 Object.assign(I18N.de, {"gbTitle": "Automatische Sicherung in Google Drive", "gbOn": "Einschalten", "gbNow": "Jetzt sichern", "gbRestore": "Aus Drive wiederherstellen", "gbOpen": "Ordner in Drive öffnen", "gbManage": "Verwalten", "gbOffS": "Aus"});
+Object.assign(I18N.fa, {"sdSmart": "هوشمند", "sdSmartT": "کمترین تغییر: گوشه‌ها و دیوارهای پشت سر با هم جابه‌جا می‌شوند و زاویه‌ها حفظ می‌شود", "sdFlip": "سر دیگر", "sdFlipT": "سری که حرکت می‌کند عوض می‌شود", "sdBoth": "از دو طرف", "sdBothT": "نصف تغییر از هر سر", "sdAngle": "زاویه‌ها (روش قبلی)", "sdAngleT": "دو ضلع کناری می‌چرخند تا شکل بسته بماند", "sdLock": "طول این ضلع ثابت", "sdLockT": "وقتی ضلع دیگری را عوض می‌کنید، طول این ضلع عوض نمی‌شود", "sdPin": "سنجاق گوشه", "sdPinOn": "سنجاق: روی گوشه بزنید", "sdPinT": "گوشه‌ای که سنجاق شود هیچ‌وقت جابه‌جا نمی‌شود", "sdNoWay": "با این سنجاق‌ها و قفل‌ها این اندازه ممکن نیست. یک سنجاق یا قفل را بردارید یا «سر دیگر» را بزنید.", "sdAnglesKept": "همهٔ زاویه‌ها حفظ می‌شود", "sdBent": "زاویهٔ ضلع {s} عوض می‌شود", "sdLonger": "طول ضلع {s} عوض می‌شود", "sdMoved": "{n} گوشه جابه‌جا می‌شود", "sdAngleMsg": "دو ضلع کناری می‌چرخند و طولشان ثابت می‌ماند.", "sdTypeHint": "عدد را بزنید؛ خط‌چین آبی نتیجه را نشان می‌دهد. نقطهٔ سبز ثابت می‌ماند، نارنجی‌ها جابه‌جا می‌شوند.", "sdPinHint": "روی هر گوشه بزنید تا سنجاق شود یا آزاد شود."});
+Object.assign(I18N.en, {"sdSmart": "Smart", "sdSmartT": "Least change: corners and walls behind move together and angles stay", "sdFlip": "Other end", "sdFlipT": "Switch which end moves", "sdBoth": "Both ends", "sdBothT": "Half the change at each end", "sdAngle": "Angles (old way)", "sdAngleT": "The two neighbouring sides turn so the shape stays closed", "sdLock": "Keep this length", "sdLockT": "When you change another side, this side keeps its length", "sdPin": "Pin a corner", "sdPinOn": "Pin: tap a corner", "sdPinT": "A pinned corner never moves", "sdNoWay": "Not possible with these pins and locks. Remove a pin or lock, or tap “Other end”.", "sdAnglesKept": "all angles stay", "sdBent": "side {s} changes its angle", "sdLonger": "side {s} changes length", "sdMoved": "{n} corners move", "sdAngleMsg": "The two neighbouring sides turn and keep their lengths.", "sdTypeHint": "Type the number; the blue dashed line shows the result. The green dot stays, orange ones move.", "sdPinHint": "Tap any corner to pin or free it."});
+Object.assign(I18N.de, {"sdSmart": "Intelligent", "sdFlip": "Anderes Ende", "sdBoth": "Beide Enden", "sdAngle": "Winkel (alt)", "sdLock": "Länge fest", "sdPin": "Ecke fixieren"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -16786,6 +16795,152 @@ tbStatusPop = function (anchor) {
 };
 const tbState73 = tbState;
 tbState = function () { const s = tbState73(); const c = gbCfg(); return s === "ok" && c.on && c.needLogin ? "warn" : s; };
+
+/* ---- r74: you decide what moves when a side length changes: smart stretch, which end, pins and locked lengths, with a live preview ---- */
+const cvSideMode = () => lsGet("babak-sa-sidemode", "smart");
+function cvShapePts(x) { return x.t === "rect" ? cvRectCorners(x) : x.pts; }
+function cvStretch(pts, closed, i, len, o) {
+  const n = pts.length; if (n < 2) return null;
+  const ia = i, ib = closed ? (i + 1) % n : i + 1; if (ib >= n) return null;
+  const A = pts[ia], B = pts[ib], L = cvLen(A, B); if (!L) return null;
+  const u = [(B[0] - A[0]) / L, (B[1] - A[1]) / L], dl = len - L;
+  const pins = o.pins || new Set(), locks = o.locks || new Set();
+  const dirOf = (k) => { const p = pts[k], q = pts[closed ? (k + 1) % n : k + 1]; const l = cvLen(p, q) || 1; return [(q[0] - p[0]) / l, (q[1] - p[1]) / l]; };
+  const par = (k) => { const v = dirOf(k); return Math.abs(v[0] * u[1] - v[1] * u[0]) < 0.035; };
+  const chain = (start, step, other) => { // the corners that move together; the first side along the move takes up the change
+    if (pins.has(start)) return null;
+    const moved = []; let j = start;
+    for (let g = 0; g < n; g++) {
+      moved.push(j);
+      const nx = closed ? (j + step + n) % n : j + step;
+      if (!closed && (nx < 0 || nx >= n)) return { moved, stop: null, perfect: true };
+      const side = step > 0 ? j : nx;
+      if (nx === other || pins.has(nx)) { if (locks.has(side)) return null; return { moved, stop: side, perfect: par(side) }; }
+      if (!locks.has(side) && par(side)) return { moved, stop: side, perfect: true };
+      j = nx;
+    }
+    return null;
+  };
+  const build = (fw, bw, ffw, fbw) => {
+    const out = pts.map((q) => q.slice());
+    if (fw) for (const k of fw.moved) out[k] = [pts[k][0] + u[0] * dl * ffw, pts[k][1] + u[1] * dl * ffw];
+    if (bw) for (const k of bw.moved) out[k] = [pts[k][0] - u[0] * dl * fbw, pts[k][1] - u[1] * dl * fbw];
+    const changed = [], bent = [], S = closed ? n : n - 1;
+    for (let k = 0; k < S; k++) { if (k === i) continue; const a0 = pts[k], b0 = pts[closed ? (k + 1) % n : k + 1], a1 = out[k], b1 = out[closed ? (k + 1) % n : k + 1];
+      const l0 = cvLen(a0, b0), l1 = cvLen(a1, b1); if (Math.abs(l0 - l1) > 0.05) changed.push(k);
+      if (l0 && l1) { const c = ((b0[0] - a0[0]) * (b1[1] - a1[1]) - (b0[1] - a0[1]) * (b1[0] - a1[0])) / (l0 * l1); if (Math.abs(c) > 0.005) bent.push(k); } }
+    const mv = [...(fw ? fw.moved : []), ...(bw ? bw.moved : [])];
+    return { pts: out.map((q) => [cvR(q[0], 1000), cvR(q[1], 1000)]), changed, bent, moved: mv, fixedEnd: fw && !bw ? ia : bw && !fw ? ib : null };
+  };
+  const end = o.end || "auto";
+  const fw = end !== "a" ? chain(ib, +1, ia) : null, bw = end !== "b" ? chain(ia, -1, ib) : null;
+  if (end === "both") { if (!fw || !bw || fw.moved.some((k) => bw.moved.includes(k))) return null; return build(fw, bw, 0.5, 0.5); }
+  if (end === "b") return fw ? build(fw, null, 1, 0) : null;
+  if (end === "a") return bw ? build(null, bw, 0, 1) : null;
+  const cands = [fw && build(fw, null, 1, 0), bw && build(null, bw, 0, 1)].filter(Boolean);
+  if (!cands.length) return null;
+  cands.sort((p, q) => p.bent.length - q.bent.length || p.moved.length - q.moved.length);
+  return cands[0];
+}
+function cvSideCalc(x, i, mm) {
+  const K = cvK(), pts = cvShapePts(x), closed = x.t === "rect" || !!x.closed, len = mm * K, mode = cvSideMode();
+  if (mode === "angle") { if (!closed) return null; const p = cvSideSolve(pts, i, len); return p ? { pts: p, angle: true } : null; }
+  return cvStretch(pts, closed, i, len, { end: CV.pad && CV.pad.end ? CV.pad.end : mode === "both" ? "both" : "auto", pins: new Set(x.pin || []), locks: new Set(x.lk || []) });
+}
+const cvShapeSet74 = cvShapeSet;
+cvShapeSet = function (x, ax, i, v) {
+  if (!(ax === "side" || ax === "rs") || !(v > 0) || cvSideMode() === "angle") return cvShapeSet74(x, ax, i, v);
+  const r = cvSideCalc(x, i, v);
+  if (!r) { toast(T("sdNoWay"), { kind: "err" }); return false; }
+  if (ax === "rs") {
+    const keep = { id: x.id, c: x.c, sw: x.sw, dash: x.dash, mat: x.mat, msp: x.msp, gp: x.gp, sd: x.sd, pin: x.pin, lk: x.lk, ly: x.ly };
+    for (const k of Object.keys(x)) delete x[k]; Object.assign(x, { t: "pen", k: "sharp", closed: true, pts: r.pts }); for (const [k, val] of Object.entries(keep)) if (val != null) x[k] = val;
+    if (CV.pad && CV.pad.shape) CV.pad.ax = "side"; return true;
+  }
+  x.pts = r.pts; return true;
+};
+/* the pad: how the change spreads, decided by you */
+const cvSvPadShow74 = cvSvPadShow;
+cvSvPadShow = function () {
+  cvSvPadShow74();
+  try {
+    const el = $("#cvPad"), p = CV.pad; if (!el || !p || !p.shape || !(p.ax === "side" || p.ax === "rs")) { cvSidePreview(); return; }
+    const x = cvById(p.id); if (!x) return;
+    const m = cvSideMode(), end = p.end || "auto", lk = (x.lk || []).includes(p.i);
+    const chip = (a, on, l, t) => `<button type="button" data-sm="${a}" aria-pressed="${!!on}"${t ? ` title="${esc(t)}"` : ""}>${l}</button>`;
+    const h = `<div class="pdmode">
+      ${chip("smart", m !== "angle" && end === "auto", "✨ " + esc(T("sdSmart")), T("sdSmartT"))}${chip("flip", m !== "angle" && (end === "a" || end === "b"), "⇄ " + esc(T("sdFlip")), T("sdFlipT"))}${chip("both", m !== "angle" && end === "both", "↔ " + esc(T("sdBoth")), T("sdBothT"))}${chip("angle", m === "angle", "📐 " + esc(T("sdAngle")), T("sdAngleT"))}
+      </div><div class="pdmode">${chip("lock", lk, "🔒 " + esc(T("sdLock")), T("sdLockT"))}${chip("pin", !!CV.pinMode, "📌 " + esc(T(CV.pinMode ? "sdPinOn" : "sdPin")), T("sdPinT"))}</div><div class="pdinfo" id="cvPdInfo"></div>`;
+    const head = el.querySelector(".pdh"); if (head) head.insertAdjacentHTML("afterend", h);
+    cvSidePreview();
+  } catch (e) { console.warn(e); }
+};
+function cvSidePreview() {
+  const p = CV && CV.pad, info = $("#cvPdInfo");
+  if (!p || !p.shape || !(p.ax === "side" || p.ax === "rs")) { if (CV && CV.pinMode) { CV.pinMode = false; } return; }
+  const x = cvById(p.id); if (!x) return;
+  const z = CV.view.z, w = 1 / z, pts = cvShapePts(x), closed = x.t === "rect" || !!x.closed, n = pts.length, nx = (k) => (closed ? (k + 1) % n : k + 1);
+  let svg = "";
+  const marks = () => { let s = "";
+    for (const k of x.pin || []) if (pts[k]) s += `<g transform="translate(${pts[k][0]},${pts[k][1]}) scale(${w})"><circle r="9" fill="#d64545" stroke="#fff" stroke-width="2"/><text y="4" text-anchor="middle" font-size="11" fill="#fff">📌</text></g>`;
+    for (const k of x.lk || []) if (pts[k] && pts[nx(k)]) { const m = [(pts[k][0] + pts[nx(k)][0]) / 2, (pts[k][1] + pts[nx(k)][1]) / 2]; s += `<g transform="translate(${m[0]},${m[1]}) scale(${w})"><circle r="10" fill="#fff" stroke="#7a4a00" stroke-width="1.5"/><text y="4" text-anchor="middle" font-size="11">🔒</text></g>`; }
+    if (CV.pinMode) for (let k = 0; k < n; k++) if (!(x.pin || []).includes(k)) s += `<circle cx="${pts[k][0]}" cy="${pts[k][1]}" r="${8 * w}" fill="none" stroke="#d64545" stroke-width="${2 * w}" stroke-dasharray="${3 * w} ${3 * w}"/>`;
+    return s; };
+  const v = parseInt(p.val, 10), cur = cvShapeVal(x, p.ax, p.i);
+  let msg = "";
+  if (v > 0 && v !== cur) {
+    const r = cvSideCalc(x, p.i, v);
+    if (!r) { msg = "⚠️ " + T("sdNoWay"); }
+    else {
+      const q = r.pts, path = (P) => "M" + P.map((t) => t[0] + " " + t[1]).join("L") + (closed ? "Z" : "");
+      svg += `<path d="${path(q)}" fill="none" stroke="#2f6fde" stroke-width="${2 * w}" stroke-dasharray="${6 * w} ${4 * w}"/>`;
+      if (!r.angle) {
+        for (const k of r.changed) svg += `<line x1="${q[k][0]}" y1="${q[k][1]}" x2="${q[nx(k)][0]}" y2="${q[nx(k)][1]}" stroke="${r.bent.includes(k) ? "#d64545" : "#e8890c"}" stroke-width="${5 * w}" stroke-linecap="round" opacity=".85"/>`;
+        svg += `<line x1="${q[p.i][0]}" y1="${q[p.i][1]}" x2="${q[nx(p.i)][0]}" y2="${q[nx(p.i)][1]}" stroke="#2e9e5b" stroke-width="${5 * w}" stroke-linecap="round" opacity=".85"/>`;
+        for (const k of r.moved) svg += `<circle cx="${q[k][0]}" cy="${q[k][1]}" r="${5 * w}" fill="#e8890c"/>`;
+        if (r.fixedEnd != null) svg += `<circle cx="${pts[r.fixedEnd][0]}" cy="${pts[r.fixedEnd][1]}" r="${7 * w}" fill="#2e9e5b" stroke="#fff" stroke-width="${2 * w}"/>`;
+        const nm = (ks) => ks.map((k) => num(k + 1)).join("، ");
+        const other = r.changed.filter((k) => !r.bent.includes(k));
+        msg = (r.bent.length ? "⚠️ " + T("sdBent", { s: nm(r.bent) }) : "✓ " + T("sdAnglesKept")) + (other.length ? " · " + T("sdLonger", { s: nm(other) }) : "") + (r.moved.length ? " · " + T("sdMoved", { n: num(r.moved.length) }) : "");
+      } else msg = T("sdAngleMsg");
+    }
+  } else msg = T(CV.pinMode ? "sdPinHint" : "sdTypeHint");
+  svg += marks();
+  if (info) info.textContent = msg;
+  cvSkLive(svg);
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("#cvPad [data-sm]"); if (!b || !CV || !CV.pad) return;
+  e.preventDefault(); e.stopPropagation();
+  const a = b.dataset.sm, x = cvById(CV.pad.id); if (!x) return;
+  if (a === "smart") { lsSet("babak-sa-sidemode", "smart"); CV.pad.end = null; }
+  if (a === "both") { lsSet("babak-sa-sidemode", "smart"); CV.pad.end = CV.pad.end === "both" ? null : "both"; }
+  if (a === "angle") { lsSet("babak-sa-sidemode", cvSideMode() === "angle" ? "smart" : "angle"); CV.pad.end = null; }
+  if (a === "flip") { if (cvSideMode() === "angle") lsSet("babak-sa-sidemode", "smart");
+    const v = parseInt(CV.pad.val, 10); let curEnd = CV.pad.end;
+    if (!curEnd || curEnd === "both" || curEnd === "auto") { const r = v > 0 ? cvSideCalc(x, CV.pad.i, v) : null; const pts = cvShapePts(x); curEnd = r && r.fixedEnd === CV.pad.i ? "b" : "a"; }
+    CV.pad.end = curEnd === "b" ? "a" : "b"; }
+  if (a === "lock") { const s = new Set(x.lk || []); s.has(CV.pad.i) ? s.delete(CV.pad.i) : s.add(CV.pad.i); if (s.size) x.lk = [...s].sort((p, q) => p - q); else delete x.lk; cvSave(); }
+  if (a === "pin") CV.pinMode = !CV.pinMode;
+  cvSvPadShow();
+}, true);
+/* pins: while 📌 is on, tapping a corner of the shape pins or frees it */
+const cvDown74 = cvDown;
+cvDown = function (e) {
+  if (CV && CV.pinMode && CV.pad && CV.pad.shape && !(e.target.closest && e.target.closest("#cvPad,.cvrail,.cvopts,.cvstyle,button"))) {
+    const x = cvById(CV.pad.id); if (x) {
+      const p = cvWorld(e), pts = cvShapePts(x), tol = (e.pointerType === "touch" ? 26 : 14) / CV.view.z;
+      let best = -1, bd = Infinity; pts.forEach((q, k) => { const d = cvLen(q, p); if (d < bd) { bd = d; best = k; } });
+      e.preventDefault();
+      if (best >= 0 && bd < tol) { const s = new Set(x.pin || []); s.has(best) ? s.delete(best) : s.add(best); if (s.size) x.pin = [...s].sort((a, b) => a - b); else delete x.pin; cvSave(); cvSidePreview(); }
+      return;
+    }
+  }
+  return cvDown74(e);
+};
+const cvSvPad74 = cvSvPad;
+cvSvPad = function (seg) { if (!seg) { if (CV) CV.pinMode = false; cvSkLive(""); } const prevEnd = CV && CV.pad && CV.pad.end; const r = cvSvPad74(seg); return r; };
+setTimeout(() => { try { if (window.__cv) { window.__cv.pad = (s) => cvSvPad(s); window.__cv.byId = (i) => cvById(i); } } catch {} }, 0);
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
