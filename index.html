@@ -1681,6 +1681,39 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .catlist{max-height:55vh;overflow:auto}
 .topx .tbproj{gap:4px;padding:0 10px}.topx .tbproj .tbl{font-size:13px}
 @media (max-width:760px){.ofth{display:none}.ofrow{grid-template-columns:28px 1fr 1fr;}.ofrow .d{grid-column:2/4}.ofrow .rb{grid-column:1/-1;justify-content:flex-end}}
+
+/* r72: settings in tabs */
+.dlg.setdlg{width:min(1000px,96vw);max-height:92vh;display:flex;flex-direction:column}
+.dlg.setdlg .dbody{flex:1;min-height:0;overflow:hidden;position:relative}
+.setwrap{display:grid;grid-template-columns:230px minmax(0,1fr);gap:18px;height:min(70vh,760px)}
+.setnav{display:flex;flex-direction:column;gap:4px;overflow:auto;padding-inline-end:12px;border-inline-end:1px solid var(--line)}
+.setq{min-height:44px;margin-bottom:6px}
+.setnav button{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 12px;border:0;border-radius:12px;background:transparent;color:var(--ink);font:inherit;font-size:15.5px;text-align:start;cursor:pointer}
+.setnav button span{width:24px;text-align:center;font-size:18px}
+.setnav button[aria-pressed="true"]{background:var(--accent-soft);font-weight:700}
+.setpane{overflow-y:auto;overflow-x:hidden;padding:2px 6px 20px;min-width:0}
+.seth{margin:0 0 14px;font-size:19px}.seth4{margin:18px 0 8px;font-size:14px;color:var(--muted)}
+.setf{margin-bottom:16px}.setf>label{font-weight:600;color:var(--ink)}
+.setchk{display:flex!important;gap:10px;align-items:center;min-height:44px;font-weight:400!important}.setchk input{width:22px;height:22px;flex:none}
+.setseg{display:flex;flex-wrap:wrap;gap:6px}
+.setseg label{display:flex;position:relative}.setseg input[type=radio]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.setseg label span{display:flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.setseg input:checked+span{background:var(--accent-soft);border-color:var(--accent);font-weight:700}
+.setseg .own{display:flex;align-items:center;gap:4px}.setseg .own input{width:110px;min-height:44px}.setseg i,.setunit i{font-style:normal;color:var(--muted)}
+.setunit{display:flex;align-items:center;gap:6px}.setunit input{width:120px;min-height:44px}
+.setradio{display:flex;flex-direction:column;gap:6px}
+.setradio label{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:12px;cursor:pointer}
+.setradio input{width:22px;height:22px;margin-top:2px;flex:none}.setradio span{display:flex;flex-direction:column}.setradio small{color:var(--muted)}
+.setradio label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.setcols{display:flex;flex-wrap:wrap;gap:8px}.setcol{width:44px;height:44px;border-radius:50%;border:3px solid transparent;background:var(--c);cursor:pointer}.setcol.on{border-color:var(--ink);box-shadow:0 0 0 2px var(--panel) inset}
+.setchks{display:flex;flex-wrap:wrap;gap:4px 16px}.setchks label{display:flex;align-items:center;gap:8px;min-height:44px;font-weight:400;color:var(--ink)}.setchks input{width:20px;height:20px}
+.setcard{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);margin-bottom:14px}.setcard small{color:var(--muted)}
+.setcard.big{gap:6px;font-size:15px;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,var(--panel))}.setcard .btn{align-self:flex-start;min-height:44px;margin-top:4px}
+.setbtns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.setbtns .btn{min-height:46px}
+.setadv{margin:-6px 0 16px}.setadv summary{cursor:pointer;color:var(--muted);min-height:36px;display:flex;align-items:center}
+.setsaved{position:absolute;top:0;inset-inline-end:14px;font-size:13px;font-weight:700;color:#2e9e5b;background:var(--panel);padding:4px 10px;border-radius:10px;opacity:0;transition:opacity .2s;pointer-events:none}.setsaved.on{opacity:1}
+.setdlg .acts{border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:760px){.setwrap{grid-template-columns:1fr;height:auto}.setnav{flex-direction:row;overflow-x:auto;border:0;padding:0 0 6px;border-bottom:1px solid var(--line)}.setnav button{flex:none}.setq{min-width:160px}.dlg.setdlg .dbody{overflow:auto}.setpane{overflow:visible}}
 </style>
 
 <div class="app" id="app">
@@ -8353,6 +8386,9 @@ Object.assign(I18N.de, {"tCorner": "Ecken und Schnitte", "tDwall": "Doppellinien
 Object.assign(I18N.fa, {"tb_proj": "پروژه‌ها", "tb_shop": "فهرست خرید", "pjShort": "پروژه‌ها", "pjTitle": "پروژه‌ها", "pjAll": "همه", "pjNew": "پروژهٔ تازه", "pjCard": "کارت پروژه", "pjSt_survey": "برداشت", "pjSt_quote": "قیمت", "pjSt_work": "در حال کار", "pjSt_done": "تمام", "pjF_addr": "نشانی ساختمان", "pjF_client": "صاحب‌کار", "pjF_phone": "تلفن", "pjF_email": "ایمیل", "pjF_st": "وضعیت", "pjF_start": "شروع", "pjF_end": "پایان", "pjF_note": "یادداشت", "pjName": "نام پروژه", "pjNamePh": "مثلاً حمام خیابان گوته", "pjFromF": "یا یک پوشهٔ موجود را پروژه کنید", "pjNewF": "پوشهٔ تازه با همین نام", "pjNeedName": "یک نام بنویسید.", "pjExists": "پوشه‌ای با این نام هست؛ آن را از فهرست پایین انتخاب کنید.", "pjCreate": "ساختن", "pjOpenF": "پوشه", "pjCall": "تماس", "pjRoute": "مسیر", "pjMail": "ایمیل", "pjSurvey": "برداشت تازه", "pjCanvas": "نقشهٔ تازه", "pjPage": "صفحهٔ تازه", "pjPhoto": "عکس", "pjVoice": "صدا", "pjItems": "محتوای پروژه", "pjEmpty": "هنوز چیزی در این پروژه نیست.", "pjAllItems": "همه در پوشه", "pjUnmark": "دیگر پروژه نباشد", "pjUnmarkQ": "این پوشه دیگر پروژه نباشد؟", "pjUnmarkX": "پوشه و همهٔ محتوایش سر جایش می‌ماند؛ فقط اطلاعات کارت پروژه، قیمت‌نامه‌ها و فهرست خرید آن پاک می‌شود.", "shTitle": "فهرست خرید", "shAddPh": "چیزی بنویسید و Enter بزنید…", "shLeft": "{n} مورد مانده", "shClear": "پاک کردن خریده‌شده‌ها", "shGeneral": "فهرست خرید عمومی", "mtTitle": "ماشین‌حساب مصالح", "mtFloor": "مساحت کف", "mtWallT": "دیوار کاشی‌کاری", "mtWallP": "دیوار رنگ‌کاری", "mtPer": "محیط (قرنیز/سیلیکون)", "mtDry": "دیوار کناف", "mtWaste": "اضافه برای ضایعات", "mtBox": "کاشی در هر کارتن", "mtCoats": "دفعات رنگ", "mt_tileF": "کاشی کف", "mt_tileW": "کاشی دیوار", "mt_glue": "چسب کاشی", "mt_grout": "پودر بندکشی", "mt_seal": "عایق رطوبتی", "mt_prime": "آستر (پرایمر)", "mt_paint": "رنگ", "mt_board": "صفحهٔ کناف", "mt_lam": "لمینت", "mt_skirt": "قرنیز", "mt_sil": "سیلیکون", "mtPick": "چیزی انتخاب نشده.", "mtNote": "عددها برآوردی‌اند و بر اساس مصرف رایج حساب شده‌اند (چسب ۴ کیلو در متر مربع، رنگ ۰٫۱۵ لیتر در متر مربع برای هر دست…). روی بستهٔ هر جنس مصرف دقیق را ببینید.", "mtTo": "بفرست به", "mtAdd": "به فهرست خرید", "mtAdded": "{n} مورد به فهرست خرید رفت", "ofList": "قیمت‌نامه‌ها (Angebot)", "ofNone": "هنوز قیمت‌نامه‌ای نیست.", "ofNew": "قیمت‌نامهٔ تازه", "ofCat": "فهرست کارها و قیمت‌ها", "ofCo": "اطلاعات شما (سربرگ)", "ofCoHint": "این‌ها بالای قیمت‌نامه و پایین صفحه چاپ می‌شوند. فقط روی همین دستگاه ذخیره می‌شوند.", "ofCoFirst": "اول اطلاعات خودتان را برای سربرگ قیمت‌نامه بنویسید.", "coF_name": "نام یا نام شرکت", "coF_street": "خیابان و پلاک", "coF_city": "کد پستی و شهر", "coF_phone": "تلفن", "coF_email": "ایمیل", "coF_tax": "شمارهٔ مالیاتی (Steuernummer)", "coF_iban": "IBAN (اختیاری)", "coF_bank": "نام بانک (اختیاری)", "ofK19": "مشمول قانون کسب‌وکار کوچک هستم (Kleinunternehmer، بند ۱۹) — بدون مالیات بر ارزش افزوده", "ofCatHint": "نام فارسی فقط برای خود شماست؛ متن آلمانی در PDF چاپ می‌شود. قیمت واحد را یک بار بنویسید تا هر بار خودکار بیاید.", "ofCatAdd": "کار تازه", "ofUnit": "واحد", "ofDate": "تاریخ", "ofValid": "اعتبار (روز)", "ofClient": "مشتری", "ofCaddr": "نشانی مشتری", "ofSite": "محل کار (Bauvorhaben)", "ofIntro": "متن اول", "ofDesc": "شرح کار", "ofQty": "مقدار", "ofSum": "جمع", "ofAddCat": "کار از فهرست…", "ofAddBlank": "ردیف خالی", "ofEmpty": "یک کار از فهرست اضافه کنید.", "ofNoteL": "متن آخر", "ofIntro0": "Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:", "ofNote0": "Alle Preise verstehen sich inklusive Material, sofern nicht anders angegeben. Wir freuen uns auf Ihren Auftrag.", "ofFromPlan": "مقدار از روی نقشه", "ofNoPlan": "در این پروژه نقشه یا برداشتی نیست.", "ofNoRooms": "در نقشه‌های این پروژه اتاق بسته‌ای پیدا نشد. دور اتاق را با شکل بسته یا دیوار دوخطی بکشید.", "ofAllRooms": "همهٔ اتاق‌ها", "ofRoom": "اتاق", "ofPlanHint": "مساحت دیوار با ارتفاع {h} متر و کم کردن در و پنجره‌ها حساب شده است. ارتفاع را در ابزار m² عوض کنید.", "ofDelQ": "این قیمت‌نامه حذف شود؟", "ofFail": "ساختن فایل نشد. دوباره امتحان کنید."});
 Object.assign(I18N.en, {"tb_proj": "Projects", "tb_shop": "Shopping list", "pjShort": "Projects", "pjTitle": "Projects", "pjAll": "All", "pjNew": "New project", "pjCard": "Project card", "pjSt_survey": "Survey", "pjSt_quote": "Quote", "pjSt_work": "In progress", "pjSt_done": "Done", "pjF_addr": "Site address", "pjF_client": "Client", "pjF_phone": "Phone", "pjF_email": "Email", "pjF_st": "Status", "pjF_start": "Start", "pjF_end": "End", "pjF_note": "Note", "pjName": "Project name", "pjNamePh": "e.g. Bathroom Goethestraße", "pjFromF": "Or turn an existing folder into a project", "pjNewF": "New folder with this name", "pjNeedName": "Enter a name.", "pjExists": "A folder with this name exists; pick it from the list below.", "pjCreate": "Create", "pjOpenF": "Folder", "pjCall": "Call", "pjRoute": "Route", "pjMail": "Email", "pjSurvey": "New survey", "pjCanvas": "New drawing", "pjPage": "New page", "pjPhoto": "Photo", "pjVoice": "Voice", "pjItems": "Project content", "pjEmpty": "Nothing in this project yet.", "pjAllItems": "All in the folder", "pjUnmark": "Stop being a project", "pjUnmarkQ": "Stop treating this folder as a project?", "pjUnmarkX": "The folder and everything in it stay; only the project card, its quotes and its shopping list are removed.", "shTitle": "Shopping list", "shAddPh": "Type something and press Enter…", "shLeft": "{n} left", "shClear": "Remove bought items", "shGeneral": "General shopping list", "mtTitle": "Materials calculator", "mtFloor": "Floor area", "mtWallT": "Tiled wall", "mtWallP": "Painted wall", "mtPer": "Perimeter (skirting/silicone)", "mtDry": "Drywall", "mtWaste": "Extra for waste", "mtBox": "Tiles per box", "mtCoats": "Coats of paint", "mt_tileF": "Floor tiles", "mt_tileW": "Wall tiles", "mt_glue": "Tile adhesive", "mt_grout": "Grout", "mt_seal": "Waterproofing", "mt_prime": "Primer", "mt_paint": "Paint", "mt_board": "Plasterboard", "mt_lam": "Laminate", "mt_skirt": "Skirting", "mt_sil": "Silicone", "mtPick": "Nothing selected.", "mtNote": "Estimates based on usual consumption (adhesive 4 kg/m², paint 0.15 l/m² per coat…). Check the exact figures on each product.", "mtTo": "Send to", "mtAdd": "To shopping list", "mtAdded": "{n} items added to the shopping list", "ofList": "Quotes (Angebot)", "ofNone": "No quotes yet.", "ofNew": "New quote", "ofCat": "Work items and prices", "ofCo": "Your details (letterhead)", "ofCoHint": "Printed at the top of the quote and in the footer. Stored on this device only.", "ofCoFirst": "First enter your details for the quote letterhead.", "coF_name": "Name or company", "coF_street": "Street and number", "coF_city": "Postcode and town", "coF_phone": "Phone", "coF_email": "Email", "coF_tax": "Tax number (Steuernummer)", "coF_iban": "IBAN (optional)", "coF_bank": "Bank (optional)", "ofK19": "I'm a small business (Kleinunternehmer, § 19) — no VAT", "ofCatHint": "The Persian name is just for you; the German text is printed in the PDF. Enter a unit price once and it fills in every time.", "ofCatAdd": "New item", "ofUnit": "Unit", "ofDate": "Date", "ofValid": "Valid (days)", "ofClient": "Client", "ofCaddr": "Client address", "ofSite": "Site (Bauvorhaben)", "ofIntro": "Opening text", "ofDesc": "Description", "ofQty": "Qty", "ofSum": "Total", "ofAddCat": "Item from the list…", "ofAddBlank": "Empty row", "ofEmpty": "Add an item from the list.", "ofNoteL": "Closing text", "ofIntro0": "Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:", "ofNote0": "Alle Preise verstehen sich inklusive Material, sofern nicht anders angegeben. Wir freuen uns auf Ihren Auftrag.", "ofFromPlan": "Quantity from the plan", "ofNoPlan": "There's no drawing or survey in this project.", "ofNoRooms": "No closed rooms found in this project's drawings. Draw the room as a closed shape or with double-line walls.", "ofAllRooms": "All rooms", "ofRoom": "Room", "ofPlanHint": "Wall area uses a height of {h} m minus doors and windows. Change the height in the m² tool.", "ofDelQ": "Delete this quote?", "ofFail": "Couldn't make the file. Try again."});
 Object.assign(I18N.de, {"tb_proj": "Projekte", "tb_shop": "Einkaufsliste", "pjShort": "Projekte", "pjTitle": "Projekte", "pjAll": "Alle", "pjNew": "Neues Projekt", "pjSt_survey": "Aufmaß", "pjSt_quote": "Angebot", "pjSt_work": "In Arbeit", "pjSt_done": "Fertig", "shTitle": "Einkaufsliste", "mtTitle": "Materialrechner", "ofList": "Angebote", "ofNew": "Neues Angebot", "ofCat": "Leistungen und Preise", "ofCo": "Ihre Angaben (Briefkopf)"});
+Object.assign(I18N.fa, {"setT_gen": "عمومی", "setT_look": "ظاهر", "setT_pen": "نوشتن و قلم", "setT_draft": "نقشه‌کشی", "setT_proj": "پروژه و قیمت‌نامه", "setT_rem": "یادآورها", "setT_data": "داده‌ها و امنیت", "setT_ai": "هوش مصنوعی", "setT_about": "درباره", "setSearch": "جستجو در تنظیمات", "setResetTab": "حالت اول همین بخش", "setResetQ": "تنظیم‌های «{t}» به حالت اول برگردد؟", "setLangHint": "زبان همهٔ نوشته‌های برنامه.", "setMode": "حالت روز و شب", "setModeHint": "«خودکار» از تنظیم خود آیپد پیروی می‌کند. دکمهٔ 🌙 نوار بالا هم همین را عوض می‌کند.", "setTextSize": "اندازهٔ نوشته‌ها", "setAdvanced": "پیشرفته: اندازهٔ کل صفحه (نوشته و تصویر با هم)", "setTbHint": "انتخاب کنید کدام دکمه‌ها روی نوار بالا باشند.", "setPenMode": "قلم و انگشت", "setPenPen": "فقط قلم می‌نویسد", "setPenPenH": "انگشت فقط صفحه را جابه‌جا می‌کند. برای نوشتن با Apple Pencil بهترین است.", "setPenAuto": "خودکار", "setPenAutoH": "قلم می‌نویسد؛ انگشت تایپ می‌کند و جابه‌جا می‌کند.", "setPenFinger": "انگشت هم می‌نویسد", "setPenFingerH": "بدون قلم؛ با انگشت هم می‌شود نوشت و کشید.", "setBeautyLight": "کم", "setBeautyStrong": "زیاد", "setBeautyHint": "خط‌های دست‌نویس را کمی صاف‌تر و تمیزتر می‌کند.", "setPaperHint": "صفحه‌های تازه با این کاغذ شروع می‌شوند.", "setWallTh": "ضخامت دیوار دوخطی (میلی‌متر)", "setOwn": "دلخواه", "setRoomHHint": "برای مساحت دیوار در ابزار m² و قیمت‌نامه.", "setDimC": "رنگ اندازه‌ها", "setSnaps": "چسبیدن هنگام کشیدن", "setCoNone": "هنوز سربرگ ندارید", "setOfNo": "شمارهٔ قیمت‌نامهٔ بعدی", "setOfNoHint": "هر سال از ۰۰۱ شروع می‌شود. در هر قیمت‌نامه می‌شود دستی عوضش کرد.", "setNotifyHint": "وقتی برنامه باز نیست هم یادآور را نشان می‌دهد، اگر مرورگر اجازه بدهد.", "setWhere": "داده‌های شما کجاست", "setPersistYes": "مرورگر قول داده داده‌ها را خودش پاک نکند.", "setPersistNo": "مرورگر برای نگه‌داری دائمی قول نداده؛ پشتیبان منظم مهم است.", "setNotesN": "{n} یادداشت", "setTrash0": "هیچ‌وقت خودکار خالی نشود (امن‌تر)", "setTrashN": "بعد از {d} روز خودکار خالی شود", "setTrashHint": "چیزی که از سطل زباله خالی شود، برای همیشه پاک می‌شود. قبل از هر خالی‌شدن خودکار، یک نسخهٔ ایمنی گرفته می‌شود.", "trashAutoDoneD": "{n} مورد قدیمی‌تر از {d} روز از سطل زباله پاک شد (یک نسخهٔ ایمنی قبلش گرفته شد)", "setAiHint": "اگر هوش مصنوعی را وصل نکنید، بقیهٔ برنامه کاملاً کار می‌کند.", "setCheckUpd": "بررسی نسخهٔ تازه", "setChecking": "در حال بررسی…", "setUpToDate": "این آخرین نسخه است.", "setUpdFail": "بررسی نشد؛ اینترنت را نگاه کنید."});
+Object.assign(I18N.en, {"setT_gen": "General", "setT_look": "Appearance", "setT_pen": "Writing and pen", "setT_draft": "Drawing", "setT_proj": "Projects and quotes", "setT_rem": "Reminders", "setT_data": "Data and safety", "setT_ai": "AI", "setT_about": "About", "setSearch": "Search settings", "setResetTab": "Reset this section", "setResetQ": "Reset the “{t}” settings?", "setLangHint": "The language of everything in the app.", "setMode": "Day and night", "setModeHint": "“Auto” follows the iPad. The 🌙 button in the top bar changes the same thing.", "setTextSize": "Text size", "setAdvanced": "Advanced: size of the whole page (text and pictures)", "setTbHint": "Choose which buttons are on the top bar.", "setPenMode": "Pen and finger", "setPenPen": "Only the pen writes", "setPenPenH": "A finger only moves the page. Best for Apple Pencil.", "setPenAuto": "Automatic", "setPenAutoH": "The pen writes; a finger types and scrolls.", "setPenFinger": "A finger writes too", "setPenFingerH": "No pen needed; a finger can write and draw.", "setBeautyLight": "A little", "setBeautyStrong": "A lot", "setBeautyHint": "Makes handwritten strokes a little smoother and neater.", "setPaperHint": "New pages start with this paper.", "setWallTh": "Double-line wall thickness (mm)", "setOwn": "Own", "setRoomHHint": "Used for wall area in the m² tool and quotes.", "setDimC": "Dimension colour", "setSnaps": "Snapping while drawing", "setCoNone": "No letterhead yet", "setOfNo": "Next quote number", "setOfNoHint": "Starts again at 001 each year. You can change it in each quote.", "setNotifyHint": "Shows reminders even when the app isn't open, if the browser allows it.", "setWhere": "Where your data is", "setPersistYes": "The browser promised not to clear the data by itself.", "setPersistNo": "The browser didn't promise to keep the data; regular backups matter.", "setNotesN": "{n} notes", "setTrash0": "Never empty itself (safer)", "setTrashN": "Empty itself after {d} days", "setTrashHint": "Anything emptied from the trash is gone for good. A safety copy is made before every automatic emptying.", "trashAutoDoneD": "{n} items older than {d} days removed from the trash (a safety copy was made first)", "setAiHint": "Without AI connected, the rest of the app works fully.", "setCheckUpd": "Check for a new version", "setChecking": "Checking…", "setUpToDate": "This is the latest version.", "setUpdFail": "Couldn't check; check the internet."});
+Object.assign(I18N.de, {"setT_gen": "Allgemein", "setT_look": "Aussehen", "setT_pen": "Schreiben und Stift", "setT_draft": "Zeichnen", "setT_proj": "Projekte und Angebote", "setT_rem": "Erinnerungen", "setT_data": "Daten und Sicherheit", "setT_ai": "KI", "setT_about": "Über", "setSearch": "Einstellungen durchsuchen", "setTrash0": "Nie automatisch leeren (sicherer)", "setTrashN": "Nach {d} Tagen automatisch leeren", "setCheckUpd": "Nach neuer Version suchen", "setUpToDate": "Dies ist die neueste Version."});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -15133,10 +15169,12 @@ async function r63Start() {
   setTimeout(async () => {
     try {
       const st = S.meta.settings;
-      if (st.trashAuto !== false && !S.readOnly) {
-        const old = [...S.notes.values()].filter((n) => n.trashed && Date.now() - new Date(n.updatedAt).getTime() > 30 * 864e5);
+      const tdays = trashDays();
+      if (tdays > 0 && !S.readOnly) {
+        const old = [...S.notes.values()].filter((n) => n.trashed && Date.now() - new Date(n.updatedAt).getTime() > tdays * 864e5);
+        if (old.length) { try { await safeMake(true); } catch {} }
         for (const n of old) await deleteForever(n, false);
-        if (old.length) toast("🗑 " + T("trashAutoDone", { n: num(old.length) }));
+        if (old.length) toast("🗑 " + T("trashAutoDoneD", { n: num(old.length), d: num(tdays) }));
       }
     } catch (e) { console.warn(e); }
     try {
@@ -16386,6 +16424,153 @@ document.addEventListener("click", (e) => {
   e.preventDefault(); const r = (CV && CV.lastRoom) || {}; const n = S.notes.get(S.activeId);
   mtCalc({ floor: r.floor, wall: r.wall, per: r.per, path: n && n.folder });
 }, true);
+
+/* ---- r72: settings in tabs, saved at once, one place for each thing; safer trash; the version on show ---- */
+const SET_TABS = [["gen", "🌐"], ["look", "🎨"], ["pen", "✏️"], ["draft", "📐"], ["proj", "🏗"], ["rem", "🔔"], ["data", "🛟"], ["ai", "✨"], ["about", "ℹ️"]];
+let setTabLast = "gen";
+function trashDays() { const st = S.meta.settings; return st.trashDays != null ? +st.trashDays : st.trashAuto === false ? 0 : 90; }
+async function appVersion() { try { const ks = await caches.keys(); const k = ks.find((x) => x.startsWith("babak-web-")); return k ? k.slice(10) : ""; } catch { return ""; } }
+function penModeOf(st) { return st.penOnly ? "pen" : st.autoPen !== false ? "auto" : "finger"; }
+const setSel = (name, opts, cur) => `<select name="${name}">${opts.map(([v, l]) => `<option value="${esc(String(v))}" ${String(cur) === String(v) ? "selected" : ""}>${esc(l)}</option>`).join("")}</select>`;
+const setF = (label, inner, hint) => `<div class="field setf"><label>${label}</label>${inner}${hint ? `<small class="msg">${esc(hint)}</small>` : ""}</div>`;
+const setChk = (name, on, label, hint) => `<div class="field setf"><label class="setchk"><input type="checkbox" name="${name}" ${on ? "checked" : ""}> <span>${esc(label)}</span></label>${hint ? `<small class="msg">${esc(hint)}</small>` : ""}</div>`;
+const setBtn = (x, label, kind = "") => `<button type="button" class="btn ${kind}" data-sx="${x}">${label}</button>`;
+function setTabHtml(k) {
+  const st = S.meta.settings;
+  switch (k) {
+    case "gen": return setF(esc(T("language")), setSel("lang", [["fa", "فارسی"], ["de", "Deutsch"], ["en", "English"]], st.lang), T("setLangHint"))
+      + setF("🌍 " + esc(T("regionTitle")), `<select name="region">${regionOptions(regionValue())}</select>`, T("regionHint"))
+      + setF(esc(T("startWith")), setSel("startWith", [["home", T("sw_home")], ["survey", T("sw_survey")], ["note", T("sw_note")], ["scan", T("sw_scan")]], st.startWith || "home"))
+      + setF(esc(T("skyBarSet")), setSel("skyBar", [["menu", T("skyBarMenu")], ["tabs", T("skyBarTabs")]], skyBar()));
+    case "look": return setF(esc(T("setMode")), `<div class="setseg">${["auto", "light", "dark"].map((x) => `<label><input type="radio" name="theme" value="${x}" ${(st.theme || "auto") === x ? "checked" : ""}><span>${{ auto: "🌗", light: "☀️", dark: "🌙" }[x]} ${esc(T("theme" + x[0].toUpperCase() + x.slice(1)))}</span></label>`).join("")}</div>`, T("setModeHint"))
+      + colFieldHtml()
+      + setF(esc(T("setTextSize")), `<div class="uisrow"><button type="button" class="btn" data-uis="-1" data-uisn="txtScale" aria-label="A−">A−</button>${setSel("txtScale", [["0.9", T("txS90")], ["1", T("txS100")], ["1.15", T("txS115")], ["1.3", T("txS130")], ["1.5", T("txS150")], ["1.75", T("txS175")]], String(lsGet("babak-txtscale", "1")))}<button type="button" class="btn" data-uis="1" data-uisn="txtScale" aria-label="A+" style="font-size:19px">A+</button></div>`, T("txSHint"))
+      + `<details class="setadv"><summary>${esc(T("setAdvanced"))}</summary>${setF(esc(T("uiScale")), `<div class="uisrow"><button type="button" class="btn" data-uis="-1" aria-label="A−">A−</button>${setSel("uiScale", [["0.75", T("uiS75")], ["0.83", T("uiS83")], ["0.9", T("uiS90")], ["1", T("uiS100")], ["1.15", T("uiS115")], ["1.3", T("uiS130")], ["1.5", T("uiS150")]], String(lsGet("babak-uiscale", "0.83")))}<button type="button" class="btn" data-uis="1" aria-label="A+" style="font-size:19px">A+</button></div>`, T("uiSHint"))}</details>`
+      + setF("🧰 " + esc(T("tbCustom")), setBtn("tb", "⚙ " + esc(T("tbCustom"))), T("setTbHint"));
+    case "pen": return setF(esc(T("setPenMode")), `<div class="setradio">${[["pen", "setPenPen"], ["auto", "setPenAuto"], ["finger", "setPenFinger"]].map(([v, l]) => `<label><input type="radio" name="penmode" value="${v}" ${penModeOf(st) === v ? "checked" : ""}><span><b>${esc(T(l))}</b><small>${esc(T(l + "H"))}</small></span></label>`).join("")}</div>`, T("sPenHint"))
+      + setF("✨ " + esc(T("beautify")), setSel("smooth", [[0, T("beautyOff")], [1, T("setBeautyLight")], [2, T("setBeautyStrong")]], st.smooth ?? 1), T("setBeautyHint"))
+      + setF(esc(T("defaultStyle")), setSel("pageStyle", PAGE_STYLES.map((s) => [s, T("s_" + s)]), st.pageStyle), T("setPaperHint"))
+      + setF(esc(T("layout")), setSel("layout", Object.keys(LAYOUTS).map((x) => [x, T("l_" + x)]), st.layout))
+      + setChk("split", st.split !== false, T("splitPages"));
+    case "draft": { const th = +lsGet("babak-sa-dwth", 175) || 175, off = new Set(Array.isArray(lsGet("babak-sa-snapoff", [])) ? lsGet("babak-sa-snapoff", []) : []);
+      return setF("🧱 " + esc(T("setWallTh")), `<div class="setseg">${[115, 175, 240, 365].map((v) => `<label><input type="radio" name="dwth" value="${v}" ${th === v ? "checked" : ""}><span>${num(v)}</span></label>`).join("")}<label class="own"><input name="dwthx" inputmode="numeric" value="${[115, 175, 240, 365].includes(th) ? "" : th}" placeholder="${esc(T("setOwn"))}" dir="ltr"><i>mm</i></label></div>`)
+        + setF("📏 " + esc(T("tRoomH")), `<div class="setunit"><input name="roomh" inputmode="decimal" value="${esc(String(+lsGet("babak-sa-roomh", 2.5) || 2.5))}" dir="ltr"><i>m</i></div>`, T("setRoomHHint"))
+        + setF("🎨 " + esc(T("setDimC")), `<div class="setcols">${DIM_COLS.map(([c, l]) => `<button type="button" class="setcol ${cvDimC0() === c ? "on" : ""}" data-sdimc="${c}" style="--c:${c}" title="${esc(T(l))}" aria-label="${esc(T(l))}"></button>`).join("")}</div>`)
+        + setF("🧲 " + esc(T("setSnaps")), `<div class="setchks">${CV_SNAPS.map(([a, i, l]) => `<label><input type="checkbox" name="snap_${a}" ${off.has(a) ? "" : "checked"}> ${i} ${esc(T(l))}</label>`).join("")}</div>`)
+        + setChk("railend", lsGet("babak-sa-railend", false) === true, T("tRailSide"));
+    }
+    case "proj": { const co = ofCo();
+      return `<div class="setcard"><b>🏢 ${esc(co.name || T("setCoNone"))}</b><small>${esc([co.street, co.city, co.phone].filter(Boolean).join(" · "))}</small>${setBtn("co", "✎ " + esc(T("ofCo")))}</div>`
+        + setChk("k19", !!co.k19, T("ofK19"))
+        + setF("📚 " + esc(T("ofCat")), setBtn("cat", "✎ " + esc(T("ofCat"))), T("ofCatHint"))
+        + setF("🔢 " + esc(T("setOfNo")), `<b dir="ltr">A-${new Date().getFullYear()}-${String((st.ofSeqY === new Date().getFullYear() ? st.ofSeq || 0 : 0) + 1).padStart(3, "0")}</b>`, T("setOfNoHint"))
+        + setF("🏗 " + esc(T("pjTitle")), setBtn("proj", "🏗 " + esc(T("pjTitle"))) + " " + setBtn("shop", "🛒 " + esc(T("shTitle"))));
+    }
+    case "rem": return setF("🔔 " + esc(T("soundTitle")), `<div style="display:flex;gap:8px">${setSel("sound", [["chime", T("soundChime")], ["bell", T("soundBell")], ["kalimba", T("soundKalimba")], ["off", T("soundOff")]], st.sound ?? "chime")}<button type="button" class="btn" data-sx="testsound">▶ ${esc(T("soundTest"))}</button></div>`)
+      + setChk("notify", !!st.notify, T("notifications"), T("setNotifyHint"));
+    case "data": { const d = trashDays();
+      return `<div class="setcard big"><b>📍 ${esc(T("setWhere"))}</b><span>${esc(storageText())}</span><span id="setPersist" class="msg"></span><span>💾 ${esc(bakLabel())}</span><span class="msg">${esc(T("setNotesN", { n: num([...S.notes.values()].filter((n) => !n.trashed).length) }))}</span></div>`
+        + `<div class="setbtns">${setBtn("backup", "⤓ " + esc(T("backup")), "primary")}${setBtn("import", "⤒ " + esc(T("importFile")))}<button type="button" class="btn" data-act="safeDialog">🛟 ${esc(T("safeOpenLong"))}</button></div>`
+        + setF("🗑 " + esc(T("trashAuto")), setSel("trashDays", [[0, T("setTrash0")], [30, T("setTrashN", { d: num(30) })], [90, T("setTrashN", { d: num(90) })], [365, T("setTrashN", { d: num(365) })]], d), T("setTrashHint"))
+        + `<div class="setbtns">${S.mode === "local" || S.mode === "server" ? setBtn("sync", "☁️ " + esc(T("syncTitle"))) : ""}${S.mode === "cloud" && S.mcp ? setBtn("gdrive", "📁 " + esc(T("gdTitle"))) : ""}${S.web ? setBtn("install", "📲 " + esc(T("installApp"))) : ""}</div>`;
+    }
+    case "ai": return `<button type="button" class="acctcard" data-sx="ai"><span class="ai">✨</span><span><b>${esc(T("aiTitle"))}</b><small>${esc(aiReady() ? AI_PROVIDERS[aiCfg().provider]?.name + " · " + (aiCfg().model || AI_PROVIDERS[aiCfg().provider]?.def) : T("aiSub"))}</small></span><span class="go">›</span></button><p class="msg">${esc(T("setAiHint"))}</p>`;
+    case "about": return `<div class="setcard big"><b>📓 ${esc(T("appName"))}</b><span>${esc(T("versionLabel"))}: <b id="setVer" dir="ltr">…</b></span>${setBtn("upd", "🔄 " + esc(T("setCheckUpd")))}<span id="setUpdMsg" class="msg"></span></div>${S.mode !== "cloud" ? `<p class="msg" style="font-size:12.5px;line-height:1.8">${esc(T("aboutText"))}</p>` : ""}`;
+  }
+  return "";
+}
+const cvDimC0 = () => { const c = S.meta.settings.dimc; return /^#[0-9a-f]{6}$/i.test(c || "") ? c : "#2f6fde"; };
+async function settingsPanel(tab) {
+  const st = S.meta.settings; let cur = SET_TABS.some((t) => t[0] === tab) ? tab : setTabLast;
+  let flashT = 0;
+  return dialog({ title: "⚙ " + T("settings"), wide: true, body: `<div class="setwrap"><nav class="setnav"><input class="setq" type="search" placeholder="🔍 ${esc(T("setSearch"))}" aria-label="${esc(T("setSearch"))}">${SET_TABS.map(([k, i]) => `<button type="button" data-stab="${k}" aria-pressed="${k === cur}"><span>${i}</span>${esc(T("setT_" + k))}</button>`).join("")}</nav><div class="setpane"></div></div><div class="setsaved" aria-live="polite"></div>`,
+    actions: [{ label: "↺ " + T("setResetTab"), value: "reset", keep: true }, { label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el, close) => {
+      el.classList.add("setdlg");
+      const pane = el.querySelector(".setpane");
+      const after = async () => {
+        if (cur === "data" || pane.querySelector("#setPersist")) { try { const p = navigator.storage && navigator.storage.persisted ? await navigator.storage.persisted() : null; const s = pane.querySelector("#setPersist"); if (s) s.textContent = p ? "✅ " + T("setPersistYes") : "⚠️ " + T("setPersistNo"); } catch {} }
+        const v = pane.querySelector("#setVer"); if (v) v.textContent = (await appVersion()) || "—";
+      };
+      const draw = () => { pane.innerHTML = `<h3 class="seth">${SET_TABS.find((t) => t[0] === cur)[1]} ${esc(T("setT_" + cur))}</h3>` + setTabHtml(cur); el.querySelectorAll("[data-stab]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.stab === cur))); pane.scrollTop = 0; after(); };
+      const flash = () => { const s = el.querySelector(".setsaved"); s.textContent = "✓ " + T("saved"); s.classList.add("on"); clearTimeout(flashT); flashT = setTimeout(() => s.classList.remove("on"), 1400); };
+      draw();
+      el.querySelector(".acts [data-value=reset]").addEventListener("click", async () => { if (!(await confirmBox(T("setResetQ", { t: T("setT_" + cur) })))) return; setReset(cur); draw(); flash(); });
+      el.querySelector(".setq").addEventListener("input", (e) => {
+        const q = e.target.value.trim().toLowerCase();
+        if (!q) return draw();
+        pane.innerHTML = SET_TABS.map(([k, i]) => `<section data-sec="${k}"><h4 class="seth4">${i} ${esc(T("setT_" + k))}</h4>${setTabHtml(k)}</section>`).join("");
+        pane.querySelectorAll("section").forEach((sec) => { let any = false; sec.querySelectorAll(":scope > .field, :scope > .setcard, :scope > .setbtns, :scope > details, :scope > .acctcard, :scope > .colfield, :scope > div").forEach((f) => { const hit = f.textContent.toLowerCase().includes(q); f.style.display = hit ? "" : "none"; any = any || hit; }); sec.style.display = any ? "" : "none"; });
+        after();
+      });
+      el.addEventListener("click", async (e) => {
+        const tb = e.target.closest("[data-stab]"); if (tb) { cur = setTabLast = tb.dataset.stab; el.querySelector(".setq").value = ""; return draw(); }
+        const dc = e.target.closest("[data-sdimc]"); if (dc) { st.dimc = dc.dataset.sdimc; saveMeta(0); pane.querySelectorAll("[data-sdimc]").forEach((b) => b.classList.toggle("on", b === dc)); if (typeof CV !== "undefined" && CV) cvDraw(); return flash(); }
+        const x = e.target.closest("[data-sx]")?.dataset.sx; if (!x) return;
+        if (x === "testsound") { const v = pane.querySelector("select[name=sound]").value; return v === "off" ? toast(T("soundOff")) : playSound(v); }
+        if (x === "backup") return fullBackup();
+        if (x === "import") { const i = $("#importIn"); i.value = ""; return i.click(); }
+        if (x === "co") { await ofCoEdit(); return draw(); }
+        if (x === "cat") return ofCatEdit();
+        if (x === "tb") return tbCustom();
+        if (x === "upd") return setCheckUpdate(pane);
+        close(null);
+        if (x === "ai") return aiSetup();
+        if (x === "sync") return accountSyncPanel();
+        if (x === "gdrive") return gdPanel();
+        if (x === "install") return installApp();
+        if (x === "proj") return pjPanel();
+        if (x === "shop") return shGeneral();
+      });
+      el.addEventListener("change", async (e) => {
+        const t = e.target, n = t.name; if (!n || !t.closest(".setpane")) return;
+        let redraw = false;
+        if (n === "lang") { st.lang = t.value; saveMeta(0); applyLangTheme(); renderSide(); renderMain(); close(null); return settingsPanel(cur); }
+        if (n === "theme") { st.theme = t.value; applyLangTheme(); }
+        if (n === "region") st.region = parseRegion(t.value);
+        if (n === "skyBar") { lsSet("babak-skybar", t.value); renderMain(); }
+        if (n === "pageStyle" || n === "layout") st[n] = t.value;
+        if (n === "smooth") st.smooth = +t.value;
+        if (n === "split") st.split = t.checked;
+        if (n === "penmode") { st.penOnly = t.value === "pen"; st.autoPen = t.value !== "finger"; }
+        if (n === "sound") st.sound = t.value;
+        if (n === "notify") {
+          if (t.checked && !st.notify) { try { const p = await Notification.requestPermission(); toast(p === "granted" ? T("notifOn") : T("notifBlocked"), { kind: p === "granted" ? "" : "err" }); if (p !== "granted") { t.checked = false; return; } } catch { toast(T("notifBlocked"), { kind: "err" }); t.checked = false; return; } }
+          st.notify = t.checked;
+        }
+        if (n === "trashDays") { st.trashDays = +t.value; st.trashAuto = +t.value > 0; }
+        if (n === "dwth") { lsSet("babak-sa-dwth", +t.value); const o = pane.querySelector("[name=dwthx]"); if (o) o.value = ""; }
+        if (n === "dwthx") { const v = pjNum(t.value); if (v >= 10 && v <= 2000) { lsSet("babak-sa-dwth", v); pane.querySelectorAll("[name=dwth]").forEach((r) => (r.checked = false)); } else return; }
+        if (n === "roomh") { const v = pjNum(t.value); if (v >= 0.5 && v <= 30) lsSet("babak-sa-roomh", v); else return; }
+        if (n.startsWith("snap_")) { const off = CV_SNAPS.map((s) => s[0]).filter((a) => !pane.querySelector(`[name=snap_${a}]`)?.checked); lsSet("babak-sa-snapoff", off); CV_SNAPOFF = new Set(off); cvGeoRev = -1; }
+        if (n === "railend") { lsSet("babak-sa-railend", t.checked); if (typeof CV !== "undefined" && CV && $("#cvRail")) cvRail(); }
+        if (n === "k19") { S.meta.settings.ofCo = { ...ofCo(), k19: t.checked }; }
+        saveMeta(0); renderStatus();
+        if (["pageStyle", "layout", "split", "smooth", "theme"].includes(n)) { try { renderMain(); } catch {} }
+        flash(); if (redraw) draw();
+      });
+    } });
+}
+function setReset(tab) {
+  const st = S.meta.settings;
+  if (tab === "look") { st.theme = "auto"; lsSet("babak-txtscale", "1"); lsSet("babak-uiscale", "0.83"); try { txtScaleApply(); uiScaleApply(); } catch {} colSet((g) => { g.preset = "cream"; g.c = {}; }); applyLangTheme(); }
+  if (tab === "pen") { st.penOnly = false; st.autoPen = true; st.smooth = 1; st.split = true; }
+  if (tab === "draft") { lsSet("babak-sa-dwth", 175); lsSet("babak-sa-roomh", 2.5); lsSet("babak-sa-snapoff", []); CV_SNAPOFF = new Set(); cvGeoRev = -1; lsSet("babak-sa-railend", false); delete st.dimc; }
+  if (tab === "rem") { st.sound = "chime"; }
+  if (tab === "data") { st.trashDays = 0; st.trashAuto = false; }
+  if (tab === "gen") { st.startWith = "home"; }
+  saveMeta(0); renderMain(); renderStatus();
+}
+async function setCheckUpdate(pane) {
+  const m = pane.querySelector("#setUpdMsg"); if (m) m.textContent = T("setChecking");
+  try {
+    const reg = await navigator.serviceWorker.getRegistration(); if (!reg) throw 0;
+    await reg.update();
+    await new Promise((r) => setTimeout(r, 2500));
+    if (reg.installing || reg.waiting) { if (m) m.textContent = "✨ " + T("updateReady"); return; }
+    if (m) m.textContent = "✅ " + T("setUpToDate");
+  } catch { if (m) m.textContent = T("setUpdFail"); }
+}
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
