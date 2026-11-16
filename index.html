@@ -1621,6 +1621,66 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .arres div{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:8px 12px;border:1px solid var(--line);border-radius:12px}
 .arres span{color:var(--muted);font-size:13.5px}.arres b{font-size:18px;white-space:nowrap}
 .dsh4{margin:12px 2px 8px;font-size:14px;color:var(--muted)}.dsh4:first-child{margin-top:0}
+
+/* r71: projects, quotes, materials, shopping */
+.dlg.pjdlg,.dlg.ofdlg{width:min(980px,96vw)}
+.pjfilt{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pjfilt button{min-height:40px;padding:0 12px;border:1px solid var(--line);border-radius:20px;background:var(--panel);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.pjfilt button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
+.pjfilt small{color:var(--muted)}
+.pjgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.pjcard{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border:1px solid var(--line);border-inline-start:6px solid var(--pc,#7b8597);border-radius:14px;background:var(--panel);cursor:pointer;text-align:start;font:inherit;color:var(--ink);min-height:140px}
+.pjcard:hover{border-color:var(--accent)}
+.pjtop{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.pjtop b{font-size:16.5px}
+.pjl{font-size:13.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pjm{color:var(--ink)}
+.pjbtns{display:flex;gap:6px;margin-top:auto}.pjbtns .btn{min-height:40px;text-decoration:none}
+.pjnew{align-items:center;justify-content:center;border-style:dashed;border-inline-start-width:1px;color:var(--accent)}.pjnew span{font-size:30px}
+.pjst{font-size:12px;padding:2px 8px;border-radius:10px;white-space:nowrap;background:var(--panel2);color:var(--ink)}
+.pjst-survey{background:#e7f0fd;color:#1d4f9a}.pjst-quote{background:#fdf1dc;color:#7a4a00}.pjst-work{background:#fde7e2;color:#8a2e1b}.pjst-done{background:#e2f5e9;color:#1b6b3a}
+.pjacts{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.pjacts .btn{min-height:44px;text-decoration:none}
+.pjform{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:4px 12px}.pjform .pjwide{grid-column:1/-1}
+.pjh{display:flex;align-items:center;gap:10px;margin:18px 2px 8px;font-size:15px}.pjh .btn{min-height:36px;font-size:13px}
+.pjrows{display:flex;flex-direction:column;gap:6px}
+.pjrow{display:flex;align-items:center;gap:6px}
+.pjrow .w,.pjrow.w{flex:1;display:flex;align-items:center;gap:10px;min-height:46px;padding:4px 12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font:inherit;text-align:start;cursor:pointer}
+.pjrow .w{flex-direction:column;align-items:flex-start;justify-content:center;gap:0}.pjrow small{color:var(--muted)}
+.pjrow .btn.icon{min-width:44px;min-height:44px}
+.pjbanner{display:flex;align-items:center;gap:8px;margin:12px 16px 4px;padding:10px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.pjbanner .w{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px}.pjbanner small{width:100%;color:var(--muted)}
+.pjbanner .btn{min-height:42px;text-decoration:none}
+.shlist{display:flex;flex-direction:column;gap:4px}
+.shrow{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 6px 0 10px;border:1px solid var(--line);border-radius:12px}
+.shrow input{width:22px;height:22px;flex:none}.shrow span{flex:1}.shrow.done span{text-decoration:line-through;color:var(--muted)}
+.shadd{display:flex;gap:6px}.shadd input{flex:1;min-height:44px}
+.shfoot{display:flex;align-items:center;gap:8px}.shfoot small{flex:1;color:var(--muted)}
+.mtgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:4px 10px}
+.mtf span{display:flex;align-items:center;gap:6px}.mtf input{flex:1;min-width:0}.mtf i{font-style:normal;color:var(--muted);min-width:22px}
+.mtchk{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0}.mtchk label{display:flex;align-items:center;gap:6px;min-height:36px}
+.mtres{display:flex;flex-direction:column;gap:6px}
+.mtrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line);border-radius:12px}
+.mtrow span{display:flex;flex-direction:column}.mtrow small{color:var(--muted)}.mtn{font-size:18px;white-space:nowrap}.mtn small{font-size:12.5px;font-weight:400;color:var(--muted)}
+.ofhead{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px 12px}
+.ofth,.ofrow{display:grid;grid-template-columns:28px minmax(0,1fr) 78px 74px 88px 104px 128px;gap:6px;align-items:start}
+.ofth{font-size:12.5px;color:var(--muted);padding:8px 0 4px;border-bottom:1px solid var(--line)}
+.ofrow{padding:8px 0;border-bottom:1px solid var(--line)}
+.ofrow .pos{padding-top:10px;color:var(--muted);text-align:center}
+.ofrow .d{display:flex;flex-direction:column;gap:2px}.ofrow .d small{color:var(--muted);font-size:12px}
+.ofrow textarea{width:100%;resize:vertical;min-height:44px;font:inherit;font-size:14px}
+.ofrow input,.ofrow select{min-height:44px;width:100%;font:inherit;font-size:14px}
+.ofrow .sum{padding-top:12px;text-align:end;white-space:nowrap;font-size:14px}
+.ofrow .rb{display:flex;gap:0}.ofrow .rb .btn{min-width:40px;min-height:44px;padding:0}
+.ofadd{display:flex;gap:8px;margin:10px 0}.ofadd select{flex:1;min-height:44px}
+.oftot{display:flex;flex-direction:column;align-items:flex-end;gap:4px;margin:8px 0}
+.oftot div{display:flex;gap:24px;min-width:260px;justify-content:space-between}.oftot .g{font-size:18px;font-weight:700;border-top:2px solid var(--ink);padding-top:4px}
+.ofk19{display:flex;align-items:center;gap:8px;min-height:44px}
+.ofroom{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--line)}.ofroom>b{min-width:120px}
+.ofroom .btn{display:flex;flex-direction:column;align-items:center;min-height:52px;font-size:12px}.ofroom .btn b{font-size:15px}
+.ofroom.sum{border-bottom:0;background:var(--panel2);border-radius:12px;padding:6px 8px}
+.cathead,.catrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) 80px 90px 44px;gap:6px;align-items:center}
+.cathead{font-size:12.5px;color:var(--muted);margin-bottom:4px}.catrow{margin-bottom:6px}.catrow input,.catrow select{min-height:44px;width:100%}
+.catlist{max-height:55vh;overflow:auto}
+.topx .tbproj{gap:4px;padding:0 10px}.topx .tbproj .tbl{font-size:13px}
+@media (max-width:760px){.ofth{display:none}.ofrow{grid-template-columns:28px 1fr 1fr;}.ofrow .d{grid-column:2/4}.ofrow .rb{grid-column:1/-1;justify-content:flex-end}}
 </style>
 
 <div class="app" id="app">
@@ -2424,7 +2484,7 @@ function folderPaths() {
   for (const f of S.meta.folders) { set.set(f.path, f.color); recs.set(f.path, f); }
   for (const n of S.notes.values()) if (n.folder && !n.trashed && !set.has(n.folder)) set.set(n.folder, "#7b8597");
   for (const p of Array.from(set.keys())) { const parts = p.split(SEP); for (let i = 1; i < parts.length; i++) { const a = parts.slice(0, i).join(SEP); if (!set.has(a)) set.set(a, "#7b8597"); } }
-  return Array.from(set.entries()).map(([path, color]) => ({ path, color, ...(recs.get(path)?.cover ? { cover: recs.get(path).cover } : {}), ...(recs.get(path)?.kind ? { kind: recs.get(path).kind } : {}) })).sort((a, b) => a.path.localeCompare(b.path, "fa"));
+  return Array.from(set.entries()).map(([path, color]) => ({ path, color, ...(recs.get(path)?.cover ? { cover: recs.get(path).cover } : {}), ...(recs.get(path)?.kind ? { kind: recs.get(path).kind } : {}), ...(recs.get(path)?.proj ? { proj: recs.get(path).proj } : {}) })).sort((a, b) => a.path.localeCompare(b.path, "fa"));
 }
 const leaf = (p) => p.split(SEP).pop();
 /** "folder" = only for sorting (like Google Drive), "book" = a notebook with a cover and pages. Old notebooks that hold other notebooks count as folders. */
@@ -8290,6 +8350,9 @@ Object.assign(I18N.de, {"tb_search": "Alles durchsuchen", "tb_new": "Erstellen (
 Object.assign(I18N.fa, {"tCorner": "گوشه و برش", "tDwall": "دیوار دوخطی", "tCdim": "اندازهٔ زنجیره‌ای", "tAdim": "اندازهٔ زاویه", "tRdim": "اندازهٔ شعاع", "tArea": "متراژ اتاق (m²)", "tDsym": "در، پنجره و نمادها", "tLayers": "لایه‌ها", "tRecent": "ابزار قبلی", "tRailMenu": "جمع کردن یا جابه‌جایی نوار", "tRailMin": "جمع کردن نوار", "tRailOpen": "باز کردن نوار", "tRailSide": "بردن نوار به سمت دیگر", "tThick": "ضخامت", "tThickOwn": "ضخامت دلخواه", "tAlC": "وسط", "tAlL": "به یک سو", "tAlR": "به سوی دیگر", "tCTrim": "بریدن", "tCExt": "رساندن", "tCFil": "گرد کردن", "tCCha": "پخ زدن", "tRoomH": "ارتفاع اتاق", "tChainEnd": "پایان زنجیره", "tCopyN": "تعداد دلخواه کپی", "tExact": "عدد دقیق", "tExactT": "طول یا زاویهٔ دقیق را با صفحهٔ عدد وارد کنید", "tExactFirst": "اول نقطهٔ شروع را بزنید و جهت را نشان دهید، بعد «عدد دقیق» را بزنید.", "tLx": "قفل افقی (محور قرمز)", "tLy": "قفل عمودی (محور سبز)", "tL45": "قفل ۴۵ درجه", "tL135": "قفل ۱۳۵ درجه", "tLpar": "موازی با یک خط", "tLperp": "عمود بر یک خط", "tPickLine": "روی خطی بزنید که می‌خواهید با آن موازی یا عمود بکشید.", "tSnEnd": "چسبیدن به سر خط", "tSnMid": "چسبیدن به وسط خط", "tSnInt": "چسبیدن به تقاطع", "tSnCen": "چسبیدن به مرکز", "tSnGrid": "چسبیدن به خانه‌های شطرنجی", "tBadNum": "یک عدد درست بنویسید.", "skH_dwall": "دیوار دوخطی: مثل خط بکشید؛ هر لمس یک گوشه. ضخامت را از نوار بالا انتخاب کنید. برای تمام کردن دوباره روی آخرین نقطه بزنید یا به نقطهٔ شروع برگردید.", "tH_c_trim": "بریدن: روی تکه‌ای از خط بزنید که می‌خواهید بین دو تقاطع برداشته شود.", "tH_c_ext": "رساندن: نزدیک سرِ یک خط بزنید تا تا اولین خط روبه‌رو امتداد پیدا کند.", "tH_c_fil": "گرد کردن: روی گوشه‌ای بزنید که دو خط به هم رسیده‌اند. شعاع را از نوار بالا عوض کنید.", "tH_c_cha": "پخ زدن: روی گوشه بزنید. اندازهٔ پخ را از نوار بالا عوض کنید.", "tH_area": "داخل یک اتاق یا شکل بسته بزنید تا متراژ کف، محیط و مساحت دیوارها را ببینید.", "tH_dsym": "جایی بزنید تا در، پنجره، پریز، لوله یا وسایل بهداشتی را انتخاب کنید. کنار دیوار که باشد، خودش به دیوار می‌چسبد.", "tH_cdim": "اندازهٔ زنجیره‌ای: نقطهٔ اول را بزنید.", "tH_cdim2": "نقطهٔ دوم را بزنید، بعد جای خط اندازه را.", "tH_cdim3": "نقطه‌های بعدی را بزنید؛ اندازه‌ها پشت هم می‌آیند. برای پایان دوباره روی آخرین نقطه بزنید.", "tH_adim": "اندازهٔ زاویه: اول رأس گوشه را بزنید.", "tH_adim2": "حالا یک نقطه روی خط اول بزنید.", "tH_adim3": "حالا یک نقطه روی خط دوم بزنید.", "tH_rdim": "اندازهٔ شعاع: اول مرکز دایره یا کمان را بزنید.", "tH_rdim2": "حالا یک نقطه روی خود دایره یا کمان بزنید.", "tExtNone": "خطی پیدا نشد که این خط به آن برسد.", "tCornerNone": "اینجا گوشه‌ای از دو خط پیدا نشد.", "tCornerBig": "این اندازه برای این گوشه بزرگ است؛ کوچک‌ترش کنید.", "tAFloor": "مساحت کف", "tAPer": "محیط", "tAWall": "مساحت دیوارها", "tAOps": "در/پنجره", "tAPerS": "محیط", "tAWallS": "دیوار", "tRoomName": "نام اتاق (اختیاری)", "tRoomPh": "مثلاً حمام", "tAddLabel": "گذاشتن برچسب روی نقشه", "tApprox": "این محدوده از روی خط‌های دور آن پیدا شد؛ عددها تقریبی‌اند. برای عدد دقیق، دور اتاق را با یک شکل بسته بکشید.", "tDsOps": "در و پنجره (عرض به میلی‌متر)", "tDsSan": "بهداشتی و آشپزخانه", "tLyPlan": "نقشه", "tLyDim": "اندازه‌ها", "tLyElec": "برق", "tLyWater": "آب و گاز", "tLyNote": "یادداشت‌ها", "tLyShow": "نمایش / پنهان", "tLyLock": "قفل", "tLyMove": "بردن انتخاب‌شده‌ها به این لایه", "tLyHint": "لایهٔ علامت‌خورده جایی است که چیزهای تازه می‌روند. 👁 پنهان می‌کند، 🔒 قفل می‌کند تا چیزی اشتباهی جابه‌جا یا پاک نشود.", "tLyHintSel": "با ⇢ چیزهای انتخاب‌شده را به آن لایه ببرید.", "tLyMoved": "به لایهٔ «{l}» رفت", "tbHelpCv": "ابزارهای هم‌خانواده زیر یک دکمه‌اند (گوشهٔ کوچک)؛ نگه دارید یا دوباره بزنید تا باز شوند.|هنگام کشیدن، نوار بالا: «عدد دقیق»، قفل جهت (افقی، عمودی، ۴۵°، موازی، عمود) و چسبیدن‌ها.|دیوار دوخطی، متراژ m²، در و پنجره و نمادها، گوشه و برش، و لایه‌ها در نوار کنار هستند.|با دو انگشت بزرگ و کوچک و جابه‌جا کنید.|↶ آخرین تغییر بوم را برمی‌گرداند."});
 Object.assign(I18N.en, {"tCorner": "Corners and cuts", "tDwall": "Double-line wall", "tCdim": "Chain dimension", "tAdim": "Angle dimension", "tRdim": "Radius dimension", "tArea": "Room area (m²)", "tDsym": "Doors, windows and symbols", "tLayers": "Layers", "tRecent": "Previous tool", "tRailMenu": "Fold or move the bar", "tRailMin": "Fold the bar", "tRailOpen": "Open the bar", "tRailSide": "Move the bar to the other side", "tThick": "Thickness", "tThickOwn": "Own thickness", "tAlC": "Centre", "tAlL": "One side", "tAlR": "Other side", "tCTrim": "Trim", "tCExt": "Extend", "tCFil": "Round", "tCCha": "Bevel", "tRoomH": "Room height", "tChainEnd": "End chain", "tCopyN": "Own number of copies", "tExact": "Exact value", "tExactT": "Type an exact length or angle on the number pad", "tExactFirst": "Tap the start point and show the direction first, then tap “Exact value”.", "tLx": "Lock horizontal (red axis)", "tLy": "Lock vertical (green axis)", "tL45": "Lock 45°", "tL135": "Lock 135°", "tLpar": "Parallel to a line", "tLperp": "Perpendicular to a line", "tPickLine": "Tap the line to draw parallel or perpendicular to.", "tSnEnd": "Snap to line ends", "tSnMid": "Snap to midpoints", "tSnInt": "Snap to crossings", "tSnCen": "Snap to centres", "tSnGrid": "Snap to grid", "tBadNum": "Enter a valid number.", "skH_dwall": "Double-line wall: draw like a line; every tap is a corner. Pick the thickness in the top bar. Tap the last point again, or go back to the start, to finish.", "tH_c_trim": "Trim: tap the piece of line to remove between two crossings.", "tH_c_ext": "Extend: tap near the end of a line to reach the next line ahead.", "tH_c_fil": "Round: tap a corner where two lines meet. Change the radius in the top bar.", "tH_c_cha": "Bevel: tap a corner. Change the size in the top bar.", "tH_area": "Tap inside a room or closed shape for floor area, perimeter and wall area.", "tH_dsym": "Tap where a door, window, outlet, pipe or bathroom piece should go. Near a wall it lines up with it.", "tH_cdim": "Chain dimension: tap the first point.", "tH_cdim2": "Tap the second point, then where the dimension line goes.", "tH_cdim3": "Tap the next points; dimensions follow one after another. Tap the last point again to finish.", "tH_adim": "Angle: tap the corner first.", "tH_adim2": "Now tap a point on the first line.", "tH_adim3": "Now tap a point on the second line.", "tH_rdim": "Radius: tap the centre of the circle or arc first.", "tH_rdim2": "Now tap a point on the circle or arc.", "tExtNone": "No line found for this line to reach.", "tCornerNone": "No corner of two lines found here.", "tCornerBig": "That size is too big for this corner; make it smaller.", "tAFloor": "Floor area", "tAPer": "Perimeter", "tAWall": "Wall area", "tAOps": "doors/windows", "tAPerS": "Perimeter", "tAWallS": "Walls", "tRoomName": "Room name (optional)", "tRoomPh": "e.g. Bathroom", "tAddLabel": "Put a label on the plan", "tApprox": "This area was found from the lines around it, so the numbers are approximate. For exact numbers, draw the room as one closed shape.", "tDsOps": "Doors and windows (width in mm)", "tDsSan": "Bathroom and kitchen", "tLyPlan": "Plan", "tLyDim": "Dimensions", "tLyElec": "Electrical", "tLyWater": "Water and gas", "tLyNote": "Notes", "tLyShow": "Show / hide", "tLyLock": "Lock", "tLyMove": "Move the selection to this layer", "tLyHint": "New things go to the marked layer. 👁 hides a layer, 🔒 locks it so nothing moves or gets erased by mistake.", "tLyHintSel": "Use ⇢ to move the selected things to that layer.", "tLyMoved": "Moved to “{l}”", "tbHelpCv": "Related tools share one button (small corner); hold it or tap it again to open them.|While drawing, the top bar has Exact value, direction locks (horizontal, vertical, 45°, parallel, perpendicular) and snapping.|Double-line wall, m² area, doors and symbols, corners and cuts, and layers are on the side bar.|Use two fingers to zoom and pan.|↶ undoes the last canvas change."});
 Object.assign(I18N.de, {"tCorner": "Ecken und Schnitte", "tDwall": "Doppellinien-Wand", "tCdim": "Kettenmaß", "tAdim": "Winkelmaß", "tRdim": "Radiusmaß", "tArea": "Raumfläche (m²)", "tDsym": "Türen, Fenster und Symbole", "tLayers": "Ebenen", "tRecent": "Vorheriges Werkzeug", "tRailMenu": "Leiste einklappen oder verschieben", "tRailMin": "Leiste einklappen", "tRailOpen": "Leiste öffnen", "tRailSide": "Leiste auf die andere Seite", "tThick": "Dicke", "tThickOwn": "Eigene Dicke", "tAlC": "Mitte", "tAlL": "Eine Seite", "tAlR": "Andere Seite", "tCTrim": "Stutzen", "tCExt": "Verlängern", "tCFil": "Abrunden", "tCCha": "Fasen", "tRoomH": "Raumhöhe", "tChainEnd": "Kette beenden", "tCopyN": "Eigene Anzahl Kopien", "tExact": "Genauer Wert", "tExactFirst": "Erst Startpunkt tippen und Richtung zeigen, dann „Genauer Wert“.", "tLx": "Waagerecht sperren", "tLy": "Senkrecht sperren", "tL45": "45° sperren", "tL135": "135° sperren", "tLpar": "Parallel zu einer Linie", "tLperp": "Senkrecht zu einer Linie", "tPickLine": "Tippen Sie auf die Bezugslinie.", "tSnEnd": "An Enden fangen", "tSnMid": "An Mitten fangen", "tSnInt": "An Schnittpunkten fangen", "tSnCen": "An Mittelpunkten fangen", "tSnGrid": "Am Raster fangen", "tBadNum": "Bitte eine gültige Zahl eingeben.", "tAFloor": "Bodenfläche", "tAPer": "Umfang", "tAWall": "Wandfläche", "tAOps": "Türen/Fenster", "tAPerS": "Umfang", "tAWallS": "Wände", "tRoomName": "Raumname (optional)", "tRoomPh": "z. B. Bad", "tAddLabel": "Beschriftung setzen", "tDsOps": "Türen und Fenster (Breite in mm)", "tDsSan": "Bad und Küche", "tLyPlan": "Plan", "tLyDim": "Maße", "tLyElec": "Elektro", "tLyWater": "Wasser und Gas", "tLyNote": "Notizen", "tLyShow": "Zeigen / verbergen", "tLyLock": "Sperren", "tLyMove": "Auswahl auf diese Ebene", "tLyMoved": "Auf „{l}“ verschoben"});
+Object.assign(I18N.fa, {"tb_proj": "پروژه‌ها", "tb_shop": "فهرست خرید", "pjShort": "پروژه‌ها", "pjTitle": "پروژه‌ها", "pjAll": "همه", "pjNew": "پروژهٔ تازه", "pjCard": "کارت پروژه", "pjSt_survey": "برداشت", "pjSt_quote": "قیمت", "pjSt_work": "در حال کار", "pjSt_done": "تمام", "pjF_addr": "نشانی ساختمان", "pjF_client": "صاحب‌کار", "pjF_phone": "تلفن", "pjF_email": "ایمیل", "pjF_st": "وضعیت", "pjF_start": "شروع", "pjF_end": "پایان", "pjF_note": "یادداشت", "pjName": "نام پروژه", "pjNamePh": "مثلاً حمام خیابان گوته", "pjFromF": "یا یک پوشهٔ موجود را پروژه کنید", "pjNewF": "پوشهٔ تازه با همین نام", "pjNeedName": "یک نام بنویسید.", "pjExists": "پوشه‌ای با این نام هست؛ آن را از فهرست پایین انتخاب کنید.", "pjCreate": "ساختن", "pjOpenF": "پوشه", "pjCall": "تماس", "pjRoute": "مسیر", "pjMail": "ایمیل", "pjSurvey": "برداشت تازه", "pjCanvas": "نقشهٔ تازه", "pjPage": "صفحهٔ تازه", "pjPhoto": "عکس", "pjVoice": "صدا", "pjItems": "محتوای پروژه", "pjEmpty": "هنوز چیزی در این پروژه نیست.", "pjAllItems": "همه در پوشه", "pjUnmark": "دیگر پروژه نباشد", "pjUnmarkQ": "این پوشه دیگر پروژه نباشد؟", "pjUnmarkX": "پوشه و همهٔ محتوایش سر جایش می‌ماند؛ فقط اطلاعات کارت پروژه، قیمت‌نامه‌ها و فهرست خرید آن پاک می‌شود.", "shTitle": "فهرست خرید", "shAddPh": "چیزی بنویسید و Enter بزنید…", "shLeft": "{n} مورد مانده", "shClear": "پاک کردن خریده‌شده‌ها", "shGeneral": "فهرست خرید عمومی", "mtTitle": "ماشین‌حساب مصالح", "mtFloor": "مساحت کف", "mtWallT": "دیوار کاشی‌کاری", "mtWallP": "دیوار رنگ‌کاری", "mtPer": "محیط (قرنیز/سیلیکون)", "mtDry": "دیوار کناف", "mtWaste": "اضافه برای ضایعات", "mtBox": "کاشی در هر کارتن", "mtCoats": "دفعات رنگ", "mt_tileF": "کاشی کف", "mt_tileW": "کاشی دیوار", "mt_glue": "چسب کاشی", "mt_grout": "پودر بندکشی", "mt_seal": "عایق رطوبتی", "mt_prime": "آستر (پرایمر)", "mt_paint": "رنگ", "mt_board": "صفحهٔ کناف", "mt_lam": "لمینت", "mt_skirt": "قرنیز", "mt_sil": "سیلیکون", "mtPick": "چیزی انتخاب نشده.", "mtNote": "عددها برآوردی‌اند و بر اساس مصرف رایج حساب شده‌اند (چسب ۴ کیلو در متر مربع، رنگ ۰٫۱۵ لیتر در متر مربع برای هر دست…). روی بستهٔ هر جنس مصرف دقیق را ببینید.", "mtTo": "بفرست به", "mtAdd": "به فهرست خرید", "mtAdded": "{n} مورد به فهرست خرید رفت", "ofList": "قیمت‌نامه‌ها (Angebot)", "ofNone": "هنوز قیمت‌نامه‌ای نیست.", "ofNew": "قیمت‌نامهٔ تازه", "ofCat": "فهرست کارها و قیمت‌ها", "ofCo": "اطلاعات شما (سربرگ)", "ofCoHint": "این‌ها بالای قیمت‌نامه و پایین صفحه چاپ می‌شوند. فقط روی همین دستگاه ذخیره می‌شوند.", "ofCoFirst": "اول اطلاعات خودتان را برای سربرگ قیمت‌نامه بنویسید.", "coF_name": "نام یا نام شرکت", "coF_street": "خیابان و پلاک", "coF_city": "کد پستی و شهر", "coF_phone": "تلفن", "coF_email": "ایمیل", "coF_tax": "شمارهٔ مالیاتی (Steuernummer)", "coF_iban": "IBAN (اختیاری)", "coF_bank": "نام بانک (اختیاری)", "ofK19": "مشمول قانون کسب‌وکار کوچک هستم (Kleinunternehmer، بند ۱۹) — بدون مالیات بر ارزش افزوده", "ofCatHint": "نام فارسی فقط برای خود شماست؛ متن آلمانی در PDF چاپ می‌شود. قیمت واحد را یک بار بنویسید تا هر بار خودکار بیاید.", "ofCatAdd": "کار تازه", "ofUnit": "واحد", "ofDate": "تاریخ", "ofValid": "اعتبار (روز)", "ofClient": "مشتری", "ofCaddr": "نشانی مشتری", "ofSite": "محل کار (Bauvorhaben)", "ofIntro": "متن اول", "ofDesc": "شرح کار", "ofQty": "مقدار", "ofSum": "جمع", "ofAddCat": "کار از فهرست…", "ofAddBlank": "ردیف خالی", "ofEmpty": "یک کار از فهرست اضافه کنید.", "ofNoteL": "متن آخر", "ofIntro0": "Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:", "ofNote0": "Alle Preise verstehen sich inklusive Material, sofern nicht anders angegeben. Wir freuen uns auf Ihren Auftrag.", "ofFromPlan": "مقدار از روی نقشه", "ofNoPlan": "در این پروژه نقشه یا برداشتی نیست.", "ofNoRooms": "در نقشه‌های این پروژه اتاق بسته‌ای پیدا نشد. دور اتاق را با شکل بسته یا دیوار دوخطی بکشید.", "ofAllRooms": "همهٔ اتاق‌ها", "ofRoom": "اتاق", "ofPlanHint": "مساحت دیوار با ارتفاع {h} متر و کم کردن در و پنجره‌ها حساب شده است. ارتفاع را در ابزار m² عوض کنید.", "ofDelQ": "این قیمت‌نامه حذف شود؟", "ofFail": "ساختن فایل نشد. دوباره امتحان کنید."});
+Object.assign(I18N.en, {"tb_proj": "Projects", "tb_shop": "Shopping list", "pjShort": "Projects", "pjTitle": "Projects", "pjAll": "All", "pjNew": "New project", "pjCard": "Project card", "pjSt_survey": "Survey", "pjSt_quote": "Quote", "pjSt_work": "In progress", "pjSt_done": "Done", "pjF_addr": "Site address", "pjF_client": "Client", "pjF_phone": "Phone", "pjF_email": "Email", "pjF_st": "Status", "pjF_start": "Start", "pjF_end": "End", "pjF_note": "Note", "pjName": "Project name", "pjNamePh": "e.g. Bathroom Goethestraße", "pjFromF": "Or turn an existing folder into a project", "pjNewF": "New folder with this name", "pjNeedName": "Enter a name.", "pjExists": "A folder with this name exists; pick it from the list below.", "pjCreate": "Create", "pjOpenF": "Folder", "pjCall": "Call", "pjRoute": "Route", "pjMail": "Email", "pjSurvey": "New survey", "pjCanvas": "New drawing", "pjPage": "New page", "pjPhoto": "Photo", "pjVoice": "Voice", "pjItems": "Project content", "pjEmpty": "Nothing in this project yet.", "pjAllItems": "All in the folder", "pjUnmark": "Stop being a project", "pjUnmarkQ": "Stop treating this folder as a project?", "pjUnmarkX": "The folder and everything in it stay; only the project card, its quotes and its shopping list are removed.", "shTitle": "Shopping list", "shAddPh": "Type something and press Enter…", "shLeft": "{n} left", "shClear": "Remove bought items", "shGeneral": "General shopping list", "mtTitle": "Materials calculator", "mtFloor": "Floor area", "mtWallT": "Tiled wall", "mtWallP": "Painted wall", "mtPer": "Perimeter (skirting/silicone)", "mtDry": "Drywall", "mtWaste": "Extra for waste", "mtBox": "Tiles per box", "mtCoats": "Coats of paint", "mt_tileF": "Floor tiles", "mt_tileW": "Wall tiles", "mt_glue": "Tile adhesive", "mt_grout": "Grout", "mt_seal": "Waterproofing", "mt_prime": "Primer", "mt_paint": "Paint", "mt_board": "Plasterboard", "mt_lam": "Laminate", "mt_skirt": "Skirting", "mt_sil": "Silicone", "mtPick": "Nothing selected.", "mtNote": "Estimates based on usual consumption (adhesive 4 kg/m², paint 0.15 l/m² per coat…). Check the exact figures on each product.", "mtTo": "Send to", "mtAdd": "To shopping list", "mtAdded": "{n} items added to the shopping list", "ofList": "Quotes (Angebot)", "ofNone": "No quotes yet.", "ofNew": "New quote", "ofCat": "Work items and prices", "ofCo": "Your details (letterhead)", "ofCoHint": "Printed at the top of the quote and in the footer. Stored on this device only.", "ofCoFirst": "First enter your details for the quote letterhead.", "coF_name": "Name or company", "coF_street": "Street and number", "coF_city": "Postcode and town", "coF_phone": "Phone", "coF_email": "Email", "coF_tax": "Tax number (Steuernummer)", "coF_iban": "IBAN (optional)", "coF_bank": "Bank (optional)", "ofK19": "I'm a small business (Kleinunternehmer, § 19) — no VAT", "ofCatHint": "The Persian name is just for you; the German text is printed in the PDF. Enter a unit price once and it fills in every time.", "ofCatAdd": "New item", "ofUnit": "Unit", "ofDate": "Date", "ofValid": "Valid (days)", "ofClient": "Client", "ofCaddr": "Client address", "ofSite": "Site (Bauvorhaben)", "ofIntro": "Opening text", "ofDesc": "Description", "ofQty": "Qty", "ofSum": "Total", "ofAddCat": "Item from the list…", "ofAddBlank": "Empty row", "ofEmpty": "Add an item from the list.", "ofNoteL": "Closing text", "ofIntro0": "Sehr geehrte Damen und Herren,\nvielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:", "ofNote0": "Alle Preise verstehen sich inklusive Material, sofern nicht anders angegeben. Wir freuen uns auf Ihren Auftrag.", "ofFromPlan": "Quantity from the plan", "ofNoPlan": "There's no drawing or survey in this project.", "ofNoRooms": "No closed rooms found in this project's drawings. Draw the room as a closed shape or with double-line walls.", "ofAllRooms": "All rooms", "ofRoom": "Room", "ofPlanHint": "Wall area uses a height of {h} m minus doors and windows. Change the height in the m² tool.", "ofDelQ": "Delete this quote?", "ofFail": "Couldn't make the file. Try again."});
+Object.assign(I18N.de, {"tb_proj": "Projekte", "tb_shop": "Einkaufsliste", "pjShort": "Projekte", "pjTitle": "Projekte", "pjAll": "Alle", "pjNew": "Neues Projekt", "pjSt_survey": "Aufmaß", "pjSt_quote": "Angebot", "pjSt_work": "In Arbeit", "pjSt_done": "Fertig", "shTitle": "Einkaufsliste", "mtTitle": "Materialrechner", "ofList": "Angebote", "ofNew": "Neues Angebot", "ofCat": "Leistungen und Preise", "ofCo": "Ihre Angaben (Briefkopf)"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -15816,8 +15879,9 @@ async function cvAreaTap(p) {
   const ops = CV.d.items.filter((x) => (x.t === "door" || x.t === "window") && near([x.x, x.y], (x.th || 18) / 2 + 60 * K));
   const H = +lsGet("babak-sa-roomh", 2.5) || 2.5, opA = ops.reduce((s, x) => s + ((x.w || 0) / K / 1000) * (x.t === "door" ? 2.0 : 1.25), 0), wall = Math.max(0, per * H - opA);
   const ap = best.exact ? "" : "≈ ", f2 = (v) => num(v.toFixed(2));
+  CV.lastRoom = { floor: m2, wall, per };
   const r = await formBox("m² " + T("tArea"), `<div class="arres"><div><span>${esc(T("tAFloor"))}</span><b>${ap}${f2(m2)} m²</b></div><div><span>${esc(T("tAPer"))}</span><b>${ap}${f2(per)} m</b></div><div><span>${esc(T("tAWall"))} (${esc(T("tRoomH"))} ${f2(H)} m${ops.length ? " − " + num(ops.length) + " " + esc(T("tAOps")) : ""})</span><b>${ap}${f2(wall)} m²</b></div></div>
-    <div class="field"><label>${esc(T("tRoomName"))}</label><input name="nm" placeholder="${esc(T("tRoomPh"))}"></div>${best.exact ? "" : `<p class="msg">${esc(T("tApprox"))}</p>`}`,
+    <p><button type="button" class="btn" data-mtcalc="1">🧮 ${esc(T("mtTitle"))}</button></p><div class="field"><label>${esc(T("tRoomName"))}</label><input name="nm" placeholder="${esc(T("tRoomPh"))}"></div>${best.exact ? "" : `<p class="msg">${esc(T("tApprox"))}</p>`}`,
     (f) => ({ nm: f.nm.value.trim() }), T("tAddLabel"));
   if (!r) return;
   const c = cvCentroid(pts), fs = Math.max(10, Math.min(30, Math.sqrt(best.a) / 9));
@@ -15902,6 +15966,426 @@ function cvDimTap(tool, p0) {
   if (tool === "adim") cvHint(T(dt.pts.length === 1 ? "tH_adim2" : "tH_adim3"));
   if (tool === "rdim") cvHint(T("tH_rdim2"));
 }
+
+/* ---- r71: projects, German quotes (Angebot) as PDF and Excel, a materials calculator and shopping lists ---- */
+const PJ_ST = [["survey", "📐"], ["quote", "💶"], ["work", "🔨"], ["done", "✅"]];
+const pjRec = (path) => S.meta.folders.find((f) => f.path === path);
+const pjOf = (path) => (path && pjRec(path) && pjRec(path).proj) || null;
+const pjAll = () => S.meta.folders.filter((f) => f.proj).sort((a, b) => (b.proj.upd || "").localeCompare(a.proj.upd || ""));
+const pjEur = (v) => (Math.round((+v || 0) * 100) / 100).toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+const pjQty = (v) => (Math.round((+v || 0) * 100) / 100).toLocaleString("de-DE", { maximumFractionDigits: 2 });
+const pjNum = (s) => { const v = parseFloat(String(s == null ? "" : s).replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/\s/g, "").replace(/\.(?=\d{3}(\D|$))/g, "").replace(",", ".")); return isFinite(v) ? v : 0; };
+const pjDe = (iso) => { try { return new Date(iso + "T12:00:00").toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit", year: "numeric" }); } catch { return iso; } };
+const pjToday = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function pjTouch(rec) { rec.proj.upd = new Date().toISOString(); saveMeta(0); }
+function pjNotes(path) { return [...S.notes.values()].filter((n) => !n.trashed && n.folder && inPath(n.folder, path)).sort((a, b) => (b.updatedAt || "").localeCompare(a.updatedAt || "")); }
+function pjCounts(path) {
+  const c = { sv: 0, cv: 0, pg: 0, file: 0, mm: 0 };
+  for (const n of pjNotes(path)) { if (n.cv && n.cv.survey) c.sv++; else if (n.cv) c.cv++; else if (n.mm) c.mm++; else if (n.file) c.file++; else c.pg++; }
+  return c;
+}
+const pjTel = (p) => String(p || "").replace(/[^\d+]/g, "");
+const pjMap = (a) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(a || "");
+function pjStChip(st) { const s = PJ_ST.find((x) => x[0] === st) || PJ_ST[0]; return `<span class="pjst pjst-${s[0]}">${s[1]} ${esc(T("pjSt_" + s[0]))}</span>`; }
+
+/* ---- projects list ---- */
+async function pjPanel() {
+  let filt = "all";
+  const draw = (el) => {
+    const list = pjAll().filter((f) => filt === "all" || (f.proj.st || "survey") === filt);
+    el.querySelector(".pjbody").innerHTML = `<div class="pjfilt">${[["all", "☰"], ...PJ_ST].map(([k, i]) => `<button type="button" data-pjf="${k}" aria-pressed="${filt === k}">${i} ${esc(T(k === "all" ? "pjAll" : "pjSt_" + k))} <small>${num(k === "all" ? pjAll().length : pjAll().filter((f) => (f.proj.st || "survey") === k).length)}</small></button>`).join("")}</div>
+      <div class="pjgrid">${list.map((f) => { const p = f.proj, c = pjCounts(f.path); return `<div class="pjcard" data-pjopen="${esc(f.path)}" style="--pc:${esc(f.color || "#7b8597")}">
+        <div class="pjtop"><b>${esc(leaf(f.path))}</b>${pjStChip(p.st)}</div>
+        ${p.addr ? `<div class="pjl">📍 ${esc(p.addr)}</div>` : ""}${p.client ? `<div class="pjl">👤 ${esc(p.client)}</div>` : ""}
+        <div class="pjl pjm">${c.sv ? "📋 " + num(c.sv) + " " : ""}${c.cv ? "🎨 " + num(c.cv) + " " : ""}${c.pg ? "📝 " + num(c.pg) + " " : ""}${c.file ? "📎 " + num(c.file) + " " : ""}${(p.offers || []).length ? "💶 " + num(p.offers.length) : ""}</div>
+        <div class="pjbtns">${p.phone ? `<a class="btn" href="tel:${esc(pjTel(p.phone))}" data-stop="1">📞</a>` : ""}${p.addr ? `<a class="btn" href="${esc(pjMap(p.addr))}" target="_blank" rel="noopener" data-stop="1">🗺</a>` : ""}<button type="button" class="btn" data-pjgo="${esc(f.path)}">📁 ${esc(T("pjOpenF"))}</button></div></div>`; }).join("")}
+      <button type="button" class="pjcard pjnew" data-pjnew="1"><span>＋</span><b>${esc(T("pjNew"))}</b></button></div>`;
+  };
+  return dialog({ title: "🏗 " + T("pjTitle"), wide: true, body: `<div class="pjbody"></div>`, actions: [{ label: "📚 " + T("ofCat"), value: "cat" }, { label: "🏢 " + T("ofCo"), value: "co" }, { label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el, close) => { el.classList.add("pjdlg"); draw(el); el.addEventListener("click", async (e) => {
+      if (e.target.closest("[data-stop]")) return;
+      const f = e.target.closest("[data-pjf]"); if (f) { filt = f.dataset.pjf; return draw(el); }
+      const g = e.target.closest("[data-pjgo]"); if (g) { close(null); return skyGo(g.dataset.pjgo); }
+      if (e.target.closest("[data-pjnew]")) { const p = await pjNewForm(); if (p) { close(null); return pjDetail(p); } return; }
+      const o = e.target.closest("[data-pjopen]"); if (o) { close(null); return pjDetail(o.dataset.pjopen); }
+    }); } }).then((v) => { if (v === "cat") return ofCatEdit(); if (v === "co") return ofCoEdit(); });
+}
+function pjFields(p) {
+  const fl = (k, t, extra = "") => `<div class="field"><label>${esc(T("pjF_" + k))}</label><input name="${k}" value="${esc(p[k] || "")}" ${extra}></div>`;
+  return `<div class="pjform">${fl("addr", "text", `autocomplete="street-address"`)}${fl("client", "text")}${fl("phone", "tel", `inputmode="tel" dir="ltr"`)}${fl("email", "email", `inputmode="email" dir="ltr"`)}
+    <div class="field"><label>${esc(T("pjF_st"))}</label><select name="st">${PJ_ST.map(([k, i]) => `<option value="${k}" ${(p.st || "survey") === k ? "selected" : ""}>${i} ${esc(T("pjSt_" + k))}</option>`).join("")}</select></div>
+    <div class="field"><label>${esc(T("pjF_start"))}</label><input type="date" name="start" value="${esc(p.start || "")}"></div><div class="field"><label>${esc(T("pjF_end"))}</label><input type="date" name="end" value="${esc(p.end || "")}"></div>
+    <div class="field pjwide"><label>${esc(T("pjF_note"))}</label><textarea name="note" rows="2">${esc(p.note || "")}</textarea></div></div>`;
+}
+async function pjNewForm() {
+  const free = folderPaths().filter((f) => !pjOf(f.path)).map((f) => f.path);
+  const r = await formBox("🏗 " + T("pjNew"), `<div class="field"><label>${esc(T("pjName"))}</label><input name="nm" placeholder="${esc(T("pjNamePh"))}"></div>
+    ${free.length ? `<div class="field"><label>${esc(T("pjFromF"))}</label><select name="from"><option value="">— ${esc(T("pjNewF"))} —</option>${free.map((p) => `<option value="${esc(p)}">${esc(p)}</option>`).join("")}</select></div>` : ""}${pjFields({ start: pjToday() })}`,
+    (f) => { const from = f.from ? f.from.value : ""; const nm = f.nm.value.trim().replace(new RegExp(SEP.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"), "-"); if (!from && !nm) return T("pjNeedName"); if (!from && folderPaths().some((x) => x.path === nm)) return T("pjExists");
+      const o = { path: from || nm }; for (const k of ["addr", "client", "phone", "email", "st", "start", "end", "note"]) o[k] = f[k].value.trim(); return o; }, T("pjCreate"));
+  if (!r) return null;
+  let rec = pjRec(r.path); if (!rec) { rec = { path: r.path, color: TAG_COLORS[S.meta.folders.length % TAG_COLORS.length], kind: "folder" }; S.meta.folders.push(rec); }
+  const { path, ...p } = r; rec.proj = { ...p, offers: [], shop: [], created: new Date().toISOString() }; pjTouch(rec); renderSide(); renderMain();
+  return path;
+}
+
+/* ---- one project ---- */
+async function pjDetail(path) {
+  const rec = pjRec(path); if (!rec || !rec.proj) return;
+  const draw = (el) => {
+    const p = rec.proj, ns = pjNotes(path), off = p.offers || [], shop = p.shop || [];
+    el.querySelector(".pjbody").innerHTML = `
+      <div class="pjacts">${p.phone ? `<a class="btn" href="tel:${esc(pjTel(p.phone))}">📞 ${esc(T("pjCall"))}</a>` : ""}${p.addr ? `<a class="btn" href="${esc(pjMap(p.addr))}" target="_blank" rel="noopener">🗺 ${esc(T("pjRoute"))}</a>` : ""}${p.email ? `<a class="btn" href="mailto:${esc(p.email)}">✉️ ${esc(T("pjMail"))}</a>` : ""}
+        <button type="button" class="btn" data-pja="folder">📁 ${esc(T("pjOpenF"))}</button><button type="button" class="btn" data-pja="survey">📋 ${esc(T("pjSurvey"))}</button><button type="button" class="btn" data-pja="canvas">📐 ${esc(T("pjCanvas"))}</button>
+        <button type="button" class="btn" data-pja="page">📝 ${esc(T("pjPage"))}</button><button type="button" class="btn" data-pja="photo">📷 ${esc(T("pjPhoto"))}</button><button type="button" class="btn" data-pja="mic">🎙 ${esc(T("pjVoice"))}</button></div>
+      ${pjFields(p)}
+      <h4 class="pjh">💶 ${esc(T("ofList"))}</h4><div class="pjrows">${off.map((o) => { const t = ofTotals(o); return `<div class="pjrow"><button type="button" class="w" data-ofedit="${esc(o.id)}"><b>${esc(o.no)}</b><small>${esc(pjDe(o.date))} · ${esc(pjEur(t.gross))}</small></button><button type="button" class="btn icon" data-ofpdf="${esc(o.id)}" title="PDF">📄</button><button type="button" class="btn icon" data-ofxls="${esc(o.id)}" title="Excel">📊</button></div>`; }).join("") || `<p class="tbempty">${esc(T("ofNone"))}</p>`}
+        <button type="button" class="btn primary" data-ofnew="1">＋ ${esc(T("ofNew"))}</button></div>
+      <h4 class="pjh">🛒 ${esc(T("shTitle"))} <button type="button" class="btn" data-pja="calc">🧮 ${esc(T("mtTitle"))}</button></h4>${shListHtml(shop)}
+      <h4 class="pjh">🗂 ${esc(T("pjItems"))} · ${num(ns.length)}</h4><div class="pjrows">${ns.slice(0, 8).map((n) => `<button type="button" class="pjrow w" data-pjnote="${esc(n.id)}"><span>${tbKindIcon(n)}</span><b>${esc(titleOf(n) || "—")}</b><small>${esc(fmtDate(n.updatedAt, false))}</small></button>`).join("") || `<p class="tbempty">${esc(T("pjEmpty"))}</p>`}${ns.length > 8 ? `<button type="button" class="btn" data-pja="folder">… ${esc(T("pjAllItems"))}</button>` : ""}</div>`;
+  };
+  const act = async (a, close, el) => {
+    if (a === "calc") { await mtCalc({ path }); return draw(el); }
+    close(null); S.view = path; S.screen = "library";
+    if (a === "folder") return skyGo(path);
+    if (a === "survey") return newCanvas({ survey: true, folder: path });
+    if (a === "canvas") return newCanvas({ folder: path });
+    if (a === "page") return newNote({ like: null, folder: path });
+    if (a === "photo") { const i = $("#camIn"); if (i) { i.value = ""; i.click(); } return; }
+    if (a === "mic") { if (!(S.assets && navigator.mediaDevices && window.MediaRecorder)) return toast(T("pvNoMic"), { kind: "err" }); newNote({ like: null, folder: path }); return setTimeout(() => toggleRecording(), 300); }
+  };
+  return dialog({ title: "🏗 " + leaf(path), wide: true, body: `<div class="pjbody"></div>`, actions: [{ label: "🗑 " + T("pjUnmark"), value: "unmark", kind: "ghost" }, { label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el, close) => {
+      el.classList.add("pjdlg"); draw(el);
+      el.addEventListener("change", (e) => { const t = e.target; if (!t.name || !t.closest(".pjform")) return; rec.proj[t.name] = t.value.trim(); pjTouch(rec); if (t.name === "phone" || t.name === "addr" || t.name === "email") draw(el); });
+      el.addEventListener("click", async (e) => {
+        const a = e.target.closest("[data-pja]"); if (a) return act(a.dataset.pja, close, el);
+        const nt = e.target.closest("[data-pjnote]"); if (nt) { close(null); return openNote(nt.dataset.pjnote); }
+        if (e.target.closest("[data-ofnew]")) { const id = await ofEdit(path, null); draw(el); return id; }
+        const oe = e.target.closest("[data-ofedit]"); if (oe) { await ofEdit(path, oe.dataset.ofedit); return draw(el); }
+        const op = e.target.closest("[data-ofpdf]"); if (op) return ofPdf(path, op.dataset.ofpdf);
+        const ox = e.target.closest("[data-ofxls]"); if (ox) return ofXlsx(path, ox.dataset.ofxls);
+        if (shClick(e, rec.proj, () => { pjTouch(rec); draw(el); })) return;
+      });
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.matches("[data-shin]")) { e.preventDefault(); shAdd(rec.proj, e.target.value, () => { pjTouch(rec); draw(el); setTimeout(() => el.querySelector("[data-shin]")?.focus(), 30); }); } });
+    } }).then(async (v) => { if (v === "unmark" && (await confirmBox(T("pjUnmarkQ"), { extra: T("pjUnmarkX") }))) { delete rec.proj; saveMeta(0); renderMain(); } });
+}
+
+/* ---- shopping lists (per project, or one general list) ---- */
+function shListHtml(shop) {
+  const open = shop.filter((x) => !x.done).length;
+  return `<div class="shlist">${shop.map((x) => `<label class="shrow ${x.done ? "done" : ""}"><input type="checkbox" data-shck="${esc(x.id)}" ${x.done ? "checked" : ""}><span>${esc(x.t)}</span><button type="button" class="btn icon ghost" data-shdel="${esc(x.id)}" aria-label="${esc(T("delete"))}">×</button></label>`).join("")}
+    <div class="shadd"><input data-shin="1" placeholder="${esc(T("shAddPh"))}" enterkeyhint="done"><button type="button" class="btn" data-shaddb="1">＋</button></div>
+    ${shop.length ? `<div class="shfoot"><small>${esc(T("shLeft", { n: num(open) }))}</small>${shop.some((x) => x.done) ? `<button type="button" class="btn ghost" data-shclr="1">${esc(T("shClear"))}</button>` : ""}<button type="button" class="btn ghost" data-shcopy="1">📋 ${esc(T("copy"))}</button></div>` : ""}</div>`;
+}
+function shAdd(holder, text, done) { const t = String(text || "").trim(); if (!t) return; holder.shop = holder.shop || []; for (const line of t.split(/\n+/)) if (line.trim()) holder.shop.push({ id: uid(), t: line.trim(), done: false }); done(); }
+function shClick(e, holder, done) {
+  holder.shop = holder.shop || [];
+  const c = e.target.closest("[data-shck]"); if (c) { const x = holder.shop.find((q) => q.id === c.dataset.shck); if (x) x.done = c.checked; done(); return true; }
+  const d = e.target.closest("[data-shdel]"); if (d) { e.preventDefault(); holder.shop = holder.shop.filter((q) => q.id !== d.dataset.shdel); done(); return true; }
+  if (e.target.closest("[data-shaddb]")) { const i = e.target.closest(".shlist").querySelector("[data-shin]"); shAdd(holder, i.value, done); return true; }
+  if (e.target.closest("[data-shclr]")) { holder.shop = holder.shop.filter((q) => !q.done); done(); return true; }
+  if (e.target.closest("[data-shcopy]")) { const s = holder.shop.filter((q) => !q.done).map((q) => "☐ " + q.t).join("\n"); try { navigator.clipboard.writeText(s); toast(T("copied")); } catch {} return true; }
+  return false;
+}
+async function shGeneral() {
+  const st = S.meta.settings; st.shop = st.shop || [];
+  return dialog({ title: "🛒 " + T("shTitle"), body: `<div class="shg"></div>`, actions: [{ label: "🧮 " + T("mtTitle"), value: "calc" }, { label: T("close"), value: null, kind: "primary" }],
+    onOpen: (el) => { const draw = () => { el.querySelector(".shg").innerHTML = shListHtml(st.shop); }; draw();
+      el.addEventListener("click", (e) => shClick(e, st, () => { saveMeta(0); draw(); }));
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" && e.target.matches("[data-shin]")) { e.preventDefault(); shAdd(st, e.target.value, () => { saveMeta(0); draw(); setTimeout(() => el.querySelector("[data-shin]")?.focus(), 30); }); } }); } })
+    .then((v) => { if (v === "calc") mtCalc({}); });
+}
+
+/* ---- 3. materials from a room ---- */
+const MT = [
+  { k: "tileF", de: "Bodenfliesen", base: (r) => r.floor, per: 1, waste: true, pack: "box", u: "m²" },
+  { k: "tileW", de: "Wandfliesen", base: (r) => r.wallT, per: 1, waste: true, pack: "box", u: "m²" },
+  { k: "glue", de: "Fliesenkleber", base: (r) => (r.on.tileF ? r.floor : 0) + (r.on.tileW ? r.wallT : 0), per: 4, pack: 25, u: "kg", pu: "Sack" },
+  { k: "grout", de: "Fugenmörtel", base: (r) => (r.on.tileF ? r.floor : 0) + (r.on.tileW ? r.wallT : 0), per: 0.5, pack: 5, u: "kg", pu: "Beutel" },
+  { k: "seal", de: "Abdichtung (Dichtschlämme)", base: (r) => r.floor + Math.min(r.wallT, r.per * 0.3), per: 1.5, pack: 15, u: "kg", pu: "Eimer" },
+  { k: "prime", de: "Tiefengrund", base: (r) => r.wallP + r.floor, per: 0.15, pack: 10, u: "l", pu: "Kanister" },
+  { k: "paint", de: "Wandfarbe", base: (r) => (r.wallP + r.floor) * r.coats, per: 0.15, pack: 10, u: "l", pu: "Eimer" },
+  { k: "board", de: "Gipskartonplatten 1,25 × 2,00 m", base: (r) => r.dry * 2, per: 1, waste: true, pack: 2.5, u: "m²", pu: "Platte" },
+  { k: "lam", de: "Laminat", base: (r) => r.floor, per: 1, waste: true, pack: 2.22, u: "m²", pu: "Paket" },
+  { k: "skirt", de: "Sockelleisten 2,5 m", base: (r) => r.per, per: 1.05, pack: 2.5, u: "m", pu: "Stück" },
+  { k: "sil", de: "Silikon (Sanitär)", base: (r) => r.per, per: 1, pack: 6, u: "m", pu: "Kartusche" },
+];
+function mtCompute(r) {
+  const w = 1 + (r.waste || 0) / 100;
+  return MT.filter((m) => r.on[m.k]).map((m) => {
+    const need = Math.max(0, m.base(r) * m.per * (m.waste ? w : 1)), pack = m.pack === "box" ? r.box : m.pack, n = pack > 0 ? Math.ceil(need / pack - 1e-9) : 0;
+    return { m, need, n, pack, pu: m.pack === "box" ? "Karton" : m.pu };
+  });
+}
+async function mtCalc(o = {}) {
+  const st = S.meta.settings, last = st.mtLast || {};
+  const r = { floor: o.floor || 0, wallP: o.wall || 0, wallT: o.wall || 0, per: o.per || 0, dry: 0, waste: last.waste ?? 10, box: last.box ?? 1.44, coats: last.coats ?? 2, on: { ...(last.on || { tileF: true, tileW: true, glue: true, grout: true }) } };
+  let path = o.path || (S.screen === "editor" && S.notes.get(S.activeId)?.folder) || (pjOf(S.view) ? S.view : "");
+  if (path && !pjOf(path)) { const up = pjAll().find((f) => inPath(path, f.path)); path = up ? up.path : ""; }
+  const f2 = (v) => num((Math.round(v * 100) / 100).toLocaleString("en-US", { maximumFractionDigits: 2 }).replace(/,/g, ""));
+  const lines = () => mtCompute(r).map((x) => `${x.m.de} — ${pjQty(x.need)} ${x.m.u} → ${x.n} × ${x.pu} (${pjQty(x.pack)} ${x.m.u})`);
+  const inp = (k, l, u) => `<div class="field mtf"><label>${esc(T(l))}</label><span><input name="${k}" inputmode="decimal" value="${esc(String(r[k] || ""))}" dir="ltr"><i>${u}</i></span></div>`;
+  const draw = (el) => {
+    el.querySelector(".mtres").innerHTML = mtCompute(r).map((x) => `<div class="mtrow"><span><b>${esc(T("mt_" + x.m.k))}</b><small>${esc(x.m.de)} · ${f2(x.need)} ${esc(x.m.u)}</small></span><b class="mtn">${num(x.n)} × <small>${esc(x.pu)}${x.pack ? " " + f2(x.pack) + " " + esc(x.m.u) : ""}</small></b></div>`).join("") || `<p class="tbempty">${esc(T("mtPick"))}</p>`;
+  };
+  const v = await dialog({ title: "🧮 " + T("mtTitle"), wide: true, body: `<div class="mtgrid">${inp("floor", "mtFloor", "m²")}${inp("wallT", "mtWallT", "m²")}${inp("wallP", "mtWallP", "m²")}${inp("per", "mtPer", "m")}${inp("dry", "mtDry", "m²")}${inp("waste", "mtWaste", "%")}${inp("box", "mtBox", "m²")}${inp("coats", "mtCoats", "×")}</div>
+      <div class="mtchk">${MT.map((m) => `<label><input type="checkbox" name="on_${m.k}" ${r.on[m.k] ? "checked" : ""}> ${esc(T("mt_" + m.k))}</label>`).join("")}</div>
+      <div class="mtres"></div><p class="msg">${esc(T("mtNote"))}</p>
+      ${pjAll().length ? `<div class="field"><label>${esc(T("mtTo"))}</label><select name="to"><option value="">🛒 ${esc(T("shGeneral"))}</option>${pjAll().map((f) => `<option value="${esc(f.path)}" ${f.path === path ? "selected" : ""}>🏗 ${esc(leaf(f.path))}</option>`).join("")}</select></div>` : ""}`,
+    actions: [{ label: T("cancel"), value: null }, { label: "📋 " + T("copy"), keep: true, value: "copy" }, { label: "🛒 " + T("mtAdd"), kind: "primary", run: (el) => ({ to: el.querySelector("[name=to]")?.value ?? "" }) }],
+    onOpen: (el) => {
+      draw(el);
+      el.addEventListener("input", (e) => { const t = e.target; if (t.name in r && t.name !== "on") { r[t.name] = pjNum(t.value); draw(el); } });
+      el.addEventListener("change", (e) => { const t = e.target; if (t.name && t.name.startsWith("on_")) { r.on[t.name.slice(3)] = t.checked; draw(el); } });
+      el.querySelector('.acts [data-value="copy"]').addEventListener("click", () => { try { navigator.clipboard.writeText(lines().join("\n")); toast(T("copied")); } catch {} });
+    } });
+  st.mtLast = { waste: r.waste, box: r.box, coats: r.coats, on: r.on }; saveMeta(0);
+  if (!v) return;
+  const items = mtCompute(r).map((x) => `${x.n} × ${x.pu} ${x.m.de} (${T("mt_" + x.m.k)})`);
+  if (!items.length) return;
+  const holder = v.to && pjOf(v.to) ? pjRec(v.to).proj : st;
+  shAdd(holder, items.join("\n"), () => { if (holder !== st) pjTouch(pjRec(v.to)); else saveMeta(0); });
+  toast(T("mtAdded", { n: num(items.length) }), { actions: [{ label: T("open"), run: () => (holder === st ? shGeneral() : pjDetail(v.to)) }] });
+}
+
+/* ---- rooms of a drawing (closed shapes), for quotes and materials ---- */
+function pjRooms(n) {
+  const d = n && n.cv; if (!d || d.plan) return [];
+  const K = 20 / ((!d.survey && d.cell) || 200), items = d.items || [], H = +lsGet("babak-sa-roomh", 2.5) || 2.5, out = [];
+  const cand = [];
+  for (const x of items) {
+    if (x.t === "hatch") continue;
+    let pts = null;
+    try { pts = x.t === "pen" && x.closed && x.pts && x.pts.length > 2 ? x.pts : x.t === "rect" ? cvRectCorners(x) : x.t === "ellipse" ? cvPolys(x)[0].pts : null; } catch {}
+    if (pts) cand.push({ x, pts, a: cvArea(pts) });
+  }
+  const skip = new Set();
+  for (const c of cand) if (c.x.gp && c.x.gp.length) { const mates = cand.filter((q) => q !== c && q.x.gp && q.x.gp[0] === c.x.gp[0]); if (mates.some((q) => q.a < c.a && cvInPoly(q.pts[0], c.pts))) skip.add(c); }
+  cand.filter((c) => !skip.has(c)).sort((a, b) => b.a - a.a).forEach((c, i) => {
+    const ring = [...c.pts, c.pts[0]]; let per = 0; for (let k = 1; k < ring.length; k++) per += cvLen(ring[k - 1], ring[k]);
+    const near = (q, tol) => { for (let k = 1; k < ring.length; k++) if (cvSegD(q, ring[k - 1], ring[k]) < tol) return true; return false; };
+    const ops = items.filter((x) => (x.t === "door" || x.t === "window") && near([x.x, x.y], (x.th || 18) / 2 + 60 * K));
+    const opA = ops.reduce((s, x) => s + ((x.w || 0) / K / 1000) * (x.t === "door" ? 2.0 : 1.25), 0);
+    const lbl = items.find((t) => t.t === "text" && t.s && cvInPoly([t.x + 5, t.y + 5], c.pts) && !/^[\d۰-۹≈]/.test(t.s.split("\n")[0]));
+    const floor = c.a / K / K / 1e6, perM = per / K / 1000;
+    out.push({ name: lbl ? lbl.s.split("\n")[0] : T("ofRoom") + " " + num(i + 1), floor, per: perM, wall: Math.max(0, perM * H - opA), H });
+  });
+  return out;
+}
+
+/* ---- 2. quotes (Angebot) ---- */
+const OF_UNITS = ["m²", "m", "Stk", "Std", "psch", "kg", "l", "m³"];
+const OF_CAT0 = [
+  ["کاشی‌کاری کف", "Bodenfliesen verlegen inkl. Verfugen", "m²"], ["کاشی‌کاری دیوار", "Wandfliesen verlegen inkl. Verfugen", "m²"], ["برداشتن کاشی قدیمی", "Alte Fliesen entfernen und entsorgen", "m²"],
+  ["عایق رطوبتی", "Abdichtung (Verbundabdichtung) herstellen", "m²"], ["آستر (پرایمر)", "Untergrund grundieren", "m²"], ["رنگ دیوار و سقف", "Wände und Decken streichen (2 Anstriche)", "m²"],
+  ["دیوار کناف", "Trockenbauwand (Metallständer, beidseitig beplankt)", "m²"], ["سقف کاذب کناف", "Abgehängte Decke aus Gipskarton", "m²"], ["کف‌سازی", "Estrich herstellen", "m²"],
+  ["لمینت یا پارکت", "Laminat / Parkett verlegen", "m²"], ["قرنیز", "Sockelleisten montieren", "m"], ["درزگیری سیلیکون", "Silikonfugen erneuern", "m"],
+  ["نصب پریز یا کلید", "Steckdose / Schalter setzen", "Stk"], ["نصب توالت", "WC montieren und anschließen", "Stk"], ["نصب روشویی", "Waschtisch montieren und anschließen", "Stk"],
+  ["تخریب و بردن نخاله", "Abbrucharbeiten inkl. Entsorgung", "psch"], ["ساعت کار", "Arbeitsstunde", "Std"], ["رفت‌وآمد", "Anfahrtspauschale", "psch"],
+];
+function ofCat() { const st = S.meta.settings; if (!Array.isArray(st.ofCat)) { st.ofCat = OF_CAT0.map(([fa, de, u]) => ({ id: uid(), fa, de, u, p: 0 })); saveMeta(0); } return st.ofCat; }
+const ofCo = () => S.meta.settings.ofCo || {};
+function ofTotals(o) { const net = (o.items || []).reduce((s, it) => s + Math.round(pjNum(it.q) * pjNum(it.p) * 100) / 100, 0), vat = o.k19 ? 0 : Math.round(net * (o.vat ?? 19)) / 100; return { net, vat, gross: net + vat }; }
+function ofNextNo() { const st = S.meta.settings, y = new Date().getFullYear(); if (st.ofSeqY !== y) { st.ofSeqY = y; st.ofSeq = 0; } st.ofSeq = (st.ofSeq || 0) + 1; return `A-${y}-${String(st.ofSeq).padStart(3, "0")}`; }
+async function ofCoEdit() {
+  const c = ofCo(), fl = (k, extra = "") => `<div class="field"><label>${esc(T("coF_" + k))}</label><input name="${k}" value="${esc(c[k] || "")}" ${extra}></div>`;
+  const r = await formBox("🏢 " + T("ofCo"), `<p class="msg">${esc(T("ofCoHint"))}</p>${fl("name")}${fl("street")}${fl("city")}${fl("phone", 'inputmode="tel" dir="ltr"')}${fl("email", 'inputmode="email" dir="ltr"')}${fl("tax", 'dir="ltr"')}${fl("iban", 'dir="ltr"')}${fl("bank")}
+    <label class="ofk19"><input type="checkbox" name="k19" ${c.k19 ? "checked" : ""}> ${esc(T("ofK19"))}</label>`,
+    (f) => { const o = {}; for (const k of ["name", "street", "city", "phone", "email", "tax", "iban", "bank"]) o[k] = f[k].value.trim(); o.k19 = f.k19.checked; return o; });
+  if (!r) return null; S.meta.settings.ofCo = r; saveMeta(0); toast(T("saved")); return r;
+}
+async function ofCatEdit() {
+  const cat = ofCat().map((x) => ({ ...x }));
+  const row = (x) => `<div class="catrow" data-id="${esc(x.id)}"><input name="fa" value="${esc(x.fa)}" placeholder="فارسی"><input name="de" value="${esc(x.de)}" placeholder="Deutsch" dir="ltr"><select name="u">${OF_UNITS.map((u) => `<option ${u === x.u ? "selected" : ""}>${u}</option>`).join("")}</select><input name="p" inputmode="decimal" value="${x.p ? esc(String(x.p).replace(".", ",")) : ""}" placeholder="€" dir="ltr"><button type="button" class="btn icon ghost" data-catdel="1">×</button></div>`;
+  const r = await dialog({ title: "📚 " + T("ofCat"), wide: true, body: `<p class="msg">${esc(T("ofCatHint"))}</p><div class="cathead"><span>فارسی</span><span>Deutsch (PDF)</span><span>${esc(T("ofUnit"))}</span><span>€ / ${esc(T("ofUnit"))}</span><span></span></div><div class="catlist">${cat.map(row).join("")}</div><button type="button" class="btn" data-catadd="1">＋ ${esc(T("ofCatAdd"))}</button>`,
+    actions: [{ label: T("cancel"), value: null }, { label: T("save"), kind: "primary", run: (el) => [...el.querySelectorAll(".catrow")].map((d) => ({ id: d.dataset.id, fa: d.querySelector("[name=fa]").value.trim(), de: d.querySelector("[name=de]").value.trim(), u: d.querySelector("[name=u]").value, p: pjNum(d.querySelector("[name=p]").value) })).filter((x) => x.fa || x.de) }],
+    onOpen: (el) => el.addEventListener("click", (e) => { if (e.target.closest("[data-catdel]")) e.target.closest(".catrow").remove(); if (e.target.closest("[data-catadd]")) { el.querySelector(".catlist").insertAdjacentHTML("beforeend", row({ id: uid(), fa: "", de: "", u: "m²", p: 0 })); el.querySelector(".catlist .catrow:last-child input").focus(); } }) });
+  if (!r) return; S.meta.settings.ofCat = r; saveMeta(0); toast(T("saved"));
+}
+async function ofEdit(path, id) {
+  const rec = pjRec(path); if (!rec || !rec.proj) return; const p = rec.proj; p.offers = p.offers || [];
+  if (!ofCo().name) { toast(T("ofCoFirst")); if (!(await ofCoEdit())) return; }
+  const old = id && p.offers.find((o) => o.id === id);
+  const o = old ? JSON.parse(JSON.stringify(old)) : { id: uid(), no: ofNextNo(), date: pjToday(), valid: 30, client: p.client || "", caddr: p.addr || "", site: p.addr || "", k19: !!ofCo().k19, vat: 19, intro: T("ofIntro0"), note: T("ofNote0"), items: [] };
+  if (!old) saveMeta(0);
+  const cat = ofCat();
+  const rowH = (it, i) => `<div class="ofrow" data-i="${i}"><span class="pos">${i + 1}</span><div class="d"><textarea name="de" rows="2" dir="ltr" placeholder="Beschreibung (Deutsch)">${esc(it.de || "")}</textarea>${it.fa ? `<small>${esc(it.fa)}</small>` : ""}</div>
+    <input name="q" inputmode="decimal" value="${esc(it.q == null ? "" : String(it.q).replace(".", ","))}" dir="ltr" placeholder="0"><select name="u">${OF_UNITS.map((u) => `<option ${u === it.u ? "selected" : ""}>${u}</option>`).join("")}</select>
+    <input name="p" inputmode="decimal" value="${esc(it.p == null || it.p === "" ? "" : String(it.p).replace(".", ","))}" dir="ltr" placeholder="€"><b class="sum">${esc(pjEur(pjNum(it.q) * pjNum(it.p)))}</b>
+    <span class="rb"><button type="button" class="btn icon ghost" data-ofplan="${i}" title="${esc(T("ofFromPlan"))}">📐</button><button type="button" class="btn icon ghost" data-ofup="${i}" aria-label="up">↑</button><button type="button" class="btn icon ghost" data-ofdel="${i}" aria-label="${esc(T("delete"))}">×</button></span></div>`;
+  const totH = () => { const t = ofTotals(o); return `<div><span>Netto</span><b>${pjEur(t.net)}</b></div>${o.k19 ? "" : `<div><span>MwSt. ${o.vat ?? 19} %</span><b>${pjEur(t.vat)}</b></div>`}<div class="g"><span>${o.k19 ? "Gesamt" : "Brutto"}</span><b>${pjEur(t.gross)}</b></div>`; };
+  const draw = (el) => {
+    el.querySelector(".ofitems").innerHTML = o.items.map(rowH).join("") || `<p class="tbempty">${esc(T("ofEmpty"))}</p>`;
+    el.querySelector(".oftot").innerHTML = totH();
+  };
+  const body = `<div class="ofhead"><div class="field"><label>Nr.</label><input name="no" value="${esc(o.no)}" dir="ltr"></div><div class="field"><label>${esc(T("ofDate"))}</label><input type="date" name="date" value="${esc(o.date)}"></div><div class="field"><label>${esc(T("ofValid"))}</label><input name="valid" inputmode="numeric" value="${esc(String(o.valid))}" dir="ltr"></div>
+      <div class="field"><label>${esc(T("ofClient"))}</label><input name="client" value="${esc(o.client)}"></div><div class="field"><label>${esc(T("ofCaddr"))}</label><input name="caddr" value="${esc(o.caddr)}"></div><div class="field"><label>${esc(T("ofSite"))}</label><input name="site" value="${esc(o.site)}"></div></div>
+    <div class="field"><label>${esc(T("ofIntro"))}</label><textarea name="intro" rows="2" dir="ltr">${esc(o.intro)}</textarea></div>
+    <div class="ofth"><span>#</span><span>${esc(T("ofDesc"))}</span><span>${esc(T("ofQty"))}</span><span>${esc(T("ofUnit"))}</span><span>€</span><span>${esc(T("ofSum"))}</span><span></span></div>
+    <div class="ofitems"></div>
+    <div class="ofadd"><select name="cat"><option value="">＋ ${esc(T("ofAddCat"))}</option>${cat.map((c) => `<option value="${esc(c.id)}">${esc(c.fa)} — ${esc(c.de)}${c.p ? " · " + esc(pjEur(c.p)) + "/" + esc(c.u) : ""}</option>`).join("")}</select><button type="button" class="btn" data-ofblank="1">＋ ${esc(T("ofAddBlank"))}</button></div>
+    <div class="oftot"></div><label class="ofk19"><input type="checkbox" name="k19" ${o.k19 ? "checked" : ""}> ${esc(T("ofK19"))}</label>
+    <div class="field"><label>${esc(T("ofNoteL"))}</label><textarea name="note" rows="2" dir="ltr">${esc(o.note)}</textarea></div>`;
+  const save = () => { o.upd = new Date().toISOString(); const i = p.offers.findIndex((q) => q.id === o.id); if (i >= 0) p.offers[i] = JSON.parse(JSON.stringify(o)); else p.offers.push(JSON.parse(JSON.stringify(o))); if ((p.st || "survey") === "survey") p.st = "quote"; pjTouch(rec); };
+  const v = await dialog({ title: "💶 Angebot · " + leaf(path), wide: true, body, actions: [...(old ? [{ label: "🗑", value: "del", kind: "ghost" }] : []), { label: T("cancel"), value: null }, { label: "📊 Excel", value: "xls" }, { label: "📄 PDF", value: "pdf" }, { label: T("save"), value: "save", kind: "primary" }],
+    onOpen: (el) => {
+      el.classList.add("ofdlg"); draw(el);
+      el.addEventListener("input", (e) => { const t = e.target, r = t.closest(".ofrow");
+        if (r) { const it = o.items[+r.dataset.i]; it[t.name] = t.name === "q" || t.name === "p" ? t.value : t.value; if (t.name === "q" || t.name === "p") { r.querySelector(".sum").textContent = pjEur(pjNum(it.q) * pjNum(it.p)); el.querySelector(".oftot").innerHTML = totH(); } return; }
+        if (["no", "date", "valid", "client", "caddr", "site", "intro", "note"].includes(t.name)) o[t.name] = t.name === "valid" ? pjNum(t.value) : t.value; });
+      el.addEventListener("change", (e) => { const t = e.target, r = t.closest(".ofrow");
+        if (r && t.name === "u") { o.items[+r.dataset.i].u = t.value; return; }
+        if (t.name === "k19") { o.k19 = t.checked; el.querySelector(".oftot").innerHTML = totH(); return; }
+        if (t.name === "cat" && t.value) { const c = cat.find((x) => x.id === t.value); if (c) o.items.push({ fa: c.fa, de: c.de, u: c.u, q: "", p: c.p || "" }); t.value = ""; draw(el); const q = el.querySelectorAll(".ofrow [name=q]"); q[q.length - 1]?.focus(); } });
+      el.addEventListener("click", async (e) => {
+        if (e.target.closest("[data-ofblank]")) { o.items.push({ de: "", u: "m²", q: "", p: "" }); draw(el); const q = el.querySelectorAll(".ofrow [name=de]"); q[q.length - 1]?.focus(); return; }
+        const d = e.target.closest("[data-ofdel]"); if (d) { o.items.splice(+d.dataset.ofdel, 1); return draw(el); }
+        const u = e.target.closest("[data-ofup]"); if (u) { const i = +u.dataset.ofup; if (i > 0) { [o.items[i - 1], o.items[i]] = [o.items[i], o.items[i - 1]]; draw(el); } return; }
+        const pl = e.target.closest("[data-ofplan]"); if (pl) { const q = await ofPickQty(path); if (q != null) { o.items[+pl.dataset.ofplan].q = String(Math.round(q * 100) / 100).replace(".", ","); draw(el); } }
+      });
+    } });
+  if (v === "del") { if (await confirmBox(T("ofDelQ"), { danger: true, ok: T("delete") })) { p.offers = p.offers.filter((q) => q.id !== o.id); pjTouch(rec); } return null; }
+  if (!v) return null;
+  save();
+  if (v === "pdf") ofPdf(path, o.id);
+  if (v === "xls") ofXlsx(path, o.id);
+  return o.id;
+}
+async function ofPickQty(path) {
+  const cvs = pjNotes(path).filter((n) => n.cv && !n.cv.plan);
+  if (!cvs.length) { toast(T("ofNoPlan")); return null; }
+  const all = cvs.map((n) => ({ n, rooms: pjRooms(n) })).filter((x) => x.rooms.length);
+  if (!all.length) { toast(T("ofNoRooms")); return null; }
+  const f2 = (v) => num((Math.round(v * 100) / 100).toFixed(2));
+  const btn = (v, u, l) => `<button type="button" class="btn" data-q="${v}">${esc(l)}<b>${f2(v)} ${u}</b></button>`;
+  return dialog({ title: "📐 " + T("ofFromPlan"), wide: true, body: all.map(({ n, rooms }) => { const sum = rooms.reduce((s, r) => ({ floor: s.floor + r.floor, wall: s.wall + r.wall, per: s.per + r.per }), { floor: 0, wall: 0, per: 0 });
+      return `<h4 class="pjh">${tbKindIcon(n)} ${esc(titleOf(n) || "—")}</h4>${rooms.map((r) => `<div class="ofroom"><b>${esc(r.name)}</b>${btn(r.floor, "m²", T("tAFloor"))}${btn(r.wall, "m²", T("tAWall"))}${btn(r.per, "m", T("tAPer"))}</div>`).join("")}
+        ${rooms.length > 1 ? `<div class="ofroom sum"><b>Σ ${esc(T("ofAllRooms"))}</b>${btn(sum.floor, "m²", T("tAFloor"))}${btn(sum.wall, "m²", T("tAWall"))}${btn(sum.per, "m", T("tAPer"))}</div>` : ""}`; }).join("") + `<p class="msg">${esc(T("ofPlanHint", { h: num(String(+lsGet("babak-sa-roomh", 2.5) || 2.5)) }))}</p>`,
+    actions: [{ label: T("cancel"), value: null }], onOpen: (el, close) => el.addEventListener("click", (e) => { const b = e.target.closest("[data-q]"); if (b) close(+b.dataset.q); }) });
+}
+function ofGet(path, id) { const p = pjOf(path); return p && (p.offers || []).find((o) => o.id === id); }
+function ofPages(o, path) {
+  const co = ofCo(), W = 1240, H = 1754, M = 118, pages = []; let c = null, x = null, y = 0;
+  const F = "Helvetica, Arial, sans-serif", font = (sz, b) => { x.font = `${b ? "700 " : ""}${sz}px ${F}`; };
+  const wrap = (t, maxW) => { const out = []; for (const para of String(t || "").split("\n")) { let line = ""; for (const w of para.split(/\s+/)) { const tt = line ? line + " " + w : w; if (x.measureText(tt).width > maxW && line) { out.push(line); line = w; } else line = tt; } out.push(line); } return out; };
+  const page = () => { c = document.createElement("canvas"); c.width = W; c.height = H; x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, W, H); x.fillStyle = "#1d1d1f"; x.textBaseline = "top"; pages.push(c); y = M; };
+  const right = (t, xr, yy) => { x.fillText(t, xr - x.measureText(t).width, yy); };
+  const cols = [M, M + 70, W - M - 470, W - M - 350, W - M - 250, W - M];
+  const head = () => { font(19, true); x.fillStyle = "#1d1d1f"; x.fillText("Pos.", cols[0], y); x.fillText("Beschreibung", cols[1], y); right("Menge", cols[3] - 14, y); x.fillText("Einh.", cols[3], y); right("Einzelpreis", cols[5] - 150, y); right("Gesamt", cols[5], y); y += 30; x.fillRect(M, y, W - 2 * M, 2); y += 14; };
+  page();
+  font(34, true); right(co.name || "", W - M, y); y += 44; font(19); for (const l of [co.street, co.city, co.phone && "Tel. " + co.phone, co.email].filter(Boolean)) { right(l, W - M, y); y += 26; }
+  y = Math.max(y + 30, 360);
+  font(15); x.fillStyle = "#666"; const sender = [co.name, co.street, co.city].filter(Boolean).join(" · "); x.fillText(sender, M, y); x.fillRect(M, y + 20, Math.min(560, x.measureText(sender).width), 1); x.fillStyle = "#1d1d1f";
+  let ya = y + 36; font(22); for (const l of [o.client, ...String(o.caddr || "").split(/\s*,\s*|\n/)].filter(Boolean)) { x.fillText(l, M, ya); ya += 30; }
+  let yb = y; const info = [["Angebot Nr.", o.no], ["Datum", pjDe(o.date)], ["Gültig bis", pjDe(new Date(new Date(o.date + "T12:00:00").getTime() + (+o.valid || 30) * 864e5).toISOString().slice(0, 10))]];
+  for (const [k, v] of info) { font(19); x.fillStyle = "#666"; x.fillText(k + ":", W - M - 420, yb); x.fillStyle = "#1d1d1f"; font(19, true); x.fillText(String(v || ""), W - M - 250, yb); yb += 30; }
+  y = Math.max(ya, yb) + 60;
+  font(40, true); x.fillText("Angebot", M, y); y += 58;
+  if (o.site) { font(21); x.fillText("Bauvorhaben: " + o.site, M, y); y += 40; }
+  font(21); for (const l of wrap(o.intro, W - 2 * M)) { x.fillText(l, M, y); y += 30; } y += 24;
+  head();
+  o.items.forEach((it, i) => {
+    font(20); const lines = wrap(it.de || "", cols[2] - cols[1] + 60), h = Math.max(1, lines.length) * 28 + 14;
+    if (y + h > H - M - 130) { page(); head(); }
+    font(20); x.fillText(String(i + 1), cols[0], y); lines.forEach((l, k) => x.fillText(l, cols[1], y + k * 28));
+    right(pjQty(pjNum(it.q)), cols[3] - 14, y); x.fillText(it.u || "", cols[3], y); right(pjEur(pjNum(it.p)), cols[5] - 150, y); right(pjEur(pjNum(it.q) * pjNum(it.p)), cols[5], y);
+    y += h; x.fillStyle = "#ddd"; x.fillRect(M, y - 7, W - 2 * M, 1); x.fillStyle = "#1d1d1f";
+  });
+  const t = ofTotals(o);
+  if (y + 360 > H - M - 100) page();
+  y += 16; const tl = W - M - 470;
+  const tot = (k, v, b) => { font(21, b); x.fillText(k, tl, y); right(v, W - M, y); y += 34; };
+  tot("Nettobetrag", pjEur(t.net)); if (!o.k19) tot(`zzgl. ${o.vat ?? 19} % MwSt.`, pjEur(t.vat)); x.fillRect(tl, y - 4, W - M - tl, 2); y += 8; tot("Gesamtbetrag", pjEur(t.gross), true);
+  y += 26; font(19);
+  const notes = [o.k19 ? "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." : "", o.note].filter(Boolean).join("\n");
+  for (const l of wrap(notes, W - 2 * M)) { if (y > H - M - 120) page(); x.fillText(l, M, y); y += 28; }
+  y += 30; if (y > H - M - 140) page(); font(21); x.fillText("Mit freundlichen Grüßen", M, y); y += 60; font(21, true); x.fillText(co.name || "", M, y);
+  pages.forEach((pc, i) => { const g = pc.getContext("2d"); g.textBaseline = "top"; g.fillStyle = "#888"; g.font = `15px ${F}`; g.fillRect(M, H - 96, W - 2 * M, 1);
+    const foot = [[co.name, co.street, co.city].filter(Boolean).join(" · "), [co.phone && "Tel. " + co.phone, co.email].filter(Boolean).join(" · "), [co.tax && "Steuernr. " + co.tax, co.iban && "IBAN " + co.iban, co.bank].filter(Boolean).join(" · ")];
+    foot.forEach((l, k) => g.fillText(l, M, H - 84 + k * 20)); const s = `Seite ${i + 1} von ${pages.length}`; g.fillText(s, W - M - g.measureText(s).width, H - 84); });
+  return pages;
+}
+async function ofPdf(path, id) {
+  const o = ofGet(path, id); if (!o) return;
+  const { t } = sayToast(T("exporting"));
+  try { const b = await jpegPdf(ofPages(o, path), 595.28, null, "Angebot " + o.no); await shareOrSave(`Angebot_${o.no}.pdf`, b); } catch (e) { console.warn(e); toast(T("ofFail"), { kind: "err" }); } finally { try { t.close ? t.close() : t.remove(); } catch {} }
+}
+/* a small .xlsx writer (JSZip is already inside the app) */
+async function xlsxBlob(rows, widths, sheet) {
+  const Z = await loadLib("JSZip", CDN.jszip), z = new Z();
+  const xe = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const col = (i) => { let s = ""; i++; while (i) { const m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; };
+  const cell = (v, r, c) => { if (v == null || v === "") return ""; const ref = col(c) + (r + 1), o = typeof v === "object" ? v : { v }, s = o.s ? ` s="${o.s}"` : "";
+    if (o.f) return `<c r="${ref}"${s}><f>${xe(o.f)}</f>${o.v != null ? `<v>${o.v}</v>` : ""}</c>`;
+    if (typeof o.v === "number") return `<c r="${ref}"${s}><v>${o.v}</v></c>`;
+    return `<c r="${ref}"${s} t="inlineStr"><is><t xml:space="preserve">${xe(o.v)}</t></is></c>`; };
+  const sh = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><cols>${widths.map((w, i) => `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`).join("")}</cols><sheetData>${rows.map((row, r) => `<row r="${r + 1}">${row.map((v, c) => cell(v, r, c)).join("")}</row>`).join("")}</sheetData></worksheet>`;
+  z.file("[Content_Types].xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>`);
+  z.file("_rels/.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`);
+  z.file("xl/workbook.xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="${xe(sheet).slice(0, 31)}" sheetId="1" r:id="rId1"/></sheets></workbook>`);
+  z.file("xl/_rels/workbook.xml.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`);
+  z.file("xl/styles.xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="#,##0.00 &quot;€&quot;"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="164" fontId="1" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyFont="1"/><xf numFmtId="4" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`);
+  z.file("xl/worksheets/sheet1.xml", sh);
+  return z.generateAsync({ type: "blob", mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+}
+async function ofXlsx(path, id) {
+  const o = ofGet(path, id); if (!o) return; const co = ofCo(), t = ofTotals(o);
+  const rows = [[{ v: "Angebot " + o.no, s: 1 }], ["Datum", pjDe(o.date)], ["Kunde", o.client || ""], ["Bauvorhaben", o.site || ""], ["Von", co.name || ""], [],
+    [{ v: "Pos.", s: 1 }, { v: "Beschreibung", s: 1 }, { v: "Beschreibung (FA)", s: 1 }, { v: "Menge", s: 1 }, { v: "Einheit", s: 1 }, { v: "Einzelpreis", s: 1 }, { v: "Gesamt", s: 1 }]];
+  const r0 = rows.length + 1;
+  o.items.forEach((it, i) => { const r = rows.length + 1, q = pjNum(it.q), p = pjNum(it.p); rows.push([i + 1, it.de || "", it.fa || "", { v: q, s: 4 }, it.u || "", { v: p, s: 2 }, { f: `D${r}*F${r}`, v: Math.round(q * p * 100) / 100, s: 2 }]); });
+  const r1 = rows.length; rows.push([]);
+  const rn = rows.length + 1; rows.push(["", "", "", "", "", { v: "Netto", s: 1 }, { f: `SUM(G${r0}:G${Math.max(r0, r1)})`, v: t.net, s: 3 }]);
+  if (!o.k19) { rows.push(["", "", "", "", "", { v: `MwSt. ${o.vat ?? 19} %`, s: 1 }, { f: `ROUND(G${rn}*${(o.vat ?? 19) / 100},2)`, v: t.vat, s: 2 }]); rows.push(["", "", "", "", "", { v: "Brutto", s: 1 }, { f: `G${rn}+G${rn + 1}`, v: t.gross, s: 3 }]); }
+  else rows.push(["", "", "", "", "", { v: "Gesamt", s: 1 }, { f: `G${rn}`, v: t.gross, s: 3 }], [], ["Gemäß § 19 UStG wird keine Umsatzsteuer berechnet."]);
+  try { const b = await xlsxBlob(rows, [6, 52, 30, 10, 8, 14, 14], "Angebot " + o.no); await shareOrSave(`Angebot_${o.no}.xlsx`, b); } catch (e) { console.warn(e); toast(T("ofFail"), { kind: "err" }); }
+}
+
+/* ---- the project banner at the top of a project folder ---- */
+const renderLibrary71 = renderLibrary;
+renderLibrary = function () {
+  const r = renderLibrary71.apply(this, arguments);
+  try {
+    const p = S.view && pjOf(S.view); if (!p) return r;
+    const main = $("#main"), host = main.querySelector(".scroll") || main;
+    const t = (p.offers || []).length ? ofTotals(p.offers[p.offers.length - 1]) : null;
+    host.insertAdjacentHTML("afterbegin", `<div class="pjbanner"><div class="w"><b>🏗 ${esc(leaf(S.view))}</b>${pjStChip(p.st)}<small>${[p.addr && "📍 " + p.addr, p.client && "👤 " + p.client, t && "💶 " + pjEur(t.gross)].filter(Boolean).map(esc).join(" · ")}</small></div>
+      ${p.phone ? `<a class="btn" href="tel:${esc(pjTel(p.phone))}">📞</a>` : ""}${p.addr ? `<a class="btn" href="${esc(pjMap(p.addr))}" target="_blank" rel="noopener">🗺</a>` : ""}<button type="button" class="btn primary" data-tb="projcur">🏗 ${esc(T("pjCard"))}</button></div>`);
+  } catch (e) { console.warn(e); }
+  return r;
+};
+
+/* ---- the top bar: a Projects button, and Projects / shopping list in ⋯ ---- */
+TB_KEYS.splice(TB_KEYS.indexOf("new") + 1, 0, "proj"); TB_KEYS.push("shop"); TB_ON.add("proj");
+TB_HIDE_ORDER.splice(TB_HIDE_ORDER.indexOf("tasks"), 0, "proj"); TB_HIDE_ORDER.unshift("shop");
+Object.assign(TB_MENU_IC, { proj: "🏗", shop: "🛒" });
+function tbCfg() {
+  let a = null; try { a = JSON.parse(lsGet("babak-tb", "") || "null"); } catch {}
+  if (!Array.isArray(a)) a = TB_KEYS.map((k) => ({ k, on: TB_ON.has(k) }));
+  a = a.filter((x) => x && TB_KEYS.includes(x.k));
+  for (const k of TB_KEYS) if (!a.some((x) => x.k === k)) { const at = k === "proj" ? Math.max(0, a.findIndex((x) => x.k === "new") + 1) : a.length; a.splice(at, 0, { k, on: TB_ON.has(k) }); }
+  return a;
+}
+const tbItem71 = tbItem;
+tbItem = function (k) {
+  if (k === "proj") { const t = esc(tbLabel(k)); return `<button type="button" class="btn tbproj" data-tb="proj" data-tbk="proj" title="${t}" aria-label="${t}">🏗<span class="tbl">${esc(T("pjShort"))}</span></button>`; }
+  if (k === "shop") { const t = esc(tbLabel(k)); return `<button type="button" class="btn icon" data-tb="shop" data-tbk="shop" title="${t}" aria-label="${t}">🛒</button>`; }
+  return tbItem71(k);
+};
+const tbAct71 = tbAct;
+tbAct = function (k, anchor) {
+  if (k === "proj") return pjPanel();
+  if (k === "shop") return shGeneral();
+  if (k === "projcur") return pjDetail(S.view);
+  return tbAct71(k, anchor);
+};
+/* from the m² result straight into materials */
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-mtcalc]"); if (!b) return;
+  e.preventDefault(); const r = (CV && CV.lastRoom) || {}; const n = S.notes.get(S.activeId);
+  mtCalc({ floor: r.floor, wall: r.wall, per: r.per, path: n && n.folder });
+}, true);
 
 window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
