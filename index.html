@@ -17210,7 +17210,7 @@ setTimeout(() => { try { if (window.__nb) { window.__nb.txsOn = () => txsOnMode(
 
 /* ---- r76: full screen that really uses the screen: page fills the width, bars tuck away, pictures open full size ---- */
 const FS76 = { prevZ: null };
-const FS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const FS_IOS = /iPad|iPhone|iPod|CriOS|FxiOS/.test(navigator.userAgent) || (navigator.maxTouchPoints || 0) > 0 || matchMedia("(pointer: coarse)").matches;
 toggleFocus = function (force) {
   const was = document.body.classList.contains("focusmode");
   const on = force ?? !was;
