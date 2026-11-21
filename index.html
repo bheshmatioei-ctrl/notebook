@@ -1762,6 +1762,8 @@ body.fsbars .fsmini{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px)
 @keyframes cutAnt{to{stroke-dashoffset:-24}}
 #cutBtn[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
 .cutbar{bottom:18px}
+.cutbar.busy{opacity:.5;pointer-events:none}
+body:has(#cutbar) .fsmini{display:none}
 </style>
 
 <div class="app" id="app">
@@ -8451,8 +8453,8 @@ Object.assign(I18N.de, {"txsTool": "Text auswählen", "txsAll": "Ganze Seite", "
 Object.assign(I18N.fa, {"fsTools": "ابزارها", "fsHideTools": "بستن ابزارها", "fsFit": "پر کردن عرض صفحه", "fsImg": "نمایش بزرگ تصویر", "fsExit": "خروج از تمام‌صفحه", "fsNoImg": "در این قسمت تصویری نیست", "imgvHint": "دو انگشت: بزرگ‌نمایی · دو ضربه: ۲٫۵ برابر"});
 Object.assign(I18N.en, {"fsTools": "Tools", "fsHideTools": "Hide tools", "fsFit": "Fill the width", "fsImg": "Show picture big", "fsExit": "Leave full screen", "fsNoImg": "No picture here", "imgvHint": "Two fingers: zoom · double tap: 2.5×"});
 Object.assign(I18N.de, {"fsTools": "Werkzeuge", "fsHideTools": "Werkzeuge aus", "fsFit": "Breite füllen", "fsImg": "Bild groß", "fsExit": "Vollbild beenden", "fsNoImg": "Hier ist kein Bild", "imgvHint": "Zwei Finger: Zoom · Doppeltipp: 2,5×"});
-Object.assign(I18N.fa, {"cutTool": "قیچی آزاد (بریدن بخشی از تصویر)", "cutHint": "با قلم یا انگشت دور بخشی از تصویر بکشید · دو انگشت: جابه‌جایی صفحه", "cutMove": "بریدن و جابه‌جا کردن", "cutCopy": "کپی", "cutAgain": "دوباره بکش", "cutNoImg": "زیر این خط تصویری نیست", "cutWorking": "در حال بریدن…", "cutDoneMove": "بریده شد — حالا تکه را با انگشت بکشید و هر جا خواستید بگذارید", "cutDoneCopy": "کپی شد — تکه را بکشید و جای دیگری بگذارید", "cutFail": "بریدن نشد", "cutUndone": "بریدن برگشت"});
-Object.assign(I18N.en, {"cutTool": "Free scissors (cut part of a picture)", "cutHint": "Draw around part of a picture with the pen or a finger · two fingers: scroll", "cutMove": "Cut and move", "cutCopy": "Copy", "cutAgain": "Draw again", "cutNoImg": "There is no picture under this line", "cutWorking": "Cutting…", "cutDoneMove": "Cut — now drag the piece wherever you want", "cutDoneCopy": "Copied — drag the piece somewhere else", "cutFail": "Couldn't cut", "cutUndone": "Cut undone"});
+Object.assign(I18N.fa, {"cutTool": "قیچی آزاد (بریدن بخشی از تصویر)", "cutHint": "با قلم دور بخشی از تصویر بکشید · انگشت: جابه‌جایی صفحه", "cutHintFinger": "با قلم یا انگشت دور بخشی از تصویر بکشید · دو انگشت: جابه‌جایی صفحه", "cutMove": "بریدن و جابه‌جا کردن", "cutCopy": "کپی", "cutAgain": "دوباره بکش", "cutNoImg": "زیر این خط تصویری نیست", "cutWorking": "در حال بریدن…", "cutDoneMove": "بریده شد — حالا تکه را با انگشت بکشید و هر جا خواستید بگذارید", "cutDoneCopy": "کپی شد — تکه را بکشید و جای دیگری بگذارید", "cutFail": "بریدن نشد", "cutUndone": "بریدن برگشت"});
+Object.assign(I18N.en, {"cutTool": "Free scissors (cut part of a picture)", "cutHint": "Draw around part of a picture with the pen · finger: scroll", "cutHintFinger": "Draw around part of a picture with the pen or a finger · two fingers: scroll", "cutMove": "Cut and move", "cutCopy": "Copy", "cutAgain": "Draw again", "cutNoImg": "There is no picture under this line", "cutWorking": "Cutting…", "cutDoneMove": "Cut — now drag the piece wherever you want", "cutDoneCopy": "Copied — drag the piece somewhere else", "cutFail": "Couldn't cut", "cutUndone": "Cut undone"});
 Object.assign(I18N.de, {"cutTool": "Freie Schere", "cutMove": "Ausschneiden und verschieben", "cutCopy": "Kopieren", "cutAgain": "Neu zeichnen", "cutNoImg": "Hier ist kein Bild"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
@@ -17304,7 +17306,7 @@ document.addEventListener("dblclick", (e) => {
 const CUT = { on: false, pts: [], ptr: new Map(), two: null, undo: [] };
 const cutNote = () => { const n = S.screen === "editor" && S.notes.get(S.activeId); return n && !n.cv && !n.mm && !n.trashed ? n : null; };
 const decoratePaper77 = decoratePaper;
-decoratePaper = function (n) { const r = decoratePaper77(n); try { cutDockBtn(); if (CUT.on) cutLayer(); } catch (e) { console.warn(e); } return r; };
+decoratePaper = function (n) { const r = decoratePaper77(n); try { cutDockBtn(); if (CUT.on) { const c = $("#content"); if (c && c.isContentEditable) { CUT.ce = true; c.setAttribute("contenteditable", "false"); } cutLayer(); } } catch (e) { console.warn(e); } return r; };
 function cutDockBtn() {
   const dock = document.querySelector(".dock"); if (!dock) return;
   let b = $("#cutBtn");
@@ -17326,18 +17328,28 @@ document.addEventListener("click", (e) => {
   e.preventDefault(); e.stopPropagation(); const a = c.dataset.cut;
   if (a === "move") cutDo(true); else if (a === "copy") cutDo(false); else if (a === "again") cutClearLoop(); else if (a === "close") cutOff();
 }, true);
+/* The page listens (capture) for a Pencil touch in typing mode and switches to drawing. On the scissors and
+   text-selection layers the Pencil belongs to those tools, so that switch is held back for that touch only. */
+addEventListener("pointerdown", (e) => {
+  if (e.pointerType !== "pen" || !e.target || !e.target.closest || !e.target.closest("#cutov, #ptxt")) return;
+  const st = S.meta.settings; if (st.autoPen === false) return;
+  const had = Object.prototype.hasOwnProperty.call(st, "autoPen"), prev = st.autoPen;
+  st.autoPen = false; setTimeout(() => { if (had) st.autoPen = prev; else delete st.autoPen; }, 0);
+}, true);
 function cutOnMode() {
   if (typeof TXS !== "undefined" && TXS.on) txsOff();
   try { deselectFloat(); } catch {}
-  CUT.on = true; CUT.pts = []; cutLayer(); cutBar(); $("#cutBtn")?.setAttribute("aria-pressed", "true");
+  CUT.on = true; CUT.pts = []; CUT.done = false; const c = $("#content"); if (c && c.isContentEditable) { CUT.ce = true; c.setAttribute("contenteditable", "false"); try { document.activeElement?.blur(); } catch {} } cutLayer(); cutBar(); $("#cutBtn")?.setAttribute("aria-pressed", "true");
 }
-function cutOff() { CUT.on = false; CUT.pts = []; $("#cutov")?.remove(); $("#cutbar")?.remove(); $("#cutBtn")?.setAttribute("aria-pressed", "false"); }
+function cutOff() { const was = CUT.on; CUT.on = false; CUT.pts = []; CUT.done = false; CUT.ptr.clear(); CUT.two = null; if (was && CUT.ce) { CUT.ce = false; try { applyMode(); } catch {} } $("#cutov")?.remove(); $("#cutbar")?.remove(); $("#cutBtn")?.setAttribute("aria-pressed", "false"); }
 function cutLayer() {
   const paper = $("#paper"); if (!paper) return;
   let L = $("#cutov");
   if (!L) {
     L = document.createElement("div"); L.id = "cutov";
     L.innerHTML = `<svg width="100%" height="100%"><path class="cutp" d=""/></svg>`; paper.append(L); cutBind(L);
+    const block = (e) => e.preventDefault();
+    L.addEventListener("touchstart", block, { passive: false }); L.addEventListener("touchmove", block, { passive: false }); L.addEventListener("contextmenu", block);
   }
   cutPath();
 }
@@ -17346,7 +17358,7 @@ function cutBar() {
   const has = CUT.pts.length > 6;
   b.innerHTML = has
     ? `<button type="button" class="pri" data-cut="move">✂ ${esc(T("cutMove"))}</button><button type="button" data-cut="copy">⧉ ${esc(T("cutCopy"))}</button><button type="button" data-cut="again">↺ ${esc(T("cutAgain"))}</button><button type="button" data-cut="close" aria-label="${esc(T("close"))}">✕</button>`
-    : `<span class="tl">✂ ${esc(T("cutHint"))}</span><button type="button" data-cut="close" aria-label="${esc(T("close"))}">✕</button>`;
+    : `<span class="tl">✂ ${esc(T(S.meta.settings.penOnly || CUT.sawPen ? "cutHint" : "cutHintFinger"))}</span><button type="button" data-cut="close" aria-label="${esc(T("close"))}">✕</button>`;
   b.style.left = "50%"; b.style.bottom = "calc(env(safe-area-inset-bottom,0px) + 18px)";
 }
 function cutClearLoop() { CUT.pts = []; cutPath(); cutBar(); }
@@ -17362,8 +17374,15 @@ function cutPath() {
 }
 function cutBind(L) {
   L.addEventListener("pointerdown", (e) => {
-    e.preventDefault(); try { L.setPointerCapture(e.pointerId); } catch {}
-    CUT.ptr.set(e.pointerId, [e.clientX, e.clientY]);
+    e.preventDefault(); e.stopPropagation();
+    const pen = e.pointerType === "pen";
+    if (pen) { CUT.sawPen = true; for (const [id, v] of CUT.ptr) if (v.t !== "pen") CUT.ptr.delete(id); CUT.two = null; } // the Pencil always wins over a resting hand
+    else if (e.pointerType === "touch" && [...CUT.ptr.values()].some((v) => v.t === "pen")) return; // a palm on the glass while the Pencil draws is ignored
+    try { L.setPointerCapture(e.pointerId); } catch {}
+    const rec = [e.clientX, e.clientY]; rec.t = e.pointerType; CUT.ptr.set(e.pointerId, rec);
+    if (e.pointerType === "touch" && (S.meta.settings.penOnly || CUT.sawPen) && CUT.ptr.size === 1) { // fingers only move the page when the Pencil does the drawing
+      const sc = $("#scroll"); CUT.two = { y: e.clientY, x: e.clientX, st: sc?.scrollTop || 0, sl: sc?.scrollLeft || 0, one: true }; return;
+    }
     if (CUT.ptr.size === 2) { // two fingers: scroll the page instead of drawing
       const sc = $("#scroll"), ps = [...CUT.ptr.values()];
       CUT.two = { y: (ps[0][1] + ps[1][1]) / 2, x: (ps[0][0] + ps[1][0]) / 2, st: sc?.scrollTop || 0, sl: sc?.scrollLeft || 0 };
@@ -17374,7 +17393,8 @@ function cutBind(L) {
     CUT.done = false; CUT.pts = [cutToPaper(e.clientX, e.clientY)]; cutPath(); cutBar();
   });
   L.addEventListener("pointermove", (e) => {
-    if (!CUT.ptr.has(e.pointerId)) return; CUT.ptr.set(e.pointerId, [e.clientX, e.clientY]);
+    if (!CUT.ptr.has(e.pointerId)) return; e.preventDefault(); e.stopPropagation(); const rec = [e.clientX, e.clientY]; rec.t = e.pointerType; CUT.ptr.set(e.pointerId, rec);
+    if (CUT.two && CUT.two.one) { const sc = $("#scroll"); if (sc) { sc.scrollTop = CUT.two.st - (e.clientY - CUT.two.y); sc.scrollLeft = CUT.two.sl - (e.clientX - CUT.two.x); } return; }
     if (CUT.two) { const sc = $("#scroll"), ps = [...CUT.ptr.values()]; if (sc && ps.length >= 2) { sc.scrollTop = CUT.two.st - ((ps[0][1] + ps[1][1]) / 2 - CUT.two.y); sc.scrollLeft = CUT.two.sl - ((ps[0][0] + ps[1][0]) / 2 - CUT.two.x); } return; }
     if (CUT.done) return;
     const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [e];
@@ -17382,11 +17402,12 @@ function cutBind(L) {
     cutPath();
   });
   const up = (e) => {
-    if (!CUT.ptr.has(e.pointerId)) return; CUT.ptr.delete(e.pointerId);
+    if (!CUT.ptr.has(e.pointerId)) return; CUT.ptr.delete(e.pointerId); e.stopPropagation();
     if (CUT.two) { if (!CUT.ptr.size) CUT.two = null; return; }
     if (CUT.done) return;
     const p = CUT.pts, xs = p.map((q) => q[0]), ys = p.map((q) => q[1]);
-    if (p.length < 6 || Math.max(...xs) - Math.min(...xs) < 12 || Math.max(...ys) - Math.min(...ys) < 12) { CUT.pts = []; cutPath(); cutBar(); return; }
+    let ar = 0; for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; ar += a[0] * b[1] - b[0] * a[1]; }
+    if (p.length < 6 || Math.abs(ar) / 2 < 300 || Math.max(...xs) - Math.min(...xs) < 12 || Math.max(...ys) - Math.min(...ys) < 12) { CUT.pts = []; cutPath(); cutBar(); return; }
     CUT.done = true; cutPath(); cutBar();
     if (!cutTarget()) { toast(T("cutNoImg")); cutClearLoop(); }
   };
@@ -17410,33 +17431,46 @@ function cutMapper(im) {
   const kx = im.naturalWidth / w, ky = im.naturalHeight / h;
   return { deg, w, h, cx, cy, kx, ky, to: ([x, y]) => { const dx = x - cx, dy = y - cy, ux = dx * Math.cos(rad) - dy * Math.sin(rad), uy = dx * Math.sin(rad) + dy * Math.cos(rad); return [(ux + w / 2) * kx, (uy + h / 2) * ky]; } };
 }
+/* true when a canvas came out blank (what an iPad does when a picture is too big for it) */
+function cutEmpty(x, w, h, opaque) {
+  for (const [fx, fy] of [[0.5, 0.5], [0.25, 0.25], [0.75, 0.75], [0.25, 0.75], [0.75, 0.25], [0.1, 0.5], [0.9, 0.5], [0.5, 0.1], [0.5, 0.9]]) {
+    const d = x.getImageData(Math.min(w - 1, Math.floor(w * fx)), Math.min(h - 1, Math.floor(h * fy)), 1, 1).data; if (d[3] !== 0) return false;
+  }
+  return !!opaque || false;
+}
 async function cutDo(move) {
-  const n = cutNote(), t = cutTarget(); if (!n || !t || CUT.pts.length < 6) return;
+  if (CUT.busy) return; const n = cutNote(), t = cutTarget(); if (!n || !t || CUT.pts.length < 6) return;
   const im = t.im, M = cutMapper(im), np = CUT.pts.map(cutToScreen).map(M.to);
-  const nw = im.naturalWidth, nh = im.naturalHeight;
+  const k = Math.min(1, Math.sqrt(12e6 / (im.naturalWidth * im.naturalHeight))); // iPad canvases go blank above ~16 million pixels
+  if (k < 1) np.forEach((q) => { q[0] *= k; q[1] *= k; }); M.kx *= k; M.ky *= k;
+  const nw = Math.round(im.naturalWidth * k), nh = Math.round(im.naturalHeight * k);
   const xs = np.map((q) => q[0]), ys = np.map((q) => q[1]);
   const x0 = Math.max(0, Math.floor(Math.min(...xs))), y0 = Math.max(0, Math.floor(Math.min(...ys))), x1 = Math.min(nw, Math.ceil(Math.max(...xs))), y1 = Math.min(nh, Math.ceil(Math.max(...ys)));
   if (x1 - x0 < 4 || y1 - y0 < 4) { toast(T("cutNoImg")); return cutClearLoop(); }
-  const { t: tt, say } = sayToast(T("cutWorking"));
+  const { t: tt } = sayToast(T("cutWorking")); CUT.busy = true; $("#cutbar")?.classList.add("busy");
   try {
     const src = new Image(); src.src = im.currentSrc || im.src; await src.decode();
     const loop = (x, dx, dy) => { x.beginPath(); np.forEach((q, i) => (i ? x.lineTo(q[0] - dx, q[1] - dy) : x.moveTo(q[0] - dx, q[1] - dy))); x.closePath(); };
     const pc = document.createElement("canvas"); pc.width = x1 - x0; pc.height = y1 - y0;
-    const px = pc.getContext("2d"); loop(px, x0, y0); px.clip(); px.drawImage(src, -x0, -y0);
+    const px = pc.getContext("2d"); loop(px, x0, y0); px.clip(); px.drawImage(src, -x0, -y0, nw, nh);
     const pBlob = await canvasBlob(pc, "image/png");
+    if (!pBlob || !pBlob.size || cutEmpty(px, pc.width, pc.height)) throw new Error("empty piece");
     // before anything changes, remember the page so it can be undone
     captureActive(); const w0 = W(n), snap = { id: n.id, html: w0.html, bgs: (n.bgs || []).slice(), thumb: n.thumb, at: Date.now() };
     const up = await S.assets.upload(new File([pBlob], "cut.png", { type: "image/png" }));
     if (move) { // leave a hole where the piece was: see-through on a placed picture, paper-white on a page background
       const oc = document.createElement("canvas"); oc.width = nw; oc.height = nh; const ox = oc.getContext("2d");
-      ox.drawImage(src, 0, 0); loop(ox, 0, 0);
+      ox.drawImage(src, 0, 0, nw, nh);
+      if (cutEmpty(ox, nw, nh, true)) throw new Error("canvas failed");
+      loop(ox, 0, 0);
       if (t.bg) { // fill the hole with the colour found just around the loop (usually the paper of the scan)
-        const d = ox.getImageData(0, 0, nw, nh).data, R = [], G = [], B = [];
-        for (let i = 0; i < np.length; i += Math.max(1, Math.floor(np.length / 160))) { const x = Math.min(nw - 1, Math.max(0, Math.round(np[i][0]))), y = Math.min(nh - 1, Math.max(0, Math.round(np[i][1]))), k = (y * nw + x) * 4; R.push(d[k]); G.push(d[k + 1]); B.push(d[k + 2]); }
+        const R = [], G = [], B = [];
+        for (let i = 0; i < np.length; i += Math.max(1, Math.floor(np.length / 160))) { const x = Math.min(nw - 1, Math.max(0, Math.round(np[i][0]))), y = Math.min(nh - 1, Math.max(0, Math.round(np[i][1]))), d = ox.getImageData(x, y, 1, 1).data; R.push(d[0]); G.push(d[1]); B.push(d[2]); }
         const med = (a) => a.sort((p, q) => p - q)[a.length >> 1] ?? 255;
         ox.fillStyle = `rgb(${med(R)},${med(G)},${med(B)})`; ox.fill(); }
       else { ox.globalCompositeOperation = "destination-out"; ox.fill(); }
       const oBlob = await canvasBlob(oc, t.bg ? "image/jpeg" : "image/png", 0.92);
+      if (!oBlob || !oBlob.size) throw new Error("no picture");
       const ou = await S.assets.upload(new File([oBlob], t.bg ? "page.jpg" : "picture.png", { type: oBlob.type }));
       if (t.bg) { const i = [...document.querySelectorAll("#pdeco img.pbg")].indexOf(im); if (i >= 0) { n.bgs = n.bgs.slice(); n.bgs[i] = ou.id; } }
       else { im.dataset.asset = ou.id; delete im.dataset.blob; im.setAttribute("src", "/_blob/" + ou.id); hydrate(im.parentElement); }
@@ -17459,6 +17493,7 @@ async function cutDo(move) {
     tt.remove?.();
     toast("✂ " + T(move ? "cutDoneMove" : "cutDoneCopy"), { actions: [{ label: T("undoAction"), run: () => cutUndo() }] });
   } catch (e) { console.warn(e); try { tt.remove?.(); } catch {} toast(T("cutFail"), { kind: "err" }); }
+  finally { CUT.busy = false; $("#cutbar")?.classList.remove("busy"); }
 }
 function cutUndo() {
   const s = CUT.undo.pop(); if (!s) return false;
