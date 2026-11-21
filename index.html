@@ -1739,6 +1739,20 @@ header.top .topx .btn.icon{min-width:36px;justify-content:center}
 .txbar .tl{font-size:13px;color:var(--muted);padding:0 8px}
 .txbar button{min-height:42px;padding:0 12px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-size:14px;cursor:pointer;flex:none}
 .txbar button:hover{background:var(--panel2)}.txbar button.pri{background:var(--accent);color:#fff}
+
+/* r76: real full screen */
+body.focusmode:not(.fsbars) #bar,body.focusmode:not(.fsbars) .docbar,body.focusmode .zoombadge,body.focusmode .cvhint{display:none!important}
+body.focusmode .studio-scroll{padding-top:4px!important;padding-bottom:70px!important;padding-inline:4px!important}
+body.focusmode .sheet{max-width:none!important}
+.fsmini{position:fixed;z-index:70;top:calc(env(safe-area-inset-top,0px) + 8px);inset-inline-end:10px;display:flex;gap:4px;padding:4px;border-radius:14px;background:rgba(20,24,40,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:.55;transition:opacity .2s}
+body.fsbars .fsmini{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);opacity:.9}
+.fsmini:hover,.fsmini:focus-within{opacity:1}
+.fsmini button{min-width:44px;min-height:44px;padding:0 10px;border:0;border-radius:10px;background:transparent;color:#fff;font:inherit;font-size:16px;cursor:pointer}
+.fsmini button span{font-size:13px}.fsmini button[aria-pressed=true]{background:rgba(255,255,255,.18)}.fsmini .x{background:rgba(220,70,70,.85)}
+.imgv{position:fixed;inset:0;z-index:200;background:#000;display:flex;align-items:center;justify-content:center;touch-action:none;overflow:hidden}
+.imgv img{max-width:100vw;max-height:100vh;object-fit:contain;transform-origin:50% 50%;user-select:none;-webkit-user-select:none}
+.imgvx{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);inset-inline-end:12px;width:48px;height:48px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;font-size:22px;cursor:pointer}
+.imgvh{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(255,255,255,.15);padding:8px 14px;border-radius:12px;font-size:14px;transition:opacity .5s;pointer-events:none}.imgvh.off{opacity:0}
 </style>
 
 <div class="app" id="app">
@@ -8425,6 +8439,9 @@ Object.assign(I18N.de, {"sdSmart": "Intelligent", "sdFlip": "Anderes Ende", "sdB
 Object.assign(I18N.fa, {"txsTool": "انتخاب متن", "txsHint": "انگشت را روی متن بگذارید و بکشید", "txsSelN": "{n} کلمه انتخاب شد", "txsAll": "همهٔ این صفحه", "txsAllDoc": "کپی کل متن", "txsTr": "ترجمه", "txsToNote": "به یادداشت تازه", "txsNoText": "متن این صفحه هنوز خوانده نشده", "txsOcr": "خواندن متن از تصویر", "txsOcrAgain": "دوباره خواندن متن از تصویر", "txsFromPdf": "متن از فایل PDF اصلی", "txsCopyFail": "کپی نشد؛ دوباره بزنید.", "txsNoted": "یادداشت تازه با این متن ساخته شد.", "txsPdfHint": "فایل {n} صفحه دارد. بگویید این صفحهٔ دفترچه کدام صفحهٔ PDF است.", "txsPdfStart": "شمارهٔ صفحه در PDF", "txsPdfNext": "صفحه‌های بعدی این دفتر هم به ترتیب", "txsReading": "خواندن متن…", "txsDone": "متن {n} صفحه آماده است.", "txsOcrHint": "متن از روی تصویر صفحه خوانده می‌شود (آلمانی و انگلیسی). بار اول حدود ۱۵ مگابایت از اینترنت گرفته می‌شود؛ تصویر شما جایی فرستاده نمی‌شود و همه‌چیز روی همین آیپد انجام می‌شود. هر صفحه چند ثانیه طول می‌کشد.", "txsOcrWhich": "کدام صفحه‌ها", "txsOcrCur": "فقط همین صفحه", "txsOcrAll": "همهٔ {n} صفحه", "txsOcrFa": "فارسی هم دارد (کندتر)", "txsOcrGo": "شروع", "txsOcrLoading": "آماده شدن خواندن متن…", "txsOcrNet": "برای بار اول اینترنت لازم است.", "txsOcrFail": "خواندن متن نشد."});
 Object.assign(I18N.en, {"txsTool": "Select text", "txsHint": "Put a finger on the text and drag", "txsSelN": "{n} words selected", "txsAll": "This whole page", "txsAllDoc": "Copy all text", "txsTr": "Translate", "txsToNote": "To a new note", "txsNoText": "This page's text hasn't been read yet", "txsOcr": "Read text from the picture", "txsOcrAgain": "Read the picture's text again", "txsFromPdf": "Text from the original PDF", "txsCopyFail": "Couldn't copy; tap again.", "txsNoted": "A new note with this text was made.", "txsPdfHint": "The file has {n} pages. Which PDF page is this notebook page?", "txsPdfStart": "Page number in the PDF", "txsPdfNext": "The next pages of this notebook too, in order", "txsReading": "Reading text…", "txsDone": "Text of {n} pages is ready.", "txsOcrHint": "The text is read from the page picture (German and English). The first time about 15 MB is downloaded; your picture is sent nowhere and everything happens on this iPad. Each page takes a few seconds.", "txsOcrWhich": "Which pages", "txsOcrCur": "Only this page", "txsOcrAll": "All {n} pages", "txsOcrFa": "Has Persian too (slower)", "txsOcrGo": "Start", "txsOcrLoading": "Getting text reading ready…", "txsOcrNet": "The internet is needed the first time.", "txsOcrFail": "Couldn't read the text."});
 Object.assign(I18N.de, {"txsTool": "Text auswählen", "txsAll": "Ganze Seite", "txsAllDoc": "Ganzen Text kopieren", "txsTr": "Übersetzen", "txsOcr": "Text aus Bild lesen", "txsFromPdf": "Text aus Original-PDF"});
+Object.assign(I18N.fa, {"fsTools": "ابزارها", "fsHideTools": "بستن ابزارها", "fsFit": "پر کردن عرض صفحه", "fsImg": "نمایش بزرگ تصویر", "fsExit": "خروج از تمام‌صفحه", "fsNoImg": "در این قسمت تصویری نیست", "imgvHint": "دو انگشت: بزرگ‌نمایی · دو ضربه: ۲٫۵ برابر"});
+Object.assign(I18N.en, {"fsTools": "Tools", "fsHideTools": "Hide tools", "fsFit": "Fill the width", "fsImg": "Show picture big", "fsExit": "Leave full screen", "fsNoImg": "No picture here", "imgvHint": "Two fingers: zoom · double tap: 2.5×"});
+Object.assign(I18N.de, {"fsTools": "Werkzeuge", "fsHideTools": "Werkzeuge aus", "fsFit": "Breite füllen", "fsImg": "Bild groß", "fsExit": "Vollbild beenden", "fsNoImg": "Hier ist kein Bild", "imgvHint": "Zwei Finger: Zoom · Doppeltipp: 2,5×"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -17179,7 +17196,99 @@ async function txsOcrAsk(n) {
 addEventListener("resize", () => { if (TXS.on) txsRender(); });
 setTimeout(() => { try { if (window.__nb) { window.__nb.txsOn = () => txsOnMode(); window.__nb.txsSel = () => txsSelText(); } } catch {} }, 0);
 
-window.__nb = { get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
+/* ---- r76: full screen that really uses the screen: page fills the width, bars tuck away, pictures open full size ---- */
+const FS76 = { prevZ: null };
+const FS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+toggleFocus = function (force) {
+  const was = document.body.classList.contains("focusmode");
+  const on = force ?? !was;
+  document.body.classList.toggle("focusmode", on); document.body.classList.remove("fsbars"); S.fsAgain = false;
+  const el = document.documentElement, fs = document.fullscreenElement || document.webkitFullscreenElement;
+  try {
+    /* on iPad the browser's own full screen only adds a black ✕ band and keeps everything small, so the app does it itself there */
+    if (on && !fs && !FS_IOS) (el.requestFullscreen || el.webkitRequestFullscreen || (() => {})).call(el)?.catch?.(() => {});
+    if (!on && fs) (document.exitFullscreen || document.webkitExitFullscreen).call(document)?.catch?.(() => {});
+  } catch {}
+  $("#fsBtn")?.setAttribute("aria-pressed", String(on));
+  if (on && !was) { FS76.prevZ = typeof ZOOM === "number" ? ZOOM : 1; setTimeout(fsFitWidth, 120); setTimeout(fsFitWidth, 700); }
+  if (!on && was) { const z = FS76.prevZ; FS76.prevZ = null; setTimeout(() => { try { if (z != null) setZoom(z); applyZoom(); } catch {} }, 120); }
+  setTimeout(() => { try { window.dispatchEvent(new Event("resize")); } catch {} }, 250);
+  fsMini();
+};
+function fsFitWidth() {
+  /* in full screen the sheet has no width limit, so 100 % already means "as wide as the screen" */
+  if (!document.body.classList.contains("focusmode")) return;
+  try { setZoom(1); applyZoom(); const sc = $("#scroll.studio-scroll"); if (sc) sc.scrollLeft = 0; } catch {}
+}
+function fsMini() {
+  let m = $("#fsMini");
+  if (!document.body.classList.contains("focusmode") || S.screen !== "editor") { m?.remove(); return; }
+  if (!m) { m = document.createElement("div"); m.id = "fsMini"; m.className = "fsmini"; document.body.append(m); }
+  const bars = document.body.classList.contains("fsbars");
+  m.innerHTML = `<button type="button" data-fs="bars" aria-pressed="${bars}" title="${esc(T("fsTools"))}">🧰 <span>${esc(T(bars ? "fsHideTools" : "fsTools"))}</span></button><button type="button" data-fs="undo" aria-label="${esc(T("tb_undo"))}">↶</button><button type="button" data-fs="fit" title="${esc(T("fsFit"))}">↔</button><button type="button" data-fs="img" title="${esc(T("fsImg"))}">🖼</button><button type="button" class="x" data-fs="exit" title="${esc(T("fsExit"))}">✕</button>`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest && e.target.closest("[data-fs]"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  const a = b.dataset.fs;
+  if (a === "bars") { document.body.classList.toggle("fsbars"); fsMini(); setTimeout(() => window.dispatchEvent(new Event("resize")), 60); }
+  if (a === "undo") { try { tbUndo(); } catch {} }
+  if (a === "fit") fsFitWidth();
+  if (a === "img") { const im = fsNearestImg(); if (im) imgViewer(im.src); else toast(T("fsNoImg")); }
+  if (a === "exit") toggleFocus(false);
+}, true);
+const renderMain76 = renderMain;
+renderMain = function () { const r = renderMain76.apply(this, arguments); setTimeout(fsMini, 0); return r; };
+function fsNearestImg() {
+  const sc = $("#scroll.studio-scroll") || document.body, r = sc.getBoundingClientRect(), cy = r.top + r.height / 2;
+  let best = null, bd = Infinity;
+  for (const im of document.querySelectorAll("#content img, #pdeco img.pbg, #paper img")) {
+    const q = im.getBoundingClientRect(); if (!q.width || !q.height || q.bottom < r.top || q.top > r.bottom) continue;
+    const d = Math.abs((q.top + q.bottom) / 2 - cy) - Math.min(q.height, r.height) / 2;
+    if (d < bd) { bd = d; best = im; }
+  }
+  return best;
+}
+/* the picture viewer: two fingers zoom, one finger moves, double tap 1× ↔ 2.5× */
+function imgViewer(src) {
+  if (!src) return;
+  const v = document.createElement("div"); v.className = "imgv"; v.innerHTML = `<img alt="" draggable="false"><button type="button" class="imgvx" aria-label="${esc(T("close"))}">✕</button><div class="imgvh">${esc(T("imgvHint"))}</div>`;
+  const img = v.querySelector("img"); img.src = src; document.body.append(v);
+  let s = 1, tx = 0, ty = 0, last = 0; const P = new Map(); let g = null;
+  const put = () => { img.style.transform = `translate(${tx}px,${ty}px) scale(${s})`; };
+  const close = () => { v.remove(); removeEventListener("keydown", key, true); };
+  const key = (e) => { if (e.key === "Escape") { e.stopImmediatePropagation(); e.preventDefault(); close(); } };
+  addEventListener("keydown", key, true);
+  v.querySelector(".imgvx").onclick = close;
+  setTimeout(() => v.querySelector(".imgvh")?.classList.add("off"), 2500);
+  v.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".imgvx")) return;
+    e.preventDefault(); v.setPointerCapture(e.pointerId); P.set(e.pointerId, [e.clientX, e.clientY]);
+    const ps = [...P.values()];
+    if (ps.length === 2) g = { d: Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]), s, tx, ty, mx: (ps[0][0] + ps[1][0]) / 2, my: (ps[0][1] + ps[1][1]) / 2 };
+    else if (ps.length === 1) {
+      const now = Date.now();
+      if (now - last < 300) { const r = v.getBoundingClientRect(), cx = e.clientX - r.width / 2, cy = e.clientY - r.height / 2; if (s > 1.05) { s = 1; tx = 0; ty = 0; } else { const k = 2.5; tx = -cx * (k - 1); ty = -cy * (k - 1); s = k; } img.style.transition = "transform .18s"; put(); setTimeout(() => (img.style.transition = ""), 200); last = 0; g = null; return; }
+      last = now; g = { px: e.clientX, py: e.clientY, tx, ty };
+    }
+  });
+  v.addEventListener("pointermove", (e) => {
+    if (!P.has(e.pointerId) || !g) return; P.set(e.pointerId, [e.clientX, e.clientY]); const ps = [...P.values()];
+    if (ps.length >= 2 && g.d) { const d = Math.hypot(ps[0][0] - ps[1][0], ps[0][1] - ps[1][1]), mx = (ps[0][0] + ps[1][0]) / 2, my = (ps[0][1] + ps[1][1]) / 2, r = v.getBoundingClientRect();
+      const ns = Math.min(8, Math.max(1, (g.s * d) / g.d)), k = ns / g.s, ox = g.mx - r.width / 2, oy = g.my - r.height / 2;
+      s = ns; tx = ox - (ox - g.tx) * k + (mx - g.mx); ty = oy - (oy - g.ty) * k + (my - g.my); put(); }
+    else if (ps.length === 1 && g.px != null && s > 1.01) { tx = g.tx + e.clientX - g.px; ty = g.ty + e.clientY - g.py; put(); }
+  });
+  const up = (e) => { P.delete(e.pointerId); if (P.size < 2 && g && g.d) { const p = [...P.values()][0]; g = p ? { px: p[0], py: p[1], tx, ty } : null; } if (!P.size) { if (s <= 1.01) { s = 1; tx = 0; ty = 0; put(); } } };
+  v.addEventListener("pointerup", up); v.addEventListener("pointercancel", up);
+}
+/* double tap on a picture in a page opens it big (when the pen is not drawing on it) */
+document.addEventListener("dblclick", (e) => {
+  const im = e.target.closest && e.target.closest("#content img"); if (!im || S.screen !== "editor") return;
+  e.preventDefault(); imgViewer(im.src);
+}, true);
+
+window.__nb = { fsFitWidth, imgViewer,  get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
