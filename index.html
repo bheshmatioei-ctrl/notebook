@@ -1837,6 +1837,21 @@ body.bdopen{overflow:hidden}
 @keyframes bdDrop{from{transform:translateY(-30px);opacity:0}}
 .tbdeu{gap:4px}
 @media (max-width:700px){.bdopts{grid-template-columns:1fr}.bdstats{grid-template-columns:repeat(3,1fr)}.bdbt{min-width:50px}}
+
+/* r79: Deutsch tab */
+.bdtab{padding:18px 22px 26px;width:100%;box-sizing:border-box;overflow:auto}
+.bdtab .mut{color:var(--muted);font-size:14px}
+.bdtab h2{margin:0;font-size:24px}.bdtab h2 small{font-size:14px;font-weight:400;color:var(--muted)}.bdtab h4{margin:18px 0 8px}
+.bdtabhead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.bdgo{min-height:56px;padding:0 30px;border:0;border-radius:16px;background:#d2693c;color:#fff;font:inherit;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 6px 18px rgba(210,105,60,.35);animation:bdNudge 1.8s ease-in-out infinite}
+.bdtabgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:20px;align-items:start}
+.bdtabbuild{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;text-align:center;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+.bdtabbuild .bdbig svg{max-height:34vh}
+.bdtabstats{grid-template-columns:repeat(4,1fr);margin:0 0 10px}
+.bdring.sm{width:38px;height:38px;margin:0 auto 2px;font-size:10px}.bdring.sm span{width:30px;height:30px}
+.bdtab .bdranks{justify-content:flex-start}.bdtab .bdstreet{justify-content:flex-start}
+.bdtabrow{justify-content:flex-start;align-items:center;margin-top:16px}
+@media (max-width:820px){.bdtabgrid{grid-template-columns:1fr}}
 </style>
 
 <div class="app" id="app">
@@ -8532,6 +8547,9 @@ Object.assign(I18N.de, {"cutTool": "Freie Schere", "cutMove": "Ausschneiden und 
 Object.assign(I18N.fa, {"tb_deu": "آلمانی (کارگاه آلمانی)"});
 Object.assign(I18N.en, {"tb_deu": "German (Baustelle Deutsch)"});
 Object.assign(I18N.de, {"tb_deu": "Baustelle Deutsch"});
+Object.assign(I18N.fa, {"thDeu": "آلمانی"});
+Object.assign(I18N.en, {"thDeu": "Deutsch"});
+Object.assign(I18N.de, {"thDeu": "Deutsch"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -17627,7 +17645,7 @@ function bdSt() {
   const today = bdDay();
   if (!b.day || b.day.d !== today) {
     const tk = Object.keys(BD_TASKS), seed = [...today].reduce((a, c) => a * 31 + c.charCodeAt(0), 7) >>> 0, pick = [];
-    for (let i = 0; pick.length < 3; i++) { const k = tk[(seed + i * 5) % tk.length]; if (!pick.includes(k)) pick.push(k); }
+    for (let i = 0; pick.length < 3; i++) { const k = tk[(seed + i * 5) % tk.length]; if (!pick.includes(k) && (k !== "hear" || bdCanSpeak())) pick.push(k); }
     b.day = { d: today, cards: 0, ok: 0, fe: false, tasks: Object.fromEntries(pick.map((k) => [k, 0])), paid: [] };
   }
   return b;
@@ -17667,7 +17685,7 @@ function bdNext() {
     if (item.t === "n" && item.pl !== "=") opts.push("art", "art");
     opts.push(box < 2 ? "mean" : "rev", "mean");
     if (box >= 1) opts.push("rev");
-    if (tts && box >= 1) opts.push("hear");
+    if (tts) opts.push("hear");
     kind = bdPick(opts);
   }
   const gold = Math.random() < 0.07;
@@ -18006,6 +18024,56 @@ tbItem = function (k) {
 };
 const tbAct78 = tbAct;
 tbAct = function (k, anchor) { if (k === "deu") return bdOpen(); return tbAct78(k, anchor); };
+
+/* ---- r79: a "Deutsch" tab on the home row — your building, flame, today's orders and one big start button ---- */
+TH_SVG.brick = '<path d="M3 6h18v4H3zM3 14h18v4H3z"/><path d="M9 6v4M15 10v4M9 14v4M6 10v4M18 10v4"/>';
+TH_TABS.push({ k: "deu", ic: "brick", lab: "thDeu", bg: "#f6d9c8,#efc2a8", ink: "#7a3418", ac: "#d2693c", act: "", newLab: "thDeu" });
+const thItems79 = thItems;
+thItems = function (k) { return k === "deu" ? [] : thItems79(k); };
+const renderTabHome79 = renderTabHome;
+renderTabHome = function () {
+  const r = renderTabHome79.apply(this, arguments);
+  try { if (thTab().k === "deu") bdTabFill(); } catch (e) { console.warn(e); }
+  return r;
+};
+function bdTabFill() {
+  const sheet = document.querySelector(".thhome .thsheet"); if (!sheet) return;
+  const b = bdSt(), bl = bdBuilding(), need = bdBuildBricks(bl), have = Math.min(b.bricks, need), rk = bdRank(b.total), nr = bdNextRank(b.total);
+  const learned = Object.values(b.it).filter((x) => x[0] >= 3).length, seen = Object.keys(b.it).length, dayPct = Math.min(100, Math.round((100 * b.day.cards) / b.goal));
+  const on = document.querySelector(".thtab.on i"); if (on) on.textContent = "🧱 " + num(b.total);
+  const started = b.total > 0 || seen > 0;
+  sheet.innerHTML = `<div class="bdtab" dir="rtl">
+    <div class="bdtabmain">
+      <div class="bdtabhead"><div><h2>کارگاه آلمانی <small dir="ltr">Baustelle Deutsch</small></h2>
+        <p class="mut">${started ? (b.day.fe ? "هدف امروز انجام شد — Feierabend! 🍺" : `امروز ${num(b.day.cards)} از ${num(b.goal)} کارت`) : "هر جواب درست یک آجر است. ساختمانت را بساز!"}</p></div>
+        <button type="button" class="bdgo" data-bdh="go">▶ ${started ? "ادامه بده" : "شروع کن"}</button></div>
+      <div class="bdtabgrid">
+        <div class="bdtabbuild" data-bdh="build"><div class="bdbig">${bdSvg(bl, have)}</div>
+          <b>${esc(bl.fa)} <small dir="ltr">${esc(bl.de)}</small></b>
+          <span class="bdbar"><i style="--p:${Math.round((100 * have) / need)}"></i></span><small class="mut">${num(have)} از ${num(need)} آجر</small></div>
+        <div class="bdtabside">
+          <div class="bdstats bdtabstats"><span><b>🔥 ${num(b.streak.n)}</b>روز پشت‌سرهم</span><span><b class="bdring sm" style="--p:${dayPct}"><span>${num(dayPct)}٪</span></b>هدف امروز</span><span><b>${num(b.total)}</b>آجر کل</span><span><b>${num(learned)}</b>واژهٔ جاافتاده</span></div>
+          <div class="bdranks">${BD_RANK.map((r) => `<span class="${r === rk ? "cur" : b.total >= r[0] ? "done" : ""}">${b.total >= r[0] && r !== rk ? "✓ " : ""}${esc(r[1])}<small>${esc(r[2])}</small></span>`).join("")}</div>
+          ${nr ? `<p class="mut">تا ${esc(nr[1])}: ${num(nr[0] - b.total)} آجر</p>` : ""}
+          <h4>📋 سفارش کار امروز</h4>
+          <div class="bdtasks">${Object.entries(b.day.tasks).map(([t, v]) => { const [l, n] = BD_TASKS[t], d = v >= n; return `<div class="bdtask ${d ? "done" : ""}"><span>${d ? "✓" : "○"} ${num(n)} ${esc(l)}</span><span class="bdbar"><i style="--p:${Math.round((100 * Math.min(v, n)) / n)}"></i></span><b>${num(Math.min(v, n))}/${num(n)}</b></div>`; }).join("")}</div>
+        </div>
+      </div>
+      <h4>خیابان من</h4>
+      <div class="bdstreet">${b.done.length ? b.done.map((d) => { const x = BD_BUILD.find((y) => y.k === d.k); return x ? `<span title="${esc(x.fa)}">${bdSvg(x, bdBuildBricks(x), true)}</span>` : ""; }).join("") : `<span class="mut">اولین ساختمان را تمام کن تا اینجا بنشیند</span>`}</div>
+      <div class="bdrow bdtabrow"><button type="button" class="bdbtn ghost" data-bdh="hearts">♥ نگه‌داشته‌ها (${num(b.hearts.length)})</button><button type="button" class="bdbtn ghost" data-bdh="set">⚙ تنظیمات</button>
+        <span class="mut">${num(bdItems().filter((x) => x.t !== "s").length)} واژه · ${num(bdItems().filter((x) => x.t === "s").length)} جمله · ${num(seen)} دیده‌شده</span></div>
+    </div></div>`;
+}
+document.addEventListener("click", (e) => {
+  const a = e.target.closest && e.target.closest("[data-bdh]"); if (!a) return;
+  e.preventDefault(); const k = a.dataset.bdh;
+  bdOpen();
+  if (k === "build") bdSheet("build"); else if (k === "hearts") bdSheet("hearts"); else if (k === "set") bdSheet("set");
+});
+/* coming back from the feed shows the new bricks on the tab */
+const bdClose79 = bdClose;
+bdClose = function () { bdClose79(); try { if (S.screen !== "studio" && document.querySelector(".thhome .bdtab")) renderMain(); } catch {} };
 
 window.__nb = { BD, BD_BUILD, bdSvg, bdBuildBricks, bdOpen, bdSt, bdItems, bdNext, bdShow,  CUT, cutDo, cutOnMode, cutUndo, insertFloatImage, deselectFloat,  fsFitWidth, imgViewer,  get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
