@@ -1810,7 +1810,11 @@ body.bdopen{overflow:hidden}
 .bdfoot{min-height:84px;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 16px calc(env(safe-area-inset-bottom,0px) + 12px);border-top:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
 .bdhint{color:var(--muted);font-size:14px}
 .bdres{font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.bdres.ok{color:#1e6b3f}.bdres.bad{color:#a32d2d}.bdres span{font-weight:400;font-size:15px}.bdres small{color:var(--muted);font-weight:400;font-size:14px}
-.bdbtn.next{min-width:150px;font-size:18px;animation:bdNudge 1.6s ease-in-out .8s infinite}
+.bdbtn.next{min-width:150px;font-size:18px;position:relative;overflow:hidden}.bdbtn.next span{position:relative}
+.bdbtn.next:not(.auto){animation:bdNudge 1.6s ease-in-out .8s infinite}
+.bdbtn.next.auto i{position:absolute;inset:0 auto 0 0;width:100%;background:rgba(255,255,255,.28);transform-origin:left;animation:bdCount 5s linear forwards}
+.bdbtn.next.auto.hold i{animation-play-state:paused}
+@keyframes bdCount{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes bdNudge{50%{transform:translateY(-3px)}}
 .bdfly{position:fixed;z-index:160;font-size:28px;pointer-events:none;transition:transform .65s cubic-bezier(.3,.7,.3,1),opacity .65s;margin:-14px 0 0 -14px}
 .bdflash{position:absolute;top:84px;left:50%;transform:translateX(-50%);z-index:5;background:#3c3489;color:#fff;font-weight:700;font-size:18px;padding:12px 20px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.18);animation:bdIn .3s;transition:opacity .4s,transform .4s;white-space:nowrap}
@@ -17732,7 +17736,7 @@ function bdOpen() {
   bdSwipe(el.querySelector(".bdstage"));
   setTimeout(() => bdVoice(), 300);
 }
-function bdClose() { $("#bdApp")?.remove(); document.body.classList.remove("bdopen"); try { speechSynthesis.cancel(); } catch {} bdSave(); }
+function bdClose() { clearTimeout(BD.auto); $("#bdApp")?.remove(); document.body.classList.remove("bdopen"); try { speechSynthesis.cancel(); } catch {} bdSave(); }
 addEventListener("keydown", (e) => {
   if (!$("#bdApp")) return;
   if (e.key === "Escape") { if ($("#bdApp .bdsheet")) $("#bdApp .bdsheet").remove(); else bdClose(); e.preventDefault(); e.stopPropagation(); }
@@ -17871,8 +17875,9 @@ function bdResult(ok, kind) {
   bdSave(); bdHead();
   const foot = $("#bdApp .bdfoot");
   foot.innerHTML = `<div class="bdres ${ok ? "ok" : "bad"}">${ok ? `✓ آفرین${gain ? ` <b>+${num(gain)} 🧱</b>` : ""}` : "✗ این بار نه — زود دوباره می‌آید"}${note ? ` · <span>${esc(note)}</span>` : ""}${it.t === "n" && it.pl && it.pl !== "-" && it.pl !== "=" ? `<small dir="ltr">Plural: die ${esc(it.pl)}</small>` : ""}</div>
-    <button type="button" class="bdbtn pri next" data-bd="next">بعدی ↑</button>`;
+    <button type="button" class="bdbtn pri next ${ok ? "auto" : ""}" data-bd="next">${ok ? "<i></i>" : ""}<span>بعدی ↑</span></button>`;
   if (gain) bdFly(gain);
+  if (ok) bdAutoNext(); // a right answer moves on by itself after 5 seconds; a wrong one waits for a tap
 }
 function bdAddBricks(n) {
   const b = bdSt(); b.bricks += n; b.total += n;
@@ -17996,7 +18001,19 @@ function bdSheetAct(k, el) {
   if (k === "say") return bdSay(el.dataset.say);
   bdSheet(k);
 }
-function bdGo() { if (!BD.answered) return; bdShow(bdNext()); }
+function bdGo() { if (!BD.answered) return; clearTimeout(BD.auto); bdShow(bdNext()); }
+/* 5 seconds to look and listen, then the next card; paused while a window (celebration, Feierabend) is open */
+function bdAutoNext(ms = 5000) {
+  clearTimeout(BD.auto); const card = BD.cur;
+  const tick = () => {
+    if (!$("#bdApp") || BD.cur !== card || !BD.answered) return;
+    if ($("#bdApp .bdsheet")) { BD.auto = setTimeout(tick, 400); $("#bdApp .bdbtn.next.auto")?.classList.add("hold"); return; }
+    const b = $("#bdApp .bdbtn.next.auto");
+    if (b && b.classList.contains("hold")) { b.classList.remove("hold"); const i = b.querySelector("i"); if (i) { i.style.animation = "none"; void i.offsetWidth; i.style.animation = ""; } BD.auto = setTimeout(tick, ms); return; }
+    bdGo();
+  };
+  BD.auto = setTimeout(tick, ms);
+}
 /* swipe up for the next card (like a feed) */
 function bdSwipe(st) {
   let y0 = null, id = null;
