@@ -1764,6 +1764,79 @@ body.fsbars .fsmini{top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 14px)
 .cutbar{bottom:18px}
 .cutbar.busy{opacity:.5;pointer-events:none}
 body:has(#cutbar) .fsmini{display:none}
+
+/* r78: Baustelle Deutsch */
+body.bdopen{overflow:hidden}
+.bdapp{position:fixed;inset:0;z-index:150;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;font-size:16px;-webkit-user-select:none;user-select:none;overflow:hidden}
+.bdhead{display:flex;align-items:center;gap:8px;padding:calc(env(safe-area-inset-top,0px) + 10px) 14px 10px;border-bottom:1px solid var(--line);background:var(--panel)}
+.bdsp{flex:1}
+.bdx{width:44px;height:44px;border-radius:12px;border:0;background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
+.bdchip{min-height:40px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:15px;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.bdchip.fire b{color:#d85a30}.bdchip.combo.hot{background:#eeedfe;color:#3c3489;border-color:#afa9ec;animation:bdPulse 1s ease-in-out infinite}
+@keyframes bdPulse{50%{transform:scale(1.07)}}
+.bdring{--p:0;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#2e9b5f calc(var(--p)*1%),var(--line) 0);font-size:11px}
+.bdring span{width:38px;height:38px;border-radius:50%;background:var(--panel);display:grid;place-items:center}
+.bdbuild{display:flex;align-items:center;gap:8px;min-height:44px;padding:2px 10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer;transition:transform .15s}
+.bdbuild.bump{transform:scale(1.12)}.bdbt{display:flex;flex-direction:column;gap:3px;min-width:70px}.bdbt i{display:block;height:5px;border-radius:3px;background:linear-gradient(90deg,#d2693c calc(var(--p)*1%),var(--line) 0)}
+.bdstage{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:16px;touch-action:pan-x}
+.bdcard{position:absolute;width:min(640px,calc(100% - 32px));max-height:calc(100% - 24px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px 20px 22px;box-shadow:0 10px 30px rgba(0,0,0,.08);transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .32s}
+.bdcard.in{transform:translateY(60%);opacity:0}.bdcard.out{transform:translateY(-70%) scale(.96);opacity:0;pointer-events:none}
+.bdcard.gold{border:2px solid #ef9f27;box-shadow:0 0 0 6px rgba(239,159,39,.18),0 10px 30px rgba(0,0,0,.08)}
+.bdcard.shake,.bdline.shake{animation:bdShake .35s}
+@keyframes bdShake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.bdtop{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:10px}
+.bdgold{background:#faeeda;color:#633806;border-radius:8px;padding:3px 8px}
+.bdic{min-width:40px;min-height:40px;border:0;border-radius:10px;background:transparent;font-size:22px;color:var(--muted);cursor:pointer}.bdic.on{color:#d6453d}
+.bdq{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 0 18px;text-align:center}
+.bdword{font-size:clamp(28px,5vw,44px);font-weight:700;line-height:1.25}.bdword.fa{font-size:clamp(22px,3.6vw,30px)}.bdword.sent{font-size:clamp(19px,3vw,25px);font-weight:600}
+.bda{font-weight:700}.bdfa{font-size:17px;color:var(--muted)}
+.bdspk{border:1px solid var(--line);background:var(--bg);border-radius:50%;width:44px;height:44px;font-size:20px;cursor:pointer}.bdspk.big{width:90px;height:90px;font-size:40px}
+.bdarts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.bdart{min-height:72px;border-radius:16px;border:2px solid var(--c);background:color-mix(in srgb,var(--c) 10%,transparent);color:var(--c);font:inherit;font-size:26px;font-weight:700;cursor:pointer;transition:transform .1s}
+.bdart:active,.bdopt:active,.bdtile:active{transform:scale(.96)}
+.bdopts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bdopt{min-height:62px;padding:8px 12px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:18px;cursor:pointer}.bdopt.de{font-size:19px}
+.bdart.ok,.bdopt.ok{background:#e6f4ea;border-color:#2e9b5f;color:#1e6b3f;animation:bdPop .3s}.bdart.bad,.bdopt.bad{background:#fdecec;border-color:#d6453d;color:#a32d2d}
+@keyframes bdPop{50%{transform:scale(1.06)}}
+.bdline{min-height:64px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px;border:2px dashed var(--line);border-radius:14px;margin-bottom:12px}
+.bdline.ok{border-color:#2e9b5f;border-style:solid;background:#e6f4ea}.bdline.bad{border-color:#d6453d;border-style:solid;background:#fdecec}
+.bdph{color:var(--muted)}.bdright{direction:ltr;margin:-4px 0 12px;padding:8px 12px;border-radius:10px;background:#e6f4ea;color:#1e6b3f;font-weight:600}
+.bdtiles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:14px}
+.bdtile{min-height:48px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line);border-bottom-width:3px;background:var(--bg);color:var(--ink);font:inherit;font-size:19px;font-weight:600;cursor:pointer}
+.bdtile.used{opacity:.25;pointer-events:none}.bdtile.in{background:var(--panel)}
+.bdrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.bdbtn{min-height:48px;padding:0 20px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:16px;cursor:pointer}
+.bdbtn.pri{background:#2b4c7e;border-color:#2b4c7e;color:#fff;font-weight:600}
+.bdfoot{min-height:84px;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 16px calc(env(safe-area-inset-bottom,0px) + 12px);border-top:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+.bdhint{color:var(--muted);font-size:14px}
+.bdres{font-size:18px;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.bdres.ok{color:#1e6b3f}.bdres.bad{color:#a32d2d}.bdres span{font-weight:400;font-size:15px}.bdres small{color:var(--muted);font-weight:400;font-size:14px}
+.bdbtn.next{min-width:150px;font-size:18px;animation:bdNudge 1.6s ease-in-out .8s infinite}
+@keyframes bdNudge{50%{transform:translateY(-3px)}}
+.bdfly{position:fixed;z-index:160;font-size:28px;pointer-events:none;transition:transform .65s cubic-bezier(.3,.7,.3,1),opacity .65s;margin:-14px 0 0 -14px}
+.bdflash{position:absolute;top:84px;left:50%;transform:translateX(-50%);z-index:5;background:#3c3489;color:#fff;font-weight:700;font-size:18px;padding:12px 20px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,.18);animation:bdIn .3s;transition:opacity .4s,transform .4s;white-space:nowrap}
+.bdflash.off{opacity:0;transform:translate(-50%,-14px)}
+@keyframes bdIn{from{opacity:0;transform:translate(-50%,12px) scale(.9)}}
+.bdconf{position:absolute;top:-10px;width:10px;height:6px;border-radius:1px;z-index:6;animation:bdFall 2.2s ease-in forwards;pointer-events:none}
+@keyframes bdFall{to{transform:translateY(105vh) rotate(var(--r));opacity:.7}}
+.bdsheet{position:absolute;inset:0;z-index:4;background:rgba(15,20,35,.45);display:flex;align-items:center;justify-content:center;padding:16px}
+.bdsheetin{width:min(620px,100%);max-height:100%;overflow:auto;background:var(--panel);border-radius:22px;padding:20px 22px;text-align:center}
+.bdsheetin h3{margin:4px 0 10px;font-size:22px}.bdsheetin h3 small{font-weight:400;color:var(--muted);font-size:14px}.bdsheetin h4{margin:16px 0 6px}
+.bdsheetin .mut,.bdapp .mut{color:var(--muted);font-size:14px}
+.bdbig{max-width:360px;margin:0 auto;font-size:64px}.bdbig svg{max-height:42vh}
+.bdde{font-size:20px;font-weight:700;margin-bottom:6px}
+.bdbar{display:block;height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin:8px 0}.bdbar i{display:block;height:100%;width:calc(var(--p)*1%);background:#d2693c;border-radius:5px}
+.bdranks{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:10px 0}.bdranks span{padding:6px 10px;border-radius:10px;border:1px solid var(--line);display:flex;flex-direction:column;font-size:14px;color:var(--muted)}.bdranks span small{font-size:11px}
+.bdranks .cur{background:#eeedfe;color:#3c3489;border-color:#afa9ec;font-weight:700}.bdranks .done{color:var(--ink)}
+.bdstreet{display:flex;gap:6px;justify-content:center;align-items:flex-end;flex-wrap:wrap;min-height:40px;padding:8px;border-bottom:3px solid #888780}
+.bdstats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0}.bdstats span{background:var(--bg);border-radius:10px;padding:8px 4px;font-size:12px;color:var(--muted);display:flex;flex-direction:column}.bdstats b{font-size:20px;color:var(--ink)}
+.bdtasks{display:flex;flex-direction:column;gap:10px;margin:8px 0 14px}.bdtask{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;text-align:start}.bdtask.done{color:#1e6b3f}.bdtask .bdbar{margin:0}
+.bdset{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);text-align:start}.bdset select{min-height:40px;font:inherit}
+.bdths{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}.bdths label{display:flex;gap:4px;align-items:center}
+.bdlist{display:flex;flex-direction:column;gap:6px;text-align:start;margin-bottom:12px}.bdli{display:flex;gap:10px;align-items:center;padding:6px;border-bottom:1px solid var(--line)}
+.bdnew{animation:bdDrop .5s cubic-bezier(.3,1.4,.5,1)}
+@keyframes bdDrop{from{transform:translateY(-30px);opacity:0}}
+.tbdeu{gap:4px}
+@media (max-width:700px){.bdopts{grid-template-columns:1fr}.bdstats{grid-template-columns:repeat(3,1fr)}.bdbt{min-width:50px}}
 </style>
 
 <div class="app" id="app">
@@ -8456,6 +8529,9 @@ Object.assign(I18N.de, {"fsTools": "Werkzeuge", "fsHideTools": "Werkzeuge aus", 
 Object.assign(I18N.fa, {"cutTool": "قیچی آزاد (بریدن بخشی از تصویر)", "cutHint": "با قلم دور بخشی از تصویر بکشید · انگشت: جابه‌جایی صفحه", "cutHintFinger": "با قلم یا انگشت دور بخشی از تصویر بکشید · دو انگشت: جابه‌جایی صفحه", "cutMove": "بریدن و جابه‌جا کردن", "cutCopy": "کپی", "cutAgain": "دوباره بکش", "cutNoImg": "زیر این خط تصویری نیست", "cutWorking": "در حال بریدن…", "cutDoneMove": "بریده شد — حالا تکه را با انگشت بکشید و هر جا خواستید بگذارید", "cutDoneCopy": "کپی شد — تکه را بکشید و جای دیگری بگذارید", "cutFail": "بریدن نشد", "cutUndone": "بریدن برگشت"});
 Object.assign(I18N.en, {"cutTool": "Free scissors (cut part of a picture)", "cutHint": "Draw around part of a picture with the pen · finger: scroll", "cutHintFinger": "Draw around part of a picture with the pen or a finger · two fingers: scroll", "cutMove": "Cut and move", "cutCopy": "Copy", "cutAgain": "Draw again", "cutNoImg": "There is no picture under this line", "cutWorking": "Cutting…", "cutDoneMove": "Cut — now drag the piece wherever you want", "cutDoneCopy": "Copied — drag the piece somewhere else", "cutFail": "Couldn't cut", "cutUndone": "Cut undone"});
 Object.assign(I18N.de, {"cutTool": "Freie Schere", "cutMove": "Ausschneiden und verschieben", "cutCopy": "Kopieren", "cutAgain": "Neu zeichnen", "cutNoImg": "Hier ist kein Bild"});
+Object.assign(I18N.fa, {"tb_deu": "آلمانی (کارگاه آلمانی)"});
+Object.assign(I18N.en, {"tb_deu": "German (Baustelle Deutsch)"});
+Object.assign(I18N.de, {"tb_deu": "Baustelle Deutsch"});
 const NET_KINDS = ["factor", "asset", "event", "goal"], NET_KIC = { factor: "◆", asset: "📈", event: "⚡", goal: "🎯" }, NET_LAG = { w: "⏱ " , m: "⏱⏱ " };
 const mmId = () => "m" + Math.random().toString(36).slice(2, 9);
 function mmNewData(title) {
@@ -17510,7 +17586,428 @@ tbUndo = function () {
   return tbUndo77.apply(this, arguments);
 };
 
-window.__nb = { CUT, cutDo, cutOnMode, cutUndo, insertFloatImage, deselectFloat,  fsFitWidth, imgViewer,  get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
+const BD_WORDS = [["n","der","Hammer","Hämmer","چکش","bau"],["n","der","Bohrer","Bohrer","مته","bau"],["n","die","Bohrmaschine","Bohrmaschinen","دریل","bau"],["n","der","Akkuschrauber","Akkuschrauber","پیچ‌گوشتی شارژی","bau"],["n","die","Schraube","Schrauben","پیچ","bau"],["n","der","Dübel","Dübel","رول‌پلاک","bau"],["n","der","Nagel","Nägel","میخ","bau"],["n","die","Zange","Zangen","انبردست","bau"],["n","die","Säge","Sägen","اره","bau"],["n","die","Wasserwaage","Wasserwaagen","تراز","bau"],["n","der","Zollstock","Zollstöcke","متر تاشو","bau"],["n","das","Maßband","Maßbänder","متر نواری","bau"],["n","die","Leiter","Leitern","نردبان","bau"],["n","das","Gerüst","Gerüste","داربست","bau"],["n","der","Eimer","Eimer","سطل","bau"],["n","die","Kelle","Kellen","ماله، کمچه","bau"],["n","der","Pinsel","Pinsel","قلم‌مو","bau"],["n","die","Farbrolle","Farbrollen","غلتک رنگ","bau"],["n","die","Farbe","Farben","رنگ","bau"],["n","der","Spachtel","Spachtel","کاردک","bau"],["n","der","Zement","-","سیمان","bau"],["n","der","Beton","-","بتن","bau"],["n","der","Mörtel","-","ملات","bau"],["n","der","Sand","-","ماسه","bau"],["n","der","Kies","-","شن","bau"],["n","der","Ziegel","Ziegel","آجر","bau"],["n","der","Stein","Steine","سنگ، بلوک","bau"],["n","das","Holz","Hölzer","چوب","bau"],["n","das","Brett","Bretter","تخته","bau"],["n","der","Balken","Balken","تیر چوبی","bau"],["n","der","Stahl","-","فولاد","bau"],["n","das","Rohr","Rohre","لوله","bau"],["n","das","Kabel","Kabel","کابل، سیم","bau"],["n","die","Steckdose","Steckdosen","پریز برق","bau"],["n","der","Schalter","Schalter","کلید برق","bau"],["n","der","Sicherungskasten","Sicherungskästen","جعبه فیوز","bau"],["n","die","Sicherung","Sicherungen","فیوز","bau"],["n","die","Leitung","Leitungen","خط لوله یا سیم‌کشی","bau"],["n","der","Strom","-","برق","bau"],["n","die","Lampe","Lampen","لامپ، چراغ","bau"],["n","die","Fliese","Fliesen","کاشی","bau"],["n","der","Fliesenkleber","-","چسب کاشی","bau"],["n","die","Fuge","Fugen","درز، بندکشی","bau"],["n","der","Estrich","-","کف‌سازی (اِستریش)","bau"],["n","der","Putz","-","گچ و اندود","bau"],["n","der","Gips","-","گچ","bau"],["n","die","Gipskartonplatte","Gipskartonplatten","صفحه کناف","bau"],["n","die","Dämmung","Dämmungen","عایق‌کاری","bau"],["n","die","Folie","Folien","نایلون، ورق نازک","bau"],["n","das","Fundament","Fundamente","فونداسیون، پی","bau"],["n","der","Keller","Keller","زیرزمین","bau"],["n","das","Erdgeschoss","Erdgeschosse","طبقه همکف","bau"],["n","das","Obergeschoss","Obergeschosse","طبقه بالا","bau"],["n","das","Dach","Dächer","سقف شیب‌دار، بام","bau"],["n","der","Dachstuhl","Dachstühle","خرپای سقف","bau"],["n","die","Dachrinne","Dachrinnen","ناودان","bau"],["n","die","Wand","Wände","دیوار","bau"],["n","die","Mauer","Mauern","دیوار آجری","bau"],["n","die","Decke","Decken","سقف (داخل اتاق)","bau"],["n","der","Boden","Böden","کف","bau"],["n","die","Treppe","Treppen","پله","bau"],["n","das","Geländer","Geländer","نرده","bau"],["n","der","Balkon","Balkone","بالکن","bau"],["n","die","Baustelle","Baustellen","کارگاه ساختمانی","bau"],["n","der","Bauplan","Baupläne","نقشه ساختمان","bau"],["n","der","Grundriss","Grundrisse","پلان","bau"],["n","der","Maßstab","Maßstäbe","مقیاس","bau"],["n","der","Quadratmeter","Quadratmeter","متر مربع","bau"],["n","der","Meter","Meter","متر","bau"],["n","der","Zentimeter","Zentimeter","سانتی‌متر","bau"],["n","die","Höhe","Höhen","ارتفاع","bau"],["n","die","Breite","Breiten","عرض","bau"],["n","die","Länge","Längen","طول","bau"],["n","die","Tiefe","Tiefen","عمق","bau"],["n","der","Winkel","Winkel","زاویه، گونیا","bau"],["n","der","Kran","Kräne","جرثقیل","bau"],["n","der","Bagger","Bagger","بیل مکانیکی","bau"],["n","die","Schubkarre","Schubkarren","فرغون","bau"],["n","der","Helm","Helme","کلاه ایمنی","bau"],["n","der","Handschuh","Handschuhe","دستکش","bau"],["n","der","Arbeitsschuh","Arbeitsschuhe","کفش ایمنی","bau"],["n","die","Schutzbrille","Schutzbrillen","عینک ایمنی","bau"],["n","der","Staub","-","گرد و خاک","bau"],["n","der","Schutt","-","نخاله","bau"],["n","der","Container","Container","کانتینر","bau"],["n","der","Riss","Risse","ترک","bau"],["n","die","Feuchtigkeit","-","رطوبت","bau"],["n","der","Schimmel","-","کپک","bau"],["n","der","Schaden","Schäden","خسارت، خرابی","bau"],["n","die","Heizung","Heizungen","شوفاژ، گرمایش","bau"],["n","der","Heizkörper","Heizkörper","رادیاتور","bau"],["n","die","Wasserleitung","Wasserleitungen","لوله آب","bau"],["n","der","Abfluss","Abflüsse","فاضلاب، آب‌رو","bau"],["n","der","Wasserhahn","Wasserhähne","شیر آب","bau"],["n","die","Photovoltaikanlage","Photovoltaikanlagen","سیستم خورشیدی (PV)","bau"],["n","das","Solarmodul","Solarmodule","پنل خورشیدی","bau"],["n","der","Wechselrichter","Wechselrichter","اینورتر","bau"],["n","der","Speicher","Speicher","باتری ذخیره","bau"],["n","die","Montage","Montagen","نصب","bau"],["n","das","Werkzeug","Werkzeuge","ابزار","bau"],["n","die","Kiste","Kisten","جعبه","bau"],["n","der","Sack","Säcke","کیسه","bau"],["n","die","Palette","Paletten","پالت","bau"],["n","der","Schlüssel","Schlüssel","کلید","haus"],["n","die","Tür","Türen","در","haus"],["n","das","Fenster","Fenster","پنجره","haus"],["n","die","Fensterbank","Fensterbänke","لبه پنجره","haus"],["n","der","Rollladen","Rollläden","کرکره","haus"],["n","das","Zimmer","Zimmer","اتاق","haus"],["n","das","Wohnzimmer","Wohnzimmer","اتاق نشیمن","haus"],["n","das","Schlafzimmer","Schlafzimmer","اتاق خواب","haus"],["n","das","Kinderzimmer","Kinderzimmer","اتاق بچه","haus"],["n","die","Küche","Küchen","آشپزخانه","haus"],["n","das","Bad","Bäder","حمام","haus"],["n","die","Toilette","Toiletten","توالت","haus"],["n","der","Flur","Flure","راهرو","haus"],["n","der","Dachboden","Dachböden","زیر شیروانی","haus"],["n","die","Garage","Garagen","پارکینگ، گاراژ","haus"],["n","der","Garten","Gärten","باغچه، حیاط","haus"],["n","die","Dusche","Duschen","دوش","haus"],["n","die","Badewanne","Badewannen","وان","haus"],["n","das","Waschbecken","Waschbecken","روشویی","haus"],["n","der","Spiegel","Spiegel","آینه","haus"],["n","der","Herd","Herde","اجاق گاز یا برقی","haus"],["n","der","Backofen","Backöfen","فر","haus"],["n","der","Kühlschrank","Kühlschränke","یخچال","haus"],["n","die","Spülmaschine","Spülmaschinen","ماشین ظرفشویی","haus"],["n","die","Waschmaschine","Waschmaschinen","ماشین لباسشویی","haus"],["n","die","Spüle","Spülen","سینک ظرفشویی","haus"],["n","der","Schrank","Schränke","کمد","haus"],["n","das","Regal","Regale","قفسه","haus"],["n","der","Tisch","Tische","میز","haus"],["n","der","Stuhl","Stühle","صندلی","haus"],["n","das","Sofa","Sofas","مبل","haus"],["n","das","Bett","Betten","تخت","haus"],["n","der","Teppich","Teppiche","فرش","haus"],["n","der","Vorhang","Vorhänge","پرده","haus"],["n","die","Kommode","Kommoden","کمد کشودار","haus"],["n","der","Briefkasten","Briefkästen","صندوق نامه","haus"],["n","die","Klingel","Klingeln","زنگ در","haus"],["n","der","Müll","-","زباله","haus"],["n","die","Mülltonne","Mülltonnen","سطل زباله بزرگ","haus"],["n","der","Nachbar","Nachbarn","همسایه","haus"],["n","das","Treppenhaus","Treppenhäuser","راه‌پله ساختمان","haus"],["n","der","Aufzug","Aufzüge","آسانسور","haus"],["n","der","Hausmeister","Hausmeister","سرایدار","haus"],["n","der","Umzug","Umzüge","اسباب‌کشی","haus"],["n","der","Karton","Kartons","کارتن","haus"],["n","das","Möbelstück","Möbelstücke","یک تکه اثاثیه","haus"],["n","die","Wohnung","Wohnungen","آپارتمان","amt"],["n","die","Miete","Mieten","اجاره","amt"],["n","die","Kaltmiete","Kaltmieten","اجاره بدون هزینه‌های جانبی","amt"],["n","die","Warmmiete","Warmmieten","اجاره با هزینه‌های جانبی","amt"],["n","die","Nebenkosten","=","هزینه‌های جانبی (فقط جمع)","amt"],["n","die","Kaution","Kautionen","ودیعه","amt"],["n","der","Mietvertrag","Mietverträge","قرارداد اجاره","amt"],["n","der","Vermieter","Vermieter","صاحب‌خانه","amt"],["n","der","Mieter","Mieter","مستأجر","amt"],["n","die","Kündigung","Kündigungen","فسخ قرارداد","amt"],["n","die","Frist","Fristen","مهلت","amt"],["n","der","Termin","Termine","وقت ملاقات","amt"],["n","das","Amt","Ämter","اداره","amt"],["n","die","Behörde","Behörden","اداره دولتی","amt"],["n","das","Bürgeramt","Bürgerämter","اداره ثبت شهروندی","amt"],["n","die","Anmeldung","Anmeldungen","ثبت آدرس، ثبت‌نام","amt"],["n","der","Antrag","Anträge","درخواست‌نامه","amt"],["n","das","Formular","Formulare","فرم","amt"],["n","die","Unterschrift","Unterschriften","امضا","amt"],["n","die","Unterlagen","=","مدارک (فقط جمع)","amt"],["n","der","Nachweis","Nachweise","مدرک اثبات","amt"],["n","die","Bescheinigung","Bescheinigungen","گواهی","amt"],["n","der","Bescheid","Bescheide","حکم، پاسخ رسمی","amt"],["n","der","Widerspruch","Widersprüche","اعتراض رسمی","amt"],["n","der","Ausweis","Ausweise","کارت شناسایی","amt"],["n","der","Reisepass","Reisepässe","گذرنامه","amt"],["n","die","Adresse","Adressen","آدرس","amt"],["n","die","Postleitzahl","Postleitzahlen","کد پستی","amt"],["n","das","Geburtsdatum","Geburtsdaten","تاریخ تولد","amt"],["n","der","Brief","Briefe","نامه","amt"],["n","das","Schreiben","Schreiben","نامه رسمی","amt"],["n","die","Rechnung","Rechnungen","صورت‌حساب","amt"],["n","die","Mahnung","Mahnungen","اخطار پرداخت","amt"],["n","die","Zahlung","Zahlungen","پرداخت","amt"],["n","die","Überweisung","Überweisungen","حواله بانکی","amt"],["n","das","Konto","Konten","حساب بانکی","amt"],["n","die","Bank","Banken","بانک","amt"],["n","der","Betrag","Beträge","مبلغ","amt"],["n","die","Gebühr","Gebühren","هزینه، کارمزد","amt"],["n","die","Versicherung","Versicherungen","بیمه","amt"],["n","die","Krankenkasse","Krankenkassen","بیمه درمانی","amt"],["n","das","Jobcenter","Jobcenter","جاب‌سنتر","amt"],["n","das","Bürgergeld","-","کمک‌هزینه دولتی","amt"],["n","der","Berater","Berater","مشاور","amt"],["n","die","Beratung","Beratungen","مشاوره","amt"],["n","die","Erlaubnis","Erlaubnisse","مجوز","amt"],["n","die","Genehmigung","Genehmigungen","مجوز رسمی","amt"],["n","der","Vertrag","Verträge","قرارداد","amt"],["n","die","Änderung","Änderungen","تغییر","amt"],["n","die","Auskunft","Auskünfte","اطلاعات، پاسخ","amt"],["n","der","Stromvertrag","Stromverträge","قرارداد برق","amt"],["n","der","Anbieter","Anbieter","ارائه‌دهنده","amt"],["n","der","Zählerstand","Zählerstände","عدد کنتور","amt"],["n","der","Zähler","Zähler","کنتور","amt"],["n","die","Arbeit","Arbeiten","کار","arbeit"],["n","der","Auftrag","Aufträge","سفارش کار","arbeit"],["n","der","Kunde","Kunden","مشتری","arbeit"],["n","die","Kundin","Kundinnen","مشتری (زن)","arbeit"],["n","das","Angebot","Angebote","پیش‌فاکتور، پیشنهاد قیمت","arbeit"],["n","der","Kostenvoranschlag","Kostenvoranschläge","برآورد هزینه","arbeit"],["n","der","Preis","Preise","قیمت","arbeit"],["n","die","Kosten","=","هزینه‌ها (فقط جمع)","arbeit"],["n","der","Stundenlohn","Stundenlöhne","دستمزد ساعتی","arbeit"],["n","der","Lohn","Löhne","دستمزد","arbeit"],["n","das","Gehalt","Gehälter","حقوق","arbeit"],["n","die","Stelle","Stellen","شغل، جای خالی","arbeit"],["n","die","Bewerbung","Bewerbungen","درخواست کار","arbeit"],["n","der","Lebenslauf","Lebensläufe","رزومه","arbeit"],["n","das","Vorstellungsgespräch","Vorstellungsgespräche","مصاحبه کاری","arbeit"],["n","der","Arbeitgeber","Arbeitgeber","کارفرما","arbeit"],["n","der","Arbeitnehmer","Arbeitnehmer","کارگر، کارمند","arbeit"],["n","der","Kollege","Kollegen","همکار","arbeit"],["n","der","Chef","Chefs","رئیس","arbeit"],["n","der","Meister","Meister","استادکار","arbeit"],["n","der","Geselle","Gesellen","کارگر ماهر","arbeit"],["n","der","Lehrling","Lehrlinge","کارآموز","arbeit"],["n","die","Ausbildung","Ausbildungen","دوره آموزش حرفه‌ای","arbeit"],["n","der","Handwerker","Handwerker","صنعتگر، استادکار","arbeit"],["n","der","Elektriker","Elektriker","برق‌کار","arbeit"],["n","der","Maler","Maler","نقاش ساختمان","arbeit"],["n","der","Fliesenleger","Fliesenleger","کاشی‌کار","arbeit"],["n","der","Installateur","Installateure","لوله‌کش","arbeit"],["n","der","Tischler","Tischler","نجار","arbeit"],["n","der","Architekt","Architekten","معمار","arbeit"],["n","die","Firma","Firmen","شرکت","arbeit"],["n","der","Betrieb","Betriebe","کارگاه، شرکت","arbeit"],["n","die","Werkstatt","Werkstätten","کارگاه تعمیر","arbeit"],["n","die","Besichtigung","Besichtigungen","بازدید","arbeit"],["n","das","Aufmaß","Aufmaße","اندازه‌برداری","arbeit"],["n","die","Materialliste","Materiallisten","لیست مصالح","arbeit"],["n","das","Material","Materialien","مصالح","arbeit"],["n","die","Lieferung","Lieferungen","تحویل، ارسال","arbeit"],["n","der","Liefertermin","Liefertermine","زمان تحویل","arbeit"],["n","die","Abnahme","Abnahmen","تحویل نهایی کار","arbeit"],["n","die","Garantie","Garantien","ضمانت","arbeit"],["n","die","Pause","Pausen","استراحت","arbeit"],["n","der","Feierabend","Feierabende","پایان کار روزانه","arbeit"],["n","die","Überstunde","Überstunden","اضافه‌کاری","arbeit"],["n","der","Urlaub","Urlaube","مرخصی","arbeit"],["n","die","Krankmeldung","Krankmeldungen","گواهی بیماری","arbeit"],["n","die","Erfahrung","Erfahrungen","تجربه","arbeit"],["n","die","Qualität","Qualitäten","کیفیت","arbeit"],["n","der","Fehler","Fehler","اشتباه","arbeit"],["n","das","Problem","Probleme","مشکل","arbeit"],["n","die","Lösung","Lösungen","راه‌حل","arbeit"],["n","die","Besprechung","Besprechungen","جلسه","arbeit"],["n","der","Plan","Pläne","برنامه","arbeit"],["n","das","Ziel","Ziele","هدف","arbeit"],["n","der","Tag","Tage","روز","alltag"],["n","die","Woche","Wochen","هفته","alltag"],["n","der","Monat","Monate","ماه","alltag"],["n","das","Jahr","Jahre","سال","alltag"],["n","die","Stunde","Stunden","ساعت (مدت)","alltag"],["n","die","Minute","Minuten","دقیقه","alltag"],["n","die","Uhr","Uhren","ساعت","alltag"],["n","der","Morgen","Morgen","صبح","alltag"],["n","der","Abend","Abende","عصر، شب","alltag"],["n","das","Wochenende","Wochenenden","آخر هفته","alltag"],["n","der","Bus","Busse","اتوبوس","alltag"],["n","die","Bahn","Bahnen","قطار","alltag"],["n","der","Zug","Züge","قطار","alltag"],["n","der","Bahnhof","Bahnhöfe","ایستگاه قطار","alltag"],["n","die","Haltestelle","Haltestellen","ایستگاه","alltag"],["n","die","Fahrkarte","Fahrkarten","بلیت","alltag"],["n","das","Auto","Autos","ماشین","alltag"],["n","der","Fahrer","Fahrer","راننده","alltag"],["n","der","Führerschein","Führerscheine","گواهینامه","alltag"],["n","die","Straße","Straßen","خیابان","alltag"],["n","die","Stadt","Städte","شهر","alltag"],["n","das","Dorf","Dörfer","روستا","alltag"],["n","der","Supermarkt","Supermärkte","سوپرمارکت","alltag"],["n","der","Baumarkt","Baumärkte","فروشگاه مصالح و ابزار","alltag"],["n","die","Apotheke","Apotheken","داروخانه","alltag"],["n","der","Arzt","Ärzte","پزشک","alltag"],["n","die","Praxis","Praxen","مطب","alltag"],["n","das","Krankenhaus","Krankenhäuser","بیمارستان","alltag"],["n","das","Rezept","Rezepte","نسخه، دستور پخت","alltag"],["n","der","Schmerz","Schmerzen","درد","alltag"],["n","das","Geld","-","پول","alltag"],["n","das","Bargeld","-","پول نقد","alltag"],["n","die","Karte","Karten","کارت","alltag"],["n","die","Kasse","Kassen","صندوق پرداخت","alltag"],["n","der","Kassenbon","Kassenbons","رسید خرید","alltag"],["n","das","Brot","Brote","نان","alltag"],["n","das","Wasser","-","آب","alltag"],["n","der","Kaffee","Kaffees","قهوه","alltag"],["n","der","Tee","Tees","چای","alltag"],["n","die","Milch","-","شیر","alltag"],["n","das","Fleisch","-","گوشت","alltag"],["n","das","Gemüse","-","سبزیجات","alltag"],["n","das","Obst","-","میوه","alltag"],["n","der","Reis","-","برنج","alltag"],["n","die","Familie","Familien","خانواده","alltag"],["n","der","Freund","Freunde","دوست","alltag"],["n","das","Kind","Kinder","بچه","alltag"],["n","das","Handy","Handys","موبایل","alltag"],["n","die","Nachricht","Nachrichten","پیام، خبر","alltag"],["n","die","Zeitung","Zeitungen","روزنامه","alltag"],["n","das","Wetter","-","هوا","alltag"],["n","der","Regen","-","باران","alltag"],["n","der","Schnee","-","برف","alltag"],["n","die","Sonne","Sonnen","خورشید","alltag"],["n","der","Himmel","Himmel","آسمان","alltag"],["n","der","Baum","Bäume","درخت","alltag"],["n","die","Frage","Fragen","سؤال","alltag"],["n","die","Antwort","Antworten","جواب","alltag"],["n","die","Sprache","Sprachen","زبان","alltag"],["n","das","Wort","Wörter","کلمه","alltag"],["n","der","Satz","Sätze","جمله","alltag"],["n","der","Kurs","Kurse","دوره آموزشی","alltag"],["n","die","Hilfe","Hilfen","کمک","alltag"],["n","die","Zeit","Zeiten","وقت، زمان","alltag"],["n","die","Idee","Ideen","ایده","alltag"],["v","bohren","سوراخ کردن (با مته)","bau"],["v","schrauben","پیچ کردن","bau"],["v","messen","اندازه گرفتن","bau"],["v","sägen","اره کردن","bau"],["v","streichen","رنگ کردن","bau"],["v","fliesen","کاشی کردن","bau"],["v","verputzen","گچ‌کاری کردن","bau"],["v","mauern","آجرچینی کردن","bau"],["v","montieren","نصب کردن","bau"],["v","anschließen","وصل کردن","bau"],["v","reparieren","تعمیر کردن","bau"],["v","abreißen","خراب کردن، کندن","bau"],["v","aufbauen","سرهم کردن، برپا کردن","bau"],["v","tragen","حمل کردن، پوشیدن","bau"],["v","schleifen","سنباده زدن","bau"],["v","kleben","چسباندن","bau"],["v","dämmen","عایق کردن","bau"],["v","prüfen","بررسی کردن","bau"],["v","wohnen","زندگی کردن (سکونت)","haus"],["v","mieten","اجاره کردن","haus"],["v","umziehen","اسباب‌کشی کردن","haus"],["v","einziehen","نقل مکان کردن به","haus"],["v","ausziehen","خانه را تخلیه کردن","haus"],["v","putzen","تمیز کردن","haus"],["v","kochen","آشپزی کردن","haus"],["v","lüften","هوا دادن","haus"],["v","heizen","گرم کردن","haus"],["v","klingeln","زنگ زدن (در)","haus"],["v","beantragen","درخواست دادن","amt"],["v","ausfüllen","پر کردن (فرم)","amt"],["v","unterschreiben","امضا کردن","amt"],["v","einreichen","تحویل دادن (مدارک)","amt"],["v","bezahlen","پرداختن","amt"],["v","überweisen","حواله کردن","amt"],["v","kündigen","فسخ کردن","amt"],["v","anmelden","ثبت کردن","amt"],["v","abmelden","لغو ثبت کردن","amt"],["v","vereinbaren","توافق کردن، وقت گرفتن","amt"],["v","bestätigen","تأیید کردن","amt"],["v","schicken","فرستادن","amt"],["v","erhalten","دریافت کردن","amt"],["v","beraten","مشاوره دادن","amt"],["v","arbeiten","کار کردن","arbeit"],["v","anbieten","پیشنهاد دادن","arbeit"],["v","bestellen","سفارش دادن","arbeit"],["v","liefern","تحویل دادن","arbeit"],["v","planen","برنامه‌ریزی کردن","arbeit"],["v","berechnen","محاسبه کردن","arbeit"],["v","besichtigen","بازدید کردن","arbeit"],["v","erklären","توضیح دادن","arbeit"],["v","verdienen","درآمد داشتن","arbeit"],["v","sich bewerben","درخواست کار دادن","arbeit"],["v","anfangen","شروع کردن","arbeit"],["v","aufhören","تمام کردن","arbeit"],["v","fertig machen","تمام کردن (کار)","arbeit"],["v","helfen","کمک کردن","arbeit"],["v","brauchen","نیاز داشتن","alltag"],["v","kaufen","خریدن","alltag"],["v","verkaufen","فروختن","alltag"],["v","fahren","رانندگی کردن، رفتن (با وسیله)","alltag"],["v","warten","منتظر ماندن","alltag"],["v","verstehen","فهمیدن","alltag"],["v","lernen","یاد گرفتن","alltag"],["v","sprechen","صحبت کردن","alltag"],["v","anrufen","تلفن زدن","alltag"],["v","fragen","پرسیدن","alltag"],["v","antworten","جواب دادن","alltag"],["v","vergessen","فراموش کردن","alltag"],["v","suchen","گشتن، جستجو کردن","alltag"],["v","finden","پیدا کردن","alltag"],["v","öffnen","باز کردن","alltag"],["v","schließen","بستن","alltag"],["a","günstig","ارزان، مناسب","alltag"],["a","teuer","گران","alltag"],["a","billig","ارزان (بی‌کیفیت)","alltag"],["a","schnell","سریع","alltag"],["a","langsam","آهسته","alltag"],["a","früh","زود","alltag"],["a","spät","دیر","alltag"],["a","pünktlich","سر وقت","arbeit"],["a","dringend","فوری","amt"],["a","wichtig","مهم","amt"],["a","richtig","درست","alltag"],["a","falsch","غلط","alltag"],["a","fertig","آماده، تمام‌شده","arbeit"],["a","kaputt","خراب","bau"],["a","neu","نو","alltag"],["a","alt","قدیمی، پیر","alltag"],["a","groß","بزرگ","alltag"],["a","klein","کوچک","alltag"],["a","hoch","بلند، مرتفع","bau"],["a","niedrig","کوتاه، پایین","bau"],["a","breit","پهن","bau"],["a","schmal","باریک","bau"],["a","dick","ضخیم","bau"],["a","dünn","نازک","bau"],["a","gerade","صاف، مستقیم","bau"],["a","schief","کج","bau"],["a","feucht","مرطوب","bau"],["a","trocken","خشک","bau"],["a","warm","گرم","haus"],["a","kalt","سرد","haus"],["a","hell","روشن","haus"],["a","dunkel","تاریک","haus"],["a","leer","خالی","haus"],["a","voll","پر","haus"],["a","sauber","تمیز","haus"],["a","schmutzig","کثیف","haus"],["a","laut","پرسروصدا","haus"],["a","leise","آرام، بی‌صدا","haus"],["a","möbliert","مبله","amt"],["a","gültig","معتبر","amt"],["a","zuständig","مسئول","amt"],["a","vorsichtig","محتاط","bau"],["a","gefährlich","خطرناک","bau"],["a","stabil","محکم","bau"],["a","zufrieden","راضی","arbeit"],["a","erfahren","باتجربه","arbeit"],["a","selbstständig","مستقل، خویش‌فرما","arbeit"]];
+const BD_SENTS = [["bau","Ich bohre ein Loch in die Wand.","من یک سوراخ در دیوار ایجاد می‌کنم."],["bau","Wir brauchen noch zehn Säcke Zement.","ما هنوز ده کیسه سیمان لازم داریم."],["bau","Die Wand ist nicht gerade.","دیوار صاف نیست."],["bau","Kannst du mir bitte die Wasserwaage geben?","می‌توانی لطفاً تراز را به من بدهی؟"],["bau","Der Raum ist vier Meter lang und drei Meter breit.","اتاق چهار متر طول و سه متر عرض دارد."],["bau","Die Steckdose sitzt dreißig Zentimeter über dem Boden.","پریز سی سانتی‌متر بالاتر از کف است."],["bau","Wo verläuft die Wasserleitung?","لوله آب از کجا رد می‌شود؟"],["bau","Vor dem Bohren prüfe ich die Leitungen.","قبل از سوراخ کردن، سیم‌کشی‌ها را بررسی می‌کنم."],["bau","Bitte trag immer deinen Helm auf der Baustelle.","لطفاً همیشه در کارگاه کلاه ایمنی‌ات را بگذار."],["bau","Der Estrich muss noch zwei Wochen trocknen.","کف‌سازی باید دو هفته دیگر خشک شود."],["bau","In der Ecke gibt es Schimmel.","در گوشه کپک هست."],["bau","Wir fliesen morgen das Bad.","فردا حمام را کاشی می‌کنیم."],["bau","Die Farbe ist noch nicht trocken.","رنگ هنوز خشک نشده است."],["bau","Das Gerüst steht seit Montag.","داربست از دوشنبه برپاست."],["bau","Der Kran bringt die Balken aufs Dach.","جرثقیل تیرها را روی بام می‌برد."],["bau","Hier fehlt noch eine Schraube.","اینجا هنوز یک پیچ کم است."],["bau","Die Decke ist zwei Meter fünfzig hoch.","ارتفاع سقف دو متر و پنجاه است."],["bau","Wir müssen zuerst den Schutt entfernen.","اول باید نخاله‌ها را برداریم."],["bau","Die Solarmodule kommen auf das Süddach.","پنل‌های خورشیدی روی بام جنوبی نصب می‌شوند."],["bau","Der Wechselrichter hängt im Keller.","اینورتر در زیرزمین نصب شده است."],["bau","Ich messe zuerst alle Fenster aus.","اول همه پنجره‌ها را اندازه می‌گیرم."],["bau","Der Riss in der Wand wird größer.","ترک دیوار بزرگ‌تر می‌شود."],["bau","Wir schalten den Strom vorher ab.","قبلش برق را قطع می‌کنیم."],["bau","Die Dämmung ist sehr wichtig für den Winter.","عایق‌کاری برای زمستان خیلی مهم است."],["bau","Der Bagger kommt um sieben Uhr.","بیل مکانیکی ساعت هفت می‌آید."],["bau","Kannst du die Leiter festhalten?","می‌توانی نردبان را نگه داری؟"],["bau","Die Fugen sind noch nicht sauber.","بندکشی‌ها هنوز تمیز نیستند."],["bau","Wir brauchen mehr Fliesenkleber.","چسب کاشی بیشتری لازم داریم."],["bau","Das Fundament ist schon fertig.","فونداسیون دیگر آماده است."],["bau","Der Heizkörper wird nicht warm.","رادیاتور گرم نمی‌شود."],["haus","Die Küche ist neben dem Wohnzimmer.","آشپزخانه کنار اتاق نشیمن است."],["haus","Das Bad hat leider kein Fenster.","حمام متأسفانه پنجره ندارد."],["haus","Der Wasserhahn tropft seit gestern.","شیر آب از دیروز چکه می‌کند."],["haus","Bitte lüften Sie jeden Tag zweimal.","لطفاً هر روز دو بار هوا بدهید."],["haus","Die Waschmaschine steht im Keller.","ماشین لباسشویی در زیرزمین است."],["haus","Wir ziehen am Samstag um.","ما شنبه اسباب‌کشی می‌کنیم."],["haus","Die Kartons stehen schon im Flur.","کارتن‌ها دیگر در راهرو هستند."],["haus","Der Aufzug ist heute kaputt.","آسانسور امروز خراب است."],["haus","Die Mülltonnen stehen hinter dem Haus.","سطل‌های زباله پشت خانه هستند."],["haus","Mein Nachbar ist sehr freundlich.","همسایه‌ام خیلی مهربان است."],["haus","Der Schlüssel liegt im Briefkasten.","کلید در صندوق نامه است."],["haus","Im Schlafzimmer ist es zu kalt.","در اتاق خواب خیلی سرد است."],["haus","Wir stellen das Sofa an die Wand.","مبل را کنار دیوار می‌گذاریم."],["haus","Der Kühlschrank ist leer.","یخچال خالی است."],["haus","Die Klingel funktioniert nicht.","زنگ در کار نمی‌کند."],["amt","Bitte senden Sie die Unterlagen bis zum 15. Dezember.","لطفاً مدارک را تا ۱۵ دسامبر بفرستید."],["amt","Ich habe einen Termin beim Jobcenter.","من در جاب‌سنتر وقت ملاقات دارم."],["amt","Ich möchte einen Antrag stellen.","می‌خواهم یک درخواست ثبت کنم."],["amt","Bitte füllen Sie das Formular aus.","لطفاً فرم را پر کنید."],["amt","Wo muss ich unterschreiben?","کجا باید امضا کنم؟"],["amt","Ich habe den Brief erst heute bekommen.","من نامه را تازه امروز دریافت کردم."],["amt","Gegen diesen Bescheid lege ich Widerspruch ein.","علیه این حکم اعتراض می‌کنم."],["amt","Die Frist endet am Freitag.","مهلت جمعه تمام می‌شود."],["amt","Ich habe meine Adresse geändert.","آدرسم را تغییر داده‌ام."],["amt","Ich muss mich beim Bürgeramt anmelden.","باید در اداره ثبت شهروندی ثبت‌نام کنم."],["amt","Die Miete beträgt sechshundert Euro.","اجاره ششصد یورو است."],["amt","Die Nebenkosten sind im Preis enthalten.","هزینه‌های جانبی در قیمت حساب شده است."],["amt","Die Kaution beträgt drei Monatsmieten.","ودیعه سه ماه اجاره است."],["amt","Können Sie mir eine Bescheinigung geben?","می‌توانید به من یک گواهی بدهید؟"],["amt","Ich verstehe diesen Brief nicht ganz.","من این نامه را کامل نمی‌فهمم."],["amt","Bitte überweisen Sie den Betrag auf mein Konto.","لطفاً مبلغ را به حسابم حواله کنید."],["amt","Der Zählerstand ist zwölftausend Kilowattstunden.","عدد کنتور دوازده هزار کیلووات‌ساعت است."],["amt","Ich möchte meinen Stromvertrag kündigen.","می‌خواهم قرارداد برقم را فسخ کنم."],["amt","Welche Unterlagen brauchen Sie noch?","چه مدارک دیگری لازم دارید؟"],["amt","Der Vermieter hat den Mietvertrag geschickt.","صاحب‌خانه قرارداد اجاره را فرستاده است."],["amt","Ich brauche einen Dolmetscher.","من یک مترجم لازم دارم."],["amt","Können Sie das bitte langsamer sagen?","می‌توانید لطفاً آهسته‌تر بگویید؟"],["amt","Mein Ausweis ist bis nächstes Jahr gültig.","کارت شناسایی‌ام تا سال بعد معتبر است."],["arbeit","Ich schicke Ihnen morgen das Angebot.","فردا پیش‌فاکتور را برایتان می‌فرستم."],["arbeit","Obwohl das Angebot günstiger ist, ist die Qualität nicht besser.","با اینکه این پیشنهاد ارزان‌تر است، کیفیتش بهتر نیست."],["arbeit","Der Preis gilt vier Wochen.","قیمت چهار هفته معتبر است."],["arbeit","Wann können Sie mit der Arbeit anfangen?","کی می‌توانید کار را شروع کنید؟"],["arbeit","Wir sind bis Freitag fertig.","ما تا جمعه تمام می‌کنیم."],["arbeit","Das Material ist im Preis nicht enthalten.","مصالح در قیمت حساب نشده است."],["arbeit","Ich komme morgen zur Besichtigung.","فردا برای بازدید می‌آیم."],["arbeit","Der Kunde ist mit der Arbeit zufrieden.","مشتری از کار راضی است."],["arbeit","Ich habe zehn Jahre Erfahrung als Handwerker.","من ده سال تجربه به‌عنوان صنعتگر دارم."],["arbeit","Mein Stundenlohn beträgt fünfundvierzig Euro.","دستمزد ساعتی من چهل و پنج یورو است."],["arbeit","Die Lieferung kommt erst nächste Woche.","محموله تازه هفته بعد می‌رسد."],["arbeit","Wir machen jetzt eine kurze Pause.","حالا یک استراحت کوتاه می‌کنیم."],["arbeit","Ich bewerbe mich als Fliesenleger.","برای کار کاشی‌کاری درخواست می‌دهم."],["arbeit","Der Meister erklärt den Plan.","استادکار برنامه را توضیح می‌دهد."],["arbeit","Leider gibt es ein Problem mit der Lieferung.","متأسفانه با تحویل یک مشکل هست."],["arbeit","Können wir den Termin verschieben?","می‌توانیم وقت را عقب بیندازیم؟"],["arbeit","Die Abnahme ist am Montag um zehn Uhr.","تحویل نهایی دوشنبه ساعت ده است."],["arbeit","Auf diese Arbeit gibt es zwei Jahre Garantie.","این کار دو سال ضمانت دارد."],["arbeit","Ich berechne die Kosten bis heute Abend.","هزینه‌ها را تا امشب محاسبه می‌کنم."],["arbeit","Weil es regnet, arbeiten wir heute drinnen.","چون باران می‌آید، امروز داخل کار می‌کنیم."],["arbeit","Ich rufe Sie an, wenn ich fertig bin.","وقتی تمام کردم به شما زنگ می‌زنم."],["arbeit","Der Elektriker schließt die Lampen an.","برق‌کار لامپ‌ها را وصل می‌کند."],["arbeit","Wir brauchen eine Genehmigung für das Gerüst.","برای داربست به مجوز نیاز داریم."],["alltag","Ich fahre mit dem Bus zur Arbeit.","با اتوبوس سر کار می‌روم."],["alltag","Der Zug hat zwanzig Minuten Verspätung.","قطار بیست دقیقه تأخیر دارد."],["alltag","Ich kaufe die Schrauben im Baumarkt.","پیچ‌ها را از فروشگاه ابزار می‌خرم."],["alltag","Kann ich mit Karte bezahlen?","می‌توانم با کارت پرداخت کنم؟"],["alltag","Ich habe einen Termin beim Arzt.","پیش پزشک وقت دارم."],["alltag","Ich lerne jeden Tag zwanzig Minuten Deutsch.","هر روز بیست دقیقه آلمانی یاد می‌گیرم."],["alltag","Heute ist es draußen sehr kalt.","امروز بیرون خیلی سرد است."],["alltag","Es regnet, nimm einen Schirm mit.","باران می‌آید، چتر بردار."],["alltag","Ich habe die Frage nicht verstanden.","سؤال را نفهمیدم."],["alltag","Am Wochenende besuche ich meine Familie.","آخر هفته به خانواده‌ام سر می‌زنم."],["alltag","Mein Freund fährt mich zur Baustelle.","دوستم مرا به کارگاه می‌رساند."],["alltag","Die Apotheke ist am Sonntag geschlossen.","داروخانه یکشنبه بسته است."],["alltag","Ich warte schon eine halbe Stunde.","نیم ساعت است منتظرم."],["alltag","Was kostet das zusammen?","این‌ها روی هم چقدر می‌شود؟"],["alltag","Bitte sprechen Sie etwas langsamer.","لطفاً کمی آهسته‌تر صحبت کنید."],["alltag","Ich habe mein Handy zu Hause vergessen.","موبایلم را خانه جا گذاشته‌ام."],["alltag","Der Supermarkt öffnet um acht Uhr.","سوپرمارکت ساعت هشت باز می‌شود."],["alltag","Ich lese jeden Morgen die Zeitung.","هر روز صبح روزنامه می‌خوانم."],["alltag","Wenn ich Zeit habe, helfe ich dir.","اگر وقت داشته باشم، کمکت می‌کنم."],["alltag","Ich möchte besser Deutsch sprechen.","می‌خواهم بهتر آلمانی صحبت کنم."]];
+/* ---- r78: Baustelle Deutsch — an endless feed of short German cards; every right answer lays a brick in your own building ---- */
+const BD_TH = { bau: "کارگاه و ساخت", haus: "خانه", amt: "اداره و مسکن", arbeit: "کار و مشتری", alltag: "روزمره" };
+const BD_ART = { der: "#2f6fde", die: "#d6453d", das: "#2e9b5f" };
+const BD_BOX = [0, 10 * 60e3, 864e5, 3 * 864e5, 7 * 864e5, 21 * 864e5, 60 * 864e5]; // Leitner: how long until a word comes back
+const BD_BUILD = [
+  { k: "garten", fa: "آلونک باغ", de: "das Gartenhaus", cols: 6, rows: 5, roof: "gable", win: [[2, 1]] },
+  { k: "efh", fa: "خانهٔ تک‌خانواری", de: "das Einfamilienhaus", cols: 10, rows: 8, roof: "gable", win: [[1, 1], [7, 1], [1, 4], [7, 4]], door: 4 },
+  { k: "dh", fa: "خانهٔ دوقلو", de: "das Doppelhaus", cols: 14, rows: 9, roof: "gable", win: [[1, 1], [4, 1], [8, 1], [11, 1], [1, 5], [11, 5]], door: 6 },
+  { k: "mfh", fa: "ساختمان چندطبقه", de: "das Mehrfamilienhaus", cols: 12, rows: 16, roof: "flat", win: [[1, 1], [4, 1], [7, 1], [10, 1], [1, 5], [4, 5], [7, 5], [10, 5], [1, 9], [4, 9], [7, 9], [10, 9], [1, 12], [10, 12]], door: 5 },
+  { k: "buero", fa: "ساختمان اداری", de: "das Bürogebäude", cols: 14, rows: 22, roof: "flat", win: [[1, 1], [4, 1], [8, 1], [11, 1], [1, 5], [4, 5], [8, 5], [11, 5], [1, 9], [4, 9], [8, 9], [11, 9], [1, 13], [4, 13], [8, 13], [11, 13], [1, 17], [4, 17], [8, 17], [11, 17]], door: 6 },
+  { k: "turm", fa: "برج", de: "der Turm", cols: 10, rows: 34, roof: "gable", win: [[4, 2], [4, 8], [4, 14], [4, 20], [4, 26]], door: 4 },
+];
+const BD_RANK = [[0, "Lehrling", "کارآموز"], [300, "Geselle", "کارگر ماهر"], [1000, "Meister", "استادکار"], [2500, "Architekt", "معمار"]];
+const BD_TASKS = { art: ["آرتیکل درست", 10], satz: ["جملهٔ درست", 3], mean: ["معنی درست", 10], hear: ["شنیداری درست", 5], combo: ["کمبوی پشت‌سرهم", 5], cards: ["کارت امروز", 30] };
+const bdBuildBricks = (b) => b.cols * b.rows + (b.roof === "gable" ? bdRoofCount(b) : 0);
+function bdRoofCount(b) { let n = 0; for (let r = 0; ; r++) { const w = b.cols + 1 - r * 2; if (w < 1) break; n += w; } return n; }
+/* ---- data ---- */
+const BD = { cur: null, combo: 0, hist: [], wrongQ: [], busy: false, cardN: 0 };
+let BD_ITEMS = null;
+function bdItems() {
+  if (BD_ITEMS) return BD_ITEMS;
+  const out = [];
+  for (const w of BD_WORDS) {
+    if (w[0] === "n") out.push({ id: "w:" + w[1] + " " + w[2], t: "n", art: w[1], w: w[2], pl: w[3], fa: w[4], th: w[5] });
+    else out.push({ id: "w:" + w[1], t: w[0], w: w[1], fa: w[2], th: w[3] });
+  }
+  for (const s of BD_SENTS) out.push({ id: "s:" + s[1], t: "s", de: s[1], fa: s[2], th: s[0] });
+  return (BD_ITEMS = out);
+}
+const bdDay = (d = new Date()) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+function bdSt() {
+  const st = S.meta.settings; let b = st.bd;
+  if (!b || typeof b !== "object") b = st.bd = {};
+  b.it = b.it || {}; b.bricks = b.bricks || 0; b.total = b.total || 0; b.done = b.done || []; b.hearts = b.hearts || [];
+  b.goal = b.goal || 20; b.th = b.th || Object.keys(BD_TH); b.best = b.best || 0;
+  b.streak = b.streak || { n: 0, last: "", rest: "" };
+  const today = bdDay();
+  if (!b.day || b.day.d !== today) {
+    const tk = Object.keys(BD_TASKS), seed = [...today].reduce((a, c) => a * 31 + c.charCodeAt(0), 7) >>> 0, pick = [];
+    for (let i = 0; pick.length < 3; i++) { const k = tk[(seed + i * 5) % tk.length]; if (!pick.includes(k)) pick.push(k); }
+    b.day = { d: today, cards: 0, ok: 0, fe: false, tasks: Object.fromEntries(pick.map((k) => [k, 0])), paid: [] };
+  }
+  return b;
+}
+const bdSave = () => { try { saveMeta(1200); } catch {} };
+const bdRank = (t) => { let r = BD_RANK[0]; for (const x of BD_RANK) if (t >= x[0]) r = x; return r; };
+const bdNextRank = (t) => BD_RANK.find((x) => x[0] > t) || null;
+const bdBuilding = () => BD_BUILD[Math.min(bdSt().done.length, BD_BUILD.length - 1)];
+const bdShuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const bdPick = (a) => a[Math.floor(Math.random() * a.length)];
+const bdLabel = (x) => (x.t === "n" ? x.art + " " + x.w : x.w);
+/* ---- what comes next in the feed: words due again, words just missed, then new ones ---- */
+function bdNext() {
+  const b = bdSt(), now = Date.now(), all = bdItems().filter((x) => b.th.includes(x.th));
+  const pool = all.length ? all : bdItems();
+  BD.cardN++;
+  const wq = BD.wrongQ.findIndex((q) => q.at <= BD.cardN);
+  let item = null;
+  if (wq >= 0) { const qid = BD.wrongQ.splice(wq, 1)[0].id; item = pool.find((x) => x.id === qid) || null; }
+  const recent = new Set(BD.hist.slice(-8));
+  const wantSent = BD.cardN % 4 === 0;
+  if (!item) {
+    const due = pool.filter((x) => { const s = b.it[x.id]; return s && s[0] > 0 && s[1] <= now && !recent.has(x.id) && (x.t === "s") === wantSent; });
+    if (due.length && Math.random() < 0.75) item = bdPick(due);
+  }
+  if (!item) {
+    const fresh = pool.filter((x) => !b.it[x.id] && (x.t === "s") === wantSent);
+    if (fresh.length) item = bdPick(fresh.filter((x) => x.t !== "a" && x.t !== "v").length && Math.random() < 0.6 ? fresh.filter((x) => x.t === "n" || x.t === "s") : fresh);
+  }
+  if (!item) { const rest = pool.filter((x) => !recent.has(x.id) && (x.t === "s") === wantSent); item = bdPick(rest.length ? rest : pool); }
+  BD.hist.push(item.id); if (BD.hist.length > 40) BD.hist.shift();
+  const box = (b.it[item.id] || [0])[0], tts = bdCanSpeak();
+  let kind;
+  if (item.t === "s") kind = "satz";
+  else {
+    const opts = [];
+    if (item.t === "n" && item.pl !== "=") opts.push("art", "art");
+    opts.push(box < 2 ? "mean" : "rev", "mean");
+    if (box >= 1) opts.push("rev");
+    if (tts && box >= 1) opts.push("hear");
+    kind = bdPick(opts);
+  }
+  const gold = Math.random() < 0.07;
+  return { item, kind, gold };
+}
+/* ---- speech (the iPad's own German voice, works offline) ---- */
+let BD_VOICE = null;
+function bdCanSpeak() { return "speechSynthesis" in window; }
+function bdVoice() {
+  if (BD_VOICE) return BD_VOICE;
+  try { const vs = speechSynthesis.getVoices().filter((v) => /^de(-|_|$)/i.test(v.lang)); BD_VOICE = vs.find((v) => /de-DE/i.test(v.lang) && /Anna|Helena|Google|Markus|Petra/i.test(v.name)) || vs.find((v) => /de-DE/i.test(v.lang)) || vs[0] || null; } catch {}
+  return BD_VOICE;
+}
+if (bdCanSpeak()) { try { speechSynthesis.onvoiceschanged = () => { BD_VOICE = null; bdVoice(); }; } catch {} }
+function bdSay(text, rate = 0.92) {
+  if (!bdCanSpeak() || !text) return;
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = "de-DE"; const v = bdVoice(); if (v) u.voice = v; u.rate = rate; speechSynthesis.speak(u); } catch {}
+}
+/* ---- sounds: made on the fly, no files ---- */
+let BD_AC = null;
+function bdSnd(kind) {
+  if (bdSt().mute) return;
+  try {
+    BD_AC = BD_AC || new (window.AudioContext || window.webkitAudioContext)(); const ac = BD_AC; if (ac.state === "suspended") ac.resume();
+    const t = ac.currentTime, out = ac.createGain(); out.gain.value = 0.5; out.connect(ac.destination);
+    const tone = (f, at, d, type = "sine", v = 0.25) => { const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f, t + at); g.gain.setValueAtTime(0.0001, t + at); g.gain.exponentialRampToValueAtTime(v, t + at + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + at + d); o.connect(g); g.connect(out); o.start(t + at); o.stop(t + at + d + 0.02); };
+    const knock = (at, v = 0.5) => { const n = ac.createBufferSource(), buf = ac.createBuffer(1, ac.sampleRate * 0.08, ac.sampleRate), d = buf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3); n.buffer = buf; const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 900; const g = ac.createGain(); g.gain.value = v; n.connect(f); f.connect(g); g.connect(out); n.start(t + at); tone(110, at, 0.12, "triangle", 0.3); };
+    if (kind === "ok") { tone(660, 0, 0.12); tone(990, 0.07, 0.18); knock(0.16, 0.45); }
+    if (kind === "bad") { tone(220, 0, 0.22, "triangle", 0.18); tone(185, 0.12, 0.25, "triangle", 0.15); }
+    if (kind === "combo") [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.07, 0.16, "sine", 0.22));
+    if (kind === "gold") [1319, 1568, 2093, 1568, 2093].forEach((f, i) => tone(f, i * 0.05, 0.12, "sine", 0.14));
+    if (kind === "tap") tone(880, 0, 0.04, "sine", 0.08);
+    if (kind === "big") { [392, 523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.09, 0.3, "triangle", 0.2)); knock(0.6, 0.6); }
+  } catch {}
+}
+/* ---- the screen ---- */
+function bdOpen() {
+  if ($("#bdApp")) return;
+  bdSt();
+  const el = document.createElement("div"); el.id = "bdApp"; el.className = "bdapp"; el.dir = "rtl";
+  el.innerHTML = `<div class="bdhead"></div><div class="bdstage"></div><div class="bdfoot"></div>`;
+  document.body.append(el); document.body.classList.add("bdopen");
+  bdHead(); bdShow(bdNext());
+  bdSwipe(el.querySelector(".bdstage"));
+  setTimeout(() => bdVoice(), 300);
+}
+function bdClose() { $("#bdApp")?.remove(); document.body.classList.remove("bdopen"); try { speechSynthesis.cancel(); } catch {} bdSave(); }
+addEventListener("keydown", (e) => {
+  if (!$("#bdApp")) return;
+  if (e.key === "Escape") { if ($("#bdApp .bdsheet")) $("#bdApp .bdsheet").remove(); else bdClose(); e.preventDefault(); e.stopPropagation(); }
+  if ((e.key === "Enter" || e.key === "ArrowUp" || e.key === " ") && BD.answered && !$("#bdApp .bdsheet")) { e.preventDefault(); bdGo(); }
+}, true);
+function bdHead() {
+  const h = $("#bdApp .bdhead"); if (!h) return;
+  const b = bdSt(), bl = bdBuilding(), need = bdBuildBricks(bl), have = Math.min(b.bricks, need), pct = Math.round((100 * have) / need), dayPct = Math.min(100, Math.round((100 * b.day.cards) / b.goal));
+  h.innerHTML = `<button type="button" class="bdx" data-bd="close" aria-label="بستن">✕</button>
+    <button type="button" class="bdchip fire" data-bd="streak" title="روزهای پشت‌سرهم">🔥 <b>${num(b.streak.n)}</b></button>
+    <div class="bdring" title="هدف امروز" style="--p:${dayPct}"><span>${num(b.day.cards)}/${num(b.goal)}</span></div>
+    <button type="button" class="bdchip combo ${BD.combo >= 3 ? "hot" : ""}" data-bd="combo">×<b>${num(BD.combo)}</b></button>
+    <span class="bdsp"></span>
+    <button type="button" class="bdchip" data-bd="tasks" title="سفارش کار امروز">📋 <b>${num(Object.entries(b.day.tasks).filter(([k, v]) => v >= BD_TASKS[k][1]).length)}/${num(3)}</b></button>
+    <button type="button" class="bdbuild" data-bd="build" title="${esc(bl.fa)}"><span class="bdmini">${bdSvg(bl, have, true)}</span><span class="bdbt"><b id="bdBricks">🧱 ${num(b.bricks)}</b><i style="--p:${pct}"></i></span></button>`;
+}
+function bdShow(c) {
+  BD.cur = c; BD.answered = false; BD.sel = [];
+  const st = $("#bdApp .bdstage"); if (!st) return;
+  const old = st.querySelector(".bdcard"); if (old) { old.classList.add("out"); setTimeout(() => old.remove(), 260); }
+  const card = document.createElement("div"); card.className = "bdcard in" + (c.gold ? " gold" : "");
+  card.innerHTML = bdCardHtml(c); st.append(card);
+  requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove("in")));
+  $("#bdApp .bdfoot").innerHTML = `<span class="bdhint">${c.kind === "satz" ? "کلمه‌ها را به ترتیب لمس کن" : "جواب را لمس کن"}</span>`;
+  if (c.kind === "hear") setTimeout(() => bdSay(bdLabel(c.item)), 350);
+  if (c.gold) setTimeout(() => bdSnd("gold"), 200);
+}
+function bdTop(c, src) {
+  const it = c.item, b = bdSt(), heart = b.hearts.includes(it.id);
+  return `<div class="bdtop"><span class="bdsrc">${esc(src)} · ${esc(BD_TH[it.th] || "")}</span>${c.gold ? `<span class="bdgold">⭐ کارت طلایی ×۲</span>` : ""}<span class="bdsp"></span>
+    <button type="button" class="bdic ${heart ? "on" : ""}" data-bd="heart" aria-label="نگه دار">${heart ? "♥" : "♡"}</button></div>`;
+}
+function bdCardHtml(c) {
+  const it = c.item, items = bdItems();
+  const same = (f) => bdShuffle(items.filter((x) => x.id !== it.id && x.t === it.t && f(x)));
+  if (c.kind === "art") {
+    return bdTop(c, "رنگ آرتیکل") + `<div class="bdq"><div class="bdword" dir="ltr">${esc(it.w)}</div><div class="bdfa">${esc(it.fa)}</div></div>
+      <div class="bdarts">${["der", "die", "das"].map((a) => `<button type="button" class="bdart" data-ans="${a}" style="--c:${BD_ART[a]}">${a}</button>`).join("")}</div>`;
+  }
+  if (c.kind === "mean" || c.kind === "rev" || c.kind === "hear") {
+    let dis = same((x) => x.th === it.th && x.fa !== it.fa).slice(0, 3);
+    if (dis.length < 3) dis = dis.concat(same((x) => x.fa !== it.fa && !dis.includes(x)).slice(0, 3 - dis.length));
+    const opts = bdShuffle([it, ...dis]);
+    c.opts = opts.map((x) => x.id);
+    if (c.kind === "mean") return bdTop(c, "معنی") + `<div class="bdq"><div class="bdword" dir="ltr">${bdArtHtml(it)}</div><button type="button" class="bdspk" data-bd="say" aria-label="بشنو">🔊</button></div>
+      <div class="bdopts">${opts.map((x) => `<button type="button" class="bdopt" data-ans="${esc(x.id)}">${esc(x.fa)}</button>`).join("")}</div>`;
+    if (c.kind === "rev") return bdTop(c, "به آلمانی") + `<div class="bdq"><div class="bdword fa">${esc(it.fa)}</div></div>
+      <div class="bdopts" dir="ltr">${opts.map((x) => `<button type="button" class="bdopt de" data-ans="${esc(x.id)}">${bdArtHtml(x)}</button>`).join("")}</div>`;
+    return bdTop(c, "گوش بده") + `<div class="bdq"><button type="button" class="bdspk big" data-bd="say" aria-label="دوباره بشنو">🔊</button><div class="bdfa">چه شنیدی؟</div></div>
+      <div class="bdopts" dir="ltr">${opts.map((x) => `<button type="button" class="bdopt de" data-ans="${esc(x.id)}">${bdArtHtml(x)}</button>`).join("")}</div>`;
+  }
+  // sentence building
+  const toks = bdToks(it.de); c.toks = toks;
+  const dis = bdSatzDistract(toks, it); c.tiles = bdShuffle([...toks.map((w, i) => ({ w, i })), ...dis.map((w, j) => ({ w, i: -1 - j }))]);
+  return bdTop(c, "جمله بساز") + `<div class="bdq"><div class="bdword fa sent">${esc(it.fa)}</div></div>
+    <div class="bdline" dir="ltr"><span class="bdph">…</span></div>
+    <div class="bdtiles" dir="ltr">${c.tiles.map((t, k) => `<button type="button" class="bdtile" data-tile="${k}">${esc(t.w)}</button>`).join("")}</div>
+    <div class="bdrow"><button type="button" class="bdbtn ghost" data-bd="clr">پاک کردن</button><button type="button" class="bdbtn pri" data-bd="check">بررسی</button></div>`;
+}
+const bdArtHtml = (x) => (x.t === "n" ? `<span class="bda" style="color:${BD_ART[x.art]}">${esc(x.art)}</span> ${esc(x.w)}` : esc(x.w));
+function bdToks(de) { return de.replace(/[.?!]+$/, "").replace(/,/g, "").split(/\s+/).filter(Boolean); }
+function bdSatzDistract(toks, it) {
+  const swap = { der: ["die", "das", "den"], die: ["der", "das"], das: ["der", "die"], den: ["dem", "der"], dem: ["den", "der"], ein: ["eine", "einen"], eine: ["ein", "einen"], einen: ["ein", "eine"], ist: ["sind"], sind: ["ist"], habe: ["hat"], hat: ["habe"], nicht: ["kein"], kein: ["nicht"], weil: ["obwohl"], obwohl: ["weil"], wenn: ["als"], als: ["wenn"] };
+  const out = [], lower = toks.map((t) => t.toLowerCase());
+  for (const t of bdShuffle(toks)) { const s = swap[t.toLowerCase()]; if (s) { const w = s.find((x) => !lower.includes(x) && !out.includes(x)); if (w) { out.push(t[0] === t[0].toUpperCase() && t[0] !== t[0].toLowerCase() ? w[0].toUpperCase() + w.slice(1) : w); if (out.length >= 2) break; } } }
+  const others = bdItems().filter((x) => x.t === "s" && x.th === it.th && x.id !== it.id);
+  while (out.length < 3 && others.length) { const w = bdPick(bdToks(bdPick(others).de)); if (w.length > 2 && !lower.includes(w.toLowerCase()) && !out.includes(w)) out.push(w); else if (Math.random() < 0.2) break; }
+  return out;
+}
+/* ---- answering ---- */
+document.addEventListener("click", (e) => {
+  const app = $("#bdApp"); if (!app || !app.contains(e.target)) return;
+  const a = e.target.closest("[data-bd]"), ans = e.target.closest("[data-ans]"), tile = e.target.closest("[data-tile]"), sheet = e.target.closest("[data-bds]");
+  if (sheet) return bdSheetAct(sheet.dataset.bds, sheet);
+  if (a) {
+    const k = a.dataset.bd;
+    if (k === "close") return bdClose();
+    if (k === "say") return bdSay(BD.cur.kind === "satz" ? BD.cur.item.de : bdLabel(BD.cur.item));
+    if (k === "heart") { const b = bdSt(), id = BD.cur.item.id, i = b.hearts.indexOf(id); if (i >= 0) b.hearts.splice(i, 1); else { b.hearts.push(id); bdSnd("tap"); } a.classList.toggle("on", i < 0); a.textContent = i < 0 ? "♥" : "♡"; bdSave(); return; }
+    if (k === "next") return bdGo();
+    if (k === "clr") { BD.sel = []; return bdSatzDraw(); }
+    if (k === "check") return bdSatzCheck();
+    if (k === "build" || k === "streak") return bdSheet("build");
+    if (k === "tasks" || k === "combo") return bdSheet("tasks");
+    if (k === "fe") { $("#bdApp .bdfe")?.remove(); return; }
+    if (k === "more") return bdSheet("set");
+    return;
+  }
+  if (BD.answered) return;
+  if (tile) { const i = +tile.dataset.tile; if (!BD.sel.includes(i)) { BD.sel.push(i); bdSnd("tap"); bdSatzDraw(); } return; }
+  const pickd = e.target.closest(".bdline [data-pick]"); if (pickd) { BD.sel.splice(+pickd.dataset.pick, 1); return bdSatzDraw(); }
+  if (ans) {
+    const c = BD.cur, it = c.item, v = ans.dataset.ans;
+    const ok = c.kind === "art" ? v === it.art : v === it.id;
+    ans.classList.add(ok ? "ok" : "bad");
+    if (!ok) { const right = [...app.querySelectorAll("[data-ans]")].find((x) => (c.kind === "art" ? x.dataset.ans === it.art : x.dataset.ans === it.id)); right?.classList.add("ok"); }
+    app.querySelectorAll("[data-ans]").forEach((x) => (x.disabled = true));
+    bdResult(ok, c.kind === "art" ? "art" : c.kind === "hear" ? "hear" : "mean");
+    if (c.kind !== "hear") setTimeout(() => bdSay(bdLabel(it)), 250);
+  }
+});
+function bdSatzDraw() {
+  const c = BD.cur, line = $("#bdApp .bdline"); if (!line) return;
+  line.innerHTML = BD.sel.length ? BD.sel.map((k, j) => `<button type="button" class="bdtile in" data-pick="${j}">${esc(c.tiles[k].w)}</button>`).join("") : `<span class="bdph">…</span>`;
+  $$("#bdApp .bdtiles .bdtile").forEach((b) => b.classList.toggle("used", BD.sel.includes(+b.dataset.tile)));
+}
+function bdSatzCheck() {
+  const c = BD.cur; if (!BD.sel.length) { const l = $("#bdApp .bdline"); l?.classList.add("shake"); setTimeout(() => l?.classList.remove("shake"), 400); return; }
+  const got = BD.sel.map((k) => c.tiles[k].w), ok = got.length === c.toks.length && got.every((w, i) => w === c.toks[i]);
+  const line = $("#bdApp .bdline"); line.classList.add(ok ? "ok" : "bad");
+  if (!ok) line.insertAdjacentHTML("afterend", `<div class="bdright" dir="ltr">✓ ${esc(c.item.de)}</div>`);
+  $$("#bdApp .bdtile, #bdApp [data-bd=check], #bdApp [data-bd=clr]").forEach((x) => (x.disabled = true));
+  bdResult(ok, "satz");
+  setTimeout(() => bdSay(c.item.de, 0.88), 300);
+}
+function bdResult(ok, kind) {
+  const b = bdSt(), c = BD.cur, it = c.item, s = b.it[it.id] || [0, 0, 0, 0];
+  BD.answered = true;
+  s[2]++; if (ok) { s[3]++; s[0] = Math.min(6, s[0] + 1); } else { s[0] = s[0] > 2 ? 1 : 0; BD.wrongQ.push({ id: it.id, at: BD.cardN + 3 + Math.floor(Math.random() * 3) }); }
+  s[1] = Date.now() + (ok ? BD_BOX[s[0]] : BD_BOX[1]); b.it[it.id] = s;
+  b.day.cards++;
+  let gain = 0, note = "";
+  if (ok) {
+    BD.combo++; b.best = Math.max(b.best, BD.combo); b.day.ok++;
+    gain = 1 + (BD.combo >= 5 ? 1 : 0); if (c.gold) gain *= 2;
+    if (Math.random() < 0.06) { gain += 3; note = "🎁 جایزهٔ غافلگیری +۳"; }
+    if (kind in b.day.tasks) b.day.tasks[kind]++;
+    if ("combo" in b.day.tasks) b.day.tasks.combo = Math.max(b.day.tasks.combo, BD.combo);
+    bdSnd(c.gold ? "gold" : "ok");
+    if ([3, 5, 10, 15, 20, 30, 50].includes(BD.combo)) setTimeout(() => { bdSnd("combo"); bdFlash("کمبو ×" + num(BD.combo) + (BD.combo >= 5 ? " · هر جواب ۲ آجر" : "")); }, 350);
+  } else { if (BD.combo >= 3) note = "کمبو تمام شد، دوباره بساز"; BD.combo = 0; bdSnd("bad"); $("#bdApp .bdcard")?.classList.add("shake"); }
+  if ("cards" in b.day.tasks) b.day.tasks.cards = b.day.cards;
+  for (const [k, v] of Object.entries(b.day.tasks)) if (v >= BD_TASKS[k][1] && !b.day.paid.includes(k)) { b.day.paid.push(k); gain += 5; setTimeout(() => { bdSnd("combo"); bdFlash("📋 سفارش انجام شد: " + BD_TASKS[k][0] + " · +۵ آجر"); }, 900); }
+  if (gain) bdAddBricks(gain);
+  if (!b.day.fe && b.day.cards >= b.goal) { b.day.fe = true; bdStreakUp(); setTimeout(bdFeierabend, 1100); }
+  bdSave(); bdHead();
+  const foot = $("#bdApp .bdfoot");
+  foot.innerHTML = `<div class="bdres ${ok ? "ok" : "bad"}">${ok ? `✓ آفرین${gain ? ` <b>+${num(gain)} 🧱</b>` : ""}` : "✗ این بار نه — زود دوباره می‌آید"}${note ? ` · <span>${esc(note)}</span>` : ""}${it.t === "n" && it.pl && it.pl !== "-" && it.pl !== "=" ? `<small dir="ltr">Plural: die ${esc(it.pl)}</small>` : ""}</div>
+    <button type="button" class="bdbtn pri next" data-bd="next">بعدی ↑</button>`;
+  if (gain) bdFly(gain);
+}
+function bdAddBricks(n) {
+  const b = bdSt(); b.bricks += n; b.total += n;
+  const bl = bdBuilding(), need = bdBuildBricks(bl);
+  if (b.bricks >= need && b.done.length < BD_BUILD.length) {
+    b.bricks -= need; b.done.push({ k: bl.k, d: bdDay() });
+    setTimeout(() => bdCelebrate(bl), 700);
+  }
+  const before = bdRank(b.total - n), after = bdRank(b.total);
+  if (after !== before) setTimeout(() => { bdSnd("big"); bdFlash("🎖 درجهٔ تازه: " + after[1] + " · " + after[2], 3200); bdConfetti(); }, 1500);
+}
+function bdStreakUp() {
+  const b = bdSt(), today = bdDay(), y = bdDay(new Date(Date.now() - 864e5)), y2 = bdDay(new Date(Date.now() - 2 * 864e5));
+  if (b.streak.last === today) return;
+  if (b.streak.last === y) b.streak.n++;
+  else if (b.streak.last === y2 && b.streak.rest !== y) { b.streak.n++; b.streak.rest = y; } // one rest day keeps the flame
+  else b.streak.n = 1;
+  b.streak.last = today;
+}
+/* ---- rewards on screen ---- */
+function bdFly(n) {
+  const card = $("#bdApp .bdcard"), dst = $("#bdApp .bdbuild"); if (!card || !dst) return;
+  const a = card.getBoundingClientRect(), z = dst.getBoundingClientRect();
+  for (let i = 0; i < Math.min(n, 6); i++) {
+    const f = document.createElement("div"); f.className = "bdfly"; f.textContent = "🧱";
+    f.style.left = a.left + a.width / 2 + "px"; f.style.top = a.top + a.height / 2 + "px"; document.body.append(f);
+    setTimeout(() => { f.style.transform = `translate(${z.left + z.width / 2 - (a.left + a.width / 2)}px, ${z.top + z.height / 2 - (a.top + a.height / 2)}px) scale(.5)`; f.style.opacity = ".2"; }, 30 + i * 90);
+    setTimeout(() => { f.remove(); dst.classList.add("bump"); setTimeout(() => dst.classList.remove("bump"), 250); }, 700 + i * 90);
+  }
+}
+function bdFlash(t, ms = 1900) { const app = $("#bdApp"); if (!app) return; const f = document.createElement("div"); f.className = "bdflash"; f.textContent = t; app.append(f); setTimeout(() => f.classList.add("off"), ms); setTimeout(() => f.remove(), ms + 500); }
+function bdConfetti() {
+  const app = $("#bdApp"); if (!app) return;
+  for (let i = 0; i < 36; i++) { const c = document.createElement("i"); c.className = "bdconf"; c.style.left = Math.random() * 100 + "%"; c.style.background = ["#d85a30", "#ef9f27", "#2f6fde", "#2e9b5f", "#d6453d"][i % 5]; c.style.animationDelay = Math.random() * 0.6 + "s"; c.style.setProperty("--r", Math.random() * 720 - 360 + "deg"); app.append(c); setTimeout(() => c.remove(), 2600); }
+}
+function bdCelebrate(bl) {
+  bdSnd("big"); bdConfetti();
+  const app = $("#bdApp"); if (!app) return;
+  const nx = BD_BUILD[Math.min(bdSt().done.length, BD_BUILD.length - 1)];
+  const s = document.createElement("div"); s.className = "bdsheet bdcele";
+  s.innerHTML = `<div class="bdsheetin"><div class="bdbig">${bdSvg(bl, bdBuildBricks(bl))}</div><h3>${esc(bl.fa)} تمام شد!</h3><div dir="ltr" class="bdde">${esc(bl.de)} ist fertig!</div>
+    <p>ساختمان به «خیابان من» اضافه شد. ساختمان بعدی: <b>${esc(nx.fa)}</b></p><button type="button" class="bdbtn pri" data-bds="x">ادامه بده</button></div>`;
+  app.append(s); bdSay(bl.de + " ist fertig!");
+}
+function bdFeierabend() {
+  const app = $("#bdApp"); if (!app) return; const b = bdSt();
+  bdSnd("big"); bdConfetti();
+  const s = document.createElement("div"); s.className = "bdsheet bdfe";
+  s.innerHTML = `<div class="bdsheetin"><div class="bdbig">🍺</div><h3 dir="ltr">Feierabend!</h3><p>هدف امروز انجام شد: ${num(b.day.cards)} کارت، ${num(b.day.ok)} جواب درست. شعله: ${num(b.streak.n)} روز 🔥</p>
+    <p class="mut">کار امروز تمام است. اگر حوصله داری می‌توانی ادامه بدهی.</p><div class="bdrow"><button type="button" class="bdbtn ghost" data-bds="close">بستن</button><button type="button" class="bdbtn pri" data-bds="x">ادامه می‌دهم</button></div></div>`;
+  app.append(s); bdSay("Feierabend! Gut gemacht.");
+}
+/* ---- the building, drawn brick by brick ---- */
+function bdSvg(bl, have, mini) {
+  const W = 12, H = 7, g = bl.cols * W, wallH = bl.rows * H, roofRows = bl.roof === "gable" ? Math.ceil((bl.cols + 1) / 2) : 0, rh = roofRows * H, top = rh + 4, total = top + wallH + 6;
+  const win = new Set((bl.win || []).flatMap(([x, y]) => [x + "," + y, x + 1 + "," + y, x + "," + (y + 1), x + 1 + "," + (y + 1)]));
+  const door = bl.door != null ? new Set([bl.door + "," + (bl.rows - 1), bl.door + 1 + "," + (bl.rows - 1), bl.door + "," + (bl.rows - 2), bl.door + 1 + "," + (bl.rows - 2)]) : new Set();
+  let out = "", n = 0;
+  for (let r = bl.rows - 1; r >= 0; r--) {
+    const off = (bl.rows - 1 - r) % 2 ? W / 2 : 0;
+    for (let c = 0; c < bl.cols; c++) {
+      const on = n < have, x = c * W, y = top + r * H, key = c + "," + r, last = n === have - 1, next = n === have;
+      let fill = win.has(key) ? "#8fc1ee" : door.has(key) ? "#8a5a35" : "#d2693c";
+      if (on) out += `<rect x="${x}" y="${y}" width="${W - 1}" height="${H - 1}" rx="1" fill="${fill}"${last && !mini ? ' class="bdnew"' : ""}/>`;
+      else if (next && !mini) out += `<rect x="${x}" y="${y}" width="${W - 1}" height="${H - 1}" fill="none" stroke="#ef9f27" stroke-width="1.2" stroke-dasharray="2 2"/>`;
+      else if (!mini) out += `<rect x="${x}" y="${y}" width="${W - 1}" height="${H - 1}" rx="1" fill="none" stroke="#888780" stroke-opacity=".28" stroke-width=".6"/>`;
+      n++;
+    }
+  }
+  if (bl.roof === "gable") {
+    for (let r = 0; r < roofRows; r++) {
+      const w = bl.cols + 1 - r * 2; if (w < 1) break; const x0 = (g - w * W) / 2;
+      for (let c = 0; c < w; c++) { const on = n < have; if (on) out += `<rect x="${x0 + c * W}" y="${top - (r + 1) * H}" width="${W - 1}" height="${H - 1}" rx="1" fill="#7a3b2a"/>`; else if (!mini) out += `<rect x="${x0 + c * W}" y="${top - (r + 1) * H}" width="${W - 1}" height="${H - 1}" rx="1" fill="none" stroke="#888780" stroke-opacity=".28" stroke-width=".6"/>`; n++; }
+    }
+    if (!mini) out += `<path d="M-4 ${top} L${g / 2} ${2} L${g + 4} ${top}" fill="none" stroke="#b4b2a9" stroke-width="1" stroke-dasharray="3 3"/>`;
+  } else if (!mini) out += `<rect x="-2" y="${top - 3}" width="${g + 4}" height="3" fill="${have >= bdBuildBricks(bl) ? "#5f5e5a" : "none"}" stroke="#b4b2a9" stroke-dasharray="3 3"/>`;
+  out += `<rect x="-6" y="${top + wallH}" width="${g + 12}" height="5" rx="1" fill="#888780"/>`;
+  return `<svg viewBox="-8 0 ${g + 16} ${total}" ${mini ? 'width="34" height="34"' : 'width="100%"'} preserveAspectRatio="xMidYMax meet" role="img" aria-label="${esc(bl.fa)}">${out}</svg>`;
+}
+/* ---- sheets: building, tasks, settings ---- */
+function bdSheet(k) {
+  const app = $("#bdApp"); app.querySelector(".bdsheet")?.remove();
+  const b = bdSt(), s = document.createElement("div"); s.className = "bdsheet"; let h = "";
+  if (k === "build") {
+    const bl = bdBuilding(), need = bdBuildBricks(bl), rk = bdRank(b.total), nr = bdNextRank(b.total);
+    const learned = Object.values(b.it).filter((x) => x[0] >= 3).length, seen = Object.keys(b.it).length;
+    h = `<h3>🏗 ${esc(bl.fa)} <small dir="ltr">${esc(bl.de)}</small></h3><div class="bdbig">${bdSvg(bl, Math.min(b.bricks, need))}</div>
+      <div class="bdbar"><i style="--p:${Math.round((100 * Math.min(b.bricks, need)) / need)}"></i></div><p class="mut">${num(Math.min(b.bricks, need))} از ${num(need)} آجر · هر جواب درست یک آجر</p>
+      <div class="bdranks">${BD_RANK.map((r) => `<span class="${r === rk ? "cur" : b.total >= r[0] ? "done" : ""}">${b.total >= r[0] && r !== rk ? "✓ " : ""}${esc(r[1])}<small>${esc(r[2])}</small></span>`).join("")}</div>
+      ${nr ? `<p class="mut">تا درجهٔ ${esc(nr[1])}: ${num(nr[0] - b.total)} آجر دیگر</p>` : ""}
+      <h4>خیابان من</h4><div class="bdstreet">${b.done.length ? b.done.map((d) => { const x = BD_BUILD.find((y) => y.k === d.k); return x ? `<span title="${esc(x.fa)}">${bdSvg(x, bdBuildBricks(x), true)}</span>` : ""; }).join("") : `<span class="mut">اولین ساختمان را تمام کن تا اینجا بنشیند</span>`}</div>
+      <div class="bdstats"><span><b>${num(b.total)}</b>آجر کل</span><span><b>${num(b.streak.n)}</b>🔥 روز</span><span><b>${num(b.best)}</b>بهترین کمبو</span><span><b>${num(learned)}</b>واژهٔ جاافتاده</span><span><b>${num(seen)}</b>دیده‌شده</span></div>
+      <div class="bdrow"><button type="button" class="bdbtn ghost" data-bds="hearts">♥ نگه‌داشته‌ها (${num(b.hearts.length)})</button><button type="button" class="bdbtn ghost" data-bds="set">⚙ تنظیمات</button><button type="button" class="bdbtn pri" data-bds="x">برگرد به فید</button></div>`;
+  }
+  if (k === "tasks") {
+    h = `<h3>📋 سفارش کار امروز <small dir="ltr">Bauauftrag</small></h3><div class="bdtasks">${Object.entries(b.day.tasks).map(([t, v]) => { const [l, need] = BD_TASKS[t], d = v >= need; return `<div class="bdtask ${d ? "done" : ""}"><span>${d ? "✓" : "○"} ${num(need)} ${esc(l)}</span><span class="bdbar"><i style="--p:${Math.round((100 * Math.min(v, need)) / need)}"></i></span><b>${num(Math.min(v, need))}/${num(need)}</b></div>`; }).join("")}</div>
+      <p class="mut">هر سفارش ۵ آجر جایزه دارد · کمبوی الان: ×${num(BD.combo)} · بهترین: ×${num(b.best)}</p><p class="mut">از ۵ جواب درست پشت‌سرهم به بعد هر جواب ۲ آجر می‌دهد.</p><button type="button" class="bdbtn pri" data-bds="x">برگرد به فید</button>`;
+  }
+  if (k === "set") {
+    h = `<h3>⚙ تنظیمات</h3><label class="bdset">هدف روزانه (کارت)<select data-bdset="goal">${[10, 20, 30, 50].map((g) => `<option ${g === b.goal ? "selected" : ""}>${g}</option>`).join("")}</select></label>
+      <div class="bdset">موضوع‌ها<div class="bdths">${Object.entries(BD_TH).map(([t, l]) => `<label><input type="checkbox" data-bdth="${t}" ${b.th.includes(t) ? "checked" : ""}> ${esc(l)}</label>`).join("")}</div></div>
+      <label class="bdset"><span>صدای بازی</span><input type="checkbox" data-bdset="snd" ${b.mute ? "" : "checked"}></label>
+      <p class="mut">بانک واژه: ${num(bdItems().filter((x) => x.t !== "s").length)} واژه و ${num(bdItems().filter((x) => x.t === "s").length)} جمله</p><button type="button" class="bdbtn pri" data-bds="x">برگرد به فید</button>`;
+  }
+  if (k === "hearts") {
+    const hs = b.hearts.map((id) => bdItems().find((x) => x.id === id)).filter(Boolean);
+    h = `<h3>♥ نگه‌داشته‌ها</h3><div class="bdlist">${hs.length ? hs.map((x) => `<div class="bdli"><button type="button" class="bdic" data-bds="say" data-say="${esc(x.t === "s" ? x.de : bdLabel(x))}">🔊</button><span dir="ltr">${x.t === "s" ? esc(x.de) : bdArtHtml(x)}</span><span class="mut">${esc(x.fa)}</span></div>`).join("") : `<p class="mut">روی ♡ هر کارت بزن تا اینجا بماند.</p>`}</div><button type="button" class="bdbtn pri" data-bds="x">برگرد به فید</button>`;
+  }
+  s.innerHTML = `<div class="bdsheetin">${h}</div>`; app.append(s);
+  s.addEventListener("change", (e) => {
+    const t = e.target;
+    if (t.dataset.bdset === "goal") b.goal = +t.value;
+    if (t.dataset.bdset === "snd") b.mute = !t.checked;
+    if (t.dataset.bdth) { const on = new Set(b.th); t.checked ? on.add(t.dataset.bdth) : on.delete(t.dataset.bdth); if (!on.size) { t.checked = true; return; } b.th = Object.keys(BD_TH).filter((x) => on.has(x)); }
+    bdSave(); bdHead();
+  });
+}
+function bdSheetAct(k, el) {
+  if (k === "x") { el.closest(".bdsheet")?.remove(); return; }
+  if (k === "close") return bdClose();
+  if (k === "say") return bdSay(el.dataset.say);
+  bdSheet(k);
+}
+function bdGo() { if (!BD.answered) return; bdShow(bdNext()); }
+/* swipe up for the next card (like a feed) */
+function bdSwipe(st) {
+  let y0 = null, id = null;
+  st.addEventListener("pointerdown", (e) => { if (e.target.closest("button")) return; y0 = e.clientY; id = e.pointerId; });
+  st.addEventListener("pointermove", (e) => { if (e.pointerId !== id || y0 == null || !BD.answered) return; const dy = Math.min(0, e.clientY - y0); const c = st.querySelector(".bdcard:not(.out)"); if (c) c.style.transform = `translateY(${dy / 2}px)`; });
+  const up = (e) => { if (e.pointerId !== id || y0 == null) return; const dy = e.clientY - y0; y0 = null; const c = st.querySelector(".bdcard:not(.out)"); if (c) c.style.transform = ""; if (dy < -60 && BD.answered) bdGo(); };
+  st.addEventListener("pointerup", up); st.addEventListener("pointercancel", up);
+  st.addEventListener("wheel", (e) => { if (e.deltaY > 30 && BD.answered) { e.preventDefault(); bdGo(); } }, { passive: false });
+}
+/* ---- the way in: a button in the top bar ---- */
+TB_KEYS.splice(TB_KEYS.indexOf("proj") + 1, 0, "deu"); TB_ON.add("deu");
+TB_HIDE_ORDER.splice(TB_HIDE_ORDER.indexOf("proj"), 0, "deu");
+Object.assign(TB_MENU_IC, { deu: "🧱" });
+const tbCfg78 = tbCfg;
+tbCfg = function () {
+  const a = tbCfg78(); const i = a.findIndex((x) => x.k === "deu");
+  let saved = []; try { saved = JSON.parse(lsGet("babak-tb", "") || "[]") || []; } catch {}
+  if (i >= 0 && !(Array.isArray(saved) && saved.some((x) => x && x.k === "deu"))) { const [d] = a.splice(i, 1); d.on = true; const p = a.findIndex((x) => x.k === "proj"); a.splice(p >= 0 ? p + 1 : a.length, 0, d); }
+  return a;
+};
+const tbItem78 = tbItem;
+tbItem = function (k) {
+  if (k === "deu") { const t = esc(tbLabel(k)); return `<button type="button" class="btn tbdeu" data-tb="deu" data-tbk="deu" title="${t}" aria-label="${t}">🧱<span class="tbl">Deutsch</span></button>`; }
+  return tbItem78(k);
+};
+const tbAct78 = tbAct;
+tbAct = function (k, anchor) { if (k === "deu") return bdOpen(); return tbAct78(k, anchor); };
+
+window.__nb = { BD, BD_BUILD, bdSvg, bdBuildBricks, bdOpen, bdSt, bdItems, bdNext, bdShow,  CUT, cutDo, cutOnMode, cutUndo, insertFloatImage, deselectFloat,  fsFitWidth, imgViewer,  get MM() { return MM; }, S, openNote, newNote, siblings, get ZOOM() { return ZOOM; }, syncNow, importAny, localAssets, isSealedBlob, newCanvas, cvNorm, normNote, saveNote, saveMeta, renderMain, renderSide, mmNewData, goHome }; // for automatic tests
 
 /* ---------------- boot ---------------- */
 async function boot() {
