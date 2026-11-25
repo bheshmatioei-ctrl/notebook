@@ -17756,7 +17756,7 @@ function bdNext() {
   else if (item.t === "i") kind = box >= 2 && Math.random() < 0.45 ? "idrev" : "idiom";
   else if (item.t === "k") kind = "kol";
   else if (item.t === "pt") kind = "part";
-  else if (item.t === "vp") { const o = ["vbuild", "vbuild", "vmean"]; if (item.sep === "s" || item.sep === "u") o.push("vsep"); if (box >= 1) o.push("vmean", "vsep"); kind = bdPick(o.filter((k) => k !== "vsep" || item.sep === "s" || item.sep === "u")); }
+  else if (item.t === "vp") kind = bdPick(box >= 1 ? ["vbuild", "vbuild", "vmean", "vmean"] : ["vbuild", "vbuild", "vmean"]); // the "separable or not" card was dropped: already known
   else {
     const opts = [];
     if (item.t === "n" && item.pl !== "=") opts.push("art");
