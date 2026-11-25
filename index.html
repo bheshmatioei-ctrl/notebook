@@ -1842,6 +1842,21 @@ body.bdopen{overflow:hidden}
 .bdnew{animation:bdDrop .5s cubic-bezier(.3,1.4,.5,1)}
 @keyframes bdDrop{from{transform:translateY(-30px);opacity:0}}
 .tbdeu{gap:4px}
+.bdside{display:none}
+.bdextra .ln+.ln::before{content:" · "}
+.bdside .bdextra .ln{display:block}.bdside .bdextra .ln+.ln::before{content:none}.bdside .bdextra .ln[dir=ltr]{text-align:right;font-size:18px;color:var(--ink)}
+@media (min-width:1000px){
+  .bdcard{transition:transform .32s cubic-bezier(.2,.8,.2,1),opacity .32s,translate .35s cubic-bezier(.2,.8,.2,1)}
+  .bdapp:has(.bdside.on) .bdcard:not(.out){translate:-170px 0}
+  .bdside{position:absolute;left:calc(50% + 174px);width:min(310px, calc(50% - 190px));top:50%;transform:translateY(-55%);display:flex;flex-direction:column;align-items:stretch;gap:14px;opacity:0;pointer-events:none;transition:opacity .3s .1s,transform .3s .1s}
+  .bdside.on{opacity:1;pointer-events:auto;transform:translateY(-60%)}
+  .bdside:empty{display:none}
+  .bdside .bdbtn.next{min-height:64px;font-size:20px;width:100%}
+  .bdside .bdres{flex-direction:column;align-items:flex-start;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:22px}
+  .bdside .bdres span,.bdside .bdres small,.bdside .bdextra{font-size:16px;line-height:1.7}
+  .bdside .bdextra b{font-size:18px}
+  .bdapp:has(.bdside.on) .bdfoot .bdres,.bdapp:has(.bdside.on) .bdfoot .next{display:none}
+}
 .bdvb{font-size:clamp(30px,5vw,46px);font-weight:700;direction:ltr}.bdvb .gap{display:inline-block;min-width:110px;border-bottom:4px solid #7f77dd;color:#7f77dd;margin-inline-end:2px}
 .bdsep{display:inline-block;font-size:12px;padding:2px 8px;border-radius:8px;background:#eeedfe;color:#3c3489;margin:0 4px}.bdsep.u{background:#e1f5ee;color:#085041}.bdsep.d{background:#faeeda;color:#633806}
 .bdpt{font-size:clamp(36px,6vw,56px);font-weight:700;direction:ltr;color:#534ab7}
@@ -17814,6 +17829,7 @@ function bdHead() {
 }
 function bdShow(c) {
   BD.cur = c; BD.answered = false; BD.sel = [];
+  const side0 = $("#bdApp .bdside"); if (side0) { side0.classList.remove("on"); side0.innerHTML = ""; }
   const st = $("#bdApp .bdstage"); if (!st) return;
   st.querySelectorAll(".bdcard:not(.out)").forEach((old) => { old.classList.add("out"); old.querySelectorAll("button").forEach((x) => (x.disabled = true)); setTimeout(() => old.remove(), 260); });
   const card = document.createElement("div"); card.className = "bdcard in" + (c.gold ? " gold" : "");
@@ -17980,16 +17996,20 @@ function bdResult(ok, kind) {
   if (ok) bdFamCheck(it);
   if (!b.day.fe && b.day.cards >= b.goal) { b.day.fe = true; bdStreakUp(); setTimeout(bdFeierabend, 1100); }
   bdSave(); bdHead();
-  const foot = $("#bdApp .bdfoot");
-  foot.innerHTML = `<div class="bdres ${ok ? "ok" : "bad"}">${ok ? `✓ آفرین${gain ? ` <b>+${num(gain)} 🧱</b>` : ""}` : "✗ این بار نه — زود دوباره می‌آید"}${note ? ` · <span>${esc(note)}</span>` : ""}${(it.t === "n" || it.t === "f") && it.pl && it.pl !== "-" && it.pl !== "=" ? `<small dir="ltr">Plural: die ${esc(it.pl)}</small>` : ""}${bdExtra(it)}</div>
-    <button type="button" class="bdbtn pri next ${ok ? "auto" : ""}" data-bd="next">${ok ? "<i></i>" : ""}<span>بعدی ↑</span></button>`;
+  const foot = $("#bdApp .bdfoot"), resHtml = `<div class="bdres ${ok ? "ok" : "bad"}">${ok ? `✓ آفرین${gain ? ` <b>+${num(gain)} 🧱</b>` : ""}` : "✗ این بار نه — زود دوباره می‌آید"}${note ? ` · <span>${esc(note)}</span>` : ""}${(it.t === "n" || it.t === "f") && it.pl && it.pl !== "-" && it.pl !== "=" ? `<small dir="ltr">Plural: die ${esc(it.pl)}</small>` : ""}${bdExtra(it)}</div>
+`;
+  const nextHtml = `<button type="button" class="bdbtn pri next ${ok ? "auto" : ""}" data-bd="next">${ok ? "<i></i>" : ""}<span>بعدی ↑</span></button>`;
+  foot.innerHTML = resHtml + nextHtml;
+  /* on a wide screen the same result sits beside the card: next on top, then the praise, then the meaning */
+  let side = $("#bdApp .bdside"); if (!side) { side = document.createElement("div"); side.className = "bdside"; $("#bdApp .bdstage")?.append(side); }
+  side.innerHTML = nextHtml + resHtml; side.classList.remove("on"); void side.offsetWidth; side.classList.add("on");
   if (gain) bdFly(gain);
   if (ok) bdAutoNext(); // a right answer moves on by itself after 5 seconds; a wrong one waits for a tap
 }
 function bdExtra(it) {
   if (it.t === "f") return `<span class="bdextra"><b dir="ltr">${esc(bdLabel(it))}</b> = ${esc(it.fa)}${it.verb && it.verb !== "-" ? ` · فعل: <span dir="ltr">${esc(it.verb)}</span>` : ""}</span>`;
   if (it.t === "i") return `<span class="bdextra">معنی لفظی: ${esc(it.lit)}</span>`;
-  if (it.t === "vp") return `<span class="bdextra"><b dir="ltr">${esc(it.w)}</b> = ${esc(it.fa)} · <span class="bdsep ${it.sep.toLowerCase()}">${BD_SEPL[it.sep]}</span>${it.sep === "s" || it.sep === "u" ? ` · <span dir="ltr">${esc(bdIch(it))}</span>` : ""}</span>`;
+  if (it.t === "vp") return `<span class="bdextra"><span class="ln"><b dir="ltr">${esc(it.w)}</b> = ${esc(it.fa)}</span><span class="ln"><span class="bdsep ${it.sep.toLowerCase()}">${BD_SEPL[it.sep]}</span></span>${it.sep === "s" || it.sep === "u" ? `<span class="ln" dir="ltr">${esc(bdIch(it))}</span>` : ""}</span>`;
   if (it.t === "pt") return `<span class="bdextra">مثال: <b dir="ltr">${esc(it.ex)}</b></span>`;
   if (it.t === "k") return `<span class="bdextra"><b dir="ltr">${esc(bdLabel(it))}</b> = ${esc(it.fa)}</span>`;
   return "";
@@ -18173,9 +18193,9 @@ function bdAutoNext(ms = 5000) {
   clearTimeout(BD.auto); const card = BD.cur;
   const tick = () => {
     if (!$("#bdApp") || BD.cur !== card || !BD.answered) return;
-    if ($("#bdApp .bdsheet")) { BD.auto = setTimeout(tick, 400); $("#bdApp .bdbtn.next.auto")?.classList.add("hold"); return; }
-    const b = $("#bdApp .bdbtn.next.auto");
-    if (b && b.classList.contains("hold")) { b.classList.remove("hold"); const i = b.querySelector("i"); if (i) { i.style.animation = "none"; void i.offsetWidth; i.style.animation = ""; } BD.auto = setTimeout(tick, ms); return; }
+    const bs = $$("#bdApp .bdbtn.next.auto");
+    if ($("#bdApp .bdsheet")) { BD.auto = setTimeout(tick, 400); bs.forEach((b) => b.classList.add("hold")); return; }
+    if (bs.some((b) => b.classList.contains("hold"))) { bs.forEach((b) => { b.classList.remove("hold"); const i = b.querySelector("i"); if (i) { i.style.animation = "none"; void i.offsetWidth; i.style.animation = ""; } }); BD.auto = setTimeout(tick, ms); return; }
     bdGo();
   };
   BD.auto = setTimeout(tick, ms);
